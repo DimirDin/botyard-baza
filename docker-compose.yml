@@ -5,7 +5,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3014:3014"
+      - "3015:3015"
     env_file: .env
     depends_on:
       - postgres

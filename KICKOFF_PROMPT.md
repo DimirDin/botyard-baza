@@ -25,7 +25,7 @@ Backend, bot и схема БД уже реализованы и рабочие 
    прохождения гейта.
 
 3. **Деплой на VPS (конвенции Botyard, см. §3 PROJECT_CONTEXT)**
-   - Caddyfile-сниппет для baza.botyard.site → проксирование на порт 3014
+   - Caddyfile-сниппет для baza.botyard.site → проксирование на порт 3015
    - systemd unit-файлы для backend и bot (или Docker Compose, если так удобнее с существующим
      стеком — посмотри, как задеплоены другие боты Botyard, и повтори паттерн)
    - GitHub Actions workflow для self-hosted runner: деплой по push в main, включая шаг

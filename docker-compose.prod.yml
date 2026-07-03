@@ -1,0 +1,32 @@
+# Прод-конфигурация для /srv/apps/botyard-baza/ на VPS платформы.
+# Отличие от docker-compose.yml (локальная разработка): нет своих
+# postgres/redis — бот использует общие platform_postgres/platform_redis
+# (127.0.0.1:5432 / 127.0.0.1:6379, см. §1/§3 MASTER_CONTEXT), доступ
+# через host-сеть контейнера. DATABASE_URL/REDIS_URL берутся из .env
+# на сервере (chmod 600, не в репозитории).
+
+services:
+  backend:
+    build: ./backend
+    network_mode: host
+    env_file: .env
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
+  bot:
+    build:
+      context: ./bot
+    network_mode: host
+    env_file: .env
+    restart: unless-stopped
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M

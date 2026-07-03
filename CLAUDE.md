@@ -9,7 +9,7 @@ Telegram Mini App «Baza без воды» — энциклопедия по Cla
 ```bash
 # backend
 cd backend && pip install -r requirements.txt
-uvicorn app.main:app --reload --port 3014
+uvicorn app.main:app --reload --port 3015
 
 # bot
 cd bot && pip install aiogram==3.*
@@ -25,7 +25,7 @@ cd frontend && npm install && npm run dev
 ```
 
 ## Архитектура (не менять без явного запроса)
-- Backend: FastAPI + asyncpg, порт 3014, схема PostgreSQL `baza`, Redis-префикс `baza:`
+- Backend: FastAPI + asyncpg, порт 3015, схема PostgreSQL `baza`, Redis-префикс `baza:`
 - Bot: aiogram 3, роль минимальная — `/start`, deep links, гейт-превью. Вся логика — в backend через API
 - Frontend: React 18 + Vite, Telegram Mini App SDK, эстетика «терминал в духе oh-my-zsh» (палитра и паттерны — §14 PROJECT_CONTEXT)
 - Контент — как код: `content/entries/*.md`, `content/tools.yaml`, `content/prompts.yaml`, `content/cheatsheets/*.md` → `scripts/sync_content.py` → БД. Никогда не пиши в БД контент напрямую мимо этого пайплайна

@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        run: |
+          rsync -a --exclude='.env' --exclude='.git' . /srv/apps/botyard-baza/
+          cd /srv/apps/botyard-baza
+          docker compose -f docker-compose.prod.yml build
+          docker compose -f docker-compose.prod.yml up -d
+          docker compose -f docker-compose.prod.yml ps
+
+      - name: Sync content (§7 — content/ → БД, idempotent)
+        working-directory: /srv/apps/botyard-baza
+        run: |
+          set -a; source .env; set +a
+          python3 -m venv .sync-venv --clear
+          .sync-venv/bin/pip install --quiet asyncpg pyyaml
+          .sync-venv/bin/python scripts/sync_content.py
