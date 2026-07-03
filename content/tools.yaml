@@ -1,0 +1,127 @@
+# tools.yaml — ядро инструментов для запуска Фазы 1
+#
+# ВАЖНО: verify_status фиксирует, насколько репозиторий подтверждён на момент сборки файла.
+#   - "known"   — официальный репозиторий Anthropic или широко известный публичный проект,
+#                 упоминаемый в независимых источниках (не только в исходном списке пользователя)
+#   - "check"   — правдоподобное название, но НЕ подтверждено independent-источником;
+#                 обязательно прогнать через GitHub API синк (§8 PROJECT_CONTEXT) перед публикацией,
+#                 всё что вернёт 404 — не публикуется
+#
+# Список НЕ включает конкретные "brand/mcp-servicename" записи из присланного дампа
+# (aws/mcp-aws, stripe/mcp-stripe, spotify/mcp-spotify и т.п.) — паттерн один-в-один
+# на каждый мыслимый бренд типичен для LLM-галлюцинации при генерации длинных списков.
+# Это не значит, что таких серверов не существует физически — значит, что именно эти
+# репозитории под этими именами не подтверждены и не должны попасть в продакшен без проверки.
+
+- repo: anthropics/claude-code
+  category: cc-core
+  description_ru: "Официальный CLI-агент Claude Code от Anthropic. Терминальный инструмент для автономной разработки."
+  badge: editors_choice
+  verify_status: known
+
+- repo: anthropics/skills
+  category: cc-core
+  description_ru: "Официальная папка динамических скиллов и инструкций от Anthropic."
+  badge: editors_choice
+  verify_status: known
+
+- repo: anthropics/claude-cookbooks
+  category: cc-core
+  description_ru: "Официальные примеры кода и рецептов работы с Claude API от Anthropic."
+  badge: editors_choice
+  verify_status: known
+
+- repo: anthropics/claude-agent-sdk-python
+  category: cc-core
+  description_ru: "Официальный Python SDK для сборки агентов на базе Claude."
+  badge: null
+  verify_status: known
+
+- repo: punkpeye/awesome-mcp-servers
+  category: mcp-directory
+  description_ru: "Один из крупнейших курируемых каталогов MCP-серверов с активным сообществом."
+  badge: editors_choice
+  verify_status: known
+
+- repo: appcypher/awesome-mcp-servers
+  category: mcp-directory
+  description_ru: "Ещё один крупный курируемый каталог Model Context Protocol серверов по категориям."
+  badge: null
+  verify_status: known
+
+- repo: modelcontextprotocol/servers
+  category: mcp-directory
+  description_ru: "Официальный репозиторий базовых MCP-серверов от разработчиков протокола (Files, Git, Postgres и др.)."
+  badge: editors_choice
+  verify_status: known
+
+- repo: subinium/awesome-claude-code
+  category: cc-awesome
+  description_ru: "Курируемый Awesome-список ресурсов, инструментов и конфигов по Claude Code."
+  badge: null
+  verify_status: check
+
+- repo: VoltAgent/awesome-claude-agents
+  category: subagents
+  description_ru: "Оркестрация команды специализированных AI-агентов (DevOps, QA, архитектор) внутри одной сессии Claude Code."
+  badge: null
+  verify_status: check
+
+- repo: ComposioHQ/awesome-claude-skills
+  category: subagents
+  description_ru: "База скиллов, связывающих Claude с внешними сервисами через готовые интеграции."
+  badge: null
+  verify_status: check
+
+- repo: trailofbits/skills
+  category: security
+  description_ru: "Специализированные скиллы для ИБ-аудита и поиска уязвимостей от исследовательской команды Trail of Bits."
+  badge: editors_choice
+  verify_status: check
+
+- repo: modelcontextprotocol/servers/tree/main/src/postgres
+  category: mcp-database
+  description_ru: "Официальный MCP-сервер для PostgreSQL — инспекция схемы и выполнение запросов."
+  badge: null
+  verify_status: check
+
+- repo: modelcontextprotocol/servers/tree/main/src/git
+  category: mcp-devtools
+  description_ru: "Официальный MCP-сервер для операций с git-репозиториями."
+  badge: null
+  verify_status: check
+
+- repo: modelcontextprotocol/servers/tree/main/src/filesystem
+  category: mcp-devtools
+  description_ru: "Официальный MCP-сервер для чтения и записи файлов в разрешённых директориях."
+  badge: null
+  verify_status: check
+
+- repo: microsoft/playwright-mcp
+  category: mcp-browser
+  description_ru: "Браузерная автоматизация и QA-тестирование сайтов через Playwright по протоколу MCP."
+  badge: editors_choice
+  verify_status: check
+
+- repo: bytedance/UI-TARS-desktop
+  category: mcp-browser
+  description_ru: "Движок автоматизации десктопа и веб-интерфейсов с визуальным пониманием интерфейса."
+  badge: null
+  verify_status: check
+
+- repo: exa-labs/exa-mcp-server
+  category: mcp-web
+  description_ru: "Поиск в вебе, спроектированный специально под LLM — чистый текст без рекламы и шума."
+  badge: null
+  verify_status: check
+
+- repo: upstash/context7
+  category: mcp-devtools
+  description_ru: "Подтягивает свежую, версионированную документацию библиотек прямо в контекст модели."
+  badge: editors_choice
+  verify_status: check
+
+# --- Раздел ожидает пополнения из блока A CONTENT_CHECKLIST.md ---
+# Дальнейшие 30+ записей до целевых ~50 добавляются после присылки твоих ссылок
+# (те, которыми ты реально пользовался — приоритет на бейдж editors_choice)
+# и обязательного прогона через scripts/sync_content.py + GitHub API перед публикацией.

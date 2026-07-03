@@ -1,0 +1,39 @@
+# Локальная разработка. На проде backend/bot идут как отдельные сервисы
+# в общей сети Botyard, PostgreSQL/Redis — общие для платформы (см. §3 PROJECT_CONTEXT).
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3014:3014"
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+
+  bot:
+    build:
+      context: ./bot
+    env_file: .env
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: botyard
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
