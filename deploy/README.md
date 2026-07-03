@@ -1,32 +1,35 @@
 # Деплой botyard-baza на платформу
 
-Разовая настройка на сервере (см. §7 MASTER_CONTEXT для общего паттерна платформы).
+Статус на 2026-07-04: **пункты 1–3, 5–7 выполнены** (задеплоено вручную на `baza.botyard.site`,
+порт 3015). Пункт 4 (self-hosted runner) сознательно пропущен — деплой пока только вручную,
+повторить шаг 5 после каждого пуша. См. §7 MASTER_CONTEXT для общего паттерна платформы.
 
-## 1. Папка приложения и секреты
+## 1. Папка приложения и секреты ✅
 ```bash
 mkdir -p /srv/apps/botyard-baza
 cd /srv/apps/botyard-baza
-git clone git@github.com:DimirDin/botyard-baza.git .
+git clone https://github.com/DimirDin/botyard-baza.git .
 cp .env.example .env
-vim .env        # заполнить BOT_TOKEN, ANTHROPIC_API_KEY, DATABASE_URL (общий platform_postgres,
-                 # схема baza), REDIS_URL (общий platform_redis, префикс baza:)
+vim .env        # заполнить BOT_TOKEN, DATABASE_URL (общий platform_postgres, схема baza),
+                 # REDIS_URL (общий platform_redis, префикс baza:). ANTHROPIC_API_KEY не нужен —
+                 # калькулятор токенов работает локально через tiktoken, см. §13/В-7 PROJECT_CONTEXT.
 chmod 600 .env
 ```
 
-## 2. Схема БД
+## 2. Схема БД ✅
 Применить `db/init.sql` на общем `platform_postgres` (БД `botyard`, схема `baza`):
 ```bash
 psql "$DATABASE_URL" -f db/init.sql
 ```
 
-## 3. Caddy
+## 3. Caddy ✅
 Добавить блок из `deploy/Caddyfile.snippet` в `/etc/caddy/Caddyfile`, затем:
 ```bash
 caddy reload
 ```
-Поддомен `baza.botyard.site` должен быть заранее направлен (DNS A-запись) на IP сервера.
+Поддомен `baza.botyard.site` уже направлен (DNS A-запись) на IP сервера.
 
-## 4. Self-hosted GitHub Actions runner
+## 4. Self-hosted GitHub Actions runner — пропущено, не настроено
 В репозитории `DimirDin/botyard-baza` на GitHub: Settings → Actions → Runners → New self-hosted runner.
 ```bash
 mkdir -p /srv/runners/botyard-baza && cd /srv/runners/botyard-baza
@@ -35,23 +38,28 @@ RUNNER_ALLOW_RUNASROOT=1 ./config.sh --url https://github.com/DimirDin/botyard-b
 ./svc.sh install root
 ./svc.sh start
 ```
-После этого push в `main` триггерит `.github/workflows/deploy.yml`: rsync кода → `docker compose -f docker-compose.prod.yml build/up` → синк `content/` в БД.
+После этого push в `main` будет триггерить `.github/workflows/deploy.yml` автоматически: rsync
+кода → `docker compose -f docker-compose.prod.yml build/up` → синк `content/` в БД. Пока не
+настроено — деплой только по шагу 5 вручную.
 
-## 5. Первый запуск (вручную, без раннера — fallback)
+## 5. Деплой (вручную, без раннера — текущий рабочий способ)
 ```bash
 cd /srv/apps/botyard-baza
+git pull
 docker compose -f docker-compose.prod.yml build
 docker compose -f docker-compose.prod.yml up -d
-DATABASE_URL=... python3 scripts/sync_content.py
+docker run --rm --network host -v $(pwd):/app -w /app -e DATABASE_URL="$DATABASE_URL" \
+  python:3.12-slim bash -c 'pip install --quiet asyncpg pyyaml && python scripts/sync_content.py'
 ```
 
-## 6. Гейт-бот в канале
-Добавить `@bazadry_bot` администратором в `@claudedry` (без прав публикации) — без этого
-`getChatMember` для проверки подписки не работает (см. §5 PROJECT_CONTEXT).
+## 6. Гейт-бот в канале ✅
+`@bazadry_bot` добавлен администратором в `@claudedry` (2026-07-04, проверено `getChatMember` →
+`administrator`) — без этого проверка подписки в гейте не работала бы.
 
-## 7. Проверка
+## 7. Проверка ✅
 ```bash
 curl https://baza.botyard.site/health   # {"status": "ok"}
 ```
-Смок-тест гейта — вручную по §5 PROJECT_CONTEXT: initData → /api/gate/check → отказ без
-подписки → подписка → /api/gate/recheck → доступ.
+Смок-тест гейта пройден: `/api/gate/check` без валидного `x-telegram-init-data` → 401, процесс
+не падает. Полный цикл (подписка → доступ) — проверить вручную через реальный Mini App, когда
+будет фронтенд.

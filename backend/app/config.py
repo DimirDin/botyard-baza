@@ -6,7 +6,6 @@ class Settings(BaseSettings):
     channel_username: str = "@claudedry"
     database_url: str  # postgresql://user:pass@localhost:5432/botyard
     redis_url: str = "redis://localhost:6379/0"
-    anthropic_api_key: str = ""
 
     # TTL кэша гейта (секунды), см. §5 PROJECT_CONTEXT
     gate_ttl_subscribed: int = 6 * 60 * 60
