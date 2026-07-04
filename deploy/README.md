@@ -48,18 +48,29 @@ cd /srv/apps/botyard-baza
 git pull
 docker compose -f docker-compose.prod.yml build
 docker compose -f docker-compose.prod.yml up -d
+# синк контента (если менялся content/)
 docker run --rm --network host -v $(pwd):/app -w /app -e DATABASE_URL="$DATABASE_URL" \
   python:3.12-slim bash -c 'pip install --quiet asyncpg pyyaml && python scripts/sync_content.py'
+# пересборка фронтенда (если менялся frontend/) — dist раздаёт Caddy как статику
+docker run --rm -v $(pwd)/frontend:/app -w /app node:22-alpine sh -c 'npm ci && npm run build'
 ```
 
 ## 6. Гейт-бот в канале ✅
 `@bazadry_bot` добавлен администратором в `@claudedry` (2026-07-04, проверено `getChatMember` →
-`administrator`) — без этого проверка подписки в гейте не работала бы.
+`administrator`) — без этого проверка подписки в гейте не работала бы. Кнопка меню бота
+переключена на Mini App через `setChatMenuButton` (Bot API). Для deep links вида
+`t.me/bazadry_bot?startapp=...` нужно ещё включить Main Mini App в BotFather (ручной шаг).
 
-## 7. Проверка ✅
+## 7. GitHub-синк звёзд (§8) ✅
+`scripts/sync_github_stars.py` — обновляет stars/last_commit/archived и публикует живые репо.
+Расписание: `/etc/cron.d/botyard-baza-stars`, понедельник 03:30, лог в
+`/var/log/baza-stars-sync.log`. Первый прогон выполнен 2026-07-04: 15/15 published,
+4 битые записи `tools.yaml` исправлены/удалены (см. Changelog 1.1 PROJECT_CONTEXT).
+
+## 8. Проверка ✅
 ```bash
-curl https://baza.botyard.site/health   # {"status": "ok"}
+curl https://baza.botyard.site/health          # {"status": "ok"} — backend
+curl -sI https://baza.botyard.site/ | head -1  # 200 — frontend (index.html)
 ```
 Смок-тест гейта пройден: `/api/gate/check` без валидного `x-telegram-init-data` → 401, процесс
-не падает. Полный цикл (подписка → доступ) — проверить вручную через реальный Mini App, когда
-будет фронтенд.
+не падает. Полный цикл (подписка → доступ) — проверить вручную в реальном Telegram.
