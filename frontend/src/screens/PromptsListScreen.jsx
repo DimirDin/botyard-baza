@@ -65,7 +65,7 @@ export function PromptsListScreen() {
 
         {group && (
           <>
-            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 13, marginTop: 0 }}>
+            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
               {groupLabel} ({groupPrompts.length})
             </p>
             {groupPrompts.length === 0 && <EmptyState />}
@@ -76,7 +76,7 @@ export function PromptsListScreen() {
                   <FavStar itemType="prompt" itemId={p.id} />
                 </div>
                 {p.comment && <p className="card__meta">{p.comment}</p>}
-                <p style={{ color: "var(--text-body)", fontSize: 13, margin: "8px 0", whiteSpace: "pre-wrap" }}>
+                <p style={{ color: "var(--text-body)", fontSize: 14, margin: "8px 0", whiteSpace: "pre-wrap" }}>
                   {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
                 </p>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -85,7 +85,7 @@ export function PromptsListScreen() {
                     onClick={() => handleCopy(p)}
                     style={{
                       background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
-                      padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600,
+                      padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600,
                     }}
                   >
                     скопировать

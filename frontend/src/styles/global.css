@@ -36,7 +36,7 @@ button {
 
 .promptline {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
   display: flex;
   align-items: center;
@@ -82,7 +82,7 @@ button {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   padding: 3px 10px;
   border-radius: 3px;
   background: #1c1c1a;
@@ -106,7 +106,7 @@ button {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 2px 8px;
@@ -145,7 +145,7 @@ button {
 
 .card__meta {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
@@ -189,7 +189,7 @@ button {
   border: 1px solid var(--seg-what);
   color: var(--seg-what);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   padding: 8px 16px;
   border-radius: 4px;
   z-index: 50;
@@ -227,7 +227,7 @@ button {
   border: none;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .bottom-nav__item--active {
@@ -271,7 +271,7 @@ button {
   border-radius: 6px;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -314,18 +314,18 @@ button {
 
 .group-row__label {
   color: var(--text-heading);
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .group-row__desc {
   color: var(--text-muted);
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .group-row__count {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
@@ -333,14 +333,14 @@ button {
 
 .article-body {
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--text-body);
 }
 
 .article-body pre, .article-body code {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   background: #1a1a18;
   border-radius: 4px;
 }
@@ -359,13 +359,13 @@ button {
 .cheatsheet-body table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 14px;
   margin: 12px 0;
 }
 
 .cheatsheet-body th {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-muted);

@@ -32,14 +32,14 @@ export function GateScreen({ counts, onRecheckSuccess }) {
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <PromptLine section="gate" dirty />
       <div className="page" style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
-        <pre style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 13, lineHeight: 1.8 }}>
+        <pre style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, lineHeight: 1.8 }}>
 {`baza/
 ├── entries    (${counts?.entries_count ?? "…"} статей)
 ├── tools      (${counts?.tools_count ?? "…"} инструментов)
 └── prompts    (${counts?.prompts_count ?? "…"} промптов)`}
         </pre>
 
-        <p style={{ color: "var(--text-heading)", fontSize: 16, marginTop: 24 }}>
+        <p style={{ color: "var(--text-heading)", fontSize: 17, marginTop: 24 }}>
           Доступ открыт подписчикам <b>@claudedry</b>.
         </p>
 
@@ -47,7 +47,7 @@ export function GateScreen({ counts, onRecheckSuccess }) {
           onClick={handleSubscribeClick}
           style={{
             marginTop: 16, padding: "12px 20px", background: "var(--accent)", color: "#111110",
-            border: "none", borderRadius: 6, fontWeight: 600, fontSize: 15,
+            border: "none", borderRadius: 6, fontWeight: 600, fontSize: 16,
           }}
         >
           Подписаться на @claudedry
@@ -58,14 +58,14 @@ export function GateScreen({ counts, onRecheckSuccess }) {
           disabled={checking}
           style={{
             marginTop: 10, padding: "12px 20px", background: "transparent", color: "var(--text-heading)",
-            border: "1px solid #333", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
+            border: "1px solid #333", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 15,
           }}
         >
           {checking ? <Spinner /> : "$ ./access --recheck"}
         </button>
 
         {failed && (
-          <p style={{ color: "var(--error)", fontFamily: "var(--font-mono)", fontSize: 13, marginTop: 10 }}>
+          <p style={{ color: "var(--error)", fontFamily: "var(--font-mono)", fontSize: 14, marginTop: 10 }}>
             ✗ подписка не найдена — попробуй ещё раз через пару секунд
           </p>
         )}

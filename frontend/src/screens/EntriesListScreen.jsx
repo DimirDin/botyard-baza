@@ -50,7 +50,7 @@ export function EntriesListScreen({ onOpenEntry }) {
 
         {group && (
           <>
-            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 13, marginTop: 0 }}>
+            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
               {groupLabel} ({groupEntries.length})
             </p>
             {groupEntries.length === 0 && <EmptyState />}

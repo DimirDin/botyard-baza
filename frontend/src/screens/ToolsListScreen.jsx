@@ -64,7 +64,7 @@ export function ToolsListScreen({ onOpenTool }) {
         {group && (
           <>
             <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 13 }}>
+              <span style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14 }}>
                 {groupLabel}
               </span>
               {SORTS.map((s) => (
@@ -89,7 +89,7 @@ export function ToolsListScreen({ onOpenTool }) {
                     <FavStar itemType="tool" itemId={t.id} />
                   </span>
                 </div>
-                <p style={{ color: "var(--text-body)", fontSize: 14, margin: "6px 0" }}>{t.description_ru}</p>
+                <p style={{ color: "var(--text-body)", fontSize: 15, margin: "6px 0" }}>{t.description_ru}</p>
                 <p className="card__meta">
                   ⭐ {t.stars} {t.trending_delta > 0 && <span style={{ color: "var(--seg-what)" }}>▲ {t.trending_delta}</span>}
                   {t.archived && <span style={{ color: "var(--seg-gotcha)", marginLeft: 8 }}>⚠ архивирован</span>}

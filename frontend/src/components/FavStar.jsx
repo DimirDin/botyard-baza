@@ -15,7 +15,7 @@ export function FavStar({ itemType, itemId }) {
       aria-label={active ? "убрать из избранного" : "в избранное"}
       style={{
         background: "none", border: "none", cursor: "pointer", padding: "2px 6px",
-        fontSize: 16, color: active ? "var(--accent)" : "var(--text-muted-dim)", lineHeight: 1,
+        fontSize: 18, color: active ? "var(--accent)" : "var(--text-muted-dim)", lineHeight: 1,
       }}
     >
       {active ? "★" : "☆"}

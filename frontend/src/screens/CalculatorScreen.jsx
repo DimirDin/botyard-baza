@@ -37,7 +37,7 @@ export function CalculatorScreen() {
           style={{
             background: "color-mix(in srgb, var(--seg-gotcha) 10%, transparent)",
             border: "1px solid var(--seg-gotcha)", borderRadius: 6, padding: "10px 12px",
-            fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--seg-gotcha)", marginBottom: 16,
+            fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--seg-gotcha)", marginBottom: 16,
           }}
         >
           ≈ приблизительно — это не официальный токенайзер Claude (считаем через tiktoken локально,
@@ -51,7 +51,7 @@ export function CalculatorScreen() {
           rows={8}
           style={{
             width: "100%", background: "#1a1a18", color: "var(--text-heading)", border: "1px solid #26261f",
-            borderRadius: 6, padding: 12, fontFamily: "var(--font-sans)", fontSize: 14, resize: "vertical",
+            borderRadius: 6, padding: 12, fontFamily: "var(--font-sans)", fontSize: 15, resize: "vertical",
           }}
         />
 
@@ -67,12 +67,12 @@ export function CalculatorScreen() {
           {loading && <span style={{ color: "var(--text-muted)" }}>⠋⠙⠸ считаю...</span>}
           {!loading && result && (
             <>
-              <p style={{ fontSize: 28, color: "var(--text-heading)", margin: 0 }}>≈ {result.tokens} токенов</p>
-              <p style={{ color: "var(--text-muted)", fontSize: 13 }}>
+              <p style={{ fontSize: 30, color: "var(--text-heading)", margin: 0 }}>≈ {result.tokens} токенов</p>
+              <p style={{ color: "var(--text-muted)", fontSize: 14 }}>
                 ≈ ${result.cost_estimate_usd} за input по цене {MODELS.find((m) => m.id === model)?.label}
               </p>
               {result.model_tokenizer_note && (
-                <p style={{ color: "var(--seg-gotcha)", fontSize: 12 }}>{result.model_tokenizer_note}</p>
+                <p style={{ color: "var(--seg-gotcha)", fontSize: 13 }}>{result.model_tokenizer_note}</p>
               )}
             </>
           )}

@@ -26,7 +26,7 @@ export function ToolDetail({ slug }) {
         {tool && (
           <>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-              <h1 style={{ color: "var(--text-heading)", fontSize: 20, marginTop: 0 }}>{tool.name}</h1>
+              <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{tool.name}</h1>
               <span style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
                 {tool.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
                 <span className="card__meta">⭐ {tool.stars}</span>
@@ -38,8 +38,8 @@ export function ToolDetail({ slug }) {
               <ArticleBody bodyMd={tool.body_md} />
             ) : (
               <>
-                <p style={{ fontSize: 16, color: "var(--text-body)" }}>{tool.description_ru}</p>
-                <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted-dim)", fontSize: 13 }}>
+                <p style={{ fontSize: 17, color: "var(--text-body)" }}>{tool.description_ru}</p>
+                <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted-dim)", fontSize: 14 }}>
                   # TODO: подробное описание в разработке
                 </p>
               </>
@@ -58,7 +58,7 @@ export function ToolDetail({ slug }) {
                 border: "1px solid var(--accent)",
                 borderRadius: 6,
                 fontFamily: "var(--font-mono)",
-                fontSize: 13,
+                fontSize: 14,
                 textDecoration: "none",
               }}
             >

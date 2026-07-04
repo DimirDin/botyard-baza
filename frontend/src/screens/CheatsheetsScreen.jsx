@@ -28,7 +28,7 @@ export function CheatsheetsScreen() {
       <>
         <PromptLine section="cheat" right={<span onClick={() => setCurrent(null)} style={{ cursor: "pointer" }}>✗ закрыть</span>} />
         <div className="page">
-          <h1 style={{ color: "var(--text-heading)", fontSize: 20, marginTop: 0 }}>{current.title}</h1>
+          <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{current.title}</h1>
           <div className="article-body cheatsheet-body">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{current.body_md}</ReactMarkdown>
           </div>
