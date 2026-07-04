@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
+import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { api } from "../lib/api";
 
@@ -54,9 +55,12 @@ export function ToolsListScreen() {
 
         {tools?.map((t) => (
           <a key={t.repo} className="card" href={`https://github.com/${t.repo}`} target="_blank" rel="noreferrer" style={{ display: "block", textDecoration: "none" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
               <p className="card__title">{t.name}</p>
-              {t.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                {t.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
+                <FavStar itemType="tool" itemId={t.id} />
+              </span>
             </div>
             <p style={{ color: "var(--text-body)", fontSize: 14, margin: "6px 0" }}>{t.description_ru}</p>
             <p className="card__meta">

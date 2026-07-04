@@ -11,13 +11,13 @@ async def list_prompts(category: str | None = None):
     pool = get_pool()
     if category:
         rows = await pool.fetch(
-            "SELECT slug, category, title, body, comment, copies_count "
+            "SELECT id, slug, category, title, body, comment, copies_count "
             "FROM baza.prompts WHERE published AND category = $1 ORDER BY copies_count DESC",
             category,
         )
     else:
         rows = await pool.fetch(
-            "SELECT slug, category, title, body, comment, copies_count "
+            "SELECT id, slug, category, title, body, comment, copies_count "
             "FROM baza.prompts WHERE published ORDER BY copies_count DESC"
         )
     return [dict(r) for r in rows]

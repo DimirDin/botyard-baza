@@ -18,7 +18,7 @@ async def list_tools(category: str | None = None, sort: str = "stars"):
     order_by = SORT_MAP.get(sort, SORT_MAP["stars"])
     # published=true выставляется только после github-синка (см. tools.yaml verify_status)
     query = f"""
-        SELECT repo, name, category, description_ru, badge, stars,
+        SELECT id, repo, name, category, description_ru, badge, stars,
                (stars - stars_prev) AS trending_delta, last_commit, archived
         FROM baza.tools
         WHERE published = true {"AND category = $1" if category else ""}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
 import { ArticleBody } from "../components/ArticleBody";
+import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { shareLink } from "../lib/telegram";
@@ -28,7 +29,10 @@ export function EntryScreen({ slug }) {
         {!error && !entry && <Spinner />}
         {entry && (
           <>
-            <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{entry.title}</h1>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{entry.title}</h1>
+              <FavStar itemType="entry" itemId={entry.id} />
+            </div>
             <ArticleBody bodyMd={entry.body_md} />
             <button
               // ?start= (не ?startapp=): Main Mini App в BotFather не настроен,

@@ -48,6 +48,8 @@ export function HomeScreen({ onNavigate }) {
               <div className="chip" onClick={() => onNavigate("base")}>📚 {data.counts.entries_count} статей</div>
               <div className="chip" onClick={() => onNavigate("tools")}>🛠 {data.counts.tools_count} инструментов</div>
               <div className="chip" onClick={() => onNavigate("prompts")}>⚡ {data.counts.prompts_count} промптов</div>
+              <div className="chip" onClick={() => onNavigate("cheatsheets")}>📋 шпаргалки</div>
+              <div className="chip" onClick={() => onNavigate("favorites")}>⭐ избранное</div>
             </section>
           </>
         )}

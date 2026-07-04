@@ -45,4 +45,7 @@ export const api = {
   toggleFavorite: (item_type, item_id) =>
     request("/favorites/toggle", { method: "POST", body: JSON.stringify({ item_type, item_id }) }),
   favorites: () => request("/favorites"),
+  favoriteIds: () => request("/favorites/ids"),
+  cheatsheets: () => request("/cheatsheets"),
+  cheatsheet: (slug) => request(`/cheatsheets/${slug}`),
 };

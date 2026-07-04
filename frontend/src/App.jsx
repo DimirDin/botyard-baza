@@ -8,6 +8,8 @@ import { EntryScreen } from "./screens/EntryScreen";
 import { ToolsListScreen } from "./screens/ToolsListScreen";
 import { PromptsListScreen } from "./screens/PromptsListScreen";
 import { CalculatorScreen } from "./screens/CalculatorScreen";
+import { CheatsheetsScreen } from "./screens/CheatsheetsScreen";
+import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { SearchScreen } from "./screens/SearchScreen";
 import { api } from "./lib/api";
 import { initTelegram, getStartParam, onBackButton, hideBackButton } from "./lib/telegram";
@@ -93,6 +95,8 @@ export default function App() {
       {screen === "prompts" && <PromptsListScreen />}
       {screen === "calc" && <CalculatorScreen />}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
+      {screen === "cheatsheets" && <CheatsheetsScreen />}
+      {screen === "favorites" && <FavoritesScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
 
       <BottomNav active={activeTab} onSelect={(tab) => navigate(tab)} />
     </>

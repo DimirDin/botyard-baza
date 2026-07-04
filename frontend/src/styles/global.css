@@ -262,3 +262,35 @@ button {
 .article-body code {
   padding: 1px 4px;
 }
+
+/* ---- шпаргалки: компактные таблицы под мобильный экран (§15) ---- */
+
+.cheatsheet-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+.cheatsheet-body th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #26261f;
+}
+
+.cheatsheet-body td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #1e1e1c;
+  vertical-align: top;
+}
+
+.cheatsheet-body td:first-child {
+  font-family: var(--font-mono);
+  color: var(--seg-what);
+  white-space: nowrap;
+}

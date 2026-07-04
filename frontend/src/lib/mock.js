@@ -4,12 +4,13 @@
 export const USE_MOCK = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === "1";
 
 const entries = [
-  { slug: "cc-slash-commands", section: "code", title: "Слэш-команды Claude Code", summary: "Встроенные /-команды и как добавить свои.", tags: ["cli"], updated_at: "2026-07-01" },
-  { slug: "cc-claude-md-config", section: "code", title: "CLAUDE.md: конфигурация проекта", summary: "Что писать в CLAUDE.md и как это влияет на поведение.", tags: ["config"], updated_at: "2026-06-20" },
-  { slug: "con-cyrillic-tokenization", section: "concepts", title: "Токенизация кириллицы", summary: "Почему русский текст стоит дороже английского.", tags: ["tokenization"], updated_at: "2026-06-15" },
+  { id: 1, slug: "cc-slash-commands", section: "code", title: "Слэш-команды Claude Code", summary: "Встроенные /-команды и как добавить свои.", tags: ["cli"], updated_at: "2026-07-01" },
+  { id: 2, slug: "cc-claude-md-config", section: "code", title: "CLAUDE.md: конфигурация проекта", summary: "Что писать в CLAUDE.md и как это влияет на поведение.", tags: ["config"], updated_at: "2026-06-20" },
+  { id: 3, slug: "con-cyrillic-tokenization", section: "concepts", title: "Токенизация кириллицы", summary: "Почему русский текст стоит дороже английского.", tags: ["tokenization"], updated_at: "2026-06-15" },
 ];
 
 const entryBody = {
+  id: 3,
   slug: "con-cyrillic-tokenization",
   section: "concepts",
   title: "Токенизация кириллицы: почему русский язык стоит дороже",
@@ -24,14 +25,24 @@ const entryBody = {
 };
 
 const tools = [
-  { repo: "anthropics/claude-code", name: "claude-code", category: "cli", description_ru: "Официальный CLI-агент для разработки в терминале.", badge: "editors_choice", stars: 15234, trending_delta: 320, archived: false },
-  { repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp", description_ru: "MCP-сервер для доступа к файловой системе.", badge: null, stars: 890, trending_delta: 12, archived: false },
+  { id: 1, repo: "anthropics/claude-code", name: "claude-code", category: "cli", description_ru: "Официальный CLI-агент для разработки в терминале.", badge: "editors_choice", stars: 15234, trending_delta: 320, archived: false },
+  { id: 2, repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp", description_ru: "MCP-сервер для доступа к файловой системе.", badge: null, stars: 890, trending_delta: 12, archived: false },
 ];
 
 const prompts = [
-  { slug: "code-review-strict", category: "review", title: "Строгий код-ревью", body: "Проверь этот diff на баги, забытые edge-cases и небезопасный код...", comment: "Перед мержем в main", copies_count: 142 },
-  { slug: "ru-en-compress", category: "translate", title: "RU→EN компрессия контекста", body: "Переведи системные инструкции на английский, сохранив смысл...", comment: "Экономия токенов в системном промпте", copies_count: 98 },
+  { id: 1, slug: "code-review-strict", category: "review", title: "Строгий код-ревью", body: "Проверь этот diff на баги, забытые edge-cases и небезопасный код...", comment: "Перед мержем в main", copies_count: 142 },
+  { id: 2, slug: "ru-en-compress", category: "translate", title: "RU→EN компрессия контекста", body: "Переведи системные инструкции на английский, сохранив смысл...", comment: "Экономия токенов в системном промпте", copies_count: 98 },
 ];
+
+
+const cheatsheets = [
+  { slug: "cheat-cc-slash", title: "Slash-команды Claude Code", category: "code", sort_order: 10,
+    body_md: "| Команда | Что делает |\n|---|---|\n| /help | справка |\n| /clear | очистить контекст |" },
+  { slug: "cheat-api-limits-models", title: "Модели, лимиты и коды ошибок API", category: "api", sort_order: 30,
+    body_md: "| Модель | Контекст |\n|---|---|\n| Sonnet 5 | 1M |" },
+];
+
+let mockFavorites = [{ item_type: "entry", item_id: 3 }];
 
 export async function mockFetch(path, options = {}) {
   await new Promise((r) => setTimeout(r, 250));
@@ -44,6 +55,29 @@ export async function mockFetch(path, options = {}) {
       recent_entries: entries.map((e) => ({ slug: e.slug, title: e.title, updated_at: e.updated_at })),
     };
   }
+  if (path === "/favorites/ids") return mockFavorites.map((f) => `${f.item_type}:${f.item_id}`);
+  if (path === "/favorites/toggle") {
+    const body = JSON.parse(options.body || "{}");
+    const i = mockFavorites.findIndex((f) => f.item_type === body.item_type && f.item_id === body.item_id);
+    if (i >= 0) { mockFavorites.splice(i, 1); return { favorited: false }; }
+    mockFavorites.push(body);
+    return { favorited: true };
+  }
+  if (path === "/favorites") {
+    return mockFavorites.map((f) => {
+      const src = f.item_type === "entry" ? entries : f.item_type === "tool" ? tools : prompts;
+      const item = src.find((x) => x.id === f.item_id);
+      return item && {
+        item_type: f.item_type, item_id: f.item_id,
+        title: item.title || item.name, subtitle: item.summary || item.description_ru || item.comment,
+        entry_slug: f.item_type === "entry" ? item.slug : null,
+        prompt_slug: f.item_type === "prompt" ? item.slug : null,
+        tool_repo: f.item_type === "tool" ? item.repo : null,
+      };
+    }).filter(Boolean);
+  }
+  if (path.startsWith("/cheatsheets/")) return cheatsheets.find((c) => path.endsWith(c.slug)) || cheatsheets[0];
+  if (path.startsWith("/cheatsheets")) return cheatsheets.map(({ body_md, ...rest }) => rest);
   if (path.startsWith("/entries/")) return entryBody;
   if (path.startsWith("/entries")) return entries;
   if (path.startsWith("/tools")) return tools;

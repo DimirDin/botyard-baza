@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
+import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { Toast } from "../components/Toast";
 import { api } from "../lib/api";
@@ -55,7 +56,10 @@ export function PromptsListScreen() {
 
         {prompts?.map((p) => (
           <div key={p.slug} className="card">
-            <p className="card__title">{p.title}</p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <p className="card__title" style={{ margin: 0 }}>{p.title}</p>
+              <FavStar itemType="prompt" itemId={p.id} />
+            </div>
             {p.comment && <p className="card__meta">{p.comment}</p>}
             <p style={{ color: "var(--text-body)", fontSize: 13, margin: "8px 0", whiteSpace: "pre-wrap" }}>
               {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
