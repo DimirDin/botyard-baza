@@ -1,6 +1,18 @@
-# Добавить в /etc/caddy/Caddyfile на сервере платформы (см. §1 MASTER_CONTEXT).
-# Caddy сам выпустит и продлит сертификат Let's Encrypt для поддомена.
+# Блок для /etc/caddy/Caddyfile на сервере платформы (см. §1 MASTER_CONTEXT).
+# Path-роутинг: API и health — на backend (порт 3015), всё остальное — статика
+# фронтенда из frontend/dist (собирается на сервере, см. deploy/README.md шаг 5).
+# Caddy сам выпускает и продлевает сертификат Let's Encrypt.
 
 baza.botyard.site {
-    reverse_proxy 127.0.0.1:3015
+    handle /api/* {
+        reverse_proxy 127.0.0.1:3015
+    }
+    handle /health {
+        reverse_proxy 127.0.0.1:3015
+    }
+    handle {
+        root * /srv/apps/botyard-baza/frontend/dist
+        try_files {path} /index.html
+        file_server
+    }
 }
