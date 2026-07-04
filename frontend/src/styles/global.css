@@ -304,10 +304,23 @@ button {
   height: 30px;
 }
 
+.group-row__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .group-row__label {
   color: var(--text-heading);
   font-size: 15px;
-  flex: 1;
+}
+
+.group-row__desc {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .group-row__count {

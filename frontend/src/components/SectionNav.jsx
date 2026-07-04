@@ -28,7 +28,10 @@ export function GroupList({ groups, counts, onOpen, iconBase }) {
                style={{ opacity: count > 0 ? 1 : 0.45, cursor: count > 0 ? "pointer" : "default" }}>
             <span className="tree-item">{i === groups.length - 1 ? "└──" : "├──"}</span>
             <img className="group-row__icon" src={`${iconBase}/${g.slug}.png`} alt="" />
-            <span className="group-row__label">{g.label}</span>
+            <span className="group-row__text">
+              <span className="group-row__label">{g.label}</span>
+              {g.desc && <span className="group-row__desc">{g.desc}</span>}
+            </span>
             <span className="group-row__count">{count > 0 ? count : "скоро"}</span>
           </div>
         );
