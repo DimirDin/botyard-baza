@@ -110,7 +110,185 @@
   badge: editors_choice
   verify_status: check
 
+# --- Пачка от 2026-07-04: клиенты, фреймворки, докер, роутеры, мониторинг, CI/CD, ---
+# --- SDK, десктоп/vscode/mobile-приложения, subagents и оркестрация ---
+# verify_status: check для всех — прогнать через GitHub-синк перед публикацией.
+
+- repo: zed-industries/zed
+  category: mcp/clients
+  description_ru: "Высокопроизводительный код-редактор с нативной поддержкой MCP-клиента и совместного редактирования."
+  badge: null
+  verify_status: check
+
+- repo: danny-avila/LibreChat
+  category: mcp/clients
+  description_ru: "Self-hosted чат-платформа с поддержкой множества LLM-провайдеров и MCP."
+  badge: null
+  verify_status: check
+
+- repo: CherryHQ/cherry-studio
+  category: mcp/clients
+  description_ru: "Десктопный AI-клиент с поддержкой MCP-серверов и множества моделей в одном интерфейсе."
+  badge: null
+  verify_status: check
+
+- repo: punkpeye/awesome-mcp-clients
+  category: mcp/clients
+  description_ru: "Курируемый справочный список клиентов, поддерживающих Model Context Protocol."
+  badge: null
+  verify_status: check
+
+- repo: jlowin/fastmcp
+  category: mcp/frameworks
+  description_ru: "Python-фреймворк для быстрой сборки MCP-серверов и клиентов."
+  badge: editors_choice
+  verify_status: check
+
+- repo: docker/mcp-gateway
+  category: mcp/docker
+  description_ru: "Шлюз Docker для запуска и оркестрации MCP-серверов в контейнерах."
+  badge: null
+  verify_status: check
+
+- repo: southleft/figma-console-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер для доступа к консоли и данным Figma прямо из агента."
+  badge: null
+  verify_status: check
+
+- repo: disler/claude-code-hooks-mastery
+  category: code/hooks
+  description_ru: "Примеры и паттерны использования хуков Claude Code — от логирования до автоматизации."
+  badge: null
+  verify_status: check
+
+- repo: pascalporedda/awesome-claude-code
+  category: code/hooks
+  description_ru: "Курируемый список ресурсов по Claude Code с акцентом на хуки и конфиги."
+  badge: null
+  verify_status: check
+
+- repo: musistudio/claude-code-router
+  category: code/routers
+  description_ru: "Роутер запросов Claude Code к разным LLM-провайдерам и моделям."
+  badge: null
+  verify_status: check
+
+- repo: ryoppippi/ccusage
+  category: code/monitoring
+  description_ru: "CLI-утилита для анализа расхода токенов и затрат Claude Code по сессиям."
+  badge: editors_choice
+  verify_status: check
+
+- repo: junhoyeo/tokscale
+  category: code/monitoring
+  description_ru: "Мониторинг использования токенов в реальном времени для LLM-агентов."
+  badge: null
+  verify_status: check
+
+- repo: anthropics/claude-code-action
+  category: code/ci-cd
+  description_ru: "Официальный GitHub Action для запуска Claude Code в CI/CD-пайплайнах."
+  badge: editors_choice
+  verify_status: check
+
+- repo: anthropics/anthropic-sdk-go
+  category: libs/go
+  description_ru: "Официальный Go SDK для работы с Claude API от Anthropic."
+  badge: editors_choice
+  verify_status: check
+
+- repo: tmikus/anthropic-sdk-rust
+  category: libs/rust
+  description_ru: "Неофициальный community Rust SDK для Claude API."
+  badge: null
+  verify_status: check
+
+- repo: cline/cline
+  category: apps/vscode
+  description_ru: "Автономный AI-агент внутри VS Code для написания и рефакторинга кода."
+  badge: editors_choice
+  verify_status: check
+
+- repo: continuedev/continue
+  category: apps/vscode
+  description_ru: "Расширение VS Code/JetBrains для AI-автодополнения и чата с контекстом проекта."
+  badge: null
+  verify_status: check
+
+- repo: sst/opencode
+  category: apps/desktop
+  description_ru: "Open-source терминальный AI-агент для разработки, альтернатива Claude Code."
+  badge: null
+  verify_status: check
+
+- repo: block/goose
+  category: apps/desktop
+  description_ru: "Локальный AI-агент от Block для автоматизации разработки на своей машине."
+  badge: null
+  verify_status: check
+
+- repo: All-Hands-AI/OpenHands
+  category: apps/desktop
+  description_ru: "Open-source платформа AI-агентов-разработчиков с полным циклом задач."
+  badge: null
+  verify_status: check
+
+- repo: slopus/happy
+  category: apps/mobile
+  description_ru: "Мобильный клиент для удалённого управления сессиями Claude Code."
+  badge: null
+  verify_status: check
+
+- repo: siteboon/claudecodeui
+  category: apps/mobile
+  description_ru: "Веб/мобильный UI для запуска и мониторинга Claude Code с телефона."
+  badge: null
+  verify_status: check
+
+- repo: wshobson/agents
+  category: agents/subagents
+  description_ru: "Коллекция готовых субагентов для Claude Code под разные роли разработки."
+  badge: null
+  verify_status: check
+
+- repo: 0xfurai/claude-code-subagents
+  category: agents/subagents
+  description_ru: "Крупная коллекция субагентов для Claude Code на разные задачи и стеки."
+  badge: null
+  verify_status: check
+
+- repo: davepoon/claude-code-subagents-collection
+  category: agents/subagents
+  description_ru: "Ещё одна курируемая коллекция субагентов для Claude Code."
+  badge: null
+  verify_status: check
+
+- repo: vijaythecoder/awesome-claude-agents
+  category: agents/subagents
+  description_ru: "Awesome-список готовых агентов и субагентов для Claude."
+  badge: null
+  verify_status: check
+
+- repo: crewAIInc/crewAI
+  category: agents/orchestration
+  description_ru: "Фреймворк для оркестрации команд AI-агентов с ролями и задачами."
+  badge: editors_choice
+  verify_status: check
+
+- repo: langchain-ai/langgraph
+  category: agents/orchestration
+  description_ru: "Библиотека для построения стейтфул мультиагентных графов поверх LangChain."
+  badge: editors_choice
+  verify_status: check
+
+- repo: modelcontextprotocol/mcp-agent
+  category: agents/orchestration
+  description_ru: "Официальные паттерны Anthropic для построения агентов поверх MCP."
+  badge: editors_choice
+  verify_status: check
+
 # --- Раздел ожидает пополнения из блока A CONTENT_CHECKLIST.md ---
-# Дальнейшие 30+ записей до целевых ~50 добавляются после присылки твоих ссылок
+# Дальнейшие записи до целевых ~50 добавляются после присылки твоих ссылок
 # (те, которыми ты реально пользовался — приоритет на бейдж editors_choice)
 # и обязательного прогона через scripts/sync_content.py + GitHub API перед публикацией.
