@@ -3,6 +3,7 @@ slug: cc-claude-md-config
 title: "Инструкции проекта через CLAUDE.md"
 summary: "Главный конфигурационный файл локального контекста, который Клод читает перед стартом любой задачи в репозитории."
 section: code
+group: claude-md
 tags: [claude-code, claude-md, configuration]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 20

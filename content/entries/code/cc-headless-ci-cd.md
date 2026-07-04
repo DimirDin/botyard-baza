@@ -3,6 +3,7 @@ slug: cc-headless-ci-cd
 title: "Headless-режим и интеграция в CI/CD"
 summary: "Запуск Claude Code без интерактивного UI — для автономного ревью, рефакторинга и генерации тестов в пайплайнах."
 section: code
+group: headless-ci
 tags: [claude-code, ci-cd, github-actions]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 60

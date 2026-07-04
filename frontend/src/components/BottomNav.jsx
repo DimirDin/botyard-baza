@@ -1,9 +1,9 @@
 const ITEMS = [
-  { id: "base", icon: "📚", label: "База" },
-  { id: "tools", icon: "🛠", label: "Инстр." },
-  { id: "prompts", icon: "⚡", label: "Промпты" },
-  { id: "calc", icon: "🧮", label: "Калькул." },
-  { id: "search", icon: "🔍", label: "Поиск" },
+  { id: "base", icon: "/icons/footer/base.png", label: "База" },
+  { id: "tools", icon: "/icons/footer/tools.png", label: "Инстр." },
+  { id: "prompts", icon: "/icons/footer/prompts.png", label: "Промпты" },
+  { id: "calc", icon: "/icons/footer/calc.png", label: "Калькул." },
+  { id: "search", icon: "/icons/footer/search.png", label: "Поиск" },
 ];
 
 export function BottomNav({ active, onSelect }) {
@@ -15,7 +15,7 @@ export function BottomNav({ active, onSelect }) {
           className={`bottom-nav__item ${active === item.id ? "bottom-nav__item--active" : ""}`}
           onClick={() => onSelect(item.id)}
         >
-          <span className="bottom-nav__icon">{item.icon}</span>
+          <img className="bottom-nav__png" src={item.icon} alt="" />
           <span>{item.label}</span>
         </button>
       ))}

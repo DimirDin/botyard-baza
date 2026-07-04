@@ -3,6 +3,7 @@ slug: cc-slash-commands
 title: "Справочник по slash-командам"
 summary: "Встроенные команды (/compact, /bug, /review, /clear, /undo) для экономии токенов и ускорения дебага."
 section: code
+group: claude-code
 tags: [claude-code, slash-commands, cheatsheet]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 40

@@ -3,6 +3,7 @@ slug: cc-local-memory-sessions
 title: "Локальная память и менеджмент сессий"
 summary: "Как Claude Code сохраняет историю и контекст между перезапусками терминала и как её чистить при переполнении."
 section: code
+group: claude-code
 tags: [claude-code, sessions, local-storage]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 70

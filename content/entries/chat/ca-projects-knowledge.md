@@ -3,6 +3,7 @@ slug: ca-projects-knowledge
 title: "Проекты и Project Knowledge"
 summary: "Изолированные рабочие пространства в веб-версии с загруженными файлами и глобальными инструкциями."
 section: chat
+group: projects
 tags: [claude-ai, projects, knowledge]
 doc_url: "https://support.claude.com"
 sort_order: 10

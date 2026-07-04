@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS baza.users (
 CREATE TABLE IF NOT EXISTS baza.entries (
     id          SERIAL PRIMARY KEY,
     slug        TEXT UNIQUE NOT NULL,
-    section     TEXT NOT NULL,          -- code | chat | api | concepts
+    section     TEXT NOT NULL,          -- code | chat | design | theory
+    group_slug  TEXT,                   -- группа внутри секции, см. frontend/src/config/menu.js
     title       TEXT NOT NULL,
     summary     TEXT,
     body_md     TEXT NOT NULL,

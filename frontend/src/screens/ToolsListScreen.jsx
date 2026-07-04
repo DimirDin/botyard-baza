@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
+import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
+import { TOOLS_MENU } from "../config/menu";
 import { api } from "../lib/api";
 
 const SORTS = [
@@ -11,64 +13,86 @@ const SORTS = [
 ];
 
 export function ToolsListScreen() {
-  const [tools, setTools] = useState(null);
-  const [error, setError] = useState(false);
+  const [tab, setTab] = useState("mcp");
+  const [group, setGroup] = useState(null);
   const [sort, setSort] = useState("stars");
-  const [category, setCategory] = useState(null);
+  const [allTools, setAllTools] = useState(null); // для счётчиков групп
+  const [groupTools, setGroupTools] = useState(null); // текущая группа с сортировкой
+  const [error, setError] = useState(false);
 
-  const load = () => {
+  const loadAll = () => {
     setError(false);
-    setTools(null);
-    api.tools(category, sort).then(setTools).catch(() => setError(true));
+    setAllTools(null);
+    api.tools().then(setAllTools).catch(() => setError(true));
   };
 
-  useEffect(load, [sort, category]);
+  useEffect(loadAll, []);
+  useEffect(() => setGroup(null), [tab]);
 
-  const categories = tools ? [...new Set(tools.map((t) => t.category))] : [];
+  useEffect(() => {
+    if (!group) return;
+    setGroupTools(null);
+    api.tools(`${tab}/${group}`, sort).then(setGroupTools).catch(() => setError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [group, sort]);
+
+  const section = TOOLS_MENU.find((s) => s.slug === tab);
+  const counts = allTools
+    ? allTools.reduce((acc, t) => {
+        const [cTab, cGroup] = (t.category || "").split("/");
+        if (cTab === tab && cGroup) acc[cGroup] = (acc[cGroup] || 0) + 1;
+        return acc;
+      }, {})
+    : null;
+  const groupLabel = section?.groups.find((g) => g.slug === group)?.label;
 
   return (
     <>
-      <PromptLine section="tools" />
+      <PromptLine
+        section={group ? `tools/${tab}/${group}` : `tools/${tab}`}
+        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : null}
+      />
+      {!group && <SectionTabs menu={TOOLS_MENU} active={tab} onSelect={setTab} iconBase="/icons/tools" />}
       <div className="page">
-        <div style={{ display: "flex", gap: 8, marginBottom: 10, flexWrap: "wrap" }}>
-          {SORTS.map((s) => (
-            <div key={s.id} className={`chip ${sort === s.id ? "chip--active" : ""}`} onClick={() => setSort(s.id)}>
-              {s.label}
-            </div>
-          ))}
-        </div>
+        {error && <ErrorState onRetry={group ? () => setGroup(group) : loadAll} />}
+        {!error && !group && !allTools && <Spinner />}
 
-        {categories.length > 0 && (
-          <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-            <div className={`chip ${!category ? "chip--active" : ""}`} onClick={() => setCategory(null)}>все категории</div>
-            {categories.map((c) => (
-              <div key={c} className={`chip ${category === c ? "chip--active" : ""}`} onClick={() => setCategory(c)}>
-                {c}
-              </div>
-            ))}
-          </div>
+        {allTools && !group && (
+          <GroupList groups={section.groups} counts={counts} onOpen={setGroup} iconBase={`/icons/tools/${tab}`} />
         )}
 
-        {error && <ErrorState onRetry={load} />}
-        {!error && !tools && <Spinner />}
-        {tools && tools.length === 0 && <EmptyState text="инструментов пока нет — ждём GitHub-синк звёзд" />}
-
-        {tools?.map((t) => (
-          <a key={t.repo} className="card" href={`https://github.com/${t.repo}`} target="_blank" rel="noreferrer" style={{ display: "block", textDecoration: "none" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-              <p className="card__title">{t.name}</p>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                {t.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
-                <FavStar itemType="tool" itemId={t.id} />
+        {group && (
+          <>
+            <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
+              <span style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 13 }}>
+                {groupLabel}
               </span>
+              {SORTS.map((s) => (
+                <div key={s.id} className={`chip ${sort === s.id ? "chip--active" : ""}`} onClick={() => setSort(s.id)}>
+                  {s.label}
+                </div>
+              ))}
             </div>
-            <p style={{ color: "var(--text-body)", fontSize: 14, margin: "6px 0" }}>{t.description_ru}</p>
-            <p className="card__meta">
-              ⭐ {t.stars} {t.trending_delta > 0 && <span style={{ color: "var(--seg-what)" }}>▲ {t.trending_delta}</span>}
-              {t.archived && <span style={{ color: "var(--seg-gotcha)", marginLeft: 8 }}>⚠ архивирован</span>}
-            </p>
-          </a>
-        ))}
+            {!groupTools && <Spinner />}
+            {groupTools && groupTools.length === 0 && <EmptyState text="в этой группе пока пусто" />}
+            {groupTools?.map((t) => (
+              <a key={t.repo} className="card" href={`https://github.com/${t.repo}`} target="_blank" rel="noreferrer" style={{ display: "block", textDecoration: "none" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+                  <p className="card__title">{t.name}</p>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    {t.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
+                    <FavStar itemType="tool" itemId={t.id} />
+                  </span>
+                </div>
+                <p style={{ color: "var(--text-body)", fontSize: 14, margin: "6px 0" }}>{t.description_ru}</p>
+                <p className="card__meta">
+                  ⭐ {t.stars} {t.trending_delta > 0 && <span style={{ color: "var(--seg-what)" }}>▲ {t.trending_delta}</span>}
+                  {t.archived && <span style={{ color: "var(--seg-gotcha)", marginLeft: 8 }}>⚠ архивирован</span>}
+                </p>
+              </a>
+            ))}
+          </>
+        )}
       </div>
     </>
   );

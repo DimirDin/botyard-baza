@@ -3,6 +3,7 @@ slug: ca-research-mode
 title: "Режим исследования (Research)"
 summary: "Многошаговый агентный поиск и синтез веб-источников для сложных аналитических задач."
 section: chat
+group: research
 tags: [claude-ai, research]
 doc_url: "https://support.claude.com"
 sort_order: 60

@@ -3,6 +3,7 @@ slug: cc-mcp-docker-setup
 title: "Подключение Docker MCP-сервера в Claude Code"
 summary: "Как дать агенту возможность читать логи, перезапускать и управлять локальными Docker Compose стеками."
 section: code
+group: mcp
 tags: [claude-code, mcp, docker]
 doc_url: "https://code.claude.com/docs/en/mcp-quickstart.md"
 sort_order: 90

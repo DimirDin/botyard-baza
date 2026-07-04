@@ -3,6 +3,7 @@ slug: cc-permissions-security
 title: "Permissions и безопасность хоста"
 summary: "Как настроить подтверждения для деструктивных команд и защитить приватные файлы при автономной работе агента."
 section: code
+group: permissions
 tags: [claude-code, security, permissions]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 50

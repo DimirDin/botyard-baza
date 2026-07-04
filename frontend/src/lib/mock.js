@@ -4,9 +4,9 @@
 export const USE_MOCK = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === "1";
 
 const entries = [
-  { id: 1, slug: "cc-slash-commands", section: "code", title: "Слэш-команды Claude Code", summary: "Встроенные /-команды и как добавить свои.", tags: ["cli"], updated_at: "2026-07-01" },
-  { id: 2, slug: "cc-claude-md-config", section: "code", title: "CLAUDE.md: конфигурация проекта", summary: "Что писать в CLAUDE.md и как это влияет на поведение.", tags: ["config"], updated_at: "2026-06-20" },
-  { id: 3, slug: "con-cyrillic-tokenization", section: "concepts", title: "Токенизация кириллицы", summary: "Почему русский текст стоит дороже английского.", tags: ["tokenization"], updated_at: "2026-06-15" },
+  { id: 1, slug: "cc-slash-commands", section: "code", group_slug: "claude-code", title: "Слэш-команды Claude Code", summary: "Встроенные /-команды и как добавить свои.", tags: ["cli"], updated_at: "2026-07-01" },
+  { id: 2, slug: "cc-claude-md-config", section: "code", group_slug: "claude-md", title: "CLAUDE.md: конфигурация проекта", summary: "Что писать в CLAUDE.md и как это влияет на поведение.", tags: ["config"], updated_at: "2026-06-20" },
+  { id: 3, slug: "con-cyrillic-tokenization", section: "theory", group_slug: "tokenization", title: "Токенизация кириллицы", summary: "Почему русский текст стоит дороже английского.", tags: ["tokenization"], updated_at: "2026-06-15" },
 ];
 
 const entryBody = {
@@ -25,8 +25,8 @@ const entryBody = {
 };
 
 const tools = [
-  { id: 1, repo: "anthropics/claude-code", name: "claude-code", category: "cli", description_ru: "Официальный CLI-агент для разработки в терминале.", badge: "editors_choice", stars: 15234, trending_delta: 320, archived: false },
-  { id: 2, repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp", description_ru: "MCP-сервер для доступа к файловой системе.", badge: null, stars: 890, trending_delta: 12, archived: false },
+  { id: 1, repo: "anthropics/claude-code", name: "claude-code", category: "apps/desktop", description_ru: "Официальный CLI-агент для разработки в терминале.", badge: "editors_choice", stars: 15234, trending_delta: 320, archived: false },
+  { id: 2, repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp/servers", description_ru: "MCP-сервер для доступа к файловой системе.", badge: null, stars: 890, trending_delta: 12, archived: false },
 ];
 
 const prompts = [
@@ -79,8 +79,16 @@ export async function mockFetch(path, options = {}) {
   if (path.startsWith("/cheatsheets/")) return cheatsheets.find((c) => path.endsWith(c.slug)) || cheatsheets[0];
   if (path.startsWith("/cheatsheets")) return cheatsheets.map(({ body_md, ...rest }) => rest);
   if (path.startsWith("/entries/")) return entryBody;
-  if (path.startsWith("/entries")) return entries;
-  if (path.startsWith("/tools")) return tools;
+  if (path.startsWith("/entries")) {
+    const q = new URLSearchParams(path.split("?")[1] || "");
+    return entries.filter((e) =>
+      (!q.get("section") || e.section === q.get("section")) &&
+      (!q.get("group") || e.group_slug === q.get("group")));
+  }
+  if (path.startsWith("/tools")) {
+    const q = new URLSearchParams(path.split("?")[1] || "");
+    return tools.filter((t) => !q.get("category") || t.category === q.get("category"));
+  }
   if (path.startsWith("/prompts") && options.method === "POST") return { copies_count: 143 };
   if (path.startsWith("/prompts")) return prompts;
   if (path.startsWith("/search")) {

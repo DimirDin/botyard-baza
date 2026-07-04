@@ -31,13 +31,13 @@ async def sync_entries(conn: asyncpg.Connection) -> int:
         meta, body = parse_frontmatter(md_file.read_text(encoding="utf-8"))
         await conn.execute(
             """
-            INSERT INTO baza.entries (slug, section, title, summary, body_md, doc_url, tags, sort_order, published, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now())
+            INSERT INTO baza.entries (slug, section, group_slug, title, summary, body_md, doc_url, tags, sort_order, published, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, now())
             ON CONFLICT (slug) DO UPDATE SET
-                section = $2, title = $3, summary = $4, body_md = $5,
-                doc_url = $6, tags = $7, sort_order = $8, published = $9, updated_at = now()
+                section = $2, group_slug = $3, title = $4, summary = $5, body_md = $6,
+                doc_url = $7, tags = $8, sort_order = $9, published = $10, updated_at = now()
             """,
-            meta["slug"], meta["section"], meta["title"], meta.get("summary"),
+            meta["slug"], meta["section"], meta.get("group"), meta["title"], meta.get("summary"),
             body, meta.get("doc_url"), meta.get("tags", []), meta.get("sort_order", 100),
             meta.get("published", True),
         )

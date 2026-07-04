@@ -3,6 +3,7 @@ slug: ca-custom-styles
 title: "Styles: кастомизация тональности ответов"
 summary: "Пресеты поведения модели в вебе — от сурового аудитора до лаконичного технического редактора."
 section: chat
+group: projects
 tags: [claude-ai, styles]
 doc_url: "https://support.claude.com"
 sort_order: 30

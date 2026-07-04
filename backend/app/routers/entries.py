@@ -7,19 +7,21 @@ router = APIRouter(prefix="/api/entries", tags=["entries"], dependencies=[Depend
 
 
 @router.get("")
-async def list_entries(section: str | None = None):
+async def list_entries(section: str | None = None, group: str | None = None):
     pool = get_pool()
+    where = ["published"]
+    params: list[str] = []
     if section:
-        rows = await pool.fetch(
-            "SELECT id, slug, section, title, summary, tags, sort_order, updated_at "
-            "FROM baza.entries WHERE published AND section = $1 ORDER BY sort_order",
-            section,
-        )
-    else:
-        rows = await pool.fetch(
-            "SELECT id, slug, section, title, summary, tags, sort_order, updated_at "
-            "FROM baza.entries WHERE published ORDER BY section, sort_order"
-        )
+        params.append(section)
+        where.append(f"section = ${len(params)}")
+    if group:
+        params.append(group)
+        where.append(f"group_slug = ${len(params)}")
+    rows = await pool.fetch(
+        "SELECT id, slug, section, group_slug, title, summary, tags, sort_order, updated_at "
+        f"FROM baza.entries WHERE {' AND '.join(where)} ORDER BY section, sort_order",
+        *params,
+    )
     return [dict(r) for r in rows]
 
 

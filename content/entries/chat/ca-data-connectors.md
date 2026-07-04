@@ -3,6 +3,7 @@ slug: ca-data-connectors
 title: "Коннекторы данных: Notion, Google Drive и другие"
 summary: "Подключение внешних источников к Claude.ai для живого, постоянно актуального контекста."
 section: chat
+group: connectors
 tags: [claude-ai, connectors]
 doc_url: "https://support.claude.com"
 sort_order: 50

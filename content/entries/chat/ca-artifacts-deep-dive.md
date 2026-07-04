@@ -3,6 +3,7 @@ slug: ca-artifacts-deep-dive
 title: "Артефакты: интерактивная среда в браузере"
 summary: "Как триггерить и использовать интерактивные окна (React, SVG, Mermaid) прямо из чата."
 section: chat
+group: artifacts
 tags: [claude-ai, artifacts]
 doc_url: "https://support.claude.com"
 sort_order: 20

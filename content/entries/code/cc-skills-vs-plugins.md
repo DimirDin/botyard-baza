@@ -3,6 +3,7 @@ slug: cc-skills-vs-plugins
 title: "Skills и плагины: чем расширяется Claude Code"
 summary: "Разница между локальными скиллами и внешними плагинами/MCP-серверами при расширении возможностей агента."
 section: code
+group: skills
 tags: [claude-code, skills, plugins]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 30

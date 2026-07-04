@@ -3,6 +3,7 @@ slug: ca-mdc-rules-guide
 title: "Правила .mdc для жёсткого контроля стиля"
 summary: "Контекстные микро-инструкции, триггерящиеся динамически только для конкретных файлов и модулей проекта."
 section: chat
+group: projects
 tags: [claude-code, rules, ui-consistency]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 70

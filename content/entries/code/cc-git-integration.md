@@ -3,6 +3,7 @@ slug: cc-git-integration
 title: "Git-автоматизация: коммиты, ветки, PR"
 summary: "Как заставить Claude Code самостоятельно создавать ветки, писать семантические коммиты и оформлять пулл-реквесты."
 section: code
+group: claude-code
 tags: [claude-code, git, automation]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 80

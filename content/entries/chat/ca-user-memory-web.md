@@ -3,6 +3,7 @@ slug: ca-user-memory-web
 title: "Долгосрочная память (Memory) в Claude.ai"
 summary: "Как Клод запоминает предпочтения, стек технологий и особенности проектов между разными чатами."
 section: chat
+group: memory
 tags: [claude-ai, memory]
 doc_url: "https://support.claude.com"
 sort_order: 40

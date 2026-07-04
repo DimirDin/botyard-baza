@@ -3,6 +3,7 @@ slug: cc-architecture-loops
 title: "Анатомия агентного цикла Claude Code (Agentic Loop)"
 summary: "Разбор внутреннего цикла «мысль → действие → анализ», на котором строится автономная работа CLI."
 section: code
+group: subagents
 tags: [claude-code, agentic-loop, concepts]
 doc_url: "https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md"
 sort_order: 10
