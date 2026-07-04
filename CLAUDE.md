@@ -1,9 +1,9 @@
 # botyard-baza — Claude Code Instructions
 
 Telegram Mini App «Baza без воды» — энциклопедия по Claude Code/Claude.ai/API с гейтом
-по подписке на @claudedry. **Полная спецификация — читай `PROJECT_CONTEXT.md` в корне
-репозитория перед любой архитектурной правкой.** Он приоритетнее этого файла для решений
-о продукте; этот файл — только команды и стиль кода.
+по подписке на @claudedry. **Полная спецификация ведётся вне этого репозитория** (файл
+BAZA_CONTEXT.md, хранится отдельно, не в git — приоритетнее этого файла для решений о продукте;
+спроси у владельца проекта, если нужен доступ). Этот файл — только команды и стиль кода.
 
 ## Build & Test
 ```bash
@@ -27,9 +27,9 @@ cd frontend && npm install && npm run dev
 ## Архитектура (не менять без явного запроса)
 - Backend: FastAPI + asyncpg, порт 3015, схема PostgreSQL `baza`, Redis-префикс `baza:`
 - Bot: aiogram 3, роль минимальная — `/start`, deep links, гейт-превью. Вся логика — в backend через API
-- Frontend: React 18 + Vite, Telegram Mini App SDK, эстетика «терминал в духе oh-my-zsh» (палитра и паттерны — §14 PROJECT_CONTEXT)
+- Frontend: React 18 + Vite, Telegram Mini App SDK, эстетика «терминал в духе oh-my-zsh» (палитра и паттерны — см. внешний BAZA_CONTEXT.md, §13)
 - Контент — как код: `content/entries/*.md`, `content/tools.yaml`, `content/prompts.yaml`, `content/cheatsheets/*.md` → `scripts/sync_content.py` → БД. Никогда не пиши в БД контент напрямую мимо этого пайплайна
-- Гейт (`backend/app/gate.py`) — не менять логику TTL/деградации без сверки с §5 PROJECT_CONTEXT, это самая чувствительная часть продукта
+- Гейт (`backend/app/gate.py`) — не менять логику TTL/деградации без сверки с внешним BAZA_CONTEXT.md §4, это самая чувствительная часть продукта
 
 ## Code Style
 - Python 3.12+, type hints везде, async для всех БД-вызовов
@@ -39,10 +39,10 @@ cd frontend && npm install && npm run dev
 
 ## Важные факты (чтобы не выдумывать заново)
 - Цены моделей и лимиты — только по `content/cheatsheets/api-limits-and-models.md`, не по памяти. Если нужна свежая цена — сверяй с platform.claude.com/docs/en/about-claude/pricing
-- Реальные slash-команды/флаги Claude Code — только по `content/cheatsheets/cc-*.md`, не по общеизвестным «народным» промпт-подборкам (там встречаются ошибки — см. Changelog 0.6 в PROJECT_CONTEXT)
-- `tools.published = false` по умолчанию — включать вручную только после GitHub-синка звёзд (задача ещё не реализована, см. §8 PROJECT_CONTEXT)
+- Реальные slash-команды/флаги Claude Code — только по `content/cheatsheets/cc-*.md`, не по общеизвестным «народным» промпт-подборкам (там встречаются ошибки, уже находили и исправляли — см. §14 внешнего BAZA_CONTEXT.md)
+- `tools.published = false` по умолчанию — включать вручную только после GitHub-синка звёзд (`scripts/sync_github_stars.py`, см. §10 внешнего BAZA_CONTEXT.md)
 
 ## Definition of done для любой фичи
 1. Работает локально через `docker compose up`
 2. Не ломает гейт-флоу (проверить `/api/gate/check` вручную)
-3. PROJECT_CONTEXT.md обновлён, если менялась архитектура/схема/API-контракт
+3. Внешний BAZA_CONTEXT.md обновлён, если менялась архитектура/схема/API-контракт
