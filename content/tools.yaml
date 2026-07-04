@@ -61,11 +61,13 @@
   badge: null
   verify_status: check
 
-- repo: VoltAgent/awesome-claude-agents
+# Было VoltAgent/awesome-claude-agents — 404 на GitHub-синке 2026-07-04, реальное
+# имя репозитория подтверждено через API (22.8k звёзд, описание совпадает).
+- repo: VoltAgent/awesome-claude-code-subagents
   category: subagents
   description_ru: "Оркестрация команды специализированных AI-агентов (DevOps, QA, архитектор) внутри одной сессии Claude Code."
   badge: null
-  verify_status: check
+  verify_status: known
 
 - repo: ComposioHQ/awesome-claude-skills
   category: subagents
@@ -79,23 +81,10 @@
   badge: editors_choice
   verify_status: check
 
-- repo: modelcontextprotocol/servers/tree/main/src/postgres
-  category: mcp-database
-  description_ru: "Официальный MCP-сервер для PostgreSQL — инспекция схемы и выполнение запросов."
-  badge: null
-  verify_status: check
-
-- repo: modelcontextprotocol/servers/tree/main/src/git
-  category: mcp-devtools
-  description_ru: "Официальный MCP-сервер для операций с git-репозиториями."
-  badge: null
-  verify_status: check
-
-- repo: modelcontextprotocol/servers/tree/main/src/filesystem
-  category: mcp-devtools
-  description_ru: "Официальный MCP-сервер для чтения и записи файлов в разрешённых директориях."
-  badge: null
-  verify_status: check
+# Записи вида modelcontextprotocol/servers/tree/main/src/{postgres,git,filesystem}
+# удалены на GitHub-синке 2026-07-04: это пути внутри монорепо, а не самостоятельные
+# репозитории ("owner/name") — API отдаёт по ним 404. Родительский монорепо
+# modelcontextprotocol/servers уже есть в списке выше и покрывает все три сервера.
 
 - repo: microsoft/playwright-mcp
   category: mcp-browser
