@@ -30,8 +30,8 @@ const tools = [
 ];
 
 const prompts = [
-  { id: 1, slug: "code-review-strict", category: "review", title: "Строгий код-ревью", body: "Проверь этот diff на баги, забытые edge-cases и небезопасный код...", comment: "Перед мержем в main", copies_count: 142 },
-  { id: 2, slug: "ru-en-compress", category: "translate", title: "RU→EN компрессия контекста", body: "Переведи системные инструкции на английский, сохранив смысл...", comment: "Экономия токенов в системном промпте", copies_count: 98 },
+  { id: 1, slug: "code-review-strict", category: "review/pr-review", title: "Строгий код-ревью", body: "Проверь этот diff на баги, забытые edge-cases и небезопасный код...", comment: "Перед мержем в main", copies_count: 142 },
+  { id: 2, slug: "ru-en-compress", category: "content/compress", title: "RU→EN компрессия контекста", body: "Переведи системные инструкции на английский, сохранив смысл...", comment: "Экономия токенов в системном промпте", copies_count: 98 },
 ];
 
 

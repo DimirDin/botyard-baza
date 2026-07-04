@@ -1,26 +1,39 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
+import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { Toast } from "../components/Toast";
+import { PROMPTS_MENU } from "../config/menu";
 import { api } from "../lib/api";
 import { hapticSuccess } from "../lib/telegram";
 
 export function PromptsListScreen() {
-  const [prompts, setPrompts] = useState(null);
+  const [tab, setTab] = useState("code");
+  const [group, setGroup] = useState(null); // null = список групп
+  const [prompts, setPrompts] = useState(null); // все промпты (одним запросом)
   const [error, setError] = useState(false);
-  const [category, setCategory] = useState(null);
   const [toast, setToast] = useState(null); // { message, error }
 
   const load = () => {
     setError(false);
     setPrompts(null);
-    api.prompts(category).then(setPrompts).catch(() => setError(true));
+    api.prompts().then(setPrompts).catch(() => setError(true));
   };
 
-  useEffect(load, [category]);
+  useEffect(load, []);
+  useEffect(() => setGroup(null), [tab]);
 
-  const categories = prompts ? [...new Set(prompts.map((p) => p.category))] : [];
+  const section = PROMPTS_MENU.find((s) => s.slug === tab);
+  const counts = prompts
+    ? prompts.reduce((acc, p) => {
+        const [cTab, cGroup] = (p.category || "").split("/");
+        if (cTab === tab && cGroup) acc[cGroup] = (acc[cGroup] || 0) + 1;
+        return acc;
+      }, {})
+    : null;
+  const groupPrompts = group && prompts ? prompts.filter((p) => p.category === `${tab}/${group}`) : [];
+  const groupLabel = section?.groups.find((g) => g.slug === group)?.label;
 
   const handleCopy = async (p) => {
     try {
@@ -37,47 +50,51 @@ export function PromptsListScreen() {
 
   return (
     <>
-      <PromptLine section="prompts" />
+      <PromptLine
+        section={group ? `prompts/${tab}/${group}` : `prompts/${tab}`}
+        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : null}
+      />
+      {!group && <SectionTabs menu={PROMPTS_MENU} active={tab} onSelect={setTab} iconBase="/icons/prompts" />}
       <div className="page">
-        {categories.length > 0 && (
-          <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-            <div className={`chip ${!category ? "chip--active" : ""}`} onClick={() => setCategory(null)}>все</div>
-            {categories.map((c) => (
-              <div key={c} className={`chip ${category === c ? "chip--active" : ""}`} onClick={() => setCategory(c)}>
-                {c}
-              </div>
-            ))}
-          </div>
-        )}
-
         {error && <ErrorState onRetry={load} />}
         {!error && !prompts && <Spinner />}
-        {prompts && prompts.length === 0 && <EmptyState />}
 
-        {prompts?.map((p) => (
-          <div key={p.slug} className="card">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-              <p className="card__title" style={{ margin: 0 }}>{p.title}</p>
-              <FavStar itemType="prompt" itemId={p.id} />
-            </div>
-            {p.comment && <p className="card__meta">{p.comment}</p>}
-            <p style={{ color: "var(--text-body)", fontSize: 13, margin: "8px 0", whiteSpace: "pre-wrap" }}>
-              {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
+        {prompts && !group && (
+          <GroupList groups={section.groups} counts={counts} onOpen={setGroup} iconBase={`/icons/prompts/${tab}`} />
+        )}
+
+        {group && (
+          <>
+            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 13, marginTop: 0 }}>
+              {groupLabel} ({groupPrompts.length})
             </p>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span className="card__meta">{p.copies_count} копирований</span>
-              <button
-                onClick={() => handleCopy(p)}
-                style={{
-                  background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
-                  padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600,
-                }}
-              >
-                скопировать
-              </button>
-            </div>
-          </div>
-        ))}
+            {groupPrompts.length === 0 && <EmptyState />}
+            {groupPrompts.map((p) => (
+              <div key={p.slug} className="card">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                  <p className="card__title" style={{ margin: 0 }}>{p.title}</p>
+                  <FavStar itemType="prompt" itemId={p.id} />
+                </div>
+                {p.comment && <p className="card__meta">{p.comment}</p>}
+                <p style={{ color: "var(--text-body)", fontSize: 13, margin: "8px 0", whiteSpace: "pre-wrap" }}>
+                  {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
+                </p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span className="card__meta">{p.copies_count} копирований</span>
+                  <button
+                    onClick={() => handleCopy(p)}
+                    style={{
+                      background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
+                      padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600,
+                    }}
+                  >
+                    скопировать
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
       <Toast message={toast?.message} error={toast?.error} onDone={() => setToast(null)} />
     </>

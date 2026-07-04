@@ -4,199 +4,199 @@
 # а описание объёма будущей работы; они НЕ включены как есть, дописываются позже вручную.
 
 - slug: code-rev-race-conditions
-  category: code-review
+  category: review/logic
   title: "Проверка на race conditions и deadlock"
   body: "Проверь этот {язык} код на наличие race conditions и deadlock'ов при высокой конкурентной нагрузке."
   comment: "Для асинхронного или многопоточного кода перед продакшен-деплоем."
 
 - slug: code-rev-memory-leaks
-  category: code-review
+  category: review/performance
   title: "Поиск утечек памяти в асинхронном пайплайне"
   body: "Найди скрытые утечки памяти (memory leaks) в этом асинхронном пайплайне: {код}."
   comment: "Долгоживущие процессы, воркеры, боты с постоянной работой."
 
 - slug: code-rev-owasp-audit
-  category: code-review
+  category: review/security
   title: "Аудит эндпоинта на OWASP Top 10"
   body: "Проведи аудит безопасности этого эндпоинта на уязвимости OWASP Top 10 (SQL-injection, XSS, CSRF)."
   comment: "Перед выкаткой публичного API."
 
 - slug: code-rev-big-o
-  category: code-review
+  category: review/performance
   title: "Оценка сложности алгоритма"
   body: "Оцени этот алгоритм по нотации Big O. Предложи оптимизацию для снижения сложности по времени."
   comment: "Для узких мест, найденных в профилировании."
 
 - slug: code-rev-pr-review
-  category: code-review
+  category: review/pr-review
   title: "Жёсткое ревью пулл-реквеста"
   body: "Сделай жёсткое ревью этого пулл-реквеста. Пиши как суровый лид, укажи на code smells без реверансов."
   comment: "Замена первого прохода human-ревьюера."
 
 - slug: code-rev-bola-idor
-  category: code-review
+  category: review/security
   title: "Проверка middleware на BOLA/IDOR"
   body: "Проверь этот middleware авторизации на логические ошибки обхода доступов (BOLA/IDOR)."
   comment: "Для эндпоинтов с проверкой владения ресурсом."
 
 - slug: refactor-strategy-pattern
-  category: refactoring
+  category: code/refactor
   title: "Замена if/else на паттерн Стратегия"
   body: "Перепиши этот монолитный кусок кода на паттерн «Стратегия», чтобы избавиться от бесконечных if/else."
   comment: "Когда ветвление логики разрослось за пределы читаемости."
 
 - slug: refactor-sync-to-async
-  category: refactoring
+  category: code/refactor
   title: "Перевод синхронного кода на async/await"
   body: "Переведи этот синхронный код {язык} на асинхронные рельсы с использованием async/await."
   comment: "Миграция под нагрузку, которую синхронный код не тянет."
 
 - slug: refactor-loop-optimization
-  category: refactoring
+  category: code/refactor
   title: "Оптимизация цикла: аллокации и вложенность"
   body: "Оптимизируй этот цикл: уменьши количество аллокаций памяти и вложенных итераций."
   comment: "Точечная оптимизация горячего пути после профилирования."
 
 - slug: refactor-god-object
-  category: refactoring
+  category: code/refactor
   title: "Декомпозиция God Object"
   body: "Декомпозируй этот 'божественный объект' на несколько сфокусированных классов по принципу единственной ответственности."
   comment: "Когда один файл делает слишком много несвязанных вещей."
 
 - slug: devops-multistage-dockerfile
-  category: devops
+  category: ops/docker
   title: "Multi-stage Dockerfile"
   body: "Напиши многоэтапный (multi-stage) Dockerfile для {стек}, минимизирующий размер финального образа."
   comment: "Базовый шаг перед любым продакшен-деплоем в контейнерах."
 
 - slug: devops-compose-production
-  category: devops
+  category: ops/docker
   title: "Production-ready docker-compose"
   body: "Создай production-ready docker-compose.yml со связкой приложения, Postgres, Redis и Caddy как прокси."
   comment: "Отправная точка для нового сервиса на VPS-платформе."
 
 - slug: devops-ansible-hardening
-  category: devops
+  category: ops/terraform
   title: "Ansible-плейбук для hardening сервера"
   body: "Напиши плейбук Ansible для базовой настройки голого Ubuntu-сервера: создание непривилегированного пользователя, SSH по ключам, UFW firewall, fail2ban."
   comment: "Перед вводом нового VPS в прод."
 
 - slug: devops-github-actions-deploy
-  category: devops
+  category: ops/ci-cd
   title: "GitHub Actions деплой по тегу релиза"
   body: "Создай конфиг GitHub Actions для автоматического деплоя приложения на удалённый сервер через SSH по тегу релиза."
   comment: "Для self-hosted runner паттерна."
 
 - slug: docs-readme
-  category: documentation
+  category: docs/readme
   title: "README с Quick Start и архитектурой"
   body: "Напиши исчерпывающий README.md для этого репозитория: разделы Quick Start, Architecture, Contributing."
   comment: "Перед публикацией репозитория или передачей проекта."
 
 - slug: docs-openapi-spec
-  category: documentation
+  category: docs/api-docs
   title: "Генерация OpenAPI 3.0 спецификации"
   body: "Сгенерируй спецификацию OpenAPI 3.0 в формате YAML на основе этого контроллера бэкенда."
   comment: "Синхронизация кода и контракта API."
 
 - slug: docs-mermaid-architecture
-  category: documentation
+  category: docs/readme
   title: "Диаграмма архитектуры в Mermaid"
   body: "Опиши архитектуру этого модуля в виде диаграммы Mermaid.js (sequence diagram)."
   comment: "Для README и онбординга новых участников."
 
 - slug: compress-ru-task-to-en-prompt
-  category: ru-en-compression
+  category: content/compress
   title: "Сжатие RU-задачи в системный промпт на EN"
   body: "Сожми это длинное русское описание задачи в ультра-плотный системный промпт на английском с XML-разметкой."
   comment: "Ключевой приём канала: внутренний каркас — на английском, экономия токенов."
 
 - slug: compress-bug-report
-  category: ru-en-compression
+  category: content/structure
   title: "Баг-репорт в формат Context/Steps/Expected/Actual"
   body: "Переведи этот баг-репорт на английский язык, упаковав его в формат Context / Steps / Expected / Actual для Claude Code."
   comment: "Ускоряет дебаг: агент читает EN-структуру быстрее и дешевле, чем RU-прозу."
 
 - slug: compress-spec-3x
-  category: ru-en-compression
+  category: content/compress
   title: "Сжатие спецификации в 3 раза"
   body: "Ужми эту техническую спецификацию в 3 раза по токенам без потери ключевых ограничений и типов данных."
   comment: "Перед заливкой в Project Knowledge с ограниченным лимитом."
 
 - slug: mkt-viral-post-wired-style
-  category: content
+  category: content/expand
   title: "Виральный пост в стиле WIRED"
   body: "Напиши виральный пост для Telegram-канала про запуск нового AI-инструмента в стиле WIRED — смело, экспертно, без штампов и вводных фраз."
   comment: "Формат канала «без воды»."
 
 - slug: mkt-content-plan
-  category: content
+  category: content/structure
   title: "Контент-план из 10 технических тем"
   body: "Создай контент-план из 10 глубоких технических тем для привлечения DevOps/QA аудитории в блог."
   comment: "Планирование на месяц вперёд."
 
 - slug: dev-tma-webapp-hook
-  category: dev-telegram
+  category: code/generate
   title: "React-хук инициализации Telegram WebApp"
   body: "Напиши React-хук для инициализации Telegram WebApp SDK и безопасной валидации initData на бэкенде (HMAC-SHA256)."
   comment: "Обязательный первый шаг для любого нового Mini App."
 
 - slug: dev-tma-fsm-router
-  category: dev-telegram
+  category: code/generate
   title: "FSM-роутер для Telegram-бота"
   body: "Напиши роутер для Telegram-бота на aiogram 3, поддерживающий вложенные State Machines (FSM)."
   comment: "Для многошаговых диалогов бота."
 
 - slug: dev-tma-stars-invoice
-  category: dev-telegram
+  category: code/generate
   title: "Инвойс на Telegram Stars"
   body: "Создай шаблон инвойса для Telegram Stars: генерация платёжной ссылки и обработка pre_checkout_query."
   comment: "Монетизация Mini App через встроенные платежи Telegram."
 
 - slug: sql-explain-analyze
-  category: database
+  category: code/refactor
   title: "Оптимизация запроса через EXPLAIN ANALYZE"
   body: "Оптимизируй этот медленный SQL-запрос, используя анализ плана выполнения (EXPLAIN ANALYZE): {запрос}."
   comment: "Точка входа для любой проблемы производительности БД."
 
 - slug: sql-migration-concurrent-index
-  category: database
+  category: code/generate
   title: "Индекс на лету без блокировки"
   body: "Напиши миграцию БД для добавления индекса на лету (CONCURRENTLY) на таблицу с миллионами строк без блокировки записи."
   comment: "Для прод-таблиц, где downtime недопустим."
 
 - slug: sql-window-functions
-  category: database
+  category: code/generate
   title: "Оконные функции для когортного анализа"
   body: "Создай сложный оконный запрос (window functions) для расчёта скользящего среднего и когортного анализа."
   comment: "Аналитика поверх продуктовых метрик."
 
 - slug: game-fsm-platformer
-  category: gamedev
+  category: code/generate
   title: "FSM движения персонажа 2D-платформера"
   body: "Напиши конечный автомат (FSM) движения персонажа 2D-платформера на GDScript для Godot."
   comment: "Базовая механика движения/прыжка/приземления."
 
 - slug: game-camera-lerp
-  category: gamedev
+  category: code/generate
   title: "Сглаживание движения камеры"
   body: "Реализуй алгоритм сглаживания движения камеры (camera lerp) с учётом границ кадра в 2D."
   comment: "position = position.lerp(target_position, camera_speed * delta)."
 
 - slug: cs-debug-docker-postgres
-  category: scenario
+  category: code/debug
   title: "Кейс: дебаг упавшего Docker-контейнера БД"
   body: "Прочитай логи контейнера базы данных через Docker MCP, найди причину падения (например ошибку монтирования volumes), поправь docker-compose.yml и перезапусти стек."
   comment: "Сценарий связки Claude Code + Docker MCP."
 
 - slug: cs-tma-localization-batch
-  category: scenario
+  category: content/translate
   title: "Кейс: локализация Mini App через Batch API"
   body: "Собери JSONL-пакет с i18n-строками текущей RU-версии приложения для перевода на 5 языков и отправь через Batch API для получения скидки 50%."
   comment: "Экономичный способ массового перевода строк интерфейса."
 
 - slug: cs-postgres-partitioning
-  category: scenario
+  category: code/architect
   title: "Кейс: партиционирование таблицы без downtime"
   body: "Напиши SQL-миграцию, которая партиционирует таблицу на миллионы строк по месяцам, используя CONCURRENTLY-индексы, без блокировки записи."
   comment: "Для таблиц логов/событий, разросшихся сверх разумного."

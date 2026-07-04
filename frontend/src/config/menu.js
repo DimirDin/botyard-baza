@@ -52,6 +52,66 @@ export const BASE_MENU = [
   },
 ];
 
+// Промпты сгруппированы по действию («что делаю»), не по теме — разработчик думает
+// «мне нужно сгенерировать / поревьюить / написать доку», а не «промпт про API».
+export const PROMPTS_MENU = [
+  {
+    slug: "code",
+    label: "code",
+    groups: [
+      { slug: "generate", label: "Generate" },
+      { slug: "refactor", label: "Refactor" },
+      { slug: "debug", label: "Debug" },
+      { slug: "migrate", label: "Migrate" },
+      { slug: "architect", label: "Architect" },
+    ],
+  },
+  {
+    slug: "review",
+    label: "review",
+    groups: [
+      { slug: "pr-review", label: "PR Review" },
+      { slug: "security", label: "Security" },
+      { slug: "performance", label: "Performance" },
+      { slug: "style", label: "Style" },
+      { slug: "logic", label: "Logic" },
+    ],
+  },
+  {
+    slug: "docs",
+    label: "docs",
+    groups: [
+      { slug: "readme", label: "README" },
+      { slug: "api-docs", label: "API Docs" },
+      { slug: "comments", label: "Comments" },
+      { slug: "changelog", label: "Changelog" },
+      { slug: "onboarding", label: "Onboarding" },
+    ],
+  },
+  {
+    slug: "ops",
+    label: "ops",
+    groups: [
+      { slug: "bash", label: "Bash" },
+      { slug: "docker", label: "Docker" },
+      { slug: "ci-cd", label: "CI/CD" },
+      { slug: "terraform", label: "Terraform" },
+      { slug: "k8s", label: "K8s" },
+    ],
+  },
+  {
+    slug: "content",
+    label: "content",
+    groups: [
+      { slug: "compress", label: "Compress" },
+      { slug: "expand", label: "Expand" },
+      { slug: "rewrite", label: "Rewrite" },
+      { slug: "translate", label: "Translate" },
+      { slug: "structure", label: "Structure" },
+    ],
+  },
+];
+
 export const TOOLS_MENU = [
   {
     slug: "mcp",
