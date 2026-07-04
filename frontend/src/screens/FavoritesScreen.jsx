@@ -6,7 +6,7 @@ import { api } from "../lib/api";
 
 const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡" };
 
-export function FavoritesScreen({ onOpenEntry }) {
+export function FavoritesScreen({ onOpenEntry, onOpenTool }) {
   const [items, setItems] = useState(null);
   const [error, setError] = useState(false);
 
@@ -20,7 +20,7 @@ export function FavoritesScreen({ onOpenEntry }) {
 
   const openItem = (item) => {
     if (item.item_type === "entry" && item.entry_slug) onOpenEntry(item.entry_slug);
-    if (item.item_type === "tool" && item.tool_repo) window.open(`https://github.com/${item.tool_repo}`, "_blank");
+    if (item.item_type === "tool" && item.tool_repo) onOpenTool(item.tool_repo.replace("/", "__"));
   };
 
   return (

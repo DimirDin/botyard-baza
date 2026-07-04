@@ -12,7 +12,7 @@ const SORTS = [
   { id: "new", label: "новое" },
 ];
 
-export function ToolsListScreen() {
+export function ToolsListScreen({ onOpenTool }) {
   const [tab, setTab] = useState("mcp");
   const [group, setGroup] = useState(null);
   const [sort, setSort] = useState("stars");
@@ -76,7 +76,12 @@ export function ToolsListScreen() {
             {!groupTools && <Spinner />}
             {groupTools && groupTools.length === 0 && <EmptyState text="в этой группе пока пусто" />}
             {groupTools?.map((t) => (
-              <a key={t.repo} className="card" href={`https://github.com/${t.repo}`} target="_blank" rel="noreferrer" style={{ display: "block", textDecoration: "none" }}>
+              <div
+                key={t.repo}
+                className="card"
+                onClick={() => onOpenTool(t.repo.replace("/", "__"))}
+                style={{ cursor: "pointer" }}
+              >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
                   <p className="card__title">{t.name}</p>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -89,7 +94,7 @@ export function ToolsListScreen() {
                   ⭐ {t.stars} {t.trending_delta > 0 && <span style={{ color: "var(--seg-what)" }}>▲ {t.trending_delta}</span>}
                   {t.archived && <span style={{ color: "var(--seg-gotcha)", marginLeft: 8 }}>⚠ архивирован</span>}
                 </p>
-              </a>
+              </div>
             ))}
           </>
         )}

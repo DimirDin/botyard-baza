@@ -25,8 +25,18 @@ const entryBody = {
 };
 
 const tools = [
-  { id: 1, repo: "anthropics/claude-code", name: "claude-code", category: "apps/desktop", description_ru: "Официальный CLI-агент для разработки в терминале.", badge: "editors_choice", stars: 15234, trending_delta: 320, archived: false },
-  { id: 2, repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp/servers", description_ru: "MCP-сервер для доступа к файловой системе.", badge: null, stars: 890, trending_delta: 12, archived: false },
+  {
+    id: 1, repo: "anthropics/claude-code", name: "claude-code", category: "apps/desktop",
+    description_ru: "Официальный CLI-агент для разработки в терминале.", badge: "editors_choice",
+    stars: 15234, trending_delta: 320, archived: false,
+    body_md:
+      "### ❓ Что это\nОфициальный CLI-агент Anthropic для автономной разработки в терминале.\n\n" +
+      "### 🎯 Для чего\nАвтоматизация рефакторинга, тестов и рутинных задач прямо в репозитории.\n\n" +
+      "### 💻 Как установить\n```bash\nnpm install -g @anthropic-ai/claude-code\n```\n\n" +
+      "### 🚀 Как пользоваться\n```bash\nclaude\n```\n\n" +
+      "### ⚠️ Грабли\nПервый запуск требует авторизации через браузер.",
+  },
+  { id: 2, repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp/servers", description_ru: "MCP-сервер для доступа к файловой системе.", badge: null, stars: 890, trending_delta: 12, archived: false, body_md: null },
 ];
 
 const prompts = [
@@ -51,6 +61,10 @@ export async function mockFetch(path, options = {}) {
   if (path === "/home") {
     return {
       counts: { entries_count: 30, tools_count: 18, prompts_count: 33 },
+      stats: {
+        entries_count: 30, tools_count: 44, prompts_count: 33,
+        total_copies: 1287, users_count: 512, subscribers: 2140,
+      },
       top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, copies_count: p.copies_count })),
       recent_entries: entries.map((e) => ({ slug: e.slug, title: e.title, updated_at: e.updated_at })),
     };
@@ -84,6 +98,10 @@ export async function mockFetch(path, options = {}) {
     return entries.filter((e) =>
       (!q.get("section") || e.section === q.get("section")) &&
       (!q.get("group") || e.group_slug === q.get("group")));
+  }
+  if (path.startsWith("/tools/")) {
+    const slug = path.slice("/tools/".length);
+    return tools.find((t) => t.repo.replace("/", "__") === slug) || {};
   }
   if (path.startsWith("/tools")) {
     const q = new URLSearchParams(path.split("?")[1] || "");

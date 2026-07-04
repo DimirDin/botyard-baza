@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS baza.tools (
     name            TEXT NOT NULL,
     category        TEXT NOT NULL,
     description_ru  TEXT NOT NULL,
+    body_md         TEXT,                  -- опционально: развёрнутая страница инструмента (§tools.yaml)
     badge           TEXT,
     stars           INT DEFAULT 0,
     stars_prev      INT DEFAULT 0,

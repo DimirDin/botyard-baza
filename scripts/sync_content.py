@@ -51,13 +51,13 @@ async def sync_tools(conn: asyncpg.Connection) -> int:
     for t in tools:
         await conn.execute(
             """
-            INSERT INTO baza.tools (repo, name, category, description_ru, badge, verify_status)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO baza.tools (repo, name, category, description_ru, body_md, badge, verify_status)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             ON CONFLICT (repo) DO UPDATE SET
-                category = $3, description_ru = $4, badge = $5, verify_status = $6
+                category = $3, description_ru = $4, body_md = $5, badge = $6, verify_status = $7
             """,
             t["repo"], t["repo"].split("/")[-1], t["category"],
-            t["description_ru"], t.get("badge"), t.get("verify_status", "check"),
+            t["description_ru"], t.get("body_md"), t.get("badge"), t.get("verify_status", "check"),
         )
         count += 1
     print("⚠️  tools залиты с published=false — включи вручную после github-синка звёзд/проверки 404")

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
+import { StatsBar } from "../components/StatsBar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 
@@ -23,6 +24,8 @@ export function HomeScreen({ onNavigate }) {
         {!error && !data && <Spinner />}
         {data && (
           <>
+            <StatsBar stats={data.stats} />
+
             <section style={{ marginBottom: 24 }}>
               <span className="segment-label segment-label--why">новое на неделе</span>
               {data.recent_entries.length === 0 && <p style={{ color: "var(--text-muted)" }}>пока пусто</p>}

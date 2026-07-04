@@ -3,10 +3,15 @@ import remarkGfm from "remark-gfm";
 
 // Заголовки в content/entries/*.md — эмодзи-префиксы. Оформление статей (§14)
 // требует заменить их на цветные powerline-лейблы, а не показывать как есть.
+// Инструменты (content/tools.yaml → body_md) используют свой набор заголовков
+// (Для чего / Как установить / Как пользоваться) — цвета переиспользуются те же (§13).
 const HEADER_MAP = [
   { match: "❓ Что это", label: "что это", cls: "segment-label--what" },
   { match: "🎯 Зачем тебе", label: "зачем тебе", cls: "segment-label--why" },
+  { match: "🎯 Для чего", label: "для чего", cls: "segment-label--why" },
   { match: "💻 Минимальный пример", label: "пример", cls: "segment-label--example" },
+  { match: "💻 Как установить", label: "как установить", cls: "segment-label--example" },
+  { match: "🚀 Как пользоваться", label: "как пользоваться", cls: "segment-label--example" },
   { match: "⚠️ Грабли", label: "грабли", cls: "segment-label--gotcha" },
   { match: "🔗 Первоисточник", label: "источник", cls: "segment-label--source" },
 ];

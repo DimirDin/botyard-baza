@@ -67,7 +67,27 @@ docker run --rm -v $(pwd)/frontend:/app -w /app node:22-alpine sh -c 'npm ci && 
 `/var/log/baza-stars-sync.log`. Первый прогон выполнен 2026-07-04: 15/15 published,
 4 битые записи `tools.yaml` исправлены/удалены (см. Changelog 1.1 PROJECT_CONTEXT).
 
-## 8. Проверка ✅
+## 9. Cron: синк числа подписчиков канала
+
+`scripts/sync_subscribers_count.py` — раз в час дёргает `getChatMemberCount(@claudedry)` и пишет
+результат в Redis `baza:stats:subscribers` (без TTL, перезаписывается каждым запуском). `/api/home`
+читает это значение, не ходит в Bot API синхронно на каждый заход в Mini App.
+
+```bash
+cat > /etc/cron.d/botyard-baza-subscribers <<'EOF'
+0 * * * * root cd /srv/apps/botyard-baza && export $(grep -E '^(BOT_TOKEN|REDIS_URL|CHANNEL_USERNAME)=' .env | xargs) && docker run --rm --network host -e BOT_TOKEN="$BOT_TOKEN" -e REDIS_URL="$REDIS_URL" -e CHANNEL_USERNAME="$CHANNEL_USERNAME" python:3.12-slim bash -c 'pip install --quiet redis && python scripts/sync_subscribers_count.py' >> /var/log/baza-subscribers-sync.log 2>&1
+EOF
+```
+
+Запуск вручную (не ждать начала часа):
+```bash
+ssh root@2.26.31.241
+cd /srv/apps/botyard-baza && export $(grep -E '^(BOT_TOKEN|REDIS_URL|CHANNEL_USERNAME)=' .env | xargs)
+docker run --rm --network host -e BOT_TOKEN="$BOT_TOKEN" -e REDIS_URL="$REDIS_URL" -e CHANNEL_USERNAME="$CHANNEL_USERNAME" \
+  python:3.12-slim bash -c 'pip install --quiet redis && python scripts/sync_subscribers_count.py'
+```
+
+## 10. Проверка ✅
 ```bash
 curl https://baza.botyard.site/health          # {"status": "ok"} — backend
 curl -sI https://baza.botyard.site/ | head -1  # 200 — frontend (index.html)

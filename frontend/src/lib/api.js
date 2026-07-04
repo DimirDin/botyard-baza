@@ -37,6 +37,7 @@ export const api = {
     const qs = params.toString();
     return request(`/tools${qs ? `?${qs}` : ""}`);
   },
+  tool: (slug) => request(`/tools/${slug}`),
   prompts: (category) => request(`/prompts${category ? `?category=${category}` : ""}`),
   copyPrompt: (slug) => request(`/prompts/${slug}/copy`, { method: "POST" }),
   search: (q) => request(`/search?q=${encodeURIComponent(q)}`),

@@ -6,6 +6,7 @@ import { HomeScreen } from "./screens/HomeScreen";
 import { EntriesListScreen } from "./screens/EntriesListScreen";
 import { EntryScreen } from "./screens/EntryScreen";
 import { ToolsListScreen } from "./screens/ToolsListScreen";
+import { ToolDetail } from "./screens/ToolDetail";
 import { PromptsListScreen } from "./screens/PromptsListScreen";
 import { CalculatorScreen } from "./screens/CalculatorScreen";
 import { CheatsheetsScreen } from "./screens/CheatsheetsScreen";
@@ -84,19 +85,25 @@ export default function App() {
   }
 
   const TABS = { base: "base", tools: "tools", prompts: "prompts", calc: "calc", search: "search" };
-  const activeTab = TABS[screen] || (screen === "entry" ? "base" : null);
+  const activeTab = TABS[screen] || (screen === "entry" ? "base" : screen === "tool" ? "tools" : null);
 
   return (
     <>
       {screen === "home" && <HomeScreen onNavigate={navigate} />}
       {screen === "base" && <EntriesListScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
       {screen === "entry" && <EntryScreen slug={screenParam} />}
-      {screen === "tools" && <ToolsListScreen />}
+      {screen === "tools" && <ToolsListScreen onOpenTool={(slug) => navigate("tool", slug)} />}
+      {screen === "tool" && <ToolDetail slug={screenParam} />}
       {screen === "prompts" && <PromptsListScreen />}
       {screen === "calc" && <CalculatorScreen />}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
       {screen === "cheatsheets" && <CheatsheetsScreen />}
-      {screen === "favorites" && <FavoritesScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
+      {screen === "favorites" && (
+        <FavoritesScreen
+          onOpenEntry={(slug) => navigate("entry", slug)}
+          onOpenTool={(slug) => navigate("tool", slug)}
+        />
+      )}
 
       <BottomNav active={activeTab} onSelect={(tab) => navigate(tab)} />
     </>
