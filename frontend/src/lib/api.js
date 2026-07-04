@@ -1,0 +1,48 @@
+import { getInitData } from "./telegram";
+import { mockFetch, USE_MOCK } from "./mock";
+
+const BASE = import.meta.env.VITE_API_BASE || "/api";
+
+async function request(path, options = {}) {
+  if (USE_MOCK) return mockFetch(path, options);
+
+  const res = await fetch(`${BASE}${path}`, {
+    ...options,
+    headers: {
+      "content-type": "application/json",
+      "x-telegram-init-data": getInitData(),
+      ...(options.headers || {}),
+    },
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    const err = new Error(body.detail ? JSON.stringify(body.detail) : `HTTP ${res.status}`);
+    err.status = res.status;
+    throw err;
+  }
+  return res.status === 204 ? null : res.json();
+}
+
+export const api = {
+  gateCheck: () => request("/gate/check", { method: "POST" }),
+  gateRecheck: () => request("/gate/recheck", { method: "POST" }),
+  home: () => request("/home"),
+  entries: (section) => request(`/entries${section ? `?section=${section}` : ""}`),
+  entry: (slug) => request(`/entries/${slug}`),
+  tools: (category, sort) => {
+    const params = new URLSearchParams();
+    if (category) params.set("category", category);
+    if (sort) params.set("sort", sort);
+    const qs = params.toString();
+    return request(`/tools${qs ? `?${qs}` : ""}`);
+  },
+  prompts: (category) => request(`/prompts${category ? `?category=${category}` : ""}`),
+  copyPrompt: (slug) => request(`/prompts/${slug}/copy`, { method: "POST" }),
+  search: (q) => request(`/search?q=${encodeURIComponent(q)}`),
+  calcTokens: (text, model) =>
+    request("/calc/tokens", { method: "POST", body: JSON.stringify({ text, model }) }),
+  toggleFavorite: (item_type, item_id) =>
+    request("/favorites/toggle", { method: "POST", body: JSON.stringify({ item_type, item_id }) }),
+  favorites: () => request("/favorites"),
+};

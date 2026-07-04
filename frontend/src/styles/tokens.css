@@ -1,0 +1,24 @@
+/* Дизайн-токены — §14 PROJECT_CONTEXT. Терминал в духе oh-my-zsh для хрома,
+   sans для тела статей. Не переносить эти токены в другие боты платформы —
+   бренд-исключение только для этого продукта (см. §3 PROJECT_CONTEXT). */
+:root {
+  --bg: #111110;
+  --text-heading: #F5F3EC;
+  --text-body: #d8d6cc;
+  --text-muted: #8a8a86;
+  --text-muted-dim: #5a5a56;
+  --accent: #d97757;
+
+  --seg-what: #6fcf97;
+  --seg-why: #5aa9e6;
+  --seg-example: #b98af0;
+  --seg-gotcha: #e0714f;
+  --seg-source: #5a5a56;
+  --error: #e05d44;
+
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --safe-top: env(safe-area-inset-top, 44px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
