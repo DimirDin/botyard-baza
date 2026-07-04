@@ -17,13 +17,22 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def start(message: Message):
+    # Шар-ссылки фронта используют сырой payload (t.me/bot?start=entry_slug):
+    # Main Mini App в BotFather не настроен, поэтому t.me/bot?startapp= не работает,
+    # deep link идёт через /start → кнопку web_app ниже. decode_payload оставлен
+    # для совместимости, если когда-то появятся base64-ссылки через create_start_link.
     payload = None
     parts = message.text.split(maxsplit=1)
     if len(parts) > 1:
+        raw = parts[1].strip()
         try:
-            payload = decode_payload(parts[1])
+            decoded = decode_payload(raw)
         except Exception:
-            payload = None
+            decoded = ""
+        # base64-декод сырого текста может «успешно» дать мусор — доверяем ему,
+        # только если результат похож на наш формат deep link (§16)
+        known = ("entry_", "tool_", "prompt_", "section_")
+        payload = decoded if decoded.startswith(known) else (raw if raw.startswith(known) else None)
 
     # deep link типа entry_{slug} / tool_{id} / prompt_{id} / section_{name} — см. §16
     app_url = f"{MINI_APP_URL}?startapp={payload}" if payload else MINI_APP_URL

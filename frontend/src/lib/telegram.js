@@ -11,7 +11,14 @@ export function getInitData() {
 }
 
 export function getStartParam() {
-  return tg?.initDataUnsafe?.start_param || null;
+  // start_param приходит только из Main Mini App (t.me/bot?startapp=...), который
+  // в BotFather не настроен. Наш рабочий путь — /start в боте → web_app-кнопка
+  // с ?startapp=... в URL, поэтому читаем и query-параметр как fallback.
+  return (
+    tg?.initDataUnsafe?.start_param ||
+    new URLSearchParams(window.location.search).get("startapp") ||
+    null
+  );
 }
 
 export function hapticSuccess() {
