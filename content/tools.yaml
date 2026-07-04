@@ -282,9 +282,9 @@
   badge: editors_choice
   verify_status: check
 
-- repo: modelcontextprotocol/mcp-agent
+- repo: lastmile-ai/mcp-agent
   category: agents/orchestration
-  description_ru: "Официальные паттерны Anthropic для построения агентов поверх MCP."
+  description_ru: "Компактный фреймворк для сборки агентов поверх MCP по паттернам из статьи Anthropic об building effective agents."
   badge: editors_choice
   verify_status: check
 
