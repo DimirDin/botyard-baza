@@ -75,15 +75,16 @@ docker run --rm -v $(pwd)/frontend:/app -w /app node:22-alpine sh -c 'npm ci && 
 
 ```bash
 cat > /etc/cron.d/botyard-baza-subscribers <<'EOF'
-0 * * * * root cd /srv/apps/botyard-baza && export $(grep -E '^(BOT_TOKEN|REDIS_URL|CHANNEL_USERNAME)=' .env | xargs) && docker run --rm --network host -e BOT_TOKEN="$BOT_TOKEN" -e REDIS_URL="$REDIS_URL" -e CHANNEL_USERNAME="$CHANNEL_USERNAME" python:3.12-slim bash -c 'pip install --quiet redis && python scripts/sync_subscribers_count.py' >> /var/log/baza-subscribers-sync.log 2>&1
+0 * * * * root cd /srv/apps/botyard-baza && export $(grep -E '^(BOT_TOKEN|REDIS_URL|CHANNEL_USERNAME)=' .env | xargs) && docker run --rm --network host -v /srv/apps/botyard-baza:/app -w /app -e BOT_TOKEN="$BOT_TOKEN" -e REDIS_URL="$REDIS_URL" -e CHANNEL_USERNAME="$CHANNEL_USERNAME" python:3.12-slim bash -c 'pip install --quiet redis && python scripts/sync_subscribers_count.py' >> /var/log/baza-subscribers-sync.log 2>&1
 EOF
+chmod 644 /etc/cron.d/botyard-baza-subscribers
 ```
 
 Запуск вручную (не ждать начала часа):
 ```bash
 ssh root@2.26.31.241
 cd /srv/apps/botyard-baza && export $(grep -E '^(BOT_TOKEN|REDIS_URL|CHANNEL_USERNAME)=' .env | xargs)
-docker run --rm --network host -e BOT_TOKEN="$BOT_TOKEN" -e REDIS_URL="$REDIS_URL" -e CHANNEL_USERNAME="$CHANNEL_USERNAME" \
+docker run --rm --network host -v $(pwd):/app -w /app -e BOT_TOKEN="$BOT_TOKEN" -e REDIS_URL="$REDIS_URL" -e CHANNEL_USERNAME="$CHANNEL_USERNAME" \
   python:3.12-slim bash -c 'pip install --quiet redis && python scripts/sync_subscribers_count.py'
 ```
 
