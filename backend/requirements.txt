@@ -5,8 +5,9 @@ redis==5.2.*
 pydantic-settings==2.6.*
 httpx==0.27.*
 tiktoken==0.8.*
-# Офлайн RU->EN перевод для EN-полосы калькулятора — тяжёлая опциональная зависимость,
-# модель ru->en (~200МБ) ставится через argospm при первом использовании. Если на проде
-# не поднимется (0.5 vCPU / 512MB backend) — app/services/translate.py деградирует
-# до отсутствия перевода, основной RU-подсчёт не затрагивается.
-argostranslate==1.9.*
+# argostranslate снят (пробовали для EN-полосы калькулятора) — тянет за собой полный
+# PyTorch + CUDA-библиотеки транзитивно (через stanza), образ раздувается до ~8ГБ,
+# на 0.5 vCPU / 512MB backend это риск уронить процесс OOM-killer'ом при первом же
+# переводе, не только для EN-бара — для всего бэкенда. app/services/translate.py
+# оставлен с graceful fallback (translate_ru_to_en всегда возвращает None, пока не
+# найдена лёгкая офлайн-альтернатива без torch), en_tokens в /api/calc/tokens = null.
