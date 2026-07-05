@@ -1307,7 +1307,7 @@
   badge:
   verify_status: check
   body_md: |
-    ![](/icons/tools/body/happy-header.png)
+    ![](/icons/tools/body/happy-logotype-dark.png)
 
     ### ❓ Что это
     **Happy** (бывший `happy-coder`) — мобильный и веб-клиент, который позволяет пользоваться **Claude Code** и **Codex** из любой точки с **end-to-end шифрованием**: код и переписка не покидают твои устройства в открытом виде. Состоит из четырёх частей: **Happy App** (веб + мобильный клиент на Expo), **Happy CLI** (обёртка для запуска Claude Code/Codex), **Happy Agent** (CLI для удалённого управления сессиями) и **Happy Server** (бэкенд шифрованной синхронизации).
