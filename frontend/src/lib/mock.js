@@ -65,7 +65,7 @@ export async function mockFetch(path, options = {}) {
         entries_count: 30, tools_count: 44, prompts_count: 33,
         total_copies: 1287, users_count: 512, subscribers: 2140,
       },
-      top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, copies_count: p.copies_count })),
+      top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, category: p.category, copies_count: p.copies_count })),
       recent_entries: entries.map((e) => ({ slug: e.slug, title: e.title, updated_at: e.updated_at })),
     };
   }

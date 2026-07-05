@@ -89,11 +89,18 @@ export default function App() {
   return (
     <>
       {screen === "home" && <HomeScreen onNavigate={navigate} />}
-      {screen === "base" && <EntriesListScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
+      {screen === "base" && (
+        <EntriesListScreen
+          initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
+          onOpenEntry={(slug) => navigate("entry", slug)}
+        />
+      )}
       {screen === "entry" && <EntryScreen slug={screenParam} onBack={history.length ? goBack : null} />}
       {screen === "tools" && <ToolsListScreen onOpenTool={(slug) => navigate("tool", slug)} />}
       {screen === "tool" && <ToolDetail slug={screenParam} onBack={history.length ? goBack : null} />}
-      {screen === "prompts" && <PromptsListScreen />}
+      {screen === "prompts" && (
+        <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} />
+      )}
       {screen === "calc" && <CalculatorScreen />}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
       {screen === "favorites" && (

@@ -40,7 +40,12 @@ export function HomeScreen({ onNavigate }) {
             <section style={{ marginBottom: 24 }}>
               <span className="segment-label segment-label--example">топ промптов</span>
               {data.top_prompts.map((p) => (
-                <div key={p.slug} className="card" onClick={() => onNavigate("prompts")} style={{ cursor: "pointer" }}>
+                <div
+                  key={p.slug}
+                  className="card"
+                  onClick={() => onNavigate("prompts", { category: p.category, slug: p.slug })}
+                  style={{ cursor: "pointer" }}
+                >
                   <p className="card__title">{p.title}</p>
                   <p className="card__meta">{p.copies_count} копирований</p>
                 </div>
@@ -51,7 +56,7 @@ export function HomeScreen({ onNavigate }) {
               <div className="chip" onClick={() => onNavigate("base")}>📚 {data.counts.entries_count} статей</div>
               <div className="chip" onClick={() => onNavigate("tools")}>🛠 {data.counts.tools_count} инструментов</div>
               <div className="chip" onClick={() => onNavigate("prompts")}>⚡ {data.counts.prompts_count} промптов</div>
-              <div className="chip" onClick={() => onNavigate("cheatsheets")}>📋 шпаргалки</div>
+              <div className="chip" onClick={() => onNavigate("base", { tab: "cheat" })}>📋 шпаргалки</div>
               <div className="chip" onClick={() => onNavigate("favorites")}>⭐ избранное</div>
             </section>
           </>

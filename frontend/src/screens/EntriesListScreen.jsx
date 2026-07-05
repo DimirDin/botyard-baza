@@ -7,8 +7,8 @@ import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { BASE_MENU } from "../config/menu";
 import { api } from "../lib/api";
 
-export function EntriesListScreen({ onOpenEntry }) {
-  const [tab, setTab] = useState("code");
+export function EntriesListScreen({ initial, onOpenEntry }) {
+  const [tab, setTab] = useState(() => initial?.tab || "code");
   const [group, setGroup] = useState(null); // null = список групп
   const [entries, setEntries] = useState(null); // все статьи секции
   const [error, setError] = useState(false);

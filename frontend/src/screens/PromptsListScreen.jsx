@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
@@ -8,12 +8,21 @@ import { PROMPTS_MENU } from "../config/menu";
 import { api } from "../lib/api";
 import { hapticSuccess } from "../lib/telegram";
 
-export function PromptsListScreen() {
-  const [tab, setTab] = useState("code");
-  const [group, setGroup] = useState(null); // null = список групп
+// initial — переход с конкретного промпта (например, «топ промптов» на Home):
+// { category: "content/compress", slug: "..." } сразу открывает нужную группу
+// и подсвечивает карточку, а не просто кидает на список групп раздела.
+export function PromptsListScreen({ initial } = {}) {
+  const [tab, setTab] = useState(() => initial?.category?.split("/")[0] || "code");
+  const [group, setGroup] = useState(() => initial?.category?.split("/")[1] || null);
   const [prompts, setPrompts] = useState(null); // все промпты (одним запросом)
   const [error, setError] = useState(false);
   const [toast, setToast] = useState(null); // { message, error }
+  const highlightSlug = initial?.slug;
+  const highlightRef = useRef(null);
+  // Сравнение со значением, а не одноразовый флаг — React 18 StrictMode вызывает
+  // эффект монтирования дважды в dev-режиме, одноразовый флаг «съедался» первым
+  // вызовом и второй уже сбрасывал group сразу после монтирования.
+  const prevTabRef = useRef(tab);
 
   const load = () => {
     setError(false);
@@ -22,7 +31,18 @@ export function PromptsListScreen() {
   };
 
   useEffect(load, []);
-  useEffect(() => setGroup(null), [tab]);
+  useEffect(() => {
+    if (prevTabRef.current !== tab) {
+      prevTabRef.current = tab;
+      setGroup(null);
+    }
+  }, [tab]);
+
+  useEffect(() => {
+    if (highlightSlug && highlightRef.current) {
+      highlightRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+  }, [prompts, highlightSlug]);
 
   const section = PROMPTS_MENU.find((s) => s.slug === tab);
   const counts = prompts
@@ -70,7 +90,12 @@ export function PromptsListScreen() {
             </p>
             {groupPrompts.length === 0 && <EmptyState />}
             {groupPrompts.map((p) => (
-              <div key={p.slug} className="card">
+              <div
+                key={p.slug}
+                ref={p.slug === highlightSlug ? highlightRef : null}
+                className="card"
+                style={p.slug === highlightSlug ? { border: "1px solid var(--accent)" } : undefined}
+              >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
                   <p className="card__title" style={{ margin: 0 }}>{p.title}</p>
                   <FavStar itemType="prompt" itemId={p.id} />

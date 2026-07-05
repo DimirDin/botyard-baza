@@ -36,7 +36,7 @@ async def home():
     stats["subscribers"] = int(subscribers_raw) if subscribers_raw is not None else None
 
     top_prompts = await pool.fetch(
-        "SELECT slug, title, copies_count FROM baza.prompts WHERE published ORDER BY copies_count DESC LIMIT 3"
+        "SELECT slug, title, category, copies_count FROM baza.prompts WHERE published ORDER BY copies_count DESC LIMIT 3"
     )
     recent_entries = await pool.fetch(
         "SELECT slug, title, updated_at FROM baza.entries WHERE published ORDER BY updated_at DESC LIMIT 5"
