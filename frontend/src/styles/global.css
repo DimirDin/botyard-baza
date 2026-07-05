@@ -338,6 +338,15 @@ button {
   color: var(--text-body);
 }
 
+.article-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #26261f;
+  margin: 4px 0 16px;
+}
+
 .article-body pre, .article-body code {
   font-family: var(--font-mono);
   font-size: 14px;
