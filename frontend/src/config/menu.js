@@ -132,6 +132,7 @@ export const TOOLS_MENU = [
       { slug: "routers", label: "Routers", desc: "Маршрутизация запросов между агентами. Какой агент отвечает за какую задачу." },
       { slug: "monitoring", label: "Monitoring", desc: "Отслеживание использования Claude Code. Токены, время, стоимость по проектам." },
       { slug: "ci-cd", label: "CI/CD", desc: "Интеграция Claude Code в pipelines. Автоматический ревью, генерация тестов на push." },
+      { slug: "rules", label: "Rules", desc: "Конфиги правил для CLAUDE.md и подобных файлов. Готовые принципы против типичных багов LLM-кодинга." },
     ],
   },
   {
@@ -163,6 +164,7 @@ export const TOOLS_MENU = [
       { slug: "autonomous", label: "Autonomous", desc: "Системы, работающие без человека. Запустил — через час результат." },
       { slug: "multi-agent", label: "Multi-agent", desc: "Фреймворки для оркестрации нескольких агентов. Разделение ролей, коммуникация." },
       { slug: "orchestration", label: "Orchestration", desc: "Управление workflow агентов. DAG, состояния, ретраи, observability." },
+      { slug: "workflow", label: "Workflow", desc: "Методология и фреймворки процесса разработки с агентом. Brainstorm → план → TDD → сабагенты." },
     ],
   },
 ];
