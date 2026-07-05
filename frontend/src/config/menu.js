@@ -54,7 +54,7 @@ export const BASE_MENU = [
   // контент не меняется, тянется тем же /api/cheatsheets (см. EntriesListScreen).
   {
     slug: "cheat",
-    label: "шпоры",
+    label: "cheat",
     groups: [],
   },
 ];

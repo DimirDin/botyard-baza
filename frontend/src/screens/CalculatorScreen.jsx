@@ -85,7 +85,7 @@ export function CalculatorScreen() {
           rows={8}
           style={{
             width: "100%", background: "#1a1a18", color: "var(--text-heading)", border: "1px solid #26261f",
-            borderRadius: 6, padding: 12, fontFamily: "var(--font-sans)", fontSize: 15, resize: "vertical",
+            borderRadius: 6, padding: 12, fontFamily: "var(--font-sans)", fontSize: 16, resize: "vertical",
           }}
         />
 
