@@ -1877,6 +1877,57 @@
     (`mcp-agent[anthropic]`), базовая установка `pip install mcp-agent` его не включает, без явного
     указания провайдера агент не сможет обратиться к нужной модели.
 
+# --- Пачка от 2026-07-05: присланный список, проверен на существование и подмену форками ---
+# microsoft/playwright-mcp и wshobson/agents пропущены — уже есть в файле выше под другими метаданными.
+
+- repo: obra/superpowers
+  category: agents/workflow
+  description_ru: "Фреймворк навыков и методология разработки для Claude Code: brainstorming → план → TDD → саб-агенты. 170k+ звёзд."
+  badge: editors_choice
+  verify_status: known
+
+- repo: forrestchang/andrej-karpathy-skills
+  category: code/rules
+  description_ru: "Один файл CLAUDE.md — 4 принципа против типичных багов LLM-кодинга (по наблюдениям Andrej Karpathy). Оригинал, не путать с форками."
+  badge: null
+  verify_status: known
+
+- repo: yamadashy/repomix
+  category: libs/other
+  description_ru: "Упаковывает весь репозиторий в один AI-friendly файл (XML/MD/JSON) для скармливания в LLM. Есть MCP-сервер, Docker, GitHub Action."
+  badge: editors_choice
+  verify_status: known
+
+- repo: affaan-m/everything-claude-code
+  category: agents/workflow
+  description_ru: "Продакшн-конфиги (агенты, скиллы, хуки, команды) с хакатона Anthropic x Forum Ventures, 10+ месяцев обкатки в реальных проектах."
+  badge: null
+  verify_status: known
+
+- repo: smtg-ai/claude-squad
+  category: apps/web
+  description_ru: "Терминальное приложение — управляет несколькими AI-агентами (Claude Code, Codex, Gemini, Aider) параллельно, каждый в своём git worktree."
+  badge: null
+  verify_status: known
+
+- repo: nizos/tdd-guard
+  category: code/hooks
+  description_ru: "Хуки, принудительно включающие TDD в Claude Code — блокирует реализацию без падающего теста и избыточный код сверх требований."
+  badge: null
+  verify_status: known
+
+- repo: letta-ai/claude-subconscious
+  category: agents/autonomous
+  description_ru: "Фоновый агент поверх Claude Code с постоянной памятью между сессиями — наблюдает за транскриптами, копит контекст, подсказывает."
+  badge: null
+  verify_status: known
+
+- repo: hesreallyhim/awesome-claude-code
+  category: libs/other
+  description_ru: "Курируемый awesome-список: скиллы, хуки, слэш-команды, статус-лайны, плагины для Claude Code. 47k+ звёзд, активно обновляется."
+  badge: editors_choice
+  verify_status: known
+
 # --- Раздел ожидает пополнения из блока A CONTENT_CHECKLIST.md ---
 # Дальнейшие записи до целевых ~50 добавляются после присылки твоих ссылок
 # (те, которыми ты реально пользовался — приоритет на бейдж editors_choice)
