@@ -120,7 +120,26 @@ export async function mockFetch(path, options = {}) {
   if (path.startsWith("/calc/tokens")) {
     const body = JSON.parse(options.body || "{}");
     const tokens = Math.round((body.text || "").length / 3.2);
-    return { tokens, approx: true, tokenizer_note: "Оценка через tiktoken — не официальный токенайзер Claude.", cost_estimate_usd: +(tokens / 1_000_000 * 3).toFixed(6), model_tokenizer_note: null };
+    const contextWindow = body.model === "claude-haiku-4-5" ? 200_000 : 1_000_000;
+    // В моке EN стабильно ~35% дешевле по токенам — имитирует эффект кириллицы для превью,
+    // реальный расчёт — через argostranslate на бэкенде (см. app/services/translate.py).
+    const enTokens = Math.round(tokens / 1.35);
+    const priceStandard = +(tokens / 1_000_000 * 3).toFixed(6);
+    return {
+      tokens,
+      approx: true,
+      tokenizer_note: "Оценка через tiktoken — не официальный токенайзер Claude.",
+      cost_estimate_usd: priceStandard,
+      price_standard: priceStandard,
+      price_with_caching: +(priceStandard * 0.1).toFixed(6),
+      price_with_batch: +(priceStandard * 0.5).toFixed(6),
+      model_tokenizer_note: null,
+      context_window: contextWindow,
+      ru_context_pct: +(tokens / contextWindow * 100).toFixed(2),
+      en_tokens: tokens > 0 ? enTokens : null,
+      en_context_pct: tokens > 0 ? +(enTokens / contextWindow * 100).toFixed(2) : null,
+      ru_vs_en_delta_pct: tokens > 0 ? Math.round((tokens - enTokens) / enTokens * 100) : null,
+    };
   }
   return {};
 }

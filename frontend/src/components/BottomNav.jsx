@@ -3,11 +3,10 @@ const ICON_VERSION = Date.now();
 
 const ITEMS = [
   { id: "base", icon: "/icons/footer/base.png", label: "База" },
-  { id: "tools", icon: "/icons/footer/tools.png", label: "Инстр." },
+  { id: "tools", icon: "/icons/footer/tools.png", label: "Софт" },
   { id: "prompts", icon: "/icons/footer/prompts.png", label: "Промпты" },
-  { id: "calc", icon: "/icons/footer/calc.png", label: "Калькул." },
-  { id: "cheatsheets", emoji: "📋", label: "Шпарг." },
-  { id: "search", icon: "/icons/footer/search.png", label: "Поиск" },
+  { id: "calc", icon: "/icons/footer/calc.png", label: "Счёт" },
+  { id: "favorites", icon: "/icons/footer/favorites.png", label: "Моё" },
 ];
 
 export function BottomNav({ active, onSelect }) {

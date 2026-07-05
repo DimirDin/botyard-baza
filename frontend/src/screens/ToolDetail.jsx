@@ -5,7 +5,7 @@ import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 
-export function ToolDetail({ slug }) {
+export function ToolDetail({ slug, onBack }) {
   const [tool, setTool] = useState(null);
   const [error, setError] = useState(false);
 
@@ -19,7 +19,10 @@ export function ToolDetail({ slug }) {
 
   return (
     <>
-      <PromptLine section={tool ? `tools/${tool.repo}` : "tools"} />
+      <PromptLine
+        section={tool ? `tools/${tool.repo}` : "tools"}
+        right={onBack ? <span onClick={onBack} style={{ cursor: "pointer" }}>✗ назад</span> : null}
+      />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !tool && <Spinner />}
@@ -30,8 +33,10 @@ export function ToolDetail({ slug }) {
               <span style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
                 {tool.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
                 <span className="card__meta">⭐ {tool.stars}</span>
-                <FavStar itemType="tool" itemId={tool.id} />
               </span>
+            </div>
+            <div style={{ marginTop: 8, marginBottom: 4 }}>
+              <FavStar itemType="tool" itemId={tool.id} />
             </div>
 
             {tool.body_md ? (

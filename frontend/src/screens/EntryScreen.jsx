@@ -6,7 +6,7 @@ import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { shareLink } from "../lib/telegram";
 
-export function EntryScreen({ slug }) {
+export function EntryScreen({ slug, onBack }) {
   const [entry, setEntry] = useState(null);
   const [error, setError] = useState(false);
 
@@ -22,7 +22,12 @@ export function EntryScreen({ slug }) {
     <>
       <PromptLine
         section="base"
-        right={entry ? <span>обновлено {entry.updated_at?.slice(0, 10)}</span> : null}
+        right={
+          <span style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            {entry && <span style={{ color: "var(--text-muted-dim)" }}>обновлено {entry.updated_at?.slice(0, 10)}</span>}
+            {onBack && <span onClick={onBack} style={{ cursor: "pointer" }}>✗ назад</span>}
+          </span>
+        }
       />
       <div className="page">
         {error && <ErrorState onRetry={load} />}

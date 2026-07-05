@@ -102,6 +102,36 @@ button {
   color: #111110;
 }
 
+/* ---- кнопка «в избранное» — отдельная от GitHub ⭐-рейтинга, не звёздочка-иконка ---- */
+
+.fav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  background: transparent;
+  border: 1px solid #3a3a34;
+  color: var(--text-muted-dim);
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.fav-btn__star {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.fav-btn--active {
+  background: rgba(217, 119, 87, 0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .segment-label {
   display: inline-flex;
   align-items: center;

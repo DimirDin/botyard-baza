@@ -9,7 +9,6 @@ import { ToolsListScreen } from "./screens/ToolsListScreen";
 import { ToolDetail } from "./screens/ToolDetail";
 import { PromptsListScreen } from "./screens/PromptsListScreen";
 import { CalculatorScreen } from "./screens/CalculatorScreen";
-import { CheatsheetsScreen } from "./screens/CheatsheetsScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { SearchScreen } from "./screens/SearchScreen";
 import { api } from "./lib/api";
@@ -84,20 +83,19 @@ export default function App() {
     return <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />;
   }
 
-  const TABS = { base: "base", tools: "tools", prompts: "prompts", calc: "calc", cheatsheets: "cheatsheets", search: "search" };
+  const TABS = { base: "base", tools: "tools", prompts: "prompts", calc: "calc", favorites: "favorites" };
   const activeTab = TABS[screen] || (screen === "entry" ? "base" : screen === "tool" ? "tools" : null);
 
   return (
     <>
       {screen === "home" && <HomeScreen onNavigate={navigate} />}
       {screen === "base" && <EntriesListScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
-      {screen === "entry" && <EntryScreen slug={screenParam} />}
+      {screen === "entry" && <EntryScreen slug={screenParam} onBack={history.length ? goBack : null} />}
       {screen === "tools" && <ToolsListScreen onOpenTool={(slug) => navigate("tool", slug)} />}
-      {screen === "tool" && <ToolDetail slug={screenParam} />}
+      {screen === "tool" && <ToolDetail slug={screenParam} onBack={history.length ? goBack : null} />}
       {screen === "prompts" && <PromptsListScreen />}
       {screen === "calc" && <CalculatorScreen />}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
-      {screen === "cheatsheets" && <CheatsheetsScreen />}
       {screen === "favorites" && (
         <FavoritesScreen
           onOpenEntry={(slug) => navigate("entry", slug)}

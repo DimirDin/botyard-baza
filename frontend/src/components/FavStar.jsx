@@ -7,18 +7,16 @@ export function FavStar({ itemType, itemId }) {
 
   return (
     <button
+      className={`fav-btn ${active ? "fav-btn--active" : ""}`}
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();
         toggleFavorite(itemType, itemId);
       }}
       aria-label={active ? "убрать из избранного" : "в избранное"}
-      style={{
-        background: "none", border: "none", cursor: "pointer", padding: "2px 6px",
-        fontSize: 18, color: active ? "var(--accent)" : "var(--text-muted-dim)", lineHeight: 1,
-      }}
     >
-      {active ? "★" : "☆"}
+      <span className="fav-btn__star">{active ? "★" : "☆"}</span>
+      <span>{active ? "в избранном" : "в избранное"}</span>
     </button>
   );
 }

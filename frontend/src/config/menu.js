@@ -50,6 +50,13 @@ export const BASE_MENU = [
       { slug: "agentic-patterns", label: "Agentic Patterns", desc: "Паттерны автономных агентов. ReAct, Chain-of-Thought, рефлексия, планирование." },
     ],
   },
+  // Раньше отдельный таб футера — перенесено сюда по требованию продукта,
+  // контент не меняется, тянется тем же /api/cheatsheets (см. EntriesListScreen).
+  {
+    slug: "cheat",
+    label: "шпоры",
+    groups: [],
+  },
 ];
 
 // Промпты сгруппированы по действию («что делаю»), не по теме — разработчик думает
