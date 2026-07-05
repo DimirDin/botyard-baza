@@ -37,7 +37,7 @@ export function SearchScreen({ onOpenEntry }) {
             placeholder="поиск по базе, инструментам, промптам..."
             style={{
               flex: 1, background: "transparent", border: "none", borderBottom: "1px solid #26261f",
-              color: "var(--text-heading)", fontFamily: "var(--font-mono)", fontSize: 15, padding: "6px 0",
+              color: "var(--text-heading)", fontFamily: "var(--font-mono)", fontSize: 16, padding: "6px 0",
               outline: "none",
             }}
           />

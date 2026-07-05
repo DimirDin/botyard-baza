@@ -84,7 +84,7 @@ export default function App() {
     return <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />;
   }
 
-  const TABS = { base: "base", tools: "tools", prompts: "prompts", calc: "calc", search: "search" };
+  const TABS = { base: "base", tools: "tools", prompts: "prompts", calc: "calc", cheatsheets: "cheatsheets", search: "search" };
   const activeTab = TABS[screen] || (screen === "entry" ? "base" : screen === "tool" ? "tools" : null);
 
   return (

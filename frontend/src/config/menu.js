@@ -110,6 +110,13 @@ export const PROMPTS_MENU = [
       { slug: "structure", label: "Structure", desc: "Промпты для структурирования. Оглавление, mind map, план статьи из хаоса идей." },
     ],
   },
+  {
+    slug: "steer",
+    label: "steer",
+    groups: [
+      { slug: "general", label: "General", desc: "Как скорректировать агента на середине работы, не переделывая всё с нуля." },
+    ],
+  },
 ];
 
 export const TOOLS_MENU = [
@@ -165,6 +172,7 @@ export const TOOLS_MENU = [
       { slug: "multi-agent", label: "Multi-agent", desc: "Фреймворки для оркестрации нескольких агентов. Разделение ролей, коммуникация." },
       { slug: "orchestration", label: "Orchestration", desc: "Управление workflow агентов. DAG, состояния, ретраи, observability." },
       { slug: "workflow", label: "Workflow", desc: "Методология и фреймворки процесса разработки с агентом. Brainstorm → план → TDD → сабагенты." },
+      { slug: "other", label: "Other", desc: "Разное, что не укладывается в остальные группы — нишевые skills-наборы, локализованные интеграции." },
     ],
   },
 ];

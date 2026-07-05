@@ -1934,3 +1934,51 @@
 
     ### ⚠️ Грабли
     Список курируется, но это не значит, что каждый проект проверен на security или сопровождается — авторы сами предупреждают, что часть "легаси"-записей больше не обновляется (они перенесены в `README_ALTERNATIVES` и заморожены). Перед установкой стороннего проекта из списка стоит самостоятельно проверить его README и активность репозитория.
+
+- repo: 1c-syntax/claude-code-bsl-lsp
+  category: code/rules
+  description_ru: "Плагин Claude Code, подключающий BSL Language Server как LSP для файлов .bsl и .os — диагностика ошибок, go to definition, автодополнение прямо в сессии."
+  badge: editors_choice
+  verify_status: known
+
+- repo: 1c-syntax/bsl-language-server
+  category: libs/other
+  description_ru: "Language Server Protocol для языка 1С (BSL) и OneScript — движок, на котором работает LSP-плагин для Claude Code. Живой проект, 3900+ issues/PR."
+  badge: null
+  verify_status: known
+
+- repo: Nikolay-Shirokov/cc-1c-skills
+  category: agents/other
+  description_ru: "Skills для полного цикла разработки на 1С:Предприятие 8.3 — обработки, отчёты, публикация на веб-сервере, тестирование через браузер. Версии на PowerShell и Python."
+  badge: null
+  verify_status: known
+
+- repo: Desko77/claude-code-skills-1c
+  category: agents/other
+  description_ru: "Альтернативный набор skills для 1С — 25 правил по стандартам кода BSL, антипаттернам, работе с БСП, плюс справочники API (в т.ч. ЗУП)."
+  badge: null
+  verify_status: known
+
+- repo: Arman-Kudaibergenov/1c-ai-development-kit
+  category: agents/other
+  description_ru: "Комплексный AI-тулкит для 1С — 74 skills, написан в первую очередь под Cursor, но подходит и Claude Code через .claude/skills."
+  badge: null
+  verify_status: known
+
+- repo: sfrangulov/claude-code-handbook-ru
+  category: libs/other
+  description_ru: "Курируемый handbook по Claude Code на русском языке — hooks, skills, шаблоны CLAUDE.md, переводы советов Бориса Черни (создателя Claude Code)."
+  badge: editors_choice
+  verify_status: known
+
+- repo: miolamio/claude-skills
+  category: agents/other
+  description_ru: "Skills для русского текста: переводчик EN→RU в три этапа, редактор по принципам Ильяхова (убирает канцелярит и AI-маркеры), проверка орфографии/пунктуации."
+  badge: null
+  verify_status: known
+
+- repo: artwist-polyakov/polyakov-claude-skills
+  category: agents/other
+  description_ru: "Плагины с интеграцией российских сервисов — Яндекс.Вебмастер, Яндекс.Метрика, Яндекс.Wordstat, публикация в Telegraph."
+  badge: null
+  verify_status: known

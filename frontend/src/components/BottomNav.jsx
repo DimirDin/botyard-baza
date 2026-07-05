@@ -6,6 +6,7 @@ const ITEMS = [
   { id: "tools", icon: "/icons/footer/tools.png", label: "Инстр." },
   { id: "prompts", icon: "/icons/footer/prompts.png", label: "Промпты" },
   { id: "calc", icon: "/icons/footer/calc.png", label: "Калькул." },
+  { id: "cheatsheets", emoji: "📋", label: "Шпарг." },
   { id: "search", icon: "/icons/footer/search.png", label: "Поиск" },
 ];
 
@@ -18,7 +19,11 @@ export function BottomNav({ active, onSelect }) {
           className={`bottom-nav__item ${active === item.id ? "bottom-nav__item--active" : ""}`}
           onClick={() => onSelect(item.id)}
         >
-          <img className="bottom-nav__png" src={`${item.icon}?v=${ICON_VERSION}`} alt="" />
+          {item.icon ? (
+            <img className="bottom-nav__png" src={`${item.icon}?v=${ICON_VERSION}`} alt="" />
+          ) : (
+            <span className="bottom-nav__icon">{item.emoji}</span>
+          )}
           <span>{item.label}</span>
         </button>
       ))}
