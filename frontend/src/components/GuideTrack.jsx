@@ -4,10 +4,13 @@ import { ArticleBody } from "./ArticleBody";
 import { Spinner, ErrorState, EmptyState } from "./States";
 import { GUIDE_MENU } from "../config/menu";
 import { api } from "../lib/api";
+import { shareLink } from "../lib/telegram";
 
 // Три вложенных вида внутри одного экрана, без отдельных App-уровневых screen — тот же
 // паттерн, что у шпаргалок в EntriesListScreen: список уровней -> уроки уровня -> тело урока.
-// `initial` — переход сразу на конкретный урок (карточка "продолжить" на Home), см. App.jsx.
+// `initial` — переход сразу на конкретный урок: карточка "продолжить" на Home (даёт level+slug)
+// или диплинк ?start=guide_{slug} от кнопки "поделиться" на самом уроке (даёт только slug,
+// level подтягиваем из списка уроков после его загрузки) — см. App.jsx.
 export function GuideTrack({ initial, onOpenEntry }) {
   const [lessons, setLessons] = useState(null); // все уроки, с полем completed
   const [error, setError] = useState(false);
@@ -23,9 +26,14 @@ export function GuideTrack({ initial, onOpenEntry }) {
 
   useEffect(load, []);
 
-  // Прыжок сразу в конкретный урок с Home ("продолжить"/"начать гид"), один раз после загрузки.
+  // Прыжок сразу в конкретный урок с Home или по диплинку, один раз после загрузки списка.
   useEffect(() => {
-    if (initial?.slug && lessons) openLesson(initial.slug);
+    if (!initial?.slug || !lessons) return;
+    if (!initial.level) {
+      const found = lessons.find((l) => l.slug === initial.slug);
+      if (found) setLevel(found.level);
+    }
+    openLesson(initial.slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lessons]);
 
@@ -92,7 +100,15 @@ export function GuideTrack({ initial, onOpenEntry }) {
           {lesson === "loading" && <Spinner />}
           {lesson !== "loading" && (
             <>
-              <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
+                <span
+                  onClick={() => shareLink(`https://t.me/bazadry_bot?start=guide_${lesson.slug}`, lesson.title)}
+                  style={{ cursor: "pointer", color: "var(--accent)", whiteSpace: "nowrap", fontFamily: "var(--font-mono)", fontSize: 13 }}
+                >
+                  ↗ поделиться
+                </span>
+              </div>
               <ArticleBody bodyMd={lesson.body_md} />
               {lesson.related_entry && onOpenEntry && (
                 <button

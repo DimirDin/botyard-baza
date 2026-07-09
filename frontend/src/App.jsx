@@ -24,7 +24,7 @@ function resolveStartParam(param) {
   if (type === "section") return { screen: "base" };
   if (type === "prompt") return { screen: "prompts" };
   if (type === "tool") return { screen: "tools" };
-  if (type === "guide") return { screen: "guide" };
+  if (type === "guide") return { screen: "guide", params: id ? { slug: id } : undefined };
   // "Калькулятор" убран из BottomNav, но экран и API остаются рабочими для прямых ссылок.
   if (type === "calc") return { screen: "calc" };
   return null;
