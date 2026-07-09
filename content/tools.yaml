@@ -1982,3 +1982,1349 @@
   description_ru: "Плагины с интеграцией российских сервисов — Яндекс.Вебмастер, Яндекс.Метрика, Яндекс.Wordstat, публикация в Telegraph."
   badge: null
   verify_status: known
+
+# --- добавлено: проверенные через GitHub API репозитории (группы A/C), body_md по реальным README ---
+
+- repo: anthropics/anthropic-sdk-typescript
+  category: libs/javascript
+  description_ru: "Официальная TypeScript/JavaScript-библиотека Anthropic для работы с Claude API из Node.js, Deno, Bun и edge-рантаймов — база для любого серверного интеграционного проекта."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/.github/logo.svg)
+
+    ### ❓ Что это
+    **Claude SDK for TypeScript** — официальная библиотека **Anthropic** для интеграции Claude API в серверные TypeScript- и JavaScript-приложения. Поддерживает несколько рантаймов: `Node.js 20 LTS+`, `Deno v1.28.0+`, `Bun 1.0+`, `Cloudflare Workers` и `Vercel Edge Runtime`. Требует **TypeScript 4.9+**.
+
+    ### 🎯 Для чего
+    Ставь, если пишешь бэкенд или serverless-функцию на TS/JS и хочешь дергать `messages.create` напрямую, без обёрток и лишних абстракций — это первоисточник, на котором построены многие другие инструменты.
+
+    ### 💻 Как установить
+    ```bash
+    npm install @anthropic-ai/sdk
+    ```
+
+    ### 🚀 Как пользоваться
+    ```js
+    import Anthropic from '@anthropic-ai/sdk';
+
+    const client = new Anthropic({
+      apiKey: process.env['ANTHROPIC_API_KEY'],
+    });
+
+    const message = await client.messages.create({
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: 'Hello, Claude' }],
+      model: 'claude-opus-4-6',
+    });
+
+    console.log(message.content);
+    ```
+
+    ### ⚠️ Грабли
+    Использование в браузере **по умолчанию отключено** из соображений безопасности (ключ API светился бы в клиентском коде) — включать его нужно явно и осознанно, для продакшена так делать не стоит.
+
+- repo: vercel/ai
+  category: libs/javascript
+  description_ru: "TypeScript-тулкит от Vercel для сборки AI-приложений и агентов поверх множества провайдеров — с Claude работает через отдельный пакет `@ai-sdk/anthropic` или через встроенный AI Gateway строкой вида `anthropic/claude-opus-4.6`."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/vercel/ai/main/assets/hero.gif)
+
+    ### ❓ Что это
+    **AI SDK** — провайдер-агностичный TypeScript-тулкит для сборки AI-приложений и агентов поверх **Next.js, React, Svelte, Vue, Angular** и **Node.js**. По умолчанию работает через **Vercel AI Gateway**, который сразу даёт доступ ко всем крупным провайдерам, включая **Anthropic**, без отдельных ключей.
+
+    ### 🎯 Для чего
+    Ставь, если строишь UI-приложение (чат, агент с инструментами) и хочешь единый API поверх Claude и других моделей — не переписывая логику при смене провайдера. Для прямого подключения к Claude есть пакет `@ai-sdk/anthropic`.
+
+    ### 💻 Как установить
+    ```bash
+    npm install ai
+    npm install @ai-sdk/anthropic
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ts
+    import { anthropic } from '@ai-sdk/anthropic';
+    import { generateText } from 'ai';
+
+    const result = await generateText({
+      model: anthropic('claude-opus-4-6'),
+      prompt: 'Hello!',
+    });
+    ```
+
+    ### ⚠️ Грабли
+    Требуется **Node.js 22+**. По умолчанию строковые модели (`'anthropic/claude-opus-4.6'`) идут через платный **Vercel AI Gateway** — если нужен прямой биллинг у Anthropic, используй `@ai-sdk/anthropic` и объектную нотацию модели, а не строку.
+
+- repo: microsoft/autogen
+  category: agents/multi-agent
+  description_ru: "Фреймворк Microsoft для мультиагентных LLM-систем с layered-архитектурой (Core/AgentChat/Extensions) и MCP-интеграцией — важен исторически, но сейчас в режиме поддержки без развития."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **AutoGen** — фреймворк для создания мультиагентных AI-приложений, которые действуют автономно или вместе с человеком. Архитектура слоями: **Core API** (message passing, event-driven агенты, локальный/распределённый runtime), **AgentChat API** (упрощённый API для быстрого прототипирования, групповые чаты) и **Extensions API** (клиенты LLM, выполнение кода). Отдельно идёт **AutoGen Studio** — no-code GUI для мультиагентных workflow.
+
+    ### 🎯 Для чего
+    Ставь, если изучаешь паттерны мультиагентной оркестрации или поддерживаешь legacy-проект на AutoGen. Для нового проекта разработчики сами рекомендуют смотреть в сторону **Microsoft Agent Framework** — AutoGen новых фич не получает.
+
+    ### 💻 Как установить
+    ```bash
+    pip install -U "autogen-agentchat" "autogen-ext[openai]"
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    import asyncio
+    from autogen_agentchat.agents import AssistantAgent
+    from autogen_ext.models.openai import OpenAIChatCompletionClient
+
+    async def main() -> None:
+        model_client = OpenAIChatCompletionClient(model="gpt-4.1")
+        agent = AssistantAgent("assistant", model_client=model_client)
+        print(await agent.run(task="Say 'Hello World!'"))
+        await model_client.close()
+
+    asyncio.run(main())
+    ```
+
+    ### ⚠️ Грабли
+    Проект в статусе **"Maintenance Mode"**: не получает новых фич, поддерживается сообществом. Microsoft прямо советует новым пользователям стартовать с **Microsoft Agent Framework**, а существующим — мигрировать по официальному migration guide. Требуется **Python 3.10+**.
+
+- repo: FoundationAgents/MetaGPT
+  category: agents/multi-agent
+  badge: null
+  description_ru: "Мультиагентный фреймворк «виртуальной software-компании» (продакт-менеджер, архитектор, инженеры), превращающий одну строку требований в код и документацию; ранее жил как geekan/MetaGPT, теперь — под организацией FoundationAgents."
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/FoundationAgents/MetaGPT/main/docs/resources/MetaGPT-new-log.png)
+
+    ### ❓ Что это
+    **MetaGPT** — мультиагентный фреймворк, назначающий разным LLM-агентам роли **продакт-менеджера, архитектора, проджект-менеджера и инженеров**, следующих оркестрованным SOP. Философия проекта — `Code = SOP(Team)`: одна строка требований превращается в user stories, конкурентный анализ, требования, структуры данных, API и документацию. Репозиторий переехал из `geekan/MetaGPT` в организацию `FoundationAgents`.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь посмотреть, как автоматизировать полный цикл разработки — от идеи до репозитория с кодом — силами связки специализированных агентов, а не одного универсального.
+
+    ### 💻 Как установить
+    ```bash
+    pip install --upgrade metagpt
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    metagpt --init-config  # создаст ~/.metagpt/config2.yaml, отредактируй под себя
+    metagpt "Create a 2048 game"  # создаст репозиторий в ./workspace
+    ```
+
+    ### ⚠️ Грабли
+    Нужен **Python 3.9–3.11** — более новые версии не поддерживаются. Перед первым запуском обязательно настроить `~/.metagpt/config2.yaml` с ключом и провайдером LLM (OpenAI, Azure, Ollama и др.), иначе агенты просто не смогут работать.
+
+- repo: OpenBMB/ChatDev
+  category: agents/multi-agent
+  description_ru: "Некогда «виртуальная software-компания» с агентами-CEO/CTO/программистами, теперь переродилась в ChatDev 2.0 (DevAll) — zero-code платформу для конструирования любых мультиагентных workflow через YAML-конфиги."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/OpenBMB/ChatDev/main/frontend/public/media/logo.png)
+
+    ### ❓ Что это
+    **ChatDev 2.0 (DevAll)** — «Zero-Code Multi-Agent Platform for Developing Everything»: платформа, где агенты, workflow и задачи описываются конфигурацией без кода, чтобы оркестровать сценарии вроде визуализации данных, 3D-генерации и deep research. Архитектура: **FastAPI**-бэкенд, **Vue 3**-фронтенд, Python SDK для программного запуска и YAML-конфиги workflow. Старая версия — **ChatDev 1.0**, виртуальная софт-компания с агентами CEO/CTO/Programmer — живёт в ветке `chatdev1.0`.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь собрать кастомную команду агентов под конкретную задачу (не только кодинг) через конфиги, а не Python-код, и погонять через веб-консоль.
+
+    ### 💻 Как установить
+    ```bash
+    uv sync
+    cd frontend && npm install
+    cp .env.example .env
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    make dev
+    # Веб-консоль: http://localhost:5173
+    ```
+
+    ### ⚠️ Грабли
+    Нужны **Python 3.12+**, **Node.js 18+** и пакетный менеджер **uv** — без них `make dev` не поднимется. Ключи модели (`API_KEY`, `BASE_URL`) задаются в `.env` и подставляются в YAML-конфиги через `${VAR}`.
+
+- repo: camel-ai/camel
+  category: agents/multi-agent
+  badge: null
+  description_ru: "Исследовательский мультиагентный фреймворк CAMEL — про генерацию синтетических датасетов, role-playing и симуляцию сложных сред с прицелом на масштабирование до миллионов агентов."
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/camel-ai/camel/master/docs/images/banner.png)
+
+    ### ❓ Что это
+    **CAMEL** — открытое исследовательское сообщество и фреймворк, изучающий agent scaling laws через мультиагентные системы. Три принципа архитектуры: **Evolvability** (агенты эволюционируют через генерацию данных и взаимодействие со средой), **Scalability** (рассчитан на координацию миллионов агентов) и **Statefulness** (агенты хранят память между шагами).
+
+    ### 🎯 Для чего
+    Ставь, если занимаешься генерацией синтетических датасетов (CoT, Self-Instruct), role-playing автоматизацией задач или симуляцией сложных сред (например, `OASIS`) — а не просто хочешь готового ассистента.
+
+    ### 💻 Как установить
+    ```bash
+    pip install camel-ai
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    pip install 'camel-ai[web_tools]'
+    ```
+    Дальше создаётся `ChatAgent` из CAMEL и выполняется поисковый запрос через DuckDuckGo — см. пример «Starting with ChatAgent» в README.
+
+    ### ⚠️ Грабли
+    Для многих примеров нужен ключ **OpenAI API** (`OPENAI_API_KEY`), даже если конечная цель — работать с другими провайдерами через CAMEL. Лицензия — **Apache 2.0**.
+
+- repo: mark3labs/mcp-go
+  category: mcp/frameworks
+  badge: null
+  description_ru: "Go-библиотека для написания MCP-серверов — это не готовый сервер, а SDK: high-level API поверх Model Context Protocol с поддержкой stdio, SSE и streamable HTTP."
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/mark3labs/mcp-go/main/logo.png)
+
+    ### ❓ Что это
+    **mcp-go** — это не готовый MCP-сервер, а Go-библиотека для их *написания*: реализация **Model Context Protocol**, дающая высокоуровневый, developer-friendly интерфейс для разработки MCP-серверов. Три базовые абстракции: **Resources** (эндпоинты данных — файлы, ответы API, запросы к БД), **Tools** (действия LLM с побочными эффектами, включая асинхронные задачи через polling) и **Prompts** (переиспользуемые шаблоны взаимодействия). Поддерживает spec-версию `2025-11-25` с обратной совместимостью.
+
+    ### 🎯 Для чего
+    Ставь как зависимость, если пишешь собственный MCP-сервер на Go и не хочешь городить транспортный слой (`stdio`, `SSE`, `streamable HTTP`), сессии и OAuth resource metadata вручную.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/mark3labs/mcp-go
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    package main
+
+    import (
+        "context"
+        "fmt"
+
+        "github.com/mark3labs/mcp-go/mcp"
+        "github.com/mark3labs/mcp-go/server"
+    )
+
+    func main() {
+        s := server.NewMCPServer(
+            "Demo 🚀",
+            "1.0.0",
+            server.WithToolCapabilities(false),
+        )
+    }
+    ```
+
+    ### ⚠️ Грабли
+    Разработка активная, но, по словам авторов, «core features working but some advanced capabilities still in progress» — часть продвинутого функционала спецификации может быть ещё не реализована.
+
+- repo: wong2/mcp-cli
+  category: mcp/clients
+  badge: null
+  description_ru: "Консольный инспектор MCP-серверов — подключается к любому серверу (stdio, npx-пакет, SSE, streamable HTTP) и позволяет вручную вызывать его tools, resources и prompts из терминала."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-cli** — CLI-инспектор для **Model Context Protocol**: умеет запускать MCP-серверы из разных источников, listать `Tools`, `Resources`, `Prompts`, вызывать их и поддерживает **OAuth** для SSE и Streamable HTTP серверов.
+
+    ### 🎯 Для чего
+    Ставь, если пишешь свой MCP-сервер и хочешь быстро тыкнуть его tools/prompts без интеграции в полноценного клиента вроде Claude Desktop — либо просто хочешь поизучать чужой сервер интерактивно.
+
+    ### 💻 Как установить
+    ```bash
+    npx @wong2/mcp-cli
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    # свой конфиг
+    npx @wong2/mcp-cli -c config.json
+
+    # вызов конкретного tool без интерактивного режима
+    npx @wong2/mcp-cli -c config.json call-tool filesystem:read_file --args '{"path": "package.json"}'
+
+    # подключение к серверу по Streamable HTTP
+    npx @wong2/mcp-cli --url http://localhost:8000/mcp
+    ```
+
+    ### ⚠️ Грабли
+    Без флага `-c` инструмент по умолчанию берёт **конфиг Claude Desktop** — если структура конфига отличается, mcp-cli просто не найдёт сервера. Хранит OAuth-токены локально; чистятся командой `npx @wong2/mcp-cli purge`.
+
+- repo: redis/mcp-redis
+  category: mcp/servers
+  badge: null
+  description_ru: "Официальный MCP-сервер от команды Redis — natural-language интерфейс к hash/list/set/sorted set/stream и JSON-документам, с поддержкой векторного поиска и EntraID-аутентификации для Azure."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Redis MCP Server** — официальный сервер организации `redis` (не community-форк), реализующий natural-language интерфейс к Redis по протоколу **MCP**. Поддерживает `hashes, lists, sets, sorted sets, streams` и JSON-документы, а также векторный поиск с фильтрацией. Есть нативная поддержка **EntraID (Azure AD)** аутентификации для Azure Managed Redis.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь дать агенту (Claude Desktop, VS Code + Copilot, OpenAI Agents SDK и др.) прямой доступ к Redis-инстансу командами вроде «Store the entire conversation in a stream» или «Index and search this vector» — без ручного написания Redis-команд.
+
+    ### 💻 Как установить
+    ```bash
+    uvx --from redis-mcp-server@latest redis-mcp-server --url redis://localhost:6379/0
+    ```
+
+    ### 🚀 Как пользоваться
+    Пропиши сервер в конфиге MCP-клиента (Claude Desktop, VS Code и т.д.), указав команду запуска (`uvx --from redis-mcp-server@latest redis-mcp-server`) и параметры подключения — далее сервер сам объявляет доступные tools для работы с Redis.
+
+    ### ⚠️ Грабли
+    Также доступен как Docker-образ (`mcp/redis`) — но независимо от способа установки нужен доступный Redis-инстанс с указанным URL/паролем; сервер сам по себе базу не поднимает. Лицензия — **MIT**.
+
+- repo: supabase/mcp
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер Supabase — подключает Cursor, Claude и другие AI-ассистенты напрямую к вашим проектам Supabase для работы с базой данных, Edge Functions и хранилищем."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![supabase-mcp-demo](https://github.com/user-attachments/assets/3fce101a-b7d4-482f-9182-0be70ed1ad56)
+
+    ### ❓ Что это
+    **Supabase MCP Server** — официальная реализация [Model Context Protocol](https://modelcontextprotocol.io/introduction) от **Supabase**. Стандартизирует общение LLM с вашими Supabase-проектами: сервер даёт AI-ассистенту доступ к управлению таблицами, конфигурацией, Edge Functions и данными напрямую через MCP-подключение по URL `https://mcp.supabase.com/mcp`.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь, чтобы Claude/Cursor/Windsurf могли сами читать схему базы, писать миграции, деплоить Edge Function или искать баг по логам — без ручного копирования SQL и конфигов между дашбордом и чатом. Инструменты сгруппированы по фичам:
+    - `account` — `list_projects`, `create_project`, `pause_project`, `list_organizations`
+    - `database` — `list_tables`, `apply_migration`, `execute_sql`
+    - `debugging` — `get_logs`, `get_advisors`
+    - `development` — `get_project_url`, `generate_typescript_types`
+    - `functions` (Edge Functions) — `deploy_edge_function`, `get_edge_function`
+    - `branching` (экспериментально, нужен платный план) — `create_branch`, `merge_branch`, `rebase_branch`
+    - `storage` — отключена по умолчанию, включается через `features=storage`
+
+    ### 💻 Как установить
+    Отдельной установки не требуется — сервер удалённый (hosted). Добавь в конфиг MCP-клиента:
+    ```json
+    {
+      "mcpServers": {
+        "supabase": {
+          "type": "http",
+          "url": "https://mcp.supabase.com/mcp"
+        }
+      }
+    }
+    ```
+
+    ### 🚀 Как пользоваться
+    Клиент запросит логин в Supabase при первом подключении — выбери организацию с нужным проектом. Рекомендуется сузить область работы через query-параметры:
+    ```
+    https://mcp.supabase.com/mcp?project_ref=<project-ref>&read_only=true&features=database,docs
+    ```
+    Для локальной разработки через Supabase CLI сервер доступен на `http://localhost:54321/mcp` (ограниченный набор инструментов, без OAuth 2.1).
+
+    ### ⚠️ Грабли
+    Без `project_ref` сервер видит **все проекты организации**, а без `read_only=true` LLM может выполнять `apply_migration`, `create_project`, `deploy_edge_function` и другие мутирующие операции — README прямо советует включать read-only режим по умолчанию и сначала изучить security best practices. Сервер помечен как pre-1.0 — ожидайте breaking changes между версиями.
+
+- repo: github/github-mcp-server
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер GitHub — даёт AI-агентам доступ к репозиториям, issues, PR, Actions и security-алертам через естественный язык, в удалённом или локальном (Docker) варианте."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **GitHub MCP Server** — официальный сервер Model Context Protocol от **GitHub**, соединяющий AI-инструменты напрямую с платформой GitHub. Даёт агентам и чат-ботам возможность читать код и репозитории, управлять issues и pull request'ами, анализировать код и автоматизировать workflow — всё через естественноязыковые запросы.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь, чтобы Claude Desktop/Code, Cursor, VS Code Copilot или Windsurf могли сами:
+    - browsing и поиск по репозиториям, анализ коммитов и структуры проекта;
+    - создавать/обновлять issues и PR, помогать с триажем багов и код-ревью;
+    - следить за workflow в GitHub Actions, разбирать причины падения сборок, управлять релизами;
+    - проверять security-находки и Dependabot-алерты;
+    - работать с discussions, уведомлениями и активностью команды.
+
+    Инструменты сгруппированы в тулсеты: `repos`, `issues`, `pull_requests`, `actions`, `code_security` и другие; по умолчанию включён `default toolset`.
+
+    ### 💻 Как установить
+    Удалённый сервер (хостится GitHub) — просто добавь в конфиг клиента:
+    ```json
+    {
+      "servers": {
+        "github": {
+          "type": "http",
+          "url": "https://api.githubcopilot.com/mcp/"
+        }
+      }
+    }
+    ```
+    Для локального запуска через Docker:
+    ```
+    ghcr.io/github/github-mcp-server
+    ```
+    Образ публичный; при ошибках pull может понадобиться `docker logout ghcr.io`.
+
+    ### 🚀 Как пользоваться
+    Один клик установки логинит через OAuth (браузерный флоу, токен хранится только в памяти). Для локального Docker-варианта задействуй фиксированный callback-порт `127.0.0.1:8085`. Альтернатива OAuth — Personal Access Token через переменную `GITHUB_PERSONAL_ACCESS_TOKEN` (имеет приоритет над OAuth).
+
+    ### ⚠️ Грабли
+    Совместимость с remote-хостом требует VS Code 1.101+ или другой MCP-хост с поддержкой удалённых серверов; GitHub Enterprise Server **не** поддерживает remote-хостинг — только локальный сервер. Insiders Mode (`/mcp/insiders`) даёт ранний доступ к экспериментальным фичам, но может быть нестабилен.
+
+- repo: firebase/firebase-tools
+  category: mcp/servers
+  description_ru: "Не отдельный MCP-сервер, а фича внутри официального CLI firebase-tools: та же утилита, которой деплоят Firebase-проекты, содержит встроенный Firebase MCP Server (папка src/mcp)."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Важно: это **не самостоятельный MCP-пакет**, а часть большого CLI-инструмента **firebase-tools** — той же утилиты `firebase`, которой тестируют, деплоят и управляют Firebase-проектами из терминала. Как сказано в README: "This repository is also the home of the official Firebase MCP Server" — MCP-сервер живёт внутри репозитория в `./src/mcp` и запускается той же командой `firebase`, а не отдельным пакетом.
+
+    ### 🎯 Для чего
+    Ставь как обычный Firebase CLI, если тебе нужно деплоить Hosting/Functions/Firestore, гонять локальные эмуляторы или импортировать пользователей в Auth — и заодно получаешь MCP-сервер для подключения AI-ассистентов (например, через готовый deeplink для Cursor в шапке README) к тем же возможностям: Hosting, Realtime Database, Auth и деплою.
+    - `login` / `login:ci` / `login:add` — аутентификация в Firebase
+    - `deploy` / `serve` — деплой и локальный запуск Hosting + Cloud Functions
+    - `database:get/set/push/update` — работа с Realtime Database
+    - `auth:import` / `auth:export` — batch-импорт/экспорт пользователей
+    - `emulators:start` / `emulators:exec` — локальные эмуляторы
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g firebase-tools
+    ```
+    Или standalone-бинарник без зависимостей:
+    ```bash
+    curl -sL firebase.tools | bash
+    ```
+
+    ### 🚀 Как пользоваться
+    ```
+    firebase login
+    firebase init
+    firebase deploy
+    ```
+    MCP-сервер настраивается отдельно — подробности в документации `./src/mcp` (в README дан готовый deeplink для установки в Cursor).
+
+    ### ⚠️ Грабли
+    Аутентификация через **User Token** (`FIREBASE_TOKEN` / `firebase login:ci`) помечена в README как **deprecated** и будет удалена в будущей мажорной версии — вместо неё рекомендован сервисный аккаунт через `GOOGLE_APPLICATION_CREDENTIALS`. Раз MCP — это подкомандный функционал внутри общего CLI, ищи документацию и настройку MCP не в корневом README, а в `src/mcp`.
+
+- repo: ansible-collections/ansible.mcp
+  category: mcp/servers
+  description_ru: "Официальная коллекция Ansible Cloud Content team для взаимодействия с MCP-серверами прямо из playbook'ов — маленький, но официальный мост между Ansible-автоматизацией и Model Context Protocol."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Ansible MCP Collection** (`ansible.mcp`) — набор Ansible-контента для автоматизации взаимодействия с серверами Model Context Protocol, поддерживаемый **Ansible Cloud Content team**. Коллекция даёт модули для запроса информации о сервере, обнаружения доступных инструментов и вызова MCP tool'ов прямо из playbook'ов и Execution Environments.
+
+    ### 🎯 Для чего
+    Ставь, если строишь Ansible-автоматизацию, которой нужно опрашивать MCP-серверы как часть playbook'а:
+    - `ansible.mcp.mcp` — connection plugin для персистентного подключения к MCP-серверу
+    - `ansible.mcp.run_tool` — вызов конкретного tool'а на MCP-сервере
+    - `ansible.mcp.server_info` — получение информации о MCP-сервере
+    - `ansible.mcp.tools_info` — список поддерживаемых инструментов сервера
+
+    ### 💻 Как установить
+    ```bash
+    ansible-galaxy collection install ansible.mcp
+    ```
+    Или через `requirements.yml`:
+    ```yaml
+    collections:
+      - name: ansible.mcp
+    ```
+
+    ### 🚀 Как пользоваться
+    Требует Ansible **>=2.16.0** и Python **3.10+**, а также зависимость `ansible.utils`. Модули вызываются как обычные Ansible-таски в playbook'е, обращаясь к MCP-серверу через плагин соединения `ansible.mcp.mcp`.
+
+    ### ⚠️ Грабли
+    Коллекция совсем небольшая (по факту около 7 звёзд на GitHub) — это ранняя, узкоспециализированная официальная коллекция от Red Hat/Ansible, а не зрелый популярный проект. Прежде чем полагаться на неё в проде, проверь актуальный CHANGELOG и версию — интерфейс модулей может ещё меняться.
+
+- repo: guardrails-ai/guardrails
+  category: code/rules
+  description_ru: "Python-фреймворк для валидации входов/выходов LLM и генерации структурированных данных — прогоняет ответы модели через настраиваемые 'guard'-проверки (токсичность, конкуренты, regex и т.д.) из каталога Guardrails Hub."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![Guardrails in your application](https://raw.githubusercontent.com/guardrails-ai/guardrails/main/docs/assets/with_and_without_guardrails.svg)
+
+    ### ❓ Что это
+    **Guardrails** — Python-фреймворк, который помогает строить надёжные AI-приложения через две функции: 1) запускает Input/Output Guards, детектирующие и смягчающие конкретные типы рисков в ответах LLM, 2) помогает генерировать структурированные данные из LLM (например, по Pydantic-модели). Готовые проверки-валидаторы («guardrails») берутся из каталога **Guardrails Hub**.
+
+    ### 🎯 Для чего
+    Ставь, если нужно поставить прослойку между приложением и LLM, которая ловит токсичный контент, упоминания конкурентов, несоответствие regex или произвольной схеме, прежде чем ответ уйдёт пользователю:
+    - `RegexMatch` — валидация по regex с `OnFailAction.EXCEPTION`
+    - `CompetitorCheck` — блокировка упоминаний конкурентов
+    - `ToxicLanguage` — детекция токсичности с порогом
+    - `Guard.for_pydantic()` — генерация структурированных данных по Pydantic-схеме
+    - standalone-сервер на Flask (`guardrails start`) с REST/OpenAI-совместимым API
+
+    ### 💻 Как установить
+    ```bash
+    pip install guardrails-ai
+    guardrails configure
+    guardrails hub install hub://guardrails/regex_match
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from guardrails import Guard, OnFailAction
+    from guardrails.hub import RegexMatch
+
+    guard = Guard().use(
+        RegexMatch, regex="\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", on_fail=OnFailAction.EXCEPTION
+    )
+    guard.validate("123-456-7890")
+    ```
+    Для production-режима как отдельного сервиса: `guardrails start --config=./config.py`, рекомендуется деплоить через Docker + Gunicorn.
+
+    ### ⚠️ Грабли
+    **Важно проверять версию пакета перед продовым использованием.** 12 мая 2026 года был обнаружен supply chain compromise в пакете `guardrails-ai` версии **0.10.1** на PyPI (описан в issue-трекере проекта под тегом socket-threat-research-team #1473). Прежде чем ставить этот пакет в прод-окружение, сверь установленную версию и убедись, что она не совпадает с скомпрометированной.
+
+- repo: The-PR-Agent/pr-agent
+  category: code/ci-cd
+  description_ru: "Open-source AI-ревьюер пул-реквестов — community-форк/продолжение оригинального PR-Agent, переданного Qodo сообществу; это НЕ коммерческий продукт Qodo Merge (бывший Codium-ai)."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **PR-Agent** — открытый AI-агент для код-ревью пул-реквестов, "The Original Open-Source PR Reviewer". Важное уточнение из README: это **community-поддерживаемый legacy-проект Qodo**, отдельный от основного коммерческого продукта Qodo для код-ревью (бывший Codium-ai / Qodo Merge). Qodo подарила PR-Agent open-source сообществу, репозиторий теперь живёт в организации `the-pr-agent` и развивается внешними мейнтейнерами (первый — Naor Peled).
+
+    ### 🎯 Для чего
+    Ставь, если хочешь автоматический AI-ревью PR без привязки к платному SaaS: каждый инструмент (`/describe`, `/review`, `/improve`, `/ask`) делает один LLM-вызов (~30 секунд, дёшево). Работает с GitHub, GitLab, Bitbucket, Azure DevOps, Gitea; поддерживает OpenAI GPT, Claude, Deepseek и другие модели через конфиг.
+    - `/describe` — автогенерация описания PR
+    - `/review` — код-ревью с фидбеком
+    - `/improve` — предложения по улучшению кода
+    - `/ask` — вопросы по PR, включая ask на конкретных строках кода
+
+    ### 💻 Как установить
+    ```bash
+    pip install pr-agent
+    export OPENAI_KEY=your_key_here
+    ```
+    Или как GitHub Action:
+    ```yaml
+    # .github/workflows/pr-agent.yml
+    name: PR Agent
+    on:
+      pull_request:
+        types: [opened, synchronize]
+    jobs:
+      pr_agent_job:
+        runs-on: ubuntu-latest
+        steps:
+        - name: PR Agent action step
+          uses: the-pr-agent/pr-agent@main
+          env:
+            OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    pr-agent --pr_url https://github.com/owner/repo/pull/123 review
+    ```
+
+    ### ⚠️ Грабли
+    Docker-образы переехали: релизы **0.34.2+** публикуются под `pragent/pr-agent` на Docker Hub, старые релизы (до `v0.31` включительно) остались замороженным архивом в `codiumai/pr-agent` — при апгрейде обнови все `image:` / `docker pull` / `uses: docker://` ссылки. Не путай этот репозиторий с коммерческим Qodo Merge — там другой, более функциональный движок и отдельная модель распространения.
+
+- repo: assistant-ui/assistant-ui
+  category: apps/web
+  description_ru: "TypeScript/React-библиотека композируемых примитивов для быстрой сборки продакшен-уровня чат-интерфейсов в духе ChatGPT — стриминг, retries, вложения и генеративный UI из коробки."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![assistant-ui starter template](https://raw.githubusercontent.com/assistant-ui/assistant-ui/main/.github/assets/assistant-ui-starter.gif)
+
+    ### ❓ Что это
+    **assistant-ui** — открытая TypeScript/React-библиотека для быстрой сборки продакшен-уровня AI чат-интерфейсов ("The UX of ChatGPT in your React app"). Вместо одного монолитного чат-компонента даёт набор composable-примитивов — `Thread`, `Message`, `Composer`, `ThreadList`, `ActionBar` — из которых собирается любой UX, со стилями либо своими, либо готовыми на базе shadcn/ui.
+
+    ### 🎯 Для чего
+    Ставь, если строишь свой AI-чат на React и не хочешь писать стриминг, авто-скролл, retry, вложения файлов, markdown-рендеринг и подсветку кода с нуля:
+    - streaming, auto-scroll, retries, attachments, markdown, code highlighting, voice dictation, keyboard shortcuts, accessibility — из коробки
+    - **Generative UI**: рендер tool calls как React-компонентов, inline human approvals
+    - бэкенды: `@assistant-ui/react-ai-sdk` (Vercel AI SDK), `@assistant-ui/react-langgraph`/`react-langchain`, `@assistant-ui/react-ag-ui`/`react-a2a`, `@assistant-ui/react-data-stream` для кастомного бэкенда
+    - модели: OpenAI, Anthropic, Google Gemini, Mistral, Perplexity, AWS Bedrock, Azure, Fireworks, Ollama
+
+    ### 💻 Как установить
+    ```bash
+    npx assistant-ui@latest create   # новый проект
+    npx assistant-ui@latest init     # добавить в существующий
+    ```
+    Или напрямую:
+    ```bash
+    npm install @assistant-ui/react @assistant-ui/react-ai-sdk
+    ```
+
+    ### 🚀 Как пользоваться
+    ```tsx
+    "use client";
+    import { AssistantRuntimeProvider } from "@assistant-ui/react";
+    import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
+    import { Thread } from "@/components/assistant-ui/thread";
+
+    export function Chat() {
+      const runtime = useChatRuntime();
+      return (
+        <AssistantRuntimeProvider runtime={runtime}>
+          <Thread />
+        </AssistantRuntimeProvider>
+      );
+    }
+    ```
+    `useChatRuntime` по умолчанию цепляется к Vercel AI SDK — замени на `useLangGraphRuntime`, `useDataStreamRuntime` или свой рантайм под собственный бэкенд.
+
+    ### ⚠️ Грабли
+    Библиотека распространяется под MIT, но часть фич (managed thread history, telemetry, file storage) доступна только через платный **Assistant Cloud** (`assistant-cloud`) — то есть не весь стек полностью self-hosted "из коробки". Для React Native и терминала (Ink) нужны отдельные пакеты `@assistant-ui/react-native` и `@assistant-ui/react-ink`.
+
+- repo: zylon-ai/private-gpt
+  category: apps/web
+  description_ru: "PrivateGPT — открытый API-слой поверх локальных LLM (совместимый со спецификацией Anthropic API), теперь развивается под брендом компании Zylon; это переименованный бывший imartinez/privateGPT."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **PrivateGPT** — open-source API-слой, который превращает локальные модели в готовые к продакшену AI-приложения. Сам PrivateGPT модели не запускает: он подключается к любому OpenAI-совместимому серверу инференса (Ollama, llama.cpp, vLLM) через `OPENAI_API_BASE` и добавляет поверх стандартный слой — сообщения, retrieval, инструменты, БД. Проект теперь называется PrivateGPT и разрабатывается компанией **Zylon** — это переименованный и переработанный бывший `imartinez/privateGPT`.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь свой локальный аналог Anthropic API поверх открытых моделей — без облачных зависимостей:
+    - стандартный Messages API (streaming, async, подсчёт токенов)
+    - ingestion файлов и артефактов, retrieval с цитированием (agentic RAG)
+    - встроенные tools в духе Claude API: web search, web fetch, code execution
+    - кастомные tools и **MCP-коннекторы**
+    - структурированный доступ к базам данных и CSV
+    - встроенный workbench UI на `/ui` для тестирования
+
+    ### 💻 Как установить
+    ```bash
+    # macOS
+    brew tap zylon-ai/tap
+    brew install private-gpt
+    ```
+    ```bash
+    # Linux
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    uv tool install --python 3.11 \
+      --find-links https://wheels.privategpt.dev/packages/ \
+      "private-gpt[core]"
+    ```
+
+    ### 🚀 Как пользоваться
+    Сначала запусти локальный OpenAI-совместимый сервер (проще всего Ollama):
+    ```bash
+    ollama pull qwen3.5:35b
+    ollama pull mxbai-embed-large
+    ollama serve
+    ```
+    Затем сам PrivateGPT:
+    ```bash
+    OPENAI_API_BASE=http://localhost:<llm-port>/v1 \
+      OPENAI_EMBEDDING_API_BASE=http://localhost:<embedding-port>/v1 \
+      private-gpt serve
+    ```
+    UI откроется на `http://localhost:8080/ui`, API — на `http://localhost:8080`.
+
+    ### ⚠️ Грабли
+    По таблице совместимости с Claude API в README часть возможностей пока не поддержана или частична: **prompt caching не поддерживается вовсе (❌)**, OAuth/organizations тоже отсутствуют (❌), а Skills реализованы лишь частично (⚙️). Это открытый слой API, а не готовое enterprise-решение — полноценная инфраструктура (масштабирование, RBAC, аудит) продаётся отдельно под брендом Zylon.
+
+- repo: langflow-ai/langflow
+  category: apps/web
+  description_ru: "Визуальный flow-билдер для LLM-приложений и мультиагентных workflow — собирай цепочки компонентов мышью, тестируй в интерактивном плейграунде и деплой как API или MCP-сервер."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Langflow** — платформа для сборки и деплоя AI-агентов и workflow с визуальным конструктором и встроенными API- и MCP-серверами: любой собранный flow превращается в инструмент, который можно подключить к приложению на любом стеке. Поддерживает основные LLM, векторные базы и растущую библиотеку AI-компонентов "из коробки".
+
+    ### 🎯 Для чего
+    Ставь, если хочешь прототипировать или продакшен-деплоить LLM-пайплайны визуально, а не кодом с нуля:
+    - визуальный builder с доступом к исходному коду каждого компонента на Python для кастомизации
+    - интерактивный плейграунд для пошагового тестирования flow
+    - мультиагентная оркестрация с управлением беседой и retrieval
+    - деплой как **API** или экспорт в JSON для Python-приложений
+    - деплой как **MCP-сервер** — flow становится tool для MCP-клиентов
+    - observability через LangSmith, LangFuse и другие интеграции
+
+    ### 💻 Как установить
+    Требуется Python 3.10–3.14 и `uv`:
+    ```shell
+    uv pip install langflow -U
+    ```
+    Или Docker:
+    ```shell
+    docker run -p 7860:7860 langflowai/langflow:latest
+    ```
+    Либо готовый **Langflow Desktop** для Windows/macOS без ручной настройки Python.
+
+    ### 🚀 Как пользоваться
+    ```shell
+    uv run langflow run
+    ```
+    Langflow поднимется на `http://127.0.0.1:7860`. Для сборки из исходников — `make run_cli` из корня репозитория.
+
+    ### ⚠️ Грабли
+    Требует конкретный диапазон версий Python — **3.10–3.14**, более новые/старые могут не завестись. Проект полностью open source (MIT), но часть фич (enterprise-безопасность и масштабирование) позиционируются в README как "enterprise-ready" — стоит свериться с документацией, что именно доступно бесплатно, а что требует enterprise-настройки.
+
+- repo: Aider-AI/aider
+  category: apps/desktop
+  description_ru: "Aider — терминальный AI-напарник для парного программирования прямо в вашем git-репозитории: правит код, сам коммитит и держит карту всего проекта в контексте. Раньше жил под paul-gauthier/aider, теперь переехал в организацию Aider-AI."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![](https://aider.chat/assets/screencast.svg)
+
+    ### ❓ Что это
+    **Aider** — CLI-инструмент для AI pair programming, который работает прямо в терминале поверх вашего `git`-репозитория. Строит карту кодовой базы (repo map), понимает контекст большого проекта, вносит правки в файлы и сам делает осмысленные коммиты после каждого изменения.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь редактировать реальный проект из терминала, а не копипастить куски кода в веб-чат: Aider понимает 100+ языков программирования, умеет чинить свои же баги через автоматический lint и запуск тестов, подхватывает контекст из картинок и веб-страниц, а через watch-режим интегрируется прямо в IDE.
+
+    ### 💻 Как установить
+    ```bash
+    python -m pip install aider-install
+    aider-install
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    cd /to/your/project
+
+    # Claude 3.7 Sonnet
+    aider --model sonnet --api-key anthropic=<key>
+    ```
+
+    ### ⚠️ Грабли
+    Нужен собственный API-ключ провайдера модели (Anthropic, OpenAI, DeepSeek и т.д.) — своего бесплатного бэкенда у Aider нет, платите напрямую за токены.
+
+- repo: plandex-ai/plandex
+  category: apps/desktop
+  description_ru: "Plandex — терминальный агент для больших многошаговых задач рефакторинга и разработки, которые затрагивают десятки файлов сразу, с эффективным окном контекста до 2М токенов и песочницей для ревью диффов."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Plandex** — терминальный AI-инструмент для крупных задач разработки, которые растягиваются на много шагов и затрагивают десятки файлов одновременно. Использует умное управление контекстом с эффективным окном до 2 млн токенов и накопительную песочницу для ревью diff'ов перед применением.
+
+    ### 🎯 Для чего
+    Ставь, если Aider или Claude Code «не тянут» масштаб — например, нужно провести рефакторинг сразу по всему проекту. Plandex поддерживает модели от Anthropic, OpenAI, Google и open source, настраиваемые уровни автономности с автоматической отладкой, project-aware чат-режим и полноценное версионирование планов.
+
+    ### 💻 Как установить
+    ```bash
+    curl -sL https://plandex.ai/install.sh | bash
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    cd your-project-dir
+    plandex
+    # или
+    pdx
+    ```
+
+    ### ⚠️ Грабли
+    Plandex Cloud свернут с 10/3/2025 и больше не принимает новых пользователей — нужен self-hosted режим (Docker или свой сервер) со своим ключом от OpenRouter.ai или другого провайдера. На Windows работает только через WSL, в CMD или PowerShell не запустится.
+
+- repo: stitionai/devika
+  category: apps/desktop
+  description_ru: "Devika — открытый агентный AI-инженер по образу Devin: разбивает задачу на шаги, сам гуглит нужную информацию и пишет код на нескольких языках, работает с Claude, GPT-4, Gemini, Mistral, Groq и локальными моделями через Ollama."
+  badge: null
+  verify_status: check
+  body_md: |
+    ![](.assets/devika-avatar.png)
+
+    ### ❓ Что это
+    **Devika** — агентный AI software engineer, который понимает высокоуровневые задачи, сам разбивает их на шаги, ищет нужную информацию в вебе и пишет код для достижения цели. Проект вдохновлён Devin от Cognition AI.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь локально погонять concept агента-разработчика: поддерживает Claude 3, GPT-4, Gemini, Mistral, Groq и локальные модели через Ollama, умеет планировать, рассуждать, браузить веб и организовывать работу по проектам.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/stitionai/devika.git
+    cd devika
+    uv venv
+    source .venv/bin/activate  # или .venv\Scripts\activate на Windows
+    uv pip install -r requirements.txt
+    playwright install --with-deps
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    python devika.py
+    cd ui/ && bun install && bun run start
+    ```
+    Интерфейс доступен на `http://127.0.0.1:3001`.
+
+    ### ⚠️ Грабли
+    Сам README честно предупреждает: проект «находится на очень раннем этапе разработки/экспериментов», часть фич не доделана. Активность коммитов в репозитории почти встала за последние ~9 месяцев (последний пуш примерно в сентябре 2025) — прежде чем полагаться на Devika, проверьте, что она вообще ещё заводится и совместима с актуальными моделями Claude.
+
+- repo: assafelovic/gpt-researcher
+  category: agents/autonomous
+  description_ru: "GPT Researcher — автономный исследовательский агент, который сам гуглит десятки источников по теме и собирает из них связный отчёт с цитатами, а не просто пересказывает один ответ модели."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![](https://github.com/assafelovic/gpt-researcher/assets/13554167/20af8286-b386-44a5-9a83-3be1365139c3)
+
+    ### ❓ Что это
+    **GPT Researcher** — один из первых открытых deep research агентов для веб- и локальных исследований по заданной теме. Генерирует детальные фактологические отчёты объёмом 2000+ слов с 20+ агрегированными источниками и цитатами, поддерживает MCP-интеграции со специализированными источниками данных и режим Deep Research с древовидным обходом темы.
+
+    ### 🎯 Для чего
+    Ставь, если нужно быстро получить структурированный отчёт по теме вместо ручного гугления: агент сам собирает картинки и иллюстрирует отчёт, скрейпит JS-тяжёлые сайты, экспортирует в PDF/Word, умеет исследовать локальные документы (PDF, текст, CSV, Excel, Markdown, PowerPoint, Word).
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/assafelovic/gpt-researcher.git
+    cd gpt-researcher
+    export OPENAI_API_KEY={Your Key}
+    export TAVILY_API_KEY={Your Key}
+    pip install -r requirements.txt
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from gpt_researcher import GPTResearcher
+
+    query = "why is Nvidia stock going up?"
+    researcher = GPTResearcher(query=query)
+    research_result = await researcher.conduct_research()
+    report = await researcher.write_report()
+    ```
+
+    ### ⚠️ Грабли
+    Авторы прямо пишут в дисклеймере: проект «экспериментальный» и поставляется «как есть без гарантий» — агрегация нескольких источников снижает предвзятость, но не устраняет её полностью.
+
+- repo: langfuse/langfuse
+  category: code/monitoring
+  description_ru: "Langfuse — открытая self-hostable платформа для трейсинга, оценки и отладки LLM-приложений: видно каждый вызов модели, каждый retrieval и каждое действие агента в одном дашборде."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Langfuse** — open source LLM engineering платформа, которая помогает разрабатывать, мониторить, оценивать и отлаживать AI-приложения. Инструментирует вызовы LLM, retrieval, embedding и действия агентов через трейсы, даёт версионирование промптов, встроенный playground и датасеты для тестирования перед деплоем.
+
+    ### 🎯 Для чего
+    Ставь, если строишь продакшн-приложение на LLM и нужно понимать, что реально происходит внутри агента: поддерживает LLM-as-a-judge, кодовые эвалюаторы, ручную разметку и пользовательский фидбек, интегрируется с **OpenAI** (drop-in замена), **LangChain**, **LlamaIndex**, **Haystack**, **LiteLLM**, **Vercel AI SDK**.
+
+    ### 💻 Как установить
+    ```bash
+    git clone --depth=1 https://github.com/langfuse/langfuse.git
+    cd langfuse
+    docker compose up
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from langfuse import observe
+    from langfuse.openai import openai
+
+    @observe()
+    def story():
+        return openai.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": "What is Langfuse?"}],
+        ).choices[0].message.content
+    ```
+
+    ### ⚠️ Грабли
+    Лицензия MIT, но папки `ee` (Enterprise Edition) под ней не ходят — часть фич закрытая. Телеметрия включена по умолчанию, отключается через `TELEMETRY_ENABLED=false`. Под капотом — ClickHouse, так что self-host требует поднять ещё и эту БД.
+
+- repo: Arize-ai/phoenix
+  category: code/monitoring
+  description_ru: "Phoenix от Arize — открытая платформа AI-observability на базе OpenTelemetry с трейсингом, эвалюациями, датасетами и экспериментами для отладки LLM-приложений и агентов."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Phoenix** — open source платформа AI-observability для экспериментов, оценки и отладки LLM-приложений от **Arize**. Даёт runtime-трейсинг на базе OpenTelemetry, LLM-powered эвалюации ответов и retrieval, версионируемые датасеты для файнтюна, отслеживание экспериментов с промптами и моделями, а также встроенный playground для реплея трейсов.
+
+    ### 🎯 Для чего
+    Ставь, если строишь агентов и нужно видеть трейсы вызовов и сравнивать эксперименты: есть готовые интеграции с **OpenAI Agents SDK**, **Claude Agent SDK**, **LangGraph**, **CrewAI**, **LlamaIndex**, **DSPy**, а из провайдеров — **OpenAI**, **Anthropic**, **Google GenAI**, **AWS Bedrock**. Работает и локально в Jupyter, и в контейнере, и в облаке (app.phoenix.arize.com).
+
+    ### 💻 Как установить
+    ```shell
+    pip install arize-phoenix
+    ```
+
+    ### 🚀 Как пользоваться
+    Запускайте локально, в Jupyter-ноутбуке, через Docker-образ, либо в облачном инстансе на `app.phoenix.arize.com`.
+
+    ### ⚠️ Грабли
+    Лицензия — Elastic License 2.0 (ELv2), это не классический OSS-пермиссив: есть ограничения на предоставление Phoenix как сервиса третьим лицам. Телеметрия базовой аналитики включена по умолчанию (трейсы и чувствительные данные не собираются), отключается через `PHOENIX_TELEMETRY_ENABLED=false`.
+
+- repo: traceloop/openllmetry
+  category: code/monitoring
+  description_ru: "OpenLLMetry от Traceloop — open source observability для LLM-приложений поверх стандартного OpenTelemetry, чтобы трейсы моделей ходили в те же дашборды, что и остальной прод."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![](https://raw.githubusercontent.com/traceloop/openllmetry/main/img/logo-light.png)
+
+    ### ❓ Что это
+    **OpenLLMetry** — открытая observability-обвязка для LLM-приложений, построенная поверх стандарта **OpenTelemetry**. Инструментирует 16+ провайдеров моделей (**OpenAI**, **Anthropic**, **Bedrock**, **Cohere**, **Gemini** и др.), 7 векторных БД (**Pinecone**, **Weaviate**, **Chroma** и др.) и стыкуется с 23+ observability-платформами вроде **Datadog**, **Honeycomb**, **New Relic**.
+
+    ### 🎯 Для чего
+    Ставь, если у вас уже есть OTel-инфраструктура и не хочется заводить отдельный стек мониторинга только ради LLM-вызовов: трейсы моделей идут в тот же пайплайн, что и остальные сервисы.
+
+    ### 💻 Как установить
+    ```bash
+    pip install traceloop-sdk
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from traceloop.sdk import Traceloop
+    Traceloop.init()
+    ```
+    Для локальной разработки добавьте `disable_batch=True`, чтобы видеть трейсы сразу, а не пачками.
+
+    ### ⚠️ Грабли
+    До версии 0.49.2 SDK и инструментации собирали анонимную телеметрию — сейчас это полностью убрано, авторы прямо просят обновиться до 0.49.2+, если стоит более старая версия.
+
+- repo: jina-ai/reader
+  category: libs/other
+  description_ru: "Jina Reader превращает любой URL в чистый markdown одним HTTP-запросом (r.jina.ai) — удобная замена самопального веб-скрейпера, когда LLM-агенту нужно просто прочитать страницу."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Reader** от **Jina AI** — сервис, который конвертирует любую веб-страницу в чистый markdown, пригодный для скармливания LLM, через простой запрос вида `https://r.jina.ai/[URL]`. Дополнительно даёт веб-поиск с фетчем топ-результатов через `https://s.jina.ai/[query]`.
+
+    ### 🎯 Для чего
+    Ставь, если агенту нужно «прочитать» произвольную ссылку без headless-браузера и парсера под каждый сайт: обрабатывает отрендеренные страницы (headless Chrome либо лёгкий curl), PDF через PDF.js, документы Office (Word, Excel, PowerPoint) и даже картинки — с подписями от VLM.
+
+    ### 💻 Как установить
+    ```bash
+    docker pull ghcr.io/jina-ai/reader:oss
+    docker run --rm -p 3000:8081 ghcr.io/jina-ai/reader:oss
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    curl https://r.jina.ai/https://en.wikipedia.org/wiki/Artificial_intelligence
+    curl -H "Accept: application/json" https://r.jina.ai/https://example.com
+    ```
+    Полезные заголовки: `x-respond-with` (формат вывода), `x-engine` (browser/curl/auto), `x-timeout`, `x-max-tokens`, `x-target-selector`, `x-with-generated-alt: true` (подписи к картинкам через VLM).
+
+    ### ⚠️ Грабли
+    Публичный `r.jina.ai` — бесплатный облачный сервис от Jina AI, а не ваша инфраструктура: для приватных данных или высокой нагрузки нужен self-host через Docker-образ `ghcr.io/jina-ai/reader:oss`.
+
+- repo: firecrawl/firecrawl
+  category: libs/other
+  description_ru: "Firecrawl превращает любой сайт — включая тяжёлый JS-рендеринг — в чистый markdown или структурированные данные для LLM-агентов через единый API; репозиторий переехал из mendableai в отдельную организацию firecrawl."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Firecrawl** — API для поиска, скрейпинга и взаимодействия с сайтами в масштабе. Покрывает 96% веба, включая JS-heavy страницы, с P95-задержкой 3.4 секунды на миллионах страниц, и отдаёт результат в markdown, JSON или скриншотах, готовых для LLM.
+
+    ### 🎯 Для чего
+    Ставь, если агенту нужно не просто прочитать одну страницу, а обойти весь сайт или собрать данные без явных URL: есть эндпоинты `Crawl` (весь сайт), `Map` (список всех URL), `Batch Scrape`, `Interact` (клики/скролл/ввод по AI-промпту через страницу) и автономный `Agent`-режим для сбора данных вообще без указания URL. Готовые интеграции с **Claude Code**, **Antigravity**, **OpenCode**, разбирает PDF и DOCX.
+
+    ### 💻 Как установить
+    ```bash
+    pip install firecrawl-py
+    ```
+    ```bash
+    npm install firecrawl
+    ```
+    Нужен API-ключ — регистрация на firecrawl.dev.
+
+    ### 🚀 Как пользоваться
+    Получите ключ на firecrawl.dev и вызывайте нужный эндпоинт (Search, Scrape, Crawl, Map, Batch Scrape) через SDK для Python, Node.js, Java, Elixir или Rust.
+
+    ### ⚠️ Грабли
+    Ядро — открытый код под **AGPL-3.0** (SDK — под MIT), это copyleft-лицензия со своими условиями для сервисов на его основе. README прямо требует уважать `robots.txt` (соблюдается по умолчанию) и политики конфиденциальности сайтов, которые вы скрейпите.
+
+- repo: simonw/llm
+  category: libs/python
+  description_ru: "CLI-утилита и Python-библиотека Саймона Уиллисона для работы с десятками LLM (OpenAI, Claude, Gemini, локальные модели) прямо из терминала, с логированием в SQLite и системой плагинов."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **LLM** — CLI-инструмент и Python-библиотека от **Саймона Уиллисона** для общения с **OpenAI**, **Anthropic Claude**, **Google Gemini**, **Meta Llama** и десятками других моделей — как через удалённые API, так и с моделями, запущенными локально на своей машине. Расширяется через систему плагинов.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь гонять промпты из shell-скриптов и пайпов, логировать все запросы и ответы в локальную SQLite-базу, извлекать структурированные данные по схеме, генерировать эмбеддинги или давать модели инструменты для вызова — всё одной командой `llm`.
+
+    ### 💻 Как установить
+    ```bash
+    pip install llm
+    ```
+    Также доступно через `brew install llm`, `pipx install llm` или `uv tool install llm`.
+
+    ### 🚀 Как пользоваться
+    ```bash
+    llm keys set openai
+    llm "Ten fun names for a pet pelican"
+
+    llm install llm-anthropic
+    llm keys set anthropic
+    llm -m claude-4-opus 'Impress me with wild facts about turnips'
+
+    llm chat -m gpt-4.1
+    ```
+
+    ### ⚠️ Грабли
+    Поддержка Claude, Gemini и локальных моделей через Ollama — это отдельные **плагины** (`llm install llm-anthropic`, `llm install llm-gemini`, `llm install llm-ollama`), из коробки работает только OpenAI. При установке через Homebrew есть отдельное предупреждение про конфликт с PyTorch.
+
+- repo: simonw/files-to-prompt
+  category: libs/python
+  description_ru: "Утилита, которая скармливает целую директорию с кодом в один текстовый промпт для LLM — с поддержкой Claude XML-формата и Markdown-блоков."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **files-to-prompt** — CLI-утилита, которая конкатенирует содержимое файлов и целых директорий в единый текстовый промпт для LLM, добавляя перед каждым файлом его относительный путь. Написана Саймоном Уиллисоном при помощи Claude 3 Opus.
+
+    ### 🎯 Для чего
+    Ставь, если нужно быстро закинуть в контекст модели весь проект или его часть: с фильтрацией по расширению, игнором `.gitignore`, скрытых файлов и произвольных паттернов, с выводом в файл или в стандартный вывод.
+
+    ### 💻 Как установить
+    ```bash
+    pip install files-to-prompt
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    files-to-prompt path/to/file_or_directory [path/to/another/file_or_directory ...]
+
+    # только нужные расширения
+    files-to-prompt path/to/directory -e txt -e md
+
+    # в формате Claude XML для длинного контекста
+    files-to-prompt path/to/directory --cxml
+
+    # как Markdown с fenced code blocks
+    files-to-prompt path/to/directory --markdown
+
+    # чтение путей из stdin
+    find . -mtime -1 | files-to-prompt
+    ```
+
+    ### ⚠️ Грабли
+    Флаг `--cxml` форматирует вывод по официальным рекомендациям Anthropic для длинного контекстного окна Claude — это не универсальный формат, а специально заточенный под Claude XML-стиль (`<documents><document>...`).
+
+- repo: BerriAI/litellm
+  category: libs/python
+  description_ru: "Единый Python SDK и прокси-сервер, который дают одинаковый OpenAI-совместимый интерфейс к сотне с лишним LLM-провайдеров, включая Anthropic — переключаешь провайдера, не переписывая код."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://github.com/user-attachments/assets/c5ee0412-6fb5-4fb6-ab5b-bafae4209ca6)
+
+    ### ❓ Что это
+    **LiteLLM** — open-source AI-шлюз, дающий "единый унифицированный интерфейс для вызова 100+ LLM-провайдеров — OpenAI, Anthropic, Gemini, Bedrock, Azure и других — в формате OpenAI". Поставляется как Python SDK и как self-host прокси-сервер с виртуальными ключами, трекингом расходов, guardrails и балансировкой нагрузки.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь писать код один раз против `openai`-совместимого API, а провайдера (в том числе Claude) переключать сменой строки `model=`, или если нужен централизованный прокси с админ-дашбордом для команды, работающей с несколькими LLM сразу.
+
+    ### 💻 Как установить
+    ```shell
+    uv add litellm
+    ```
+    Прокси-сервер:
+    ```shell
+    uv tool install 'litellm[proxy]'
+    litellm --model gpt-4o
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from litellm import completion
+    import os
+
+    os.environ["OPENAI_API_KEY"] = "your-openai-key"
+    os.environ["ANTHROPIC_API_KEY"] = "your-anthropic-key"
+
+    response = completion(model="openai/gpt-4o",
+                         messages=[{"role": "user", "content": "Hello!"}])
+    ```
+
+    ### ⚠️ Грабли
+    Для продакшена используй Docker-образы только с тегом `-stable` — они проходят 12-часовые нагрузочные тесты перед публикацией. Часть возможностей (guardrails, некоторые фичи прокси) доступна только под **LiteLLM Commercial License**, это не полностью open-source функциональность.
+
+- repo: Chainlit/chainlit
+  category: apps/web
+  description_ru: "Python-фреймворк для быстрой сборки чат-интерфейсов поверх LLM — production-ready UI за минуты, без фронтенд-кода."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Chainlit** — Python-библиотека для сборки "production-ready conversational AI applications за минуты, а не недели". Даёт готовый веб-чат-интерфейс поверх твоей Python-логики без необходимости писать фронтенд, с нативной интеграцией OpenAI, Anthropic, LangChain, LlamaIndex, ChromaDB и Pinecone.
+
+    ### 🎯 Для чего
+    Ставь, если нужно быстро обернуть логику агента или RAG-пайплайна в чат-UI: определяешь `@cl.on_message` обработчик и `@cl.step` для шагов инструментов — Chainlit сам рисует интерфейс, стримит ответы и показывает промежуточные шаги.
+
+    ### 💻 Как установить
+    ```
+    pip install chainlit
+    ```
+    Версия для разработки — прямо с GitHub:
+    ```
+    pip install git+https://github.com/Chainlit/chainlit.git#subdirectory=backend/
+    ```
+
+    ### 🚀 Как пользоваться
+    ```
+    chainlit run demo.py -w
+    ```
+    В `demo.py` используются декораторы `@cl.step(type="tool")` для шагов-инструментов, `@cl.on_message` для обработки сообщений пользователя и `cl.Message(content=...).send()` для отправки ответа.
+
+    ### ⚠️ Грабли
+    С 1 мая 2025 года проект переведён в статус **community-maintained** — обновления и поддержку теперь двигает сообщество, а не выделенная команда, это стоит учитывать при выборе для долгосрочного продакшена.
+
+- repo: anthropics/prompt-eng-interactive-tutorial
+  category: libs/other
+  description_ru: "Официальный интерактивный курс Anthropic по промпт-инжинирингу для Claude — 9 глав от основ до продвинутых индустриальных кейсов, с практическими упражнениями."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный интерактивный туториал **Anthropic** по prompt engineering для Claude — девять глав плюс приложение, с разбивкой по уровням сложности: базовый (структура промпта, ясность, роли), средний (разделение данных, форматирование вывода, пошаговое рассуждение, few-shot примеры) и продвинутый (борьба с галлюцинациями и индустриальные кейсы — чат-боты, юридическая и финансовая сфера, разработка ПО).
+
+    ### 🎯 Для чего
+    Ставь, если хочешь системно прокачать навык написания промптов для Claude: каждая глава содержит "Example Playground" для интерактивных экспериментов прямо в упражнении, плюс answer key для самопроверки. Материал советуют проходить строго по порядку глав.
+
+    ### 💻 Как установить
+    Отдельной установки не требует — это набор Jupyter-notebook'ов/материалов курса, которые открываются локально или через Google Sheets-версию (расширение **Claude for Sheets**).
+
+    ### 🚀 Как пользоваться
+    ```
+    Пройди курс по порядку: главы 1-3 (основы) →
+    главы 4-7 (средний уровень) → главы 8-9 (продвинутый) → приложение
+    ```
+
+    ### ⚠️ Грабли
+    Курс построен на **Claude 3 Haiku** — "наименьшей, самой быстрой и дешёвой" модели — упражнения и ожидаемые результаты калибровались под неё, с более новыми и мощными моделями (Sonnet, Opus) поведение может отличаться.
+
+- repo: modelcontextprotocol/python-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный Python SDK для Model Context Protocol от Anthropic и сообщества — пишешь MCP-серверы и клиентов на Python."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная **Python-реализация Model Context Protocol (MCP)** — открытого протокола, который стандартизирует, как приложения передают контекст (инструменты, ресурсы, промпты) языковым моделям. README текущей версии описывает **v2** как pre-release (alpha/beta) ветку под активной разработкой — для продакшена рекомендована стабильная **v1.x**.
+
+    ### 🎯 Для чего
+    Ставь, если пишешь MCP-сервер или клиента на Python: SDK даёт декораторы для регистрации инструментов (`@mcp.tool()`) и ресурсов (`@mcp.resource()`), а также асинхронный клиент для вызова этих инструментов из кода.
+
+    ### 💻 Как установить
+    ```bash
+    uv add "mcp[cli]==2.0.0b1"          # или: pip install "mcp[cli]==2.0.0b1"
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from mcp.server import MCPServer
+
+    mcp = MCPServer("Demo")
+
+    @mcp.tool()
+    def add(a: int, b: int) -> int:
+        """Add two numbers."""
+        return a + b
+
+    @mcp.resource("greeting://{name}")
+    def greeting(name: str) -> str:
+        """Greet someone by name."""
+        return f"Hello, {name}!"
+    ```
+    Клиент:
+    ```python
+    import asyncio
+    from mcp import Client
+    from server import mcp
+
+    async def main() -> None:
+        async with Client(mcp) as client:
+            result = await client.call_tool("add", {"a": 1, "b": 2})
+            print(result.structured_content)
+
+    asyncio.run(main())
+    ```
+
+    ### ⚠️ Грабли
+    **v2 — не для продакшена**: README прямо предупреждает "Do not use v2 in production", стабильной остаётся ветка **1.x**. Требуется Python 3.10+.
+
+- repo: modelcontextprotocol/typescript-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный TypeScript SDK для Model Context Protocol — серверы и клиенты MCP на Node.js/TypeScript от команды протокола."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная **TypeScript-реализация Model Context Protocol (MCP)** — протокола, который "позволяет приложениям предоставлять контекст для LLM стандартизированным способом, отделяя предоставление контекста от самого взаимодействия с LLM". Текущая main-ветка — это **v2 (beta)**.
+
+    ### 🎯 Для чего
+    Ставь, если строишь MCP-сервер или клиента на TypeScript/Node.js: пакет даёт `McpServer` с методом `registerTool()` для регистрации инструментов со схемой на `zod`, транспорт по stdio, а также опциональные адаптеры под **Express** и **Hono**.
+
+    ### 💻 Как установить
+    ```bash
+    npm install @modelcontextprotocol/server
+    npm install @modelcontextprotocol/client
+    ```
+    Опциональные middleware:
+    ```bash
+    npm install @modelcontextprotocol/node
+    npm install @modelcontextprotocol/express express
+    npm install @modelcontextprotocol/hono hono
+    ```
+
+    ### 🚀 Как пользоваться
+    ```typescript
+    import { McpServer } from '@modelcontextprotocol/server';
+    import { StdioServerTransport } from '@modelcontextprotocol/server/stdio';
+    import * as z from 'zod/v4';
+
+    const server = new McpServer({ name: 'greeting-server', version: '1.0.0' });
+
+    server.registerTool(
+        'greet',
+        {
+            description: 'Greet someone by name',
+            inputSchema: z.object({ name: z.string() })
+        },
+        async ({ name }) => ({
+            content: [{ type: 'text', text: `Hello, ${name}!` }]
+        })
+    );
+
+    async function main() {
+        const transport = new StdioServerTransport();
+        await server.connect(transport);
+    }
+
+    main();
+    ```
+
+    ### ⚠️ Грабли
+    Main-ветка сейчас — это **v2 (beta)**, а стабильной для продакшена с багфиксами и security-патчами остаётся **v1.x** — не тащи main в прод не глядя.
+
+- repo: run-llama/llama_index
+  category: libs/python
+  description_ru: "Главный Python-фреймворк LlamaIndex для построения RAG и агентных приложений поверх собственных данных — коннекторы, индексы, ретриверы, интеграция с любым LLM."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **LlamaIndex** — open-source "data framework" для построения агентных LLM-приложений: даёт коннекторы данных (API, PDF, SQL и т.д.), способы структурировать данные в индексы и graph'ы, и продвинутый retrieval/query-интерфейс поверх этих данных. Пакет разделён на стартовый `llama-index` (core + набор интеграций) и `llama-index-core` для точечной сборки с нужными интеграциями из **LlamaHub** (300+ пакетов).
+
+    ### 🎯 Для чего
+    Ставь, если строишь RAG-приложение или агента поверх собственных данных: высокоуровневый API собирает индекс и запускает запрос в 5 строк кода, а низкоуровневые API дают кастомизировать любой модуль — от коннекторов до ретриверов и реранкеров.
+
+    ### 💻 Как установить
+    ```sh
+    pip install llama-index-core
+    pip install llama-index-llms-openai
+    pip install llama-index-llms-ollama
+    pip install llama-index-embeddings-huggingface
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    import os
+    os.environ["OPENAI_API_KEY"] = "YOUR_OPENAI_API_KEY"
+
+    from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+
+    documents = SimpleDirectoryReader("YOUR_DATA_DIRECTORY").load_data()
+    index = VectorStoreIndex.from_documents(documents)
+
+    query_engine = index.as_query_engine()
+    query_engine.query("YOUR_QUESTION")
+    ```
+    По умолчанию данные хранятся в памяти; сохранить на диск: `index.storage_context.persist()`.
+
+    ### ⚠️ Грабли
+    Импорты вида `from llama_index.core.xxx import ...` — это ядро, а `from llama_index.xxx.yyy import ...` (без `core`) — отдельный интеграционный пакет, который нужно ставить отдельно; их легко перепутать. Новые интеграции принимаются в репозиторий только если "meaningfully integrate" с существующими компонентами фреймворка — на усмотрение мейнтейнеров.
+
+- repo: langchain-ai/langchain
+  category: libs/python
+  description_ru: "Самый распространённый Python-фреймворк для сборки LLM-агентов и приложений — цепочки компонентов, интеграции с моделями и данными, экосистема LangGraph/LangSmith."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **LangChain** — фреймворк "для построения агентов и LLM-приложений", который позволяет связывать друг с другом взаимозаменяемые компоненты и сторонние интеграции. Часть большой экосистемы: **Deep Agents** (высокоуровневый пакет для агентов), **LangGraph** (оркестрация агентных workflow) и **LangSmith** (observability и отладка).
+
+    ### 🎯 Для чего
+    Ставь, если хочешь быстро прототипировать LLM-приложение из готовых модульных блоков и легко менять модель-провайдера без переписывания логики, а на продакшен-стадии — подключить трейсинг и отладку через LangSmith.
+
+    ### 💻 Как установить
+    ```bash
+    uv add langchain
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from langchain.chat_models import init_chat_model
+
+    model = init_chat_model("openai:gpt-5.5")
+    result = model.invoke("Hello, world!")
+    ```
+
+    ### ⚠️ Грабли
+    Быстрый старт из README завязан на модель OpenAI — соответствующий API-ключ нужен просто чтобы прогнать пример; для Claude и других провайдеров нужно явно менять строку `init_chat_model(...)` на нужного провайдера.
+
+- repo: huggingface/chat-ui
+  category: apps/web
+  description_ru: "Открытый веб-интерфейс для чата с LLM на SvelteKit — та же основа, что и у HuggingChat на hf.co/chat, с поддержкой любых OpenAI-совместимых API."
+  badge: null
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Chat UI** — SvelteKit-приложение, которое реализует чат с большими языковыми моделями и **питает HuggingChat** на `hf.co/chat`. Начиная с последних версий проект отказался от кучи отдельных провайдер-специфичных интеграций и работает **исключительно через OpenAI-совместимые API** — достаточно указать `OPENAI_BASE_URL`.
+
+    ### 🎯 Для чего
+    - Поднять свой чат-интерфейс поверх любого OpenAI-совместимого бэкенда — Hugging Face, llama.cpp, Ollama, OpenRouter, Poe и других.
+    - Хранить историю чатов, пользователей и настройки в **MongoDB** (локально встроенной или через MongoDB Atlas).
+    - Использовать **LLM Router** — серверную маршрутизацию запросов по эвристике, которая сама выбирает подходящую модель под тип входа (картинки, инструменты, обычный текст).
+    - Подключать **MCP-серверы** для вызова инструментов и функций прямо в диалоге.
+    - Кастомизировать брендинг (название, ассеты, описания) через переменные окружения.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/huggingface/chat-ui
+    cd chat-ui
+    npm install
+    ```
+    Перед запуском создайте `.env.local` с ключами доступа к нужному провайдеру (пример для Hugging Face, llama.cpp, Ollama, OpenRouter, Poe — в документации репозитория).
+
+    ### 🚀 Как пользоваться
+    Запустите dev-сервер стандартными командами Node.js после настройки `.env.local` и подключения MongoDB. Для продакшена в репозитории описаны процедуры сборки и **Docker-деплой**.
+
+    ### ⚠️ Грабли
+    Без переменной `OPENAI_BASE_URL` и корректно настроенного `.env.local` приложение не подключится ни к одной модели — проект больше не поддерживает старые провайдер-специфичные конфиги напрямую, всё идёт через OpenAI-совместимый слой. Также обязательно нужна MongoDB — без неё не сохранятся ни история чатов, ни настройки пользователей.
+
+- repo: TabbyML/tabby
+  category: apps/vscode
+  description_ru: "Self-hosted AI-ассистент для кода — открытая альтернатива GitHub Copilot с автодополнением, чатом и поддержкой потребительских GPU."
+  badge: null
+  verify_status: known
+  body_md: |
+    ![Demo](https://user-images.githubusercontent.com/388154/230440226-9bc01d05-9f57-478b-b04d-81184eba14ca.gif)
+    ### ❓ Что это
+    **Tabby** — self-hosted AI-ассистент для написания кода, открытая и локальная альтернатива GitHub Copilot. Работает автономно: не требует внешней СУБД или облачного сервиса, отдаёт **OpenAPI-интерфейс** для лёгкой интеграции с существующей инфраструктурой (например, облачными IDE), и поддерживает **потребительские GPU**.
+
+    ### 🎯 Для чего
+    - Автодополнение кода и **чат-панель** прямо в IDE (VSCode, Vim, IntelliJ и другие).
+    - **Answer Engine** — центральный движок знаний для команды разработки, интегрируется с внутренними данными (репозитории, GitLab MR, документация через REST API).
+    - Индексация контекста репозитория (в т.ч. GitLab Merge Request) для более точных подсказок.
+    - Развёртывание своего сервера инференса с выбором модели автодополнения и чат-модели.
+
+    ### 💻 Как установить
+    Запуск сервера Tabby через Docker за одну минуту:
+    ```bash
+    docker run -it \
+      --gpus all -p 8080:8080 -v $HOME/.tabby:/data \
+      tabbyml/tabby \
+      serve --model StarCoder-1B --device cuda --chat-model Qwen2-1.5B-Instruct
+    ```
+    Для сборки из исходников:
+    ```bash
+    git clone --recurse-submodules https://github.com/TabbyML/tabby
+    cd tabby
+    ```
+    Если репозиторий уже клонирован без `--recurse-submodules`, нужно выполнить `git submodule update --recursive --init`, затем поставить зависимости (`brew install protobuf` на macOS, `apt install protobuf-compiler libopenblas-dev` на Ubuntu/Debian) и собрать через `cargo build`.
+
+    ### 🚀 Как пользоваться
+    После запуска сервера подключите один из **IDE/Editor Extensions** (VSCode, Vim, IntelliJ и др.) к своему инстансу Tabby и настройте параметры через раздел **Configuration** в документации.
+
+    ### ⚠️ Грабли
+    Клонировать репозиторий нужно **обязательно с `--recurse-submodules`** — иначе сборка не найдёт нужные подмодули, и придётся вручную выполнять `git submodule update --recursive --init`. Для GPU-инференса через Docker потребуется правильно настроенный `--gpus all` и совместимый драйвер CUDA.
