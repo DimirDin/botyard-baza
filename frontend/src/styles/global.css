@@ -179,6 +179,37 @@ button {
   color: var(--text-muted);
 }
 
+/* ---- guide progress ---- */
+
+.guide-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.guide-progress__bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #26261f;
+  overflow: hidden;
+}
+
+.guide-progress__fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.guide-progress__label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
 /* ---- states ---- */
 
 .state-empty, .state-error {

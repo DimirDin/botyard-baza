@@ -11,6 +11,7 @@ import { PromptsListScreen } from "./screens/PromptsListScreen";
 import { CalculatorScreen } from "./screens/CalculatorScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { SearchScreen } from "./screens/SearchScreen";
+import { GuideTrack } from "./components/GuideTrack";
 import { api } from "./lib/api";
 import { initTelegram, getStartParam, onBackButton, hideBackButton } from "./lib/telegram";
 
@@ -23,6 +24,9 @@ function resolveStartParam(param) {
   if (type === "section") return { screen: "base" };
   if (type === "prompt") return { screen: "prompts" };
   if (type === "tool") return { screen: "tools" };
+  if (type === "guide") return { screen: "guide" };
+  // "Калькулятор" убран из BottomNav, но экран и API остаются рабочими для прямых ссылок.
+  if (type === "calc") return { screen: "calc" };
   return null;
 }
 
@@ -83,7 +87,7 @@ export default function App() {
     return <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />;
   }
 
-  const TABS = { base: "base", tools: "tools", prompts: "prompts", calc: "calc", favorites: "favorites" };
+  const TABS = { base: "base", tools: "tools", prompts: "prompts", guide: "guide", favorites: "favorites" };
   const activeTab = TABS[screen] || (screen === "entry" ? "base" : screen === "tool" ? "tools" : null);
 
   return (
@@ -102,6 +106,7 @@ export default function App() {
         <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} />
       )}
       {screen === "calc" && <CalculatorScreen />}
+      {screen === "guide" && <GuideTrack />}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
       {screen === "favorites" && (
         <FavoritesScreen

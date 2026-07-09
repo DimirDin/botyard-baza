@@ -49,4 +49,8 @@ export const api = {
   favoriteIds: () => request("/favorites/ids"),
   cheatsheets: () => request("/cheatsheets"),
   cheatsheet: (slug) => request(`/cheatsheets/${slug}`),
+  guideLessons: () => request("/guide/lessons"),
+  guideLesson: (slug) => request(`/guide/lessons/${slug}`),
+  guideComplete: (slug) => request(`/guide/lessons/${slug}/complete`, { method: "POST" }),
+  guideProgress: () => request("/guide/progress"),
 };

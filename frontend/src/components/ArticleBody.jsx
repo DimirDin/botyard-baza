@@ -14,6 +14,10 @@ const HEADER_MAP = [
   { match: "🚀 Как пользоваться", label: "как пользоваться", cls: "segment-label--example" },
   { match: "⚠️ Грабли", label: "грабли", cls: "segment-label--gotcha" },
   { match: "🔗 Первоисточник", label: "источник", cls: "segment-label--source" },
+  // Гид (content/guide/*.md) использует свой набор заголовков — тот же цветовой код.
+  { match: "💻 Как это выглядит на практике", label: "на практике", cls: "segment-label--example" },
+  { match: "⚠️ Частая ошибка новичка", label: "частая ошибка", cls: "segment-label--gotcha" },
+  { match: "🔗 Официальный источник", label: "источник", cls: "segment-label--source" },
 ];
 
 function splitSections(md) {
@@ -36,6 +40,7 @@ function splitSections(md) {
 }
 
 export function ArticleBody({ bodyMd }) {
+  if (!bodyMd) return null;
   const sections = splitSections(bodyMd);
 
   return (

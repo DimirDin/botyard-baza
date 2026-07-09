@@ -54,6 +54,20 @@ const cheatsheets = [
 
 let mockFavorites = [{ item_type: "entry", item_id: 3 }];
 
+const guideLessons = [
+  { id: 1, slug: "guide-first-day", level: 1, order_in_level: 1, title: "Что такое Claude и с чего начать", summary: "Регистрация, где живёт Claude и что вообще можно от него ждать в первый день.",
+    body_md: "### ❓ Что это\nClaude — большая языковая модель от Anthropic.\n\n### 🎯 Зачем тебе\nЭто собеседник, который держит контекст диалога.\n\n### 💻 Как это выглядит на практике\nРегистрация на claude.ai через email.\n\n### ⚠️ Частая ошибка новичка\nЖдать идеального ответа с первого раза.\n\n### 🔗 Официальный источник\nsupport.claude.com" },
+  { id: 2, slug: "guide-first-prompt", level: 1, order_in_level: 2, title: "Твой первый диалог — как правильно формулировать запрос", summary: "Разница между «сделай хорошо» и запросом, который реально даёт результат.",
+    body_md: "### ❓ Что это\nПромпт — это то, что ты пишешь Claude.\n\n### 🎯 Зачем тебе\nХороший промпт экономит 3-4 круга уточнений.\n\n### 💻 Как это выглядит на практике\nЧто сделать + для кого + в каком формате.\n\n### ⚠️ Частая ошибка новичка\nСтесняться давать длинные, подробные инструкции.\n\n### 🔗 Официальный источник\nsupport.claude.com" },
+  { id: 3, slug: "guide-artifacts-intro", level: 1, order_in_level: 3, title: "Artifacts — что это и зачем", summary: "Отдельное окно сбоку, где можно сразу посмотреть на код или картинку.",
+    body_md: "### ❓ Что это\nAritfact — отдельное окно сбоку с вкладками Code и Preview.\n\n### 🎯 Зачем тебе\nНе нужно копировать код и разворачивать сервер, чтобы увидеть результат.\n\n### 💻 Как это выглядит на практике\n«Сделай интерактивный калькулятор на HTML» — откроет рабочую страницу в Preview.\n\n### ⚠️ Частая ошибка новичка\nЖдать доступа к интернету и тяжёлым npm-пакетам внутри артефакта.\n\n### 🔗 Официальный источник\nsupport.claude.com" },
+  { id: 4, slug: "guide-which-model", level: 1, order_in_level: 4, title: "Модели: какую выбрать (Sonnet/Opus/Haiku простыми словами)", summary: "Три модели Claude — чем они отличаются и когда какую включать.",
+    body_md: "### ❓ Что это\nSonnet, Opus и Haiku — разные «режимы мощности» одного собеседника.\n\n### 🎯 Зачем тебе\nНе всегда нужна самая мощная модель — важнее скорость и цена.\n\n### 💻 Как это выглядит на практике\nHaiku — быстрые задачи, Sonnet — по умолчанию, Opus — сложные многошаговые.\n\n### ⚠️ Частая ошибка новичка\nВсегда включать самую мощную модель «на всякий случай».\n\n### 🔗 Официальный источник\nplatform.claude.com" },
+  { id: 5, slug: "guide-uploading-files", level: 1, order_in_level: 5, title: "Загрузка файлов и изображений — что Клод умеет читать", summary: "Какие форматы можно закинуть в чат и что Claude реально с ними сделает.",
+    body_md: "### ❓ Что это\nКнопка-скрепка прикрепляет PDF, изображение, таблицу, код прямо к сообщению.\n\n### 🎯 Зачем тебе\nНе нужно вручную перепечатывать текст из PDF или описывать словами скриншот.\n\n### 💻 Как это выглядит на практике\nПрикрепи скриншот ошибки и спроси «что тут сломалось».\n\n### ⚠️ Частая ошибка новичка\nЗагружать файл без вопроса, что с ним сделать.\n\n### 🔗 Официальный источник\nsupport.claude.com" },
+];
+let mockGuideProgress = new Set([1]);
+
 export async function mockFetch(path, options = {}) {
   await new Promise((r) => setTimeout(r, 250));
 
@@ -116,6 +130,25 @@ export async function mockFetch(path, options = {}) {
       tools: tools.filter((t) => t.name.toLowerCase().includes(q.toLowerCase())).map((t) => ({ ...t, type: "tool" })),
       prompts: prompts.filter((p) => p.title.toLowerCase().includes(q.toLowerCase())).map((p) => ({ ...p, type: "prompt" })),
     };
+  }
+  if (path.startsWith("/guide/lessons/") && path.endsWith("/complete")) {
+    const slug = path.split("/")[3];
+    const lesson = guideLessons.find((l) => l.slug === slug);
+    if (lesson) mockGuideProgress.add(lesson.id);
+    return { completed: true };
+  }
+  if (path.startsWith("/guide/lessons/")) {
+    const slug = path.slice("/guide/lessons/".length);
+    const lesson = guideLessons.find((l) => l.slug === slug);
+    return lesson ? { ...lesson, completed: mockGuideProgress.has(lesson.id) } : {};
+  }
+  if (path.startsWith("/guide/lessons")) {
+    return guideLessons.map(({ body_md, ...rest }) => ({ ...rest, completed: mockGuideProgress.has(rest.id) }));
+  }
+  if (path.startsWith("/guide/progress")) {
+    const total = guideLessons.length;
+    const completed = mockGuideProgress.size;
+    return { completed, total, percent: total ? Math.round((completed / total) * 100) : 0 };
   }
   if (path.startsWith("/calc/tokens")) {
     const body = JSON.parse(options.body || "{}");

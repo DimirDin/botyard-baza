@@ -81,6 +81,25 @@ async def sync_prompts(conn: asyncpg.Connection) -> int:
     return count
 
 
+async def sync_guide(conn: asyncpg.Connection) -> int:
+    count = 0
+    for md_file in CONTENT_DIR.glob("guide/*/*.md"):
+        meta, body = parse_frontmatter(md_file.read_text(encoding="utf-8"))
+        await conn.execute(
+            """
+            INSERT INTO baza.guide_lessons (slug, level, title, summary, body_md, doc_url, order_in_level, published, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
+            ON CONFLICT (slug) DO UPDATE SET
+                level = $2, title = $3, summary = $4, body_md = $5,
+                doc_url = $6, order_in_level = $7, published = $8, updated_at = now()
+            """,
+            meta["slug"], meta["level"], meta["title"], meta.get("summary"),
+            body, meta.get("doc_url"), meta["order_in_level"], meta.get("published", True),
+        )
+        count += 1
+    return count
+
+
 async def sync_cheatsheets(conn: asyncpg.Connection) -> int:
     count = 0
     for md_file in CONTENT_DIR.glob("cheatsheets/*.md"):
@@ -105,7 +124,8 @@ async def main():
         t = await sync_tools(conn)
         p = await sync_prompts(conn)
         c = await sync_cheatsheets(conn)
-        print(f"Синк готов: entries={e} tools={t} prompts={p} cheatsheets={c}")
+        g = await sync_guide(conn)
+        print(f"Синк готов: entries={e} tools={t} prompts={p} cheatsheets={c} guide={g}")
     finally:
         await conn.close()
 

@@ -5,7 +5,7 @@ const ITEMS = [
   { id: "base", icon: "/icons/footer/base.png", label: "База" },
   { id: "tools", icon: "/icons/footer/tools.png", label: "Софт" },
   { id: "prompts", icon: "/icons/footer/prompts.png", label: "Промпты" },
-  { id: "calc", icon: "/icons/footer/calc.png", label: "Счёт" },
+  { id: "guide", icon: "/icons/footer/guide.png", label: "Гид" },
   { id: "favorites", icon: "/icons/footer/favorites.png", label: "Моё" },
 ];
 
