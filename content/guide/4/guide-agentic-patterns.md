@@ -5,6 +5,7 @@ title: "Агентные паттерны — Router, Worker, Validator"
 summary: "Как разбить одну сложную задачу на цепочку специализированных вызовов модели вместо одного большого запроса."
 order_in_level: 1
 doc_url: "https://www.anthropic.com/research/building-effective-agents"
+related_entry: "con-agentic-design-patterns"
 ---
 ![](/guide/4/guide-agentic-patterns.svg)
 

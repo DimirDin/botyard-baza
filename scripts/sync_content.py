@@ -87,14 +87,14 @@ async def sync_guide(conn: asyncpg.Connection) -> int:
         meta, body = parse_frontmatter(md_file.read_text(encoding="utf-8"))
         await conn.execute(
             """
-            INSERT INTO baza.guide_lessons (slug, level, title, summary, body_md, doc_url, order_in_level, published, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
+            INSERT INTO baza.guide_lessons (slug, level, title, summary, body_md, doc_url, order_in_level, related_entry, published, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now())
             ON CONFLICT (slug) DO UPDATE SET
                 level = $2, title = $3, summary = $4, body_md = $5,
-                doc_url = $6, order_in_level = $7, published = $8, updated_at = now()
+                doc_url = $6, order_in_level = $7, related_entry = $8, published = $9, updated_at = now()
             """,
             meta["slug"], meta["level"], meta["title"], meta.get("summary"),
-            body, meta.get("doc_url"), meta["order_in_level"], meta.get("published", True),
+            body, meta.get("doc_url"), meta["order_in_level"], meta.get("related_entry"), meta.get("published", True),
         )
         count += 1
     return count

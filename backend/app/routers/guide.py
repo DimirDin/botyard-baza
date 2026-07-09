@@ -29,7 +29,7 @@ async def get_lesson(slug: str, user: dict = Depends(require_subscribed)):
     row = await pool.fetchrow(
         """
         SELECT l.id, l.slug, l.level, l.title, l.summary, l.body_md, l.doc_url, l.order_in_level,
-               (gp.lesson_id IS NOT NULL) AS completed
+               l.related_entry, (gp.lesson_id IS NOT NULL) AS completed
         FROM baza.guide_lessons l
         LEFT JOIN baza.guide_progress gp ON gp.lesson_id = l.id AND gp.tg_id = $1
         WHERE l.slug = $2 AND l.published
@@ -73,4 +73,18 @@ async def get_progress(user: dict = Depends(require_subscribed)):
         user["tg_id"],
     )
     percent = round(completed / total * 100) if total else 0
-    return {"completed": completed, "total": total, "percent": percent}
+
+    # Первый непройденный урок по порядку — для карточки "продолжить" на Home.
+    next_row = await pool.fetchrow(
+        """
+        SELECT l.slug, l.level, l.title
+        FROM baza.guide_lessons l
+        LEFT JOIN baza.guide_progress gp ON gp.lesson_id = l.id AND gp.tg_id = $1
+        WHERE l.published AND gp.lesson_id IS NULL
+        ORDER BY l.level, l.order_in_level
+        LIMIT 1
+        """,
+        user["tg_id"],
+    )
+    next_lesson = dict(next_row) if next_row else None
+    return {"completed": completed, "total": total, "percent": percent, "next_lesson": next_lesson}

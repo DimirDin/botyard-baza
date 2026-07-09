@@ -106,7 +106,12 @@ export default function App() {
         <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} />
       )}
       {screen === "calc" && <CalculatorScreen />}
-      {screen === "guide" && <GuideTrack />}
+      {screen === "guide" && (
+        <GuideTrack
+          initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
+          onOpenEntry={(slug) => navigate("entry", slug)}
+        />
+      )}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
       {screen === "favorites" && (
         <FavoritesScreen

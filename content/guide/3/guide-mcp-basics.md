@@ -5,6 +5,7 @@ title: "MCP простыми словами — как Claude подключае
 summary: "Стандарт, который позволяет Claude работать с базами данных, файлами и сервисами без написания уникальной интеграции под каждый."
 order_in_level: 3
 doc_url: "https://modelcontextprotocol.io"
+related_entry: "con-mcp-architecture"
 ---
 ![](/guide/3/guide-mcp-basics.svg)
 

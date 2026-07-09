@@ -5,6 +5,7 @@ title: "Коннекторы — подключи Notion, Google Drive и дру
 summary: "Живая синхронизация с внешними источниками вместо ручной перезагрузки файлов после каждой правки."
 order_in_level: 4
 doc_url: "https://support.claude.com"
+related_entry: "ca-data-connectors"
 ---
 ![](/guide/2/guide-connectors.svg)
 

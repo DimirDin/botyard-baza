@@ -7,11 +7,13 @@ import { api } from "../lib/api";
 export function HomeScreen({ onNavigate }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
+  const [guide, setGuide] = useState(null); // прогресс гида, для карточки "продолжить"
 
   const load = () => {
     setError(false);
     setData(null);
     api.home().then(setData).catch(() => setError(true));
+    api.guideProgress().then(setGuide).catch(() => {});
   };
 
   useEffect(load, []);
@@ -25,6 +27,29 @@ export function HomeScreen({ onNavigate }) {
         {data && (
           <>
             <StatsBar stats={data.stats} />
+
+            {guide?.next_lesson && (
+              <section style={{ marginBottom: 24 }}>
+                <span className="segment-label segment-label--gotcha">
+                  {guide.completed > 0 ? "продолжить гид" : "начать гид"}
+                </span>
+                <div
+                  className="card"
+                  onClick={() => onNavigate("guide", { level: guide.next_lesson.level, slug: guide.next_lesson.slug })}
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="card__title">{guide.next_lesson.title}</p>
+                  <p className="card__meta">
+                    Уровень {guide.next_lesson.level} · пройдено {guide.completed} из {guide.total}
+                  </p>
+                  <div className="guide-progress" style={{ marginTop: 8 }}>
+                    <div className="guide-progress__bar">
+                      <div className="guide-progress__fill" style={{ width: `${guide.percent}%` }} />
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
             <section style={{ marginBottom: 24 }}>
               <span className="segment-label segment-label--why">новое на неделе</span>

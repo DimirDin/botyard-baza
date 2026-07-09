@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS baza.guide_lessons (
     body_md        TEXT NOT NULL,
     doc_url        TEXT,
     order_in_level SMALLINT NOT NULL,
+    related_entry  TEXT,                            -- slug статьи baza.entries, необязательно
     published      BOOLEAN DEFAULT true,
     updated_at     TIMESTAMPTZ DEFAULT now()
 );

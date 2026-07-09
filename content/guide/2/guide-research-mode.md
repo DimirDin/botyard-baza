@@ -5,6 +5,7 @@ title: "Режим Research — глубокий многошаговый пои
 summary: "Когда обычного быстрого ответа недостаточно и нужен настоящий разбор темы с источниками."
 order_in_level: 5
 doc_url: "https://support.claude.com"
+related_entry: "ca-research-mode"
 ---
 ![](/guide/2/guide-research-mode.svg)
 

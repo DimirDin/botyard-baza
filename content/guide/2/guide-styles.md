@@ -5,6 +5,7 @@ title: "Styles — настрой тон ответов один раз"
 summary: "Сохраняемые пресеты поведения модели, чтобы не дописывать «отвечай короче» в конце каждого сообщения."
 order_in_level: 2
 doc_url: "https://support.claude.com"
+related_entry: "ca-custom-styles"
 ---
 ![](/guide/2/guide-styles.svg)
 

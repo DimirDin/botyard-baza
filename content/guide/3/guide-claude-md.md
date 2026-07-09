@@ -5,6 +5,7 @@ title: "CLAUDE.md — память проекта, которую Claude Code ч
 summary: "Один файл в корне репозитория, который избавляет агента от угадывания структуры проекта каждый раз заново."
 order_in_level: 2
 doc_url: "https://code.claude.com/docs"
+related_entry: "cc-claude-md-config"
 ---
 ![](/guide/3/guide-claude-md.svg)
 

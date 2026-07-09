@@ -5,6 +5,7 @@ title: "Memory — Claude помнит тебя между чатами"
 summary: "Как Claude запоминает предпочтения и детали проектов, чтобы не объяснять всё заново в каждом новом диалоге."
 order_in_level: 3
 doc_url: "https://support.claude.com"
+related_entry: "ca-user-memory-web"
 ---
 ![](/guide/2/guide-memory.svg)
 

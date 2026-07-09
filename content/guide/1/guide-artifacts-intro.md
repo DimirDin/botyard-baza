@@ -5,6 +5,7 @@ title: "Artifacts — что это и зачем"
 summary: "Отдельное окно сбоку, где можно сразу посмотреть на код или картинку, а не читать текст."
 order_in_level: 3
 doc_url: "https://support.claude.com"
+related_entry: "ca-artifacts-deep-dive"
 ---
 ![](/guide/1/guide-artifacts-intro.svg)
 

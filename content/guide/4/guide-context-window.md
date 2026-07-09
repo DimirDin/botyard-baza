@@ -5,6 +5,7 @@ title: "Контекстное окно — почему середина про
 summary: "Эффект затухания внимания в длинном контексте и как располагать важное, чтобы модель это точно не пропустила."
 order_in_level: 4
 doc_url: "https://www.anthropic.com/research"
+related_entry: "con-context-window-limits"
 ---
 ![](/guide/4/guide-context-window.svg)
 

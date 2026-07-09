@@ -5,6 +5,7 @@ title: "Hooks — автоматика, которая срабатывает в
 summary: "Как заставить форматирование и проверки выполняться гарантированно, а не зависеть от того, вспомнит ли Claude их запустить."
 order_in_level: 5
 doc_url: "https://code.claude.com/docs/en/hooks"
+related_entry: "code-hooks-basics"
 ---
 ![](/guide/3/guide-hooks.svg)
 

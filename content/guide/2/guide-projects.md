@@ -5,6 +5,7 @@ title: "Проекты — отдельный контекст для каждо
 summary: "Изолированные рабочие пространства с файлами и своими инструкциями, чтобы не путать разные задачи между собой."
 order_in_level: 1
 doc_url: "https://support.claude.com"
+related_entry: "ca-projects-knowledge"
 ---
 ![](/guide/2/guide-projects.svg)
 

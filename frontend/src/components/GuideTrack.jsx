@@ -7,10 +7,11 @@ import { api } from "../lib/api";
 
 // Три вложенных вида внутри одного экрана, без отдельных App-уровневых screen — тот же
 // паттерн, что у шпаргалок в EntriesListScreen: список уровней -> уроки уровня -> тело урока.
-export function GuideTrack() {
+// `initial` — переход сразу на конкретный урок (карточка "продолжить" на Home), см. App.jsx.
+export function GuideTrack({ initial, onOpenEntry }) {
   const [lessons, setLessons] = useState(null); // все уроки, с полем completed
   const [error, setError] = useState(false);
-  const [level, setLevel] = useState(null); // null = список уровней
+  const [level, setLevel] = useState(initial?.level ?? null); // null = список уровней
   const [lesson, setLesson] = useState(null); // "loading" | объект урока | null
   const [marking, setMarking] = useState(false);
 
@@ -22,12 +23,24 @@ export function GuideTrack() {
 
   useEffect(load, []);
 
+  // Прыжок сразу в конкретный урок с Home ("продолжить"/"начать гид"), один раз после загрузки.
+  useEffect(() => {
+    if (initial?.slug && lessons) openLesson(initial.slug);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessons]);
+
   const openLesson = (slug) => {
     setLesson("loading");
     api.guideLesson(slug).then(setLesson).catch(() => setLesson(null));
   };
 
   const lessonsByLevel = (lvl) => (lessons || []).filter((l) => l.level === lvl).sort((a, b) => a.order_in_level - b.order_in_level);
+
+  const isLevelUnlocked = (lvl) => {
+    if (lvl <= 1) return true;
+    const prev = lessonsByLevel(lvl - 1);
+    return prev.length > 0 && prev.every((l) => l.completed);
+  };
 
   // --- вид 3: тело урока ---
   if (lesson) {
@@ -81,6 +94,18 @@ export function GuideTrack() {
             <>
               <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
               <ArticleBody bodyMd={lesson.body_md} />
+              {lesson.related_entry && onOpenEntry && (
+                <button
+                  onClick={() => onOpenEntry(lesson.related_entry)}
+                  style={{
+                    marginTop: 16, marginRight: 10, padding: "10px 18px", borderRadius: 6,
+                    fontFamily: "var(--font-mono)", fontSize: 14, background: "transparent",
+                    color: "var(--text-muted)", border: "1px solid #26261f", cursor: "pointer",
+                  }}
+                >
+                  📖 читать подробнее в Базе
+                </button>
+              )}
               <button
                 onClick={advance}
                 disabled={marking}
@@ -137,15 +162,18 @@ export function GuideTrack() {
             const items = lessonsByLevel(m.level);
             const done = items.filter((it) => it.completed).length;
             const pct = items.length ? Math.round((done / items.length) * 100) : 0;
+            const unlocked = isLevelUnlocked(m.level);
+            const clickable = items.length > 0 && unlocked;
             return (
               <div
                 key={m.level}
                 className="card"
-                onClick={() => items.length > 0 && setLevel(m.level)}
-                style={{ cursor: items.length > 0 ? "pointer" : "default", opacity: items.length > 0 ? 1 : 0.45 }}
+                onClick={() => clickable && setLevel(m.level)}
+                style={{ cursor: clickable ? "pointer" : "default", opacity: clickable ? 1 : 0.45 }}
               >
                 <span className="tree-item">{i === GUIDE_MENU.length - 1 ? "└──" : "├──"}</span>
                 <span className="card__title">
+                  {!unlocked && "🔒 "}
                   Уровень {m.level} · {m.label}
                 </span>
                 <p className="card__meta" style={{ marginTop: 4 }}>{m.desc}</p>
@@ -154,7 +182,7 @@ export function GuideTrack() {
                     <div className="guide-progress__fill" style={{ width: `${pct}%` }} />
                   </div>
                   <span className="guide-progress__label">
-                    {items.length > 0 ? `${done} из ${items.length}` : "скоро"}
+                    {!unlocked ? `сначала уровень ${m.level - 1}` : items.length > 0 ? `${done} из ${items.length}` : "скоро"}
                   </span>
                 </div>
               </div>
