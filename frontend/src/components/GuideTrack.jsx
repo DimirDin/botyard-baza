@@ -27,22 +27,48 @@ export function GuideTrack() {
     api.guideLesson(slug).then(setLesson).catch(() => setLesson(null));
   };
 
-  const markComplete = () => {
-    if (!lesson || lesson === "loading") return;
-    setMarking(true);
-    api
-      .guideComplete(lesson.slug)
-      .then(() => {
-        setLesson((l) => ({ ...l, completed: true }));
-        setLessons((ls) => ls.map((l) => (l.slug === lesson.slug ? { ...l, completed: true } : l)));
-      })
-      .finally(() => setMarking(false));
-  };
-
   const lessonsByLevel = (lvl) => (lessons || []).filter((l) => l.level === lvl).sort((a, b) => a.order_in_level - b.order_in_level);
 
   // --- вид 3: тело урока ---
   if (lesson) {
+    const items = level ? lessonsByLevel(level) : [];
+    const idx = items.findIndex((l) => l.slug === lesson.slug);
+    const next = idx >= 0 ? items[idx + 1] : null;
+
+    // Единая кнопка снизу урока: отмечает пройденным (если ещё не) и сразу ведёт дальше —
+    // на следующий урок уровня, а на последнем уроке уровня — обратно к списку уровней.
+    const advance = () => {
+      const goNext = () => {
+        if (next) openLesson(next.slug);
+        else {
+          setLesson(null);
+          setLevel(null);
+        }
+      };
+      if (lesson.completed) {
+        goNext();
+        return;
+      }
+      setMarking(true);
+      api
+        .guideComplete(lesson.slug)
+        .then(() => setLessons((ls) => ls.map((l) => (l.slug === lesson.slug ? { ...l, completed: true } : l))))
+        .finally(() => {
+          setMarking(false);
+          goNext();
+        });
+    };
+
+    const advanceLabel = marking
+      ? "..."
+      : lesson.completed
+        ? next
+          ? "дальше →"
+          : "✓ к списку уровня"
+        : next
+          ? "✓ пройдено, дальше →"
+          : "✓ уровень пройден — к списку";
+
     return (
       <>
         <PromptLine
@@ -56,17 +82,15 @@ export function GuideTrack() {
               <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
               <ArticleBody bodyMd={lesson.body_md} />
               <button
-                onClick={markComplete}
-                disabled={lesson.completed || marking}
+                onClick={advance}
+                disabled={marking}
                 style={{
                   marginTop: 16, padding: "10px 18px", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
-                  background: lesson.completed ? "transparent" : "var(--accent)",
-                  color: lesson.completed ? "var(--accent)" : "#0a0a08",
-                  border: "1px solid var(--accent)",
-                  cursor: lesson.completed ? "default" : "pointer",
+                  background: "var(--accent)", color: "#0a0a08", border: "1px solid var(--accent)",
+                  cursor: marking ? "default" : "pointer",
                 }}
               >
-                {lesson.completed ? "✓ пройдено" : marking ? "..." : "отметить пройденным"}
+                {advanceLabel}
               </button>
             </>
           )}
