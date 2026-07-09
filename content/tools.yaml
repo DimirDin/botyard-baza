@@ -1003,7 +1003,7 @@
   badge:
   verify_status: check
   body_md: |
-    ![](https://raw.githubusercontent.com/junhoyeo/tokscale/main/github/assets/hero-v2.png)
+    ![](https://raw.githubusercontent.com/junhoyeo/tokscale/main/.github/assets/hero-v2.png)
 
     ### ❓ Что это
     **Tokscale** — высокопроизводительный CLI с интерактивным TUI (второе поколение — на нативном **Rust**) для мониторинга расхода токенов сразу нескольких AI coding-агентов: **OpenCode**, **Claude Code**, **OpenClaw**, **Codex CLI**, **Sakana Fugu**, **GitHub Copilot CLI**, **Hermes Agent**, **Gemini CLI**, **Cursor IDE**, **Amp**, **Codebuff** и другие. Есть публичный лидерборд и 3D-граф контрибьюций.
@@ -1572,7 +1572,7 @@
   badge: editors_choice
   verify_status: check
   body_md: |
-    ![](https://raw.githubusercontent.com/langchain-ai/langgraph/main/github/images/logo-dark.svg)
+    ![](https://raw.githubusercontent.com/langchain-ai/langgraph/main/.github/images/logo-dark.svg)
 
     ### ❓ Что это
     **LangGraph** — низкоуровневый фреймворк оркестрации от **LangChain Inc** (создателей одноимённой библиотеки, но работает и без неё) для построения, управления и деплоя долгоживущих стейтфул агентов. Идея — представить логику агента графом: узлы и рёбра вместо цепочек промптов. Архитектурно вдохновлён Google **Pregel** и **Apache Beam**, а публичный интерфейс — **NetworkX**. Используется в проде такими компаниями, как Klarna, Replit и Elastic.
@@ -1940,48 +1940,219 @@
   description_ru: "Плагин Claude Code, подключающий BSL Language Server как LSP для файлов .bsl и .os — диагностика ошибок, go to definition, автодополнение прямо в сессии."
   badge: editors_choice
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Плагин **Claude Code**, который подключает **BSL Language Server** как полноценный LSP-сервер для файлов `.bsl` (1С:Предприятие) и `.os` (**OneScript**). Даёт агенту диагностику качества кода, go to definition, find references, hover-подсказки, code actions/quick fixes, навигацию по символам и форматирование — прямо внутри сессии Claude Code.
+
+    ### 🎯 Для чего
+    Ставь, если пишешь на **BSL** и хочешь, чтобы Claude Code видел код не как текст, а как язык программирования — с проверкой ошибок и переходами по определениям, а не догадками по grep. Плагин сам следит за обновлениями: на старте каждой сессии проверяет GitHub на новый релиз (не чаще раза в 8 минут) и подтягивает свежий бинарник.
+
+    ### 💻 Как установить
+    ```bash
+    claude
+    /plugin marketplace add 1c-syntax/claude-code-bsl-lsp
+    /plugin install bsl-language-server@bsl-language-server
+    ```
+    Либо вручную — клонировать репозиторий и добавить как локальный marketplace: `git clone https://github.com/1c-syntax/claude-code-bsl-lsp.git`, затем `/plugin marketplace add /path/to/claude-code-bsl-lsp`.
+
+    ### 🚀 Как пользоваться
+    ```
+    /plugin install bsl-language-server@bsl-language-server
+    ```
+    После установки LSP работает автоматически на файлах `.bsl` и `.os` — ничего дополнительно вызывать не нужно. Настройки — через `.bsl-language-server.json` в корне проекта.
+
+    ### ⚠️ Грабли
+    Если автозагрузка бинарника не сработала, ставь **BSL Language Server** вручную — скачай релиз под свою платформу и положи бинарник в `PATH`. На **Windows** плагин работает через **Git Bash** (по умолчанию) или **PowerShell 6+** как fallback, если bash недоступен.
 
 - repo: 1c-syntax/bsl-language-server
   category: libs/other
   description_ru: "Language Server Protocol для языка 1С (BSL) и OneScript — движок, на котором работает LSP-плагин для Claude Code. Живой проект, 3900+ issues/PR."
   badge: null
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **BSL Language Server** — реализация протокола **Language Server Protocol** для языка 1С:Предприятие 8 (**BSL**) и **OneScript**. Это движок, который отдаёт диагностику, автодополнение и другие LSP-возможности любому клиенту, поддерживающему протокол — в том числе плагину `claude-code-bsl-lsp` для Claude Code.
+
+    ### 🎯 Для чего
+    Ставь напрямую, если нужен статический анализ и LSP-сервер для BSL/OneScript вне Claude Code — например, в другой IDE или CI. Для использования в Claude Code достаточно поставить плагин `1c-syntax/claude-code-bsl-lsp`, который скачает и обновит этот сервер сам.
+
+    ### 💻 Как установить
+    ```
+    Скачать latest release с GitHub Releases проекта
+    ```
+    Готовые сборки под Linux/macOS/Windows лежат в [GitHub Releases](https://github.com/1c-syntax/bsl-language-server/releases/latest). Также доступен через **JitPack**.
+
+    ### 🚀 Как пользоваться
+    Подключается как обычный LSP-сервер к любому клиенту, поддерживающему протокол — конфигурация специфична для каждого редактора/плагина. Полная документация — на сайте проекта.
+
+    ### ⚠️ Грабли
+    Настройки анализа задаются файлом `.bsl-language-server.json` в корне проекта — без него сервер работает на дефолтных диагностиках, которые не всегда совпадают с ожиданиями конкретной команды. Проект живой и активно развивается — 3900+ issues/PR, стоит сверяться с актуальной документацией, а не с устаревшими гайдами.
 
 - repo: Nikolay-Shirokov/cc-1c-skills
   category: agents/other
   description_ru: "Skills для полного цикла разработки на 1С:Предприятие 8.3 — обработки, отчёты, публикация на веб-сервере, тестирование через браузер. Версии на PowerShell и Python."
   badge: null
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Набор **навыков (skills)** для AI-агентов, в первую очередь для **Claude Code**, закрывающий полный цикл разработки на платформе **1С:Предприятие 8.3** — от создания конфигураций, расширений, внешних обработок и отчётов до загрузки изменений в информационную базу, публикации на веб-сервере (портативный Apache) и тестирования через веб-клиент. Навыки дают модели готовые абстракции над XML-форматами и CLI конфигуратора, а не заставляют разбираться в деталях реализации вручную.
+
+    ### 🎯 Для чего
+    Ставь, если разрабатываешь на 1С и хочешь, чтобы агент умел: собирать/разбирать **EPF/ERF** (`/epf-*`, `/erf-*`), работать с макетами **MXL** (`/mxl-*`), управляемыми формами (`/form-*`), ролями (`/role-*`), схемой компоновки данных (`/skd-*`), метаданными конфигурации (`/meta-*`, 23 типа), расширениями (`/cfe-*`), подсистемами (`/subsystem-*`), базами данных (`/db-*`) и веб-публикацией (`/web-*`) — вплоть до автотестов через веб-клиент и записи видеоинструкций с субтитрами и TTS. Проект живой, активно развивается.
+
+    ### 💻 Как установить
+    ```
+    /plugin marketplace add https://github.com/Nikolay-Shirokov/cc-1c-skills
+    /plugin install 1c-skills@cc-1c-skills        # PowerShell (Windows)
+    /plugin install 1c-skills-py@cc-1c-skills     # Python (Linux/Mac)
+    ```
+    Либо просто скопируй `.claude/skills/` из репозитория в корень своего проекта — навыки станут доступны при следующем запуске Claude Code оттуда.
+
+    ### 🚀 Как пользоваться
+    ```bash
+    python tools/cc-1c-skills/scripts/switch.py claude-code --project-dir .
+    ```
+    Не обязательно запоминать команды — просто опиши задачу своими словами, Claude сам подберёт нужный навык. Слэш-команды вроде `/epf-init МояОбработка` тоже работают, если нужен точный контроль.
+
+    ### ⚠️ Грабли
+    Основной рантайм — **PowerShell 5.1+** на Windows; для Linux/Mac есть Python-порты (ветка `port-claude-code-py`). Флаг `--link` при установке экспериментальный: Node.js резолвит `__dirname` через junction к реальному пути источника навыков, а не к каталогу проекта, из-за чего скиллы с Node.js-скриптами (например `/web-test`) могут писать файлы не туда — при проблемах переключайся на обычное копирование без `--link`.
 
 - repo: Desko77/claude-code-skills-1c
   category: agents/other
   description_ru: "Альтернативный набор skills для 1С — 25 правил по стандартам кода BSL, антипаттернам, работе с БСП, плюс справочники API (в т.ч. ЗУП)."
   badge: null
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Набор из **95 скилов**, **29 правил** и **4 команд** для Claude Code, ориентированный на разработку 1С:Предприятие: конфигурации, расширения, обработки, формы, макеты, запросы, роли, подсистемы, базы данных, веб-публикация и веб-тестирование, а также разработка под 1С 7.7, правила обмена «Конвертация данных» и интеграция с Mobile SMARTS (Клеверенс). Отдельный класс — справочники API прикладных конфигураций, например `zup-hr-api-reference` для 1С:ЗУП 3.1.
+
+    ### 🎯 Для чего
+    Ставь, если нужны не только генераторы XML, но и **правила** — стандарты кода BSL, антипаттерны (`anti_patterns.md`: запрос в цикле, точка, O(n²)), оптимизация запросов, паттерны расширений, требования EDT, права ролей и профилей БСП, безопасная запись BSL-модулей через EDT MCP, тестирование (YaXUnit, Vanessa Automation) и SDD-workflow. Скилы спроектированы слоями: базовые (генерация XML) работают без платформы 1С, продвинутые требуют саму платформу или MCP-серверы (EDT, БСП, 1С:Напарник).
+
+    ### 💻 Как установить
+    ```bash
+    cp -r skills/* ~/.claude/skills/
+    cp rules/*.md ~/.claude/rules/
+    cp commands/* ~/.claude/commands/
+    ```
+    Можно ставить и точечно — например `cp -r skills/1c-meta-compile ~/.claude/skills/`.
+
+    ### 🚀 Как пользоваться
+    Скилы вызываются автоматически по описанию задачи или явно по имени, например `1c-meta-compile`, `1c-web-test`, `1c-cfe-full-cycle`. Для расширенных возможностей (транскрибация, MCP-toolkit, EDT) нужны опциональные зависимости из таблицы в README.
+
+    ### ⚠️ Грабли
+    Обязателен только **PowerShell 5.1+** на Windows — всё остальное опционально: Python 3.8+ для альтернативных скриптов, `1C:Enterprise 8.3` для скилов `db-*` и сборки EPF/ERF, `ffmpeg`/NVIDIA CUDA для транскрибации (на CPU работает, но в 10+ раз медленнее), `gcomp` для разработки под 1С 7.7. Без нужной зависимости соответствующий скил просто не заработает.
 
 - repo: Arman-Kudaibergenov/1c-ai-development-kit
   category: agents/other
   description_ru: "Комплексный AI-тулкит для 1С — 74 skills, написан в первую очередь под Cursor, но подходит и Claude Code через .claude/skills."
   badge: null
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **1C AI Development Kit** — готовая экосистема для AI-ассистированной разработки на **1С:Предприятие 8.3**, с поддержкой и **Claude Code**, и **Cursor IDE**. Включает **71 skill** для Claude Code (метаданные, формы, EPF/ERF, СКД, макеты, роли, подсистемы, конфигурация, расширения, база данных, workflow-скилы), 12 специализированных агентов и 9 правил для Cursor, а также 29 спецификаций форматов 1С. Проект собрал наработки нескольких решений сообщества (cc-1c-skills, cursor_rules_1c, 1c-batch и другие) в единый комплект.
+
+    ### 🎯 Для чего
+    Ставь, если хочешь один тулкит сразу под обе IDE, с готовым конфигом MCP-серверов (`templates/mcp.json`) под задачи 1С — документация платформы (`1c-help`), паттерны БСП (`1c-ssl`), проверка синтаксиса BSL (`1c-syntax-checker`), схемы форм (`1c-forms`), интеграция с 1C:EDT (`edt-mcp`) и персистентная память между сессиями (`rlm-toolkit`).
+
+    ### 💻 Как установить
+    ```
+    Смотри QUICK_START.md — пошаговые инструкции для Claude Code и Cursor IDE
+    ```
+    Скилы вызываются как `/skill-name` в диалоге с Claude после установки по инструкции из `QUICK_START.md`.
+
+    ### 🚀 Как пользоваться
+    Вызывай нужный скил слэш-командой, например `/meta-compile`, `/form-edit`, `/db-update`, `/1c-feature-dev`. Для MCP-серверов от vibecoding1c.ru — отдельная настройка, описанная в `docs/guides/project-mcp-setup.md`.
+
+    ### ⚠️ Грабли
+    Требует **1С:Предприятие 8.3.24+**, **PowerShell 5.1+** и **Git**. Полная функциональность зависит от внешних MCP-серверов, которые нужно ставить и настраивать отдельно — без них часть скилов (проверка синтаксиса, схемы форм, интеграция с EDT) работать не будет.
 
 - repo: sfrangulov/claude-code-handbook-ru
   category: libs/other
   description_ru: "Курируемый handbook по Claude Code на русском языке — hooks, skills, шаблоны CLAUDE.md, переводы советов Бориса Черни (создателя Claude Code)."
   badge: editors_choice
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Курируемый **handbook по Claude Code на русском** — не сырой список, а подборка того, что автор реально применяет в клиентских проектах либо что массово проверено сообществом по install-count. Покрывает skills, sub-agents, оркестрацию нескольких агентов, workflow-методологии (spec → plan → ship), plugins, hooks, MCP-серверы, шаблоны `CLAUDE.md`, статуслайны и мониторинг расхода токенов. Полный сырой каталог (1411 записей) вынесен отдельно в `catalog/`.
+
+    ### 🎯 Для чего
+    Ставь как справочник и точку входа, если разбираешься в экосистеме Claude Code с нуля или хочешь свериться с актуальной практикой: топ-15 скиллов по реальной телеметрии установок (`skills.sh`), печатная шпаргалка на 1 страницу A4 со всеми горячими клавишами и слэш-командами, три production-шаблона `CLAUDE.md` (Next.js, Python/FastAPI, Terraform) и разбор паттерна автономного pipeline (threat model → sandbox → discovery → verification → triage → patch) от Anthropic.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g @anthropic-ai/claude-code
+    claude plugin marketplace add obra/superpowers-marketplace
+    claude mcp add github
+    claude mcp add postgres
+    ```
+
+    ### 🚀 Как пользоваться
+    ```
+    /plugin install superpowers@superpowers-marketplace
+    ```
+    Это ставит 24 скилла (TDD, brainstorming, debugging, code-review, planning, parallel-agents и другие) — пять из них входят в топ-15 по install-count. Дальше — по шпаргалке (`cheatsheet/`) и по разделу гайдов на русском внутри репозитория.
+
+    ### ⚠️ Грабли
+    Не подключай больше 5–7 MCP-серверов сразу — каждый расходует 1–3K токенов контекста только на discovery. README генерируется из шаблона и `data/*.json` через `node scripts/build-readme.mjs` — при доработке репозитория руками редактировать сам файл бессмысленно, изменения потрутся.
 
 - repo: miolamio/claude-skills
   category: agents/other
   description_ru: "Skills для русского текста: переводчик EN→RU в три этапа, редактор по принципам Ильяхова (убирает канцелярит и AI-маркеры), проверка орфографии/пунктуации."
   badge: null
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Коллекция навыков для Claude Code, заточенных под работу с русским текстом: **`en-ru-translator-adv`** — переводчик EN→RU в три этапа (черновой перевод, рефлексия, финальная редактура) по принципам информационного стиля Ильяхова; **`ru-editor`** — редактор, вычищающий из текста AI-маркеры (ChatGPT-измы, синонимические тройки, канцеляризмы) в 15 операций редактуры и 16 самопроверок; **`ru-textovod`** — проверка орфографии/пунктуации/грамматики через API Textovod.com; плюс `ascii-art-beautifier` для выравнивания ASCII-диаграмм и `telegram-cli` — CLI-клиент Telegram прямо из терминала Claude Code.
+
+    ### 🎯 Для чего
+    Ставь `en-ru-translator-adv` и `ru-editor`, если Claude Code генерирует тебе тексты на русском и они получаются с кальками, канцеляритом и характерным «ИИ-акцентом» — эти скилы соблюдают русскую типографику (кавычки-ёлочки, тире, буква «ё») и ведут глоссарий терминов. `ru-textovod` — для отдельной проверки орфографии/пунктуации через внешний сервис. `telegram-cli` — если нужно управлять Telegram (чаты, сообщения, медиа) прямо из агентской сессии.
+
+    ### 💻 Как установить
+    ```bash
+    git clone git@github.com:miolamio/claude-skills.git
+    cp -r claude-skills/en-ru-translator-adv /path/to/your/project/.claude/skills/
+    ```
+    Для использования во всех проектах — копируй в `~/.claude/skills/` вместо папки проекта. Для `telegram-cli` отдельно: `npm install -g @miolamio/tg-cli`.
+
+    ### 🚀 Как пользоваться
+    Claude Code подхватывает скил автоматически после копирования — перезапуск не требуется. `telegram-cli` вызывается командой `tg` с подкомандами `tg auth`, `tg chat`, `tg message`, `tg media`; есть режим `--toon` для сжатого вывода, экономящего 30–40% токенов на LLM-контексте.
+
+    ### ⚠️ Грабли
+    Для `ru-textovod` нужны переменные окружения `TEXTOVOD_USER_ID` и `TEXTOVOD_API_KEY` (API v1) или `TEXTOVOD_API2_TOKEN` (API v2 для нейросетевой автокоррекции) — без них скил не сработает.
 
 - repo: artwist-polyakov/polyakov-claude-skills
   category: agents/other
   description_ru: "Плагины с интеграцией российских сервисов — Яндекс.Вебмастер, Яндекс.Метрика, Яндекс.Wordstat, публикация в Telegraph."
   badge: null
   verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Набор из почти двух десятков скиллов-плагинов для Claude Code, значительная часть — интеграции с российскими сервисами: **`yandex-webmaster`** (индексация, поисковые запросы, переобход, сайтмапы через API v4), **`yandex-metrika`** (трафик, конверсии, UTM, cache-first стратегия с TSV-индексами), **`yandex-wordstat`** (поисковый спрос, динамика по месяцам, регионы), **`telegraph-publisher`** (публикация страниц с медиа). Плюс скилы общего назначения: `docx-contracts`, `agent-deck`, `ssh-remote-connection`, `codex-review`, `reddit-skill`, `knowledge-compiler` и другие.
+
+    ### 🎯 Для чего
+    Ставь, если делаешь SEO/аналитику под Яндекс из Claude Code и хочешь получать отчёты по индексации, трафику и поисковому спросу без ручных походов в кабинеты Вебмастера/Метрики/Wordstat. `telegraph-publisher` пригодится для быстрой публикации контента — при этом сам скил советует хранить картинки не в нестабильном Telegraph upload, а через GitHub + jsDelivr с отдельным public media repo.
+
+    ### 💻 Как установить
+    ```bash
+    /plugin marketplace add artwist-polyakov/polyakov-claude-skills
+    /plugin install yandex-webmaster
+    /plugin install yandex-metrika
+    /plugin install yandex-wordstat
+    /plugin install telegraph-publisher
+    ```
+    Без маркетплейса — вручную: `cp -r plugins/yandex-metrika/skills/yandex-metrika ~/.claude/skills/`.
+
+    ### 🚀 Как пользоваться
+    ```bash
+    claude --plugin-dir ./plugins/agent-deck
+    ```
+    Так плагин можно протестировать локально до публикации через маркетплейс. После установки скилы триггерятся автоматически по описанию задачи в диалоге с Claude.
+
+    ### ⚠️ Грабли
+    Для `telegraph-publisher` рекомендуется завести отдельный **fine-grained PAT** только с правом `Contents: Read and write` на media-репозиторий — не давай токену доступ шире необходимого. Лицензия репозитория — **MIT**.
+
+
 
 # --- добавлено: проверенные через GitHub API репозитории (группы A/C), body_md по реальным README ---
 
@@ -2723,7 +2894,7 @@
   badge: null
   verify_status: check
   body_md: |
-    ![](.assets/devika-avatar.png)
+    ![](https://raw.githubusercontent.com/stitionai/devika/main/.assets/devika-avatar.png)
 
     ### ❓ Что это
     **Devika** — агентный AI software engineer, который понимает высокоуровневые задачи, сам разбивает их на шаги, ищет нужную информацию в вебе и пишет код для достижения цели. Проект вдохновлён Devin от Cognition AI.
