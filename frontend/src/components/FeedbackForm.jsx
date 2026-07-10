@@ -28,8 +28,17 @@ export function FeedbackForm() {
 
   if (!open) {
     return (
-      <div className="card" onClick={() => setOpen(true)} style={{ cursor: "pointer", textAlign: "center" }}>
-        <p className="card__title">💬 Предложить инструмент или промпт</p>
+      <div
+        className="card"
+        onClick={() => setOpen(true)}
+        style={{
+          cursor: "pointer",
+          textAlign: "center",
+          background: "color-mix(in srgb, var(--accent) 14%, #1a1a18)",
+          borderColor: "var(--accent)",
+        }}
+      >
+        <p className="card__title" style={{ color: "var(--accent)" }}>💬 Предложить инструмент или промпт</p>
         <p className="card__meta">напиши прямо здесь — уйдёт на модерацию</p>
       </div>
     );
