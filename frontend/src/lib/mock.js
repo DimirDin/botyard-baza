@@ -171,6 +171,7 @@ export async function mockFetch(path, options = {}) {
       prompts: prompts.filter((p) => p.title.toLowerCase().includes(q.toLowerCase())).map((p) => ({ ...p, type: "prompt" })),
     };
   }
+  if (path === "/feedback") return { sent: true };
   if (path.startsWith("/guide/lessons/") && path.endsWith("/complete")) {
     const slug = path.split("/")[3];
     const lesson = guideLessons.find((l) => l.slug === slug);

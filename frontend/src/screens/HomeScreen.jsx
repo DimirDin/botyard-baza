@@ -3,7 +3,7 @@ import { PromptLine } from "../components/PromptLine";
 import { StatsBar } from "../components/StatsBar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
-import { openFeedbackChat } from "../lib/telegram";
+import { FeedbackForm } from "../components/FeedbackForm";
 
 export function HomeScreen({ onNavigate }) {
   const [data, setData] = useState(null);
@@ -87,10 +87,7 @@ export function HomeScreen({ onNavigate }) {
             </section>
 
             <section style={{ marginTop: 20 }}>
-              <div className="card" onClick={() => openFeedbackChat()} style={{ cursor: "pointer", textAlign: "center" }}>
-                <p className="card__title">💬 Предложить инструмент или промпт</p>
-                <p className="card__meta">откроет чат с ботом — просто напиши, что добавить</p>
-              </div>
+              <FeedbackForm />
             </section>
           </>
         )}

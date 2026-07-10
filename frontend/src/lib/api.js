@@ -54,4 +54,5 @@ export const api = {
   guideLesson: (slug) => request(`/guide/lessons/${slug}`),
   guideComplete: (slug) => request(`/guide/lessons/${slug}/complete`, { method: "POST" }),
   guideProgress: () => request("/guide/progress"),
+  sendFeedback: (text) => request("/feedback", { method: "POST", body: JSON.stringify({ text }) }),
 };

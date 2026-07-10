@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     bot_token: str
     channel_username: str = "@claudedry"
+    tech_chat_id: str = ""
     database_url: str  # postgresql://user:pass@localhost:5432/botyard
     redis_url: str = "redis://localhost:6379/0"
 
