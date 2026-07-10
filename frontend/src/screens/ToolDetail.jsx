@@ -4,6 +4,7 @@ import { ArticleBody } from "../components/ArticleBody";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
+import { timeAgo } from "../lib/timeAgo";
 
 export function ToolDetail({ slug, onBack }) {
   const [tool, setTool] = useState(null);
@@ -35,8 +36,9 @@ export function ToolDetail({ slug, onBack }) {
                 <span className="card__meta">⭐ {tool.stars}</span>
               </span>
             </div>
-            <div style={{ marginTop: 8, marginBottom: 4 }}>
+            <div style={{ marginTop: 8, marginBottom: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <FavStar itemType="tool" itemId={tool.id} />
+              {tool.last_commit && <span className="card__meta">{timeAgo(tool.last_commit)}</span>}
             </div>
 
             {tool.body_md ? (

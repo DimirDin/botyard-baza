@@ -34,6 +34,15 @@ export function shareLink(url, text) {
   tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, "_blank");
 }
 
+// Открывает чат с ботом на диплинке "feedback" — бот дальше сам ведёт диалог
+// (просит прислать инструмент/промпт текстом и форвардит в технический чат).
+// Именно чат с ботом, а не API из Mini App — так пользователь может прислать
+// длинный текст/ссылку в привычном интерфейсе, без формы внутри WebView.
+export function openFeedbackChat(botUsername = "bazadry_bot") {
+  const url = `https://t.me/${botUsername}?start=feedback`;
+  tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, "_blank");
+}
+
 export function onBackButton(handler) {
   if (!tg) return () => {};
   tg.BackButton.onClick(handler);

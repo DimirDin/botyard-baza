@@ -5,6 +5,7 @@ import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { TOOLS_MENU } from "../config/menu";
 import { api } from "../lib/api";
+import { timeAgo } from "../lib/timeAgo";
 
 const SORTS = [
   { id: "stars", label: "звёзды" },
@@ -92,6 +93,7 @@ export function ToolsListScreen({ onOpenTool }) {
                 <p style={{ color: "var(--text-body)", fontSize: 15, margin: "6px 0" }}>{t.description_ru}</p>
                 <p className="card__meta">
                   ⭐ {t.stars} {t.trending_delta > 0 && <span style={{ color: "var(--seg-what)" }}>▲ {t.trending_delta}</span>}
+                  {t.last_commit && <span style={{ marginLeft: 8 }}>· {timeAgo(t.last_commit)}</span>}
                   {t.archived && <span style={{ color: "var(--seg-gotcha)", marginLeft: 8 }}>⚠ архивирован</span>}
                 </p>
               </div>

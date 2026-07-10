@@ -3,6 +3,7 @@ import { PromptLine } from "../components/PromptLine";
 import { StatsBar } from "../components/StatsBar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
+import { openFeedbackChat } from "../lib/telegram";
 
 export function HomeScreen({ onNavigate }) {
   const [data, setData] = useState(null);
@@ -83,6 +84,13 @@ export function HomeScreen({ onNavigate }) {
               <div className="chip" onClick={() => onNavigate("prompts")}>⚡ {data.counts.prompts_count} промптов</div>
               <div className="chip" onClick={() => onNavigate("base", { tab: "cheat" })}>📋 шпаргалки</div>
               <div className="chip" onClick={() => onNavigate("favorites")}>⭐ избранное</div>
+            </section>
+
+            <section style={{ marginTop: 20 }}>
+              <div className="card" onClick={openFeedbackChat} style={{ cursor: "pointer", textAlign: "center" }}>
+                <p className="card__title">💬 Предложить инструмент или промпт</p>
+                <p className="card__meta">откроет чат с ботом — просто напиши, что добавить</p>
+              </div>
             </section>
           </>
         )}

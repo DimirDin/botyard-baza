@@ -16,6 +16,9 @@ const entryBody = {
   title: "Токенизация кириллицы: почему русский язык стоит дороже",
   doc_url: "https://docs.claude.com/en/docs_site_map.md",
   updated_at: "2026-06-15",
+  likes: 4,
+  dislikes: 0,
+  my_rating: null,
   body_md:
     "### ❓ Что это\nТокенайзер Claude бьёт текст на subword-токены по BPE.\n\n" +
     "### 🎯 Зачем тебе\nРусский текст генерирует заметно больше токенов, чем английский.\n\n" +
@@ -136,6 +139,13 @@ export async function mockFetch(path, options = {}) {
   }
   if (path.startsWith("/cheatsheets/")) return cheatsheets.find((c) => path.endsWith(c.slug)) || cheatsheets[0];
   if (path.startsWith("/cheatsheets")) return cheatsheets.map(({ body_md, ...rest }) => rest);
+  if (path.endsWith("/rate")) {
+    const value = JSON.parse(options.body || "{}").value;
+    entryBody.my_rating = entryBody.my_rating === value ? null : value;
+    if (value === 1) entryBody.likes += entryBody.my_rating === 1 ? 1 : -1;
+    if (value === -1) entryBody.dislikes += entryBody.my_rating === -1 ? 1 : -1;
+    return { likes: entryBody.likes, dislikes: entryBody.dislikes, my_rating: entryBody.my_rating };
+  }
   if (path.startsWith("/entries/")) return entryBody;
   if (path.startsWith("/entries")) {
     const q = new URLSearchParams(path.split("?")[1] || "");

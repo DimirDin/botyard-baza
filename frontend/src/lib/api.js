@@ -30,6 +30,7 @@ export const api = {
   home: () => request("/home"),
   entries: (section) => request(`/entries${section ? `?section=${section}` : ""}`),
   entry: (slug) => request(`/entries/${slug}`),
+  rateEntry: (slug, value) => request(`/entries/${slug}/rate`, { method: "POST", body: JSON.stringify({ value }) }),
   tools: (category, sort) => {
     const params = new URLSearchParams();
     if (category) params.set("category", category);

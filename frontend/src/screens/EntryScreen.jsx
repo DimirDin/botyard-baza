@@ -50,6 +50,22 @@ export function EntryScreen({ slug, onBack }) {
             >
               ↗ поделиться
             </button>
+            <div style={{ display: "flex", gap: 10, marginTop: 12, alignItems: "center" }}>
+              <button
+                onClick={() => api.rateEntry(entry.slug, 1).then((r) => setEntry({ ...entry, ...r }))}
+                className={`chip ${entry.my_rating === 1 ? "chip--active" : ""}`}
+                style={{ border: "none" }}
+              >
+                👍 {entry.likes}
+              </button>
+              <button
+                onClick={() => api.rateEntry(entry.slug, -1).then((r) => setEntry({ ...entry, ...r }))}
+                className={`chip ${entry.my_rating === -1 ? "chip--active" : ""}`}
+                style={{ border: "none" }}
+              >
+                👎 {entry.dislikes}
+              </button>
+            </div>
           </>
         )}
       </div>
