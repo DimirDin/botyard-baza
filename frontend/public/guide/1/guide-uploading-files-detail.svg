@@ -9,7 +9,10 @@
   
     <circle cx="58" cy="66" r="5" fill="#e0714f"/><circle cx="76" cy="66" r="5" fill="#e6c15a"/><circle cx="94" cy="66" r="5" fill="#6fcf97"/>
     <text x="56" y="102" font-family="monospace" font-size="15" fill="#6fcf97">$ </text>
-    <text x="56" y="122" font-family="monospace" font-size="14" fill="#8a8a82">📎 screenshot_error.png прикреплён</text>
+    <g stroke="#8a8a82" stroke-width="1.6" fill="none">
+      <path d="M30 113 v9 a4.5 4.5 0 0 0 9 0 v-13 a2.7 2.7 0 0 0 -5.4 0 v11" stroke-linecap="round"/>
+    </g>
+    <text x="56" y="122" font-family="monospace" font-size="14" fill="#8a8a82">screenshot_error.png прикреплён</text>
     <text x="56" y="140" font-family="monospace" font-size="14" fill="#8a8a82">> объясни, что тут сломалось</text>
     <rect x="56" y="150" width="10" height="16" fill="#6fcf97">
       <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.4;0.5;0.9;1" dur="1.2s" repeatCount="indefinite"/>
