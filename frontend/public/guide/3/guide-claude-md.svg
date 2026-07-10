@@ -10,7 +10,7 @@
   
     <path d="M60 50 H280 L310 80 V210 H60 Z" fill="#0f0f0d" stroke="#26261f"/>
     <path d="M280 50 L310 80 H280 Z" fill="#b98af0" fill-opacity="0.3"/>
-    <text x="76" y="78" font-family="monospace" font-size="12" fill="#b98af0">CLAUDE.md</text>
+    <text x="76" y="78" font-family="monospace" font-size="16" fill="#b98af0">CLAUDE.md</text>
     <rect x="72" y="100" width="220" height="8" rx="3" fill="#b98af0" fill-opacity="0.8"/><rect x="72" y="120" width="160" height="8" rx="3" fill="#8a8a82" fill-opacity="0.5"/><rect x="72" y="140" width="220" height="8" rx="3" fill="#8a8a82" fill-opacity="0.5"/><rect x="72" y="160" width="160" height="8" rx="3" fill="#8a8a82" fill-opacity="0.5"/>
     <rect x="380" y="60" width="260" height="150" rx="8" fill="#b98af0" fill-opacity="0.06" stroke="#b98af0" stroke-opacity="0.3" stroke-dasharray="4 5"/>
     <g transform="translate(510,135)" stroke="#b98af0" stroke-width="2.5" fill="none">
@@ -26,5 +26,5 @@
       <line x1="10" y1="10" x2="15" y2="15"/>
     </g>
     
-  <text x="24" y="238" font-family="monospace" font-size="13" fill="#b98af0" letter-spacing="1">УРОВЕНЬ 3 · ПРОДВИНУТЫЙ</text><text x="24" y="24" font-family="sans-serif" font-size="16" fill="#F5F3EC" font-weight="600">Память проекта</text>
+  <text x="24" y="238" font-family="monospace" font-size="18" fill="#b98af0" letter-spacing="1">УРОВЕНЬ 3 · ПРОДВИНУТЫЙ</text><text x="24" y="24" font-family="sans-serif" font-size="22" fill="#F5F3EC" font-weight="600">Память проекта</text>
 </svg>
