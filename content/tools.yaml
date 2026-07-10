@@ -3563,7 +3563,7 @@
     ### ⚠️ Грабли
     Работа с реальными платежами через агента требует тестового режима на этапе отладки — не давай агенту боевой ключ без крайней необходимости.
 
-- repo: sentry-mcp
+- repo: getsentry/sentry-mcp
   category: mcp/servers
   description_ru: "Официальный hosted MCP-сервер Sentry — триаж ошибок, анализ стектрейсов и автоматическое создание PR с фиксом."
   badge: null
@@ -3794,7 +3794,7 @@
     ### ⚠️ Грабли
     Дашборд читает локальные логи Claude Code — при смене машины/окружения история использования не переносится автоматически.
 
-- repo: claude-code-usage-monitor
+- repo: Maciek-roboblog/Claude-Code-Usage-Monitor
   category: code/monitoring
   description_ru: "Терминальный монитор токенов Claude Code — расход и лимиты прямо в консоли."
   badge: null
@@ -3815,7 +3815,7 @@
     ### ⚠️ Грабли
     Оценка расхода токенов приблизительная и зависит от версии CLI — не стоит полагаться на неё как на точный биллинг.
 
-- repo: claude-code.nvim
+- repo: greggh/claude-code.nvim
   category: apps/editors
   description_ru: "Интеграция Claude Code в Neovim — работа с агентом прямо из редактора."
   badge: null
@@ -3836,7 +3836,7 @@
     ### ⚠️ Грабли
     Требует установленного Claude Code CLI отдельно — плагин лишь оборачивает его.
 
-- repo: claude-code.el
+- repo: stevemolitor/claude-code.el
   category: apps/editors
   description_ru: "Интерфейс Claude Code для Emacs."
   badge: null
