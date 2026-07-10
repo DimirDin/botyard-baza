@@ -87,7 +87,7 @@ export function HomeScreen({ onNavigate }) {
             </section>
 
             <section style={{ marginTop: 20 }}>
-              <div className="card" onClick={openFeedbackChat} style={{ cursor: "pointer", textAlign: "center" }}>
+              <div className="card" onClick={() => openFeedbackChat()} style={{ cursor: "pointer", textAlign: "center" }}>
                 <p className="card__title">💬 Предложить инструмент или промпт</p>
                 <p className="card__meta">откроет чат с ботом — просто напиши, что добавить</p>
               </div>
