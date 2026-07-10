@@ -181,6 +181,7 @@ export const TOOLS_MENU = [
       { slug: "desktop", label: "Desktop", desc: "Нативные приложения для работы с Claude. Не браузер — отдельное окно." },
       { slug: "web", label: "Web", desc: "Веб-клиенты и альтернативные интерфейсы к Claude.ai." },
       { slug: "vscode", label: "VS Code", desc: "Расширения редактора. Claude прямо в IDE, рядом с кодом." },
+      { slug: "editors", label: "Editors", desc: "Интеграции для других редакторов — Neovim, Emacs и т.п. Claude, не выходя из редактора." },
       { slug: "mobile", label: "Mobile", desc: "iOS и Android приложения. Claude в кармане, с голосовым вводом." },
     ],
   },
