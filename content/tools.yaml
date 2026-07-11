@@ -3898,3 +3898,448 @@
 
     ### ⚠️ Грабли
     Контейнеризация добавляет накладные расходы на старт — для локальной разработки с частыми перезапусками это может быть заметно медленнее нативного запуска.
+
+# ===== Партия 2026-07-11: проверено через GitHub API (existence/archived/pushed_at). =====
+# published/stars проставит sync_github_stars.py. verify_status=known (все вернули HTTP 200).
+- repo: firecrawl/firecrawl-mcp-server
+  category: mcp/servers
+  description_ru: "MCP-сервер Firecrawl: веб-скрапинг и краулинг сайтов в структурированный контент прямо из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер Firecrawl: веб-скрапинг и краулинг сайтов в структурированный контент прямо из Claude.
+
+    Репозиторий: https://github.com/firecrawl/firecrawl-mcp-server
+
+- repo: netdata/netdata
+  category: mcp/servers
+  description_ru: "Платформа мониторинга инфраструктуры в реальном времени; включает MCP-сервер для запросов к метрикам из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Платформа мониторинга инфраструктуры в реальном времени; включает MCP-сервер для запросов к метрикам из Claude.
+
+    Репозиторий: https://github.com/netdata/netdata
+
+- repo: brightdata/brightdata-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер Bright Data: доступ к публичным веб-данным и обход блокировок при сборе информации из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер Bright Data: доступ к публичным веб-данным и обход блокировок при сборе информации из Claude.
+
+    Репозиторий: https://github.com/brightdata/brightdata-mcp
+
+- repo: gannonh/firebase-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер для Firebase: работа с Firestore, Auth и Storage проекта прямо из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для Firebase: работа с Firestore, Auth и Storage проекта прямо из Claude.
+
+    Репозиторий: https://github.com/gannonh/firebase-mcp
+
+- repo: karanb192/reddit-mcp-buddy
+  category: mcp/servers
+  description_ru: "MCP-сервер для Reddit: чтение постов, комментариев и поиск по сабреддитам без API-ключей."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для Reddit: чтение постов, комментариев и поиск по сабреддитам без API-ключей.
+
+    Репозиторий: https://github.com/karanb192/reddit-mcp-buddy
+
+- repo: awslabs/mcp
+  category: mcp/servers
+  description_ru: "Официальная коллекция MCP-серверов AWS Labs для работы с сервисами AWS из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная коллекция MCP-серверов AWS Labs для работы с сервисами AWS из Claude.
+
+    Репозиторий: https://github.com/awslabs/mcp
+
+- repo: modelcontextprotocol/registry
+  category: mcp/servers
+  description_ru: "Официальный реестр MCP-серверов сообщества — каталог и API для их поиска и публикации."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный реестр MCP-серверов сообщества — каталог и API для их поиска и публикации.
+
+    Репозиторий: https://github.com/modelcontextprotocol/registry
+
+- repo: Coding-Solo/godot-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер для движка Godot: управление сценами и запуск проекта из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для движка Godot: управление сценами и запуск проекта из Claude.
+
+    Репозиторий: https://github.com/Coding-Solo/godot-mcp
+
+- repo: GLips/Figma-Context-MCP
+  category: mcp/servers
+  description_ru: "MCP-сервер, отдающий данные макета Figma в Claude для генерации кода по дизайну."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер, отдающий данные макета Figma в Claude для генерации кода по дизайну.
+
+    Репозиторий: https://github.com/GLips/Figma-Context-MCP
+
+- repo: ahujasid/blender-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер для Blender: создание и правка 3D-сцен через Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для Blender: создание и правка 3D-сцен через Claude.
+
+    Репозиторий: https://github.com/ahujasid/blender-mcp
+
+- repo: haris-musa/excel-mcp-server
+  category: mcp/servers
+  description_ru: "MCP-сервер для чтения и записи Excel-файлов без установленного Office."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для чтения и записи Excel-файлов без установленного Office.
+
+    Репозиторий: https://github.com/haris-musa/excel-mcp-server
+
+- repo: idosal/git-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер, превращающий любой GitHub-репозиторий в источник контекста для Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер, превращающий любой GitHub-репозиторий в источник контекста для Claude.
+
+    Репозиторий: https://github.com/idosal/git-mcp
+
+- repo: googleapis/mcp-toolbox
+  category: mcp/servers
+  description_ru: "MCP Toolbox для баз данных от Google — сервер для безопасного доступа к SQL-БД из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP Toolbox для баз данных от Google — сервер для безопасного доступа к SQL-БД из Claude.
+
+    Репозиторий: https://github.com/googleapis/mcp-toolbox
+
+- repo: CodeGraphContext/CodeGraphContext
+  category: mcp/servers
+  description_ru: "MCP-сервер, строящий граф кода для навигации по зависимостям и структуре проекта."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер, строящий граф кода для навигации по зависимостям и структуре проекта.
+
+    Репозиторий: https://github.com/CodeGraphContext/CodeGraphContext
+
+- repo: blazickjp/arxiv-mcp-server
+  category: mcp/servers
+  description_ru: "MCP-сервер для поиска и чтения научных статей с arXiv из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для поиска и чтения научных статей с arXiv из Claude.
+
+    Репозиторий: https://github.com/blazickjp/arxiv-mcp-server
+
+- repo: ezyang/codemcp
+  category: mcp/servers
+  description_ru: "MCP-сервер для парного программирования: даёт Claude инструменты чтения и правки файлов проекта."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для парного программирования: даёт Claude инструменты чтения и правки файлов проекта.
+
+    Репозиторий: https://github.com/ezyang/codemcp
+
+- repo: modelcontextprotocol/rust-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный Rust SDK для написания MCP-серверов и клиентов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный Rust SDK для написания MCP-серверов и клиентов.
+
+    Репозиторий: https://github.com/modelcontextprotocol/rust-sdk
+
+- repo: modelcontextprotocol/csharp-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный C#/.NET SDK для написания MCP-серверов и клиентов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный C#/.NET SDK для написания MCP-серверов и клиентов.
+
+    Репозиторий: https://github.com/modelcontextprotocol/csharp-sdk
+
+- repo: modelcontextprotocol/inspector
+  category: mcp/frameworks
+  description_ru: "Официальный инструмент для отладки и тестирования MCP-серверов через визуальный интерфейс."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный инструмент для отладки и тестирования MCP-серверов через визуальный интерфейс.
+
+    Репозиторий: https://github.com/modelcontextprotocol/inspector
+
+- repo: microsoft/markitdown
+  category: code/skills
+  description_ru: "Утилита Microsoft для конвертации PDF, Office и других файлов в Markdown для подачи в LLM."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Утилита Microsoft для конвертации PDF, Office и других файлов в Markdown для подачи в LLM.
+
+    Репозиторий: https://github.com/microsoft/markitdown
+
+- repo: oraios/serena
+  category: code/skills
+  description_ru: "Тулкит-агент с семантическим анализом кода через LSP; подключается к Claude как MCP-сервер."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Тулкит-агент с семантическим анализом кода через LSP; подключается к Claude как MCP-сервер.
+
+    Репозиторий: https://github.com/oraios/serena
+
+- repo: bytebase/dbhub
+  category: code/skills
+  description_ru: "Универсальный MCP-сервер для баз данных: PostgreSQL, MySQL, SQL Server и другие из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Универсальный MCP-сервер для баз данных: PostgreSQL, MySQL, SQL Server и другие из Claude.
+
+    Репозиторий: https://github.com/bytebase/dbhub
+
+- repo: wonderwhy-er/DesktopCommanderMCP
+  category: code/skills
+  description_ru: "MCP-сервер для управления файлами и терминалом на компьютере из Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для управления файлами и терминалом на компьютере из Claude.
+
+    Репозиторий: https://github.com/wonderwhy-er/DesktopCommanderMCP
+
+- repo: pchalasani/claude-code-tools
+  category: code/skills
+  description_ru: "Набор утилит и MCP-инструментов, расширяющих возможности Claude Code."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Набор утилит и MCP-инструментов, расширяющих возможности Claude Code.
+
+    Репозиторий: https://github.com/pchalasani/claude-code-tools
+
+- repo: Helicone/helicone
+  category: code/monitoring
+  description_ru: "Открытая платформа наблюдаемости для LLM: логирование запросов, стоимость и трассировка."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Открытая платформа наблюдаемости для LLM: логирование запросов, стоимость и трассировка.
+
+    Репозиторий: https://github.com/Helicone/helicone
+
+- repo: AgentOps-AI/agentops
+  category: code/monitoring
+  description_ru: "SDK для мониторинга и отладки AI-агентов: сессии, стоимость, воспроизведение шагов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    SDK для мониторинга и отладки AI-агентов: сессии, стоимость, воспроизведение шагов.
+
+    Репозиторий: https://github.com/AgentOps-AI/agentops
+
+- repo: olimorris/codecompanion.nvim
+  category: apps/editors
+  description_ru: "Плагин Neovim для работы с LLM прямо в редакторе: чат, правки кода, агентные действия."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Плагин Neovim для работы с LLM прямо в редакторе: чат, правки кода, агентные действия.
+
+    Репозиторий: https://github.com/olimorris/codecompanion.nvim
+
+- repo: yetone/avante.nvim
+  category: apps/editors
+  description_ru: "Плагин Neovim в духе Cursor: инлайн-предложения и правки кода с помощью LLM."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Плагин Neovim в духе Cursor: инлайн-предложения и правки кода с помощью LLM.
+
+    Репозиторий: https://github.com/yetone/avante.nvim
+
+- repo: karthink/gptel
+  category: apps/editors
+  description_ru: "Клиент LLM для Emacs: чат и работа с моделями из любого буфера."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Клиент LLM для Emacs: чат и работа с моделями из любого буфера.
+
+    Репозиторий: https://github.com/karthink/gptel
+
+- repo: Mintplex-Labs/anything-llm
+  category: apps/desktop
+  description_ru: "Десктоп/сервер-приложение для чата с документами: RAG, агенты, поддержка разных LLM."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Десктоп/сервер-приложение для чата с документами: RAG, агенты, поддержка разных LLM.
+
+    Репозиторий: https://github.com/Mintplex-Labs/anything-llm
+
+- repo: janhq/jan
+  category: apps/desktop
+  description_ru: "Открытый десктоп-клиент для локального и облачного запуска LLM, альтернатива ChatGPT."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Открытый десктоп-клиент для локального и облачного запуска LLM, альтернатива ChatGPT.
+
+    Репозиторий: https://github.com/janhq/jan
+
+- repo: enricoros/big-AGI
+  category: apps/desktop
+  description_ru: "Продвинутый веб/десктоп-клиент для LLM с персонами, вызовом инструментов и генерацией."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Продвинутый веб/десктоп-клиент для LLM с персонами, вызовом инструментов и генерацией.
+
+    Репозиторий: https://github.com/enricoros/big-AGI
+
+- repo: chatboxai/chatbox
+  category: apps/desktop
+  description_ru: "Десктоп-клиент для разных LLM-провайдеров с локальным хранением истории."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Десктоп-клиент для разных LLM-провайдеров с локальным хранением истории.
+
+    Репозиторий: https://github.com/chatboxai/chatbox
+
+- repo: browser-use/browser-use
+  category: agents/autonomous
+  description_ru: "Библиотека, позволяющая LLM-агенту управлять браузером и выполнять задачи на сайтах."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Библиотека, позволяющая LLM-агенту управлять браузером и выполнять задачи на сайтах.
+
+    Репозиторий: https://github.com/browser-use/browser-use
+
+- repo: pydantic/pydantic-ai
+  category: agents/orchestration
+  description_ru: "Агентный фреймворк на Python с типобезопасностью Pydantic; поддерживает Anthropic и другие модели."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Агентный фреймворк на Python с типобезопасностью Pydantic; поддерживает Anthropic и другие модели.
+
+    Репозиторий: https://github.com/pydantic/pydantic-ai
+
+- repo: deepset-ai/haystack
+  category: agents/orchestration
+  description_ru: "Фреймворк для RAG и агентных пайплайнов с готовыми компонентами поиска и генерации."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Фреймворк для RAG и агентных пайплайнов с готовыми компонентами поиска и генерации.
+
+    Репозиторий: https://github.com/deepset-ai/haystack
+
+- repo: FlowiseAI/Flowise
+  category: agents/orchestration
+  description_ru: "Визуальный конструктор LLM-приложений и агентов без кода, drag-and-drop."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Визуальный конструктор LLM-приложений и агентов без кода, drag-and-drop.
+
+    Репозиторий: https://github.com/FlowiseAI/Flowise
+
+- repo: eyaltoledano/claude-task-master
+  category: agents/workflow
+  description_ru: "Система управления задачами для Claude Code: разбивает проект на задачи и ведёт их по плану."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Система управления задачами для Claude Code: разбивает проект на задачи и ведёт их по плану.
+
+    Репозиторий: https://github.com/eyaltoledano/claude-task-master
+
+- repo: dottxt-ai/outlines
+  category: libs/python
+  description_ru: "Python-библиотека для структурированной генерации: гарантированный JSON, регэкспы, грамматики."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Python-библиотека для структурированной генерации: гарантированный JSON, регэкспы, грамматики.
+
+    Репозиторий: https://github.com/dottxt-ai/outlines
+
+- repo: 567-labs/instructor
+  category: libs/python
+  description_ru: "Python-библиотека для получения структурированных данных из LLM через Pydantic-модели."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Python-библиотека для получения структурированных данных из LLM через Pydantic-модели.
+
+    Репозиторий: https://github.com/567-labs/instructor
+
+
+# ===== Партия 2026-07-11 (добор): проверено с GITHUB_TOKEN на сервере, HTTP 200. =====
+- repo: VRSEN/agency-swarm
+  category: libs/python
+  description_ru: "Python-фреймворк для оркестрации ролей агентов с настраиваемой коммуникацией; поддерживает разные LLM."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Python-фреймворк для оркестрации ролей агентов с настраиваемой коммуникацией; поддерживает разные LLM.
+
+    Репозиторий: https://github.com/VRSEN/agency-swarm
+
+- repo: CopilotKit/CopilotKit
+  category: libs/javascript
+  description_ru: "React-фреймворк для встраивания AI-ассистентов и агентов в интерфейс приложения."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    React-фреймворк для встраивания AI-ассистентов и агентов в интерфейс приложения.
+
+    Репозиторий: https://github.com/CopilotKit/CopilotKit
+
+- repo: modelcontextprotocol/modelcontextprotocol
+  category: libs/other
+  description_ru: "Официальная спецификация и документация протокола MCP."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная спецификация и документация протокола MCP.
+
+    Репозиторий: https://github.com/modelcontextprotocol/modelcontextprotocol
+
+- repo: jaw9c/awesome-remote-mcp-servers
+  category: libs/other
+  description_ru: "Курируемый список удалённых (hosted) MCP-серверов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Курируемый список удалённых (hosted) MCP-серверов.
+
+    Репозиторий: https://github.com/jaw9c/awesome-remote-mcp-servers
+
