@@ -10,7 +10,7 @@ sort_order: 30
 published: true
 ---
 
-![Custom styles](/entry-images/plan-mode-flow.svg)
+![Custom styles](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

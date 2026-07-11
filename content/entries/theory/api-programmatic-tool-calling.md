@@ -10,7 +10,7 @@ sort_order: 116
 published: true
 ---
 
-![Programmatic tool calling](/entry-images/agent-loop.svg)
+![Programmatic tool calling](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

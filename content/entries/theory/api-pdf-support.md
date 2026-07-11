@@ -10,7 +10,7 @@ sort_order: 104
 published: true
 ---
 
-![PDF support](/entry-images/files-memory.svg)
+![PDF support](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

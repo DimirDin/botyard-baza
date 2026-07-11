@@ -10,7 +10,7 @@ sort_order: 124
 published: true
 ---
 
-![Building Effective Agents](/entry-images/agent-loop.svg)
+![Building Effective Agents](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

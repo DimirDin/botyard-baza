@@ -10,7 +10,7 @@ sort_order: 146
 published: true
 ---
 
-![Scheduled tasks](/entry-images/plan-mode-flow.svg)
+![Scheduled tasks](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

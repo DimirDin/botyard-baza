@@ -10,7 +10,7 @@ sort_order: 145
 published: true
 ---
 
-![Sandboxing](/entry-images/agent-loop.svg)
+![Sandboxing](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 106
 published: true
 ---
 
-![Token counting](/entry-images/api-request-response.svg)
+![Token counting](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

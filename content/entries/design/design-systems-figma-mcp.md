@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Design tokens](/entry-images/plan-mode-flow.svg)
+![Design tokens](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

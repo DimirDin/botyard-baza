@@ -10,7 +10,7 @@ sort_order: 144
 published: true
 ---
 
-![Claude Code on the web](/entry-images/plan-mode-flow.svg)
+![Claude Code on the web](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

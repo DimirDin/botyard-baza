@@ -10,7 +10,7 @@ sort_order: 127
 published: true
 ---
 
-![Contextual Retrieval](/entry-images/rag-pipeline.svg)
+![Contextual Retrieval](/entry-images/rag-pipeline.jpg)
 
 ### ❓ Что это
 

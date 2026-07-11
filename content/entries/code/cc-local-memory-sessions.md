@@ -10,7 +10,7 @@ sort_order: 70
 published: true
 ---
 
-![Local memory & sessions](/entry-images/files-memory.svg)
+![Local memory & sessions](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 109
 published: true
 ---
 
-![Web fetch tool](/entry-images/rag-pipeline.svg)
+![Web fetch tool](/entry-images/rag-pipeline.jpg)
 
 ### ❓ Что это
 

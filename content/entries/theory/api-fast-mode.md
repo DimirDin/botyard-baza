@@ -10,7 +10,7 @@ sort_order: 123
 published: true
 ---
 
-![Fast mode](/entry-images/pricing-tiers.svg)
+![Fast mode](/entry-images/pricing-tiers.jpg)
 
 ### ❓ Что это
 

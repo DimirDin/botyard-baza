@@ -10,7 +10,7 @@ sort_order: 20
 published: true
 ---
 
-![Tool use](/entry-images/api-request-response.svg)
+![Tool use](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 100
 published: true
 ---
 
-![Extended thinking](/entry-images/thinking-process.svg)
+![Extended thinking](/entry-images/thinking-process.jpg)
 
 ### ❓ Что это
 
@@ -24,6 +24,24 @@ Extended thinking — режим, в котором модель перед фи
 границу токенов на рассуждение (не гарантию — модель может закончить раньше). Чем сложнее задача
 (многошаговая математика, доказательства, разбор кода со скрытым багом, планирование агента), тем
 больше пользы от лишних токенов на подумать.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor Client as Клиентское приложение
+  participant API as Anthropic API
+  participant Claude as Claude 3.7 Sonnet
+
+  Client->>API: POST /v1/messages { thinking: enabled }
+  API->>Claude: Задача
+  Note over Claude: Шаг 1: Рассуждение<br/>(thinking block)
+  Claude-->>API: type: thinking
+  Note over Claude: Шаг 2: Формулирование ответа<br/>(text block)
+  Claude-->>API: type: text
+  API-->>Client: Array [thinking, text]
+  
+  click Claude href "entry:con-think-tool" "Подробнее про внутренний Chain of Thought"
+```
 
 #### Что видно, а что нет
 

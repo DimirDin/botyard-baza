@@ -10,7 +10,7 @@ sort_order: 90
 published: true
 ---
 
-![MCP + Docker](/entry-images/mcp-architecture.svg)
+![MCP + Docker](/entry-images/mcp-architecture.jpg)
 
 ### ❓ Что это
 

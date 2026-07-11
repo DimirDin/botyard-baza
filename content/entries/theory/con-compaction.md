@@ -10,7 +10,7 @@ sort_order: 121
 published: true
 ---
 
-![Compaction](/entry-images/context-window.svg)
+![Compaction](/entry-images/context-window.jpg)
 
 ### ❓ Что это
 

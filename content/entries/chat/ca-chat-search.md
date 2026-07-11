@@ -10,7 +10,7 @@ sort_order: 157
 published: true
 ---
 
-![Chat search](/entry-images/files-memory.svg)
+![Chat search](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

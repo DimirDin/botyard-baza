@@ -10,7 +10,7 @@ sort_order: 128
 published: true
 ---
 
-![Writing tools for agents](/entry-images/agent-loop.svg)
+![Writing tools for agents](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 40
 published: true
 ---
 
-![Streaming responses](/entry-images/api-request-response.svg)
+![Streaming responses](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

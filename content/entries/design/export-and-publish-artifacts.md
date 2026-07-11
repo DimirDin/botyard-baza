@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Export artifacts](/entry-images/plan-mode-flow.svg)
+![Export artifacts](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 148
 published: true
 ---
 
-![Agent teams](/entry-images/mcp-architecture.svg)
+![Agent teams](/entry-images/mcp-architecture.jpg)
 
 ### ❓ Что это
 

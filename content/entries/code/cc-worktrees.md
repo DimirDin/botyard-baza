@@ -10,7 +10,7 @@ sort_order: 143
 published: true
 ---
 
-![Git worktrees](/entry-images/plan-mode-flow.svg)
+![Git worktrees](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

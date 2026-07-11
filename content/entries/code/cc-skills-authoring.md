@@ -10,7 +10,7 @@ sort_order: 149
 published: true
 ---
 
-![Skills authoring](/entry-images/plan-mode-flow.svg)
+![Skills authoring](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

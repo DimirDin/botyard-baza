@@ -10,7 +10,7 @@ sort_order: 102
 published: true
 ---
 
-![Structured outputs](/entry-images/api-request-response.svg)
+![Structured outputs](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

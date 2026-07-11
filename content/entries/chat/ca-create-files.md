@@ -10,7 +10,7 @@ sort_order: 154
 published: true
 ---
 
-![Create files](/entry-images/files-memory.svg)
+![Create files](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 80
 published: true
 ---
 
-![Git integration](/entry-images/plan-mode-flow.svg)
+![Git integration](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

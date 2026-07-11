@@ -10,7 +10,7 @@ sort_order: 117
 published: true
 ---
 
-![Parallel tool use](/entry-images/api-request-response.svg)
+![Parallel tool use](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

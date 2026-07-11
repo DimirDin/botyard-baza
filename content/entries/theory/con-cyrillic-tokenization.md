@@ -10,7 +10,7 @@ sort_order: 20
 published: true
 ---
 
-![Cyrillic tokenization](/entry-images/context-window.svg)
+![Cyrillic tokenization](/entry-images/context-window.jpg)
 
 ### ❓ Что это
 

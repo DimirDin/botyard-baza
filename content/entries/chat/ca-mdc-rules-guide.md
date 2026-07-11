@@ -10,7 +10,7 @@ sort_order: 70
 published: true
 ---
 
-![.mdc rules](/entry-images/plan-mode-flow.svg)
+![.mdc rules](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

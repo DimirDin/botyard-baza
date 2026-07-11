@@ -10,7 +10,7 @@ sort_order: 113
 published: true
 ---
 
-![Bash tool](/entry-images/agent-loop.svg)
+![Bash tool](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

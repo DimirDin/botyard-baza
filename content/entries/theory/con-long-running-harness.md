@@ -10,7 +10,7 @@ sort_order: 130
 published: true
 ---
 
-![Long-running harness](/entry-images/agent-loop.svg)
+![Long-running harness](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

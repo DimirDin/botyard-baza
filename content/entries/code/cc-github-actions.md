@@ -10,7 +10,7 @@ sort_order: 153
 published: true
 ---
 
-![GitHub Actions](/entry-images/agent-loop.svg)
+![GitHub Actions](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

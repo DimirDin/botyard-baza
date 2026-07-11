@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Iterative editing](/entry-images/plan-mode-flow.svg)
+![Iterative editing](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

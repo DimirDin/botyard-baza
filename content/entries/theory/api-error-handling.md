@@ -10,7 +10,7 @@ sort_order: 70
 published: true
 ---
 
-![Error handling](/entry-images/api-request-response.svg)
+![Error handling](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

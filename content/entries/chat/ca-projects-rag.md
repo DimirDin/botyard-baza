@@ -10,7 +10,7 @@ sort_order: 158
 published: true
 ---
 
-![RAG in Projects](/entry-images/rag-pipeline.svg)
+![RAG in Projects](/entry-images/rag-pipeline.jpg)
 
 ### ❓ Что это
 

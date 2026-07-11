@@ -10,7 +10,7 @@ sort_order: 20
 published: true
 ---
 
-![CLAUDE.md](/entry-images/plan-mode-flow.svg)
+![CLAUDE.md](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

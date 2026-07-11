@@ -10,7 +10,7 @@ sort_order: 151
 published: true
 ---
 
-![Remote MCP](/entry-images/mcp-architecture.svg)
+![Remote MCP](/entry-images/mcp-architecture.jpg)
 
 ### ❓ Что это
 

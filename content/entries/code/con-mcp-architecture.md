@@ -10,7 +10,7 @@ sort_order: 40
 published: true
 ---
 
-![MCP architecture](/entry-images/mcp-architecture.svg)
+![MCP architecture](/entry-images/mcp-architecture.jpg)
 
 ### ❓ Что это
 

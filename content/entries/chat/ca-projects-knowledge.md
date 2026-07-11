@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Projects knowledge](/entry-images/files-memory.svg)
+![Projects knowledge](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

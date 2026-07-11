@@ -10,7 +10,7 @@ sort_order: 30
 published: true
 ---
 
-![Skills vs plugins](/entry-images/plan-mode-flow.svg)
+![Skills vs plugins](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

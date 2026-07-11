@@ -10,7 +10,7 @@ sort_order: 50
 published: true
 ---
 
-![Models matrix](/entry-images/pricing-tiers.svg)
+![Models matrix](/entry-images/pricing-tiers.jpg)
 
 ### ❓ Что это
 

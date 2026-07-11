@@ -10,7 +10,7 @@ sort_order: 105
 published: true
 ---
 
-![Files API](/entry-images/files-memory.svg)
+![Files API](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

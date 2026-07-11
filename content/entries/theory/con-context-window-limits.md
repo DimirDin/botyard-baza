@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Context window limits](/entry-images/context-window.svg)
+![Context window limits](/entry-images/context-window.jpg)
 
 ### ❓ Что это
 
@@ -18,6 +18,15 @@ published: true
 перед генерацией: системный промпт, история сообщений, описания инструментов, содержимое файлов.
 Внутри окна внимание распределяется неравномерно — эффект «lost in the middle»: информация в начале и
 конце промпта учитывается надёжнее, чем зарытая в середине длинного контекста.
+
+```mermaid
+graph TD
+  Start[Начало промпта: Системный промпт] -->|Внимание: 98%| Model[Claude LLM]
+  Middle[Середина промпта: Источники, RAG-данные] -->|Внимание: 35-50% - Зона угасания внимания| Model
+  End[Конец промпта: Инструкции, вопрос пользователя] -->|Внимание: 95%| Model
+  
+  click Model href "entry:con-compaction" "Как ужать контекст (Compaction)"
+```
 
 ### 🎯 Зачем тебе
 

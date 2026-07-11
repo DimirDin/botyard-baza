@@ -10,7 +10,7 @@ sort_order: 111
 published: true
 ---
 
-![Memory tool](/entry-images/files-memory.svg)
+![Memory tool](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

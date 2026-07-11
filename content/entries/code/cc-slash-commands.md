@@ -10,7 +10,7 @@ sort_order: 40
 published: true
 ---
 
-![Slash commands](/entry-images/plan-mode-flow.svg)
+![Slash commands](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

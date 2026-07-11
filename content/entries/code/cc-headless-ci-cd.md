@@ -10,7 +10,7 @@ sort_order: 60
 published: true
 ---
 
-![Headless CI/CD](/entry-images/agent-loop.svg)
+![Headless CI/CD](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

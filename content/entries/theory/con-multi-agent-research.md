@@ -10,7 +10,7 @@ sort_order: 126
 published: true
 ---
 
-![Multi-agent research](/entry-images/mcp-architecture.svg)
+![Multi-agent research](/entry-images/mcp-architecture.jpg)
 
 ### ❓ Что это
 

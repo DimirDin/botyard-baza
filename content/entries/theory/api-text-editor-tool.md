@@ -10,7 +10,7 @@ sort_order: 112
 published: true
 ---
 
-![Text editor tool](/entry-images/agent-loop.svg)
+![Text editor tool](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

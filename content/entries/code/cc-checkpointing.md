@@ -10,7 +10,7 @@ sort_order: 141
 published: true
 ---
 
-![Checkpointing](/entry-images/plan-mode-flow.svg)
+![Checkpointing](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

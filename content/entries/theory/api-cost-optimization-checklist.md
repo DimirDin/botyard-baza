@@ -10,7 +10,7 @@ sort_order: 90
 published: true
 ---
 
-![Cost optimization](/entry-images/pricing-tiers.svg)
+![Cost optimization](/entry-images/pricing-tiers.jpg)
 
 ### ❓ Что это
 

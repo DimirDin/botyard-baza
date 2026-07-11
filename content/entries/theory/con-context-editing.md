@@ -10,7 +10,7 @@ sort_order: 120
 published: true
 ---
 
-![Context editing](/entry-images/context-window.svg)
+![Context editing](/entry-images/context-window.jpg)
 
 ### ❓ Что это
 

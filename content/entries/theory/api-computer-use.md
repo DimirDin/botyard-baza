@@ -10,7 +10,7 @@ sort_order: 114
 published: true
 ---
 
-![Computer use](/entry-images/agent-loop.svg)
+![Computer use](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

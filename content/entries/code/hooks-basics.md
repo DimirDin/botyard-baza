@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Hooks](/entry-images/agent-loop.svg)
+![Hooks](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

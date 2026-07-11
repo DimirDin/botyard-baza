@@ -10,7 +10,7 @@ sort_order: 129
 published: true
 ---
 
-![Think tool](/entry-images/thinking-process.svg)
+![Think tool](/entry-images/thinking-process.jpg)
 
 ### ❓ Что это
 

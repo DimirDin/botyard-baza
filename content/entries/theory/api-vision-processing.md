@@ -10,7 +10,7 @@ sort_order: 80
 published: true
 ---
 
-![Vision processing](/entry-images/files-memory.svg)
+![Vision processing](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 

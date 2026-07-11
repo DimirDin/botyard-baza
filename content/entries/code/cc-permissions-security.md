@@ -10,7 +10,7 @@ sort_order: 50
 published: true
 ---
 
-![Permissions & security](/entry-images/agent-loop.svg)
+![Permissions & security](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 
@@ -19,6 +19,22 @@ published: true
 минимум подтверждений) до «каждый шаг — явное подтверждение» (максимальная осторожность, минимум
 автономности). Настраивается через allow/deny списки конкретных команд и путей, а не только общий
 режим целиком.
+
+```mermaid
+graph TD
+  Cmd[Агент планирует выполнить команду] --> CheckDeny{В списке deny?}
+  CheckDeny -->|Да| Block[Заблокировать выполнение сразу]
+  CheckDeny -->|Нет| CheckAllow{В списке allow?}
+  
+  CheckAllow -->|Да| Exec[Выполнить автоматически без спроса]
+  CheckAllow -->|Нет| Prompt[Показать пользователю запрос на разрешение]
+  
+  Prompt --> User{Выбор пользователя}
+  User -->|Разрешить / Всегда в сессии| Exec
+  User -->|Отклонить| Block
+  
+  click Prompt href "entry:cc-sandboxing" "Подробнее про песочницу и безопасность"
+```
 
 ### 🎯 Зачем тебе
 

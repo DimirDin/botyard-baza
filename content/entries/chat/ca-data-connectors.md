@@ -10,7 +10,7 @@ sort_order: 50
 published: true
 ---
 
-![Data connectors](/entry-images/mcp-architecture.svg)
+![Data connectors](/entry-images/mcp-architecture.jpg)
 
 ### ❓ Что это
 

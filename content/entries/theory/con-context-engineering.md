@@ -10,7 +10,7 @@ sort_order: 125
 published: true
 ---
 
-![Context engineering](/entry-images/context-window.svg)
+![Context engineering](/entry-images/context-window.jpg)
 
 ### ❓ Что это
 

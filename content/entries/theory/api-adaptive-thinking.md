@@ -10,7 +10,7 @@ sort_order: 101
 published: true
 ---
 
-![Adaptive thinking](/entry-images/thinking-process.svg)
+![Adaptive thinking](/entry-images/thinking-process.jpg)
 
 ### ❓ Что это
 

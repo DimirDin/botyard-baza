@@ -10,7 +10,7 @@ sort_order: 30
 published: true
 ---
 
-![Batch API](/entry-images/pricing-tiers.svg)
+![Batch API](/entry-images/pricing-tiers.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 156
 published: true
 ---
 
-![Usage limits](/entry-images/pricing-tiers.svg)
+![Usage limits](/entry-images/pricing-tiers.jpg)
 
 ### ❓ Что это
 

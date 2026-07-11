@@ -10,7 +10,7 @@ sort_order: 119
 published: true
 ---
 
-![Fine-grained streaming](/entry-images/api-request-response.svg)
+![Fine-grained streaming](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

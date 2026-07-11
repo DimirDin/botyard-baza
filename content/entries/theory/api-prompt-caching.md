@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![Prompt caching](/entry-images/context-window.svg)
+![Prompt caching](/entry-images/context-window.jpg)
 
 ### ❓ Что это
 

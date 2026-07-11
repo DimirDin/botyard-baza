@@ -10,7 +10,7 @@ sort_order: 122
 published: true
 ---
 
-![Service tiers](/entry-images/pricing-tiers.svg)
+![Service tiers](/entry-images/pricing-tiers.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 155
 published: true
 ---
 
-![Claude in Chrome](/entry-images/agent-loop.svg)
+![Claude in Chrome](/entry-images/agent-loop.jpg)
 
 ### ❓ Что это
 

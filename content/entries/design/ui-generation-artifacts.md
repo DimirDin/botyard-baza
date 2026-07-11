@@ -10,7 +10,7 @@ sort_order: 10
 published: true
 ---
 
-![UI generation](/entry-images/plan-mode-flow.svg)
+![UI generation](/entry-images/plan-mode-flow.jpg)
 
 ### ❓ Что это
 

@@ -10,7 +10,7 @@ sort_order: 118
 published: true
 ---
 
-![Strict tool use](/entry-images/api-request-response.svg)
+![Strict tool use](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 

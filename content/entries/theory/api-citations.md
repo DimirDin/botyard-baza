@@ -10,7 +10,7 @@ sort_order: 103
 published: true
 ---
 
-![Citations](/entry-images/rag-pipeline.svg)
+![Citations](/entry-images/rag-pipeline.jpg)
 
 ### ❓ Что это
 

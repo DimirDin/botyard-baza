@@ -10,7 +10,7 @@ sort_order: 40
 published: true
 ---
 
-![Memory in Claude.ai](/entry-images/files-memory.svg)
+![Memory in Claude.ai](/entry-images/files-memory.jpg)
 
 ### ❓ Что это
 
