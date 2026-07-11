@@ -5227,3 +5227,89 @@
     ### ⚠️ Грабли
     Требуется производительное Android-устройство и базовые навыки работы с Linux-окружением в Termux.
 
+- repo: ofershap/mcp-server-docker
+  category: mcp/docker
+  description_ru: "Легковесный MCP-сервер для управления локальными контейнерами Docker через Node.js."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/ofershap/mcp-server-docker)
+
+    ### ❓ Что это
+    **ofershap/mcp-server-docker** — простой и надежный сервер протокола Model Context Protocol, предоставляющий ИИ-ассистентам удобные инструменты управления Docker.
+
+    ### 🎯 Для чего
+    Позволяет Claude подключаться к локальному Docker Daemon через `/var/run/docker.sock`, запускать, останавливать и перезапускать контейнеры, просматривать список запущенных инстансов и скачивать логи.
+
+    ### 💻 Как установить
+    Добавьте в конфигурацию Claude Desktop или Cursor:
+    ```json
+    {
+      "mcpServers": {
+        "mcp-docker-server": {
+          "command": "npx",
+          "args": ["-y", "mcp-docker-server"]
+        }
+      }
+    }
+    ```
+
+    ### 🚀 Как пользоваться
+    ```
+    Проверь логи контейнера web-app и перезапусти его, если там есть ошибки.
+    ```
+
+    ### ⚠️ Грабли
+    Убедитесь, что у вашего пользователя есть права на чтение и запись сокета Docker (запуск под sudo или добавление в группу `docker`).
+
+- repo: liushuangls/go-anthropic
+  category: libs/go
+  description_ru: "Один из наиболее популярных и активно поддерживаемых сообществом Go SDK для Anthropic Claude API."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/liushuangls/go-anthropic)
+
+    ### ❓ Что это
+    **go-anthropic (liushuangls)** — полнофункциональный неофициальный SDK на языке Go для интеграции с моделями Claude.
+
+    ### 🎯 Для чего
+    Предоставляет удобные структуры запросов и ответов для API Anthropic. Поддерживает работу с сообщениями, асинхронный стриминг, вызов функций (tool use), обработку изображений и кэширование промптов.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/liushuangls/go-anthropic
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    import "github.com/liushuangls/go-anthropic/v2"
+    // Создание клиента и отправка сообщений
+    ```
+
+    ### ⚠️ Грабли
+    Несмотря на то, что это неофициальная библиотека, она часто обновляется быстрее официальной за счет активного сообщества.
+
+- repo: tmc/langchaingo
+  category: libs/go
+  description_ru: "Порт популярного фреймворка LangChain на язык Go — для создания сложных агентных систем и цепочек."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/tmc/langchaingo)
+
+    ### ❓ Что это
+    **LangChainGo** — мощный Go-фреймворк для оркестрации LLM, цепочек, памяти и агентов, предоставляющий унифицированный интерфейс для работы с моделями Claude.
+
+    ### 🎯 Для чего
+    Позволяет создавать сложные конвейеры (pipelines) обработки данных в Go с использованием моделей Claude: построение RAG-систем, интеграция с векторными базами данных, планирование и вызов сторонних API.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/tmc/langchaingo
+    ```
+
+    ### 🚀 Как пользоваться
+    Используйте модули `llms/anthropic` для быстрого подключения Claude API к вашим цепочкам и агентам.
+
+    ### ⚠️ Грабли
+    Проект очень большой и содержит много абстракций, что может усложнить простую отправку сообщений по сравнению с чистым SDK.
+
+
