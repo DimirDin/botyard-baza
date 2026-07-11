@@ -1,0 +1,12 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="200" fill="#111110"/>
+<rect x="30" y="70" width="640" height="50" fill="#1b1a19" stroke="#3a3836" stroke-width="1"/>
+<rect x="30" y="70" width="120" height="50" fill="#d97757" opacity="0.85"/>
+<rect x="150" y="70" width="380" height="50" fill="#4a4744"/>
+<rect x="530" y="70" width="140" height="50" fill="#d97757" opacity="0.5"/>
+<text x="55" y="60" fill="#f2f0ed" font-family="monospace" font-size="13">системный промпт</text>
+<text x="260" y="60" fill="#f2f0ed" font-family="monospace" font-size="13">история диалога / файлы / тулы</text>
+<text x="545" y="60" fill="#f2f0ed" font-family="monospace" font-size="13">новый ответ</text>
+<text x="30" y="150" fill="#a8a49e" font-family="monospace" font-size="12">0 токенов</text>
+<text x="600" y="150" fill="#a8a49e" font-family="monospace" font-size="12">лимит окна</text>
+</svg>

@@ -1,0 +1,46 @@
+---
+slug: api-web-fetch-tool
+title: "Web fetch tool: чтение конкретной страницы"
+summary: "Серверный инструмент, который скачивает и читает страницу по URL. Пара к web search."
+section: theory
+group: models
+tags: [api, tools, web-fetch]
+doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/web-fetch-tool"
+sort_order: 109
+published: true
+---
+
+![Web fetch tool](/entry-images/rag-pipeline.svg)
+
+### ❓ Что это
+
+Web fetch tool — пара к web search: поиск находит *что* искать, fetch читает *конкретную* страницу
+по известному URL целиком, не только сниппет из выдачи. Полезен, когда ссылка уже известна — из
+ответа поиска, сообщения пользователя, документа.
+
+### 🎯 Зачем тебе
+
+Пользователь прислал ссылку и просит саммари — без fetch модель не может открыть URL сама. С fetch —
+реально читает текст страницы и работает с фактическим содержимым, включая свежий контент вне знаний
+обучения.
+
+### 💻 Минимальный пример
+
+```json
+{
+  "tools": [{ "type": "web_fetch_20250910", "name": "web_fetch" }],
+  "messages": [{ "role": "user", "content": "Прочитай https://example.com/article и сделай саммари" }]
+}
+```
+
+Часто используется вместе с web search: поиск находит ссылки, fetch читает наиболее подходящие
+целиком для более глубокого ответа.
+
+### ⚠️ Грабли
+
+- **Не обходит paywalls и robots.txt** — уважает стандартные ограничения доступа.
+- **JS-рендеренный контент может прочитаться не полностью** — SPA с клиентским рендером текста.
+- **Не для структурированных API** — если у сайта есть JSON API, дешевле дать модели прямой HTTP-тул.
+
+### 🔗 Первоисточник
+Web fetch tool — docs.claude.com/en/agents-and-tools/tool-use/web-fetch-tool

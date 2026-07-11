@@ -1,0 +1,45 @@
+---
+slug: api-fine-grained-streaming
+title: "Fine-grained tool streaming: аргументы тулов по мере генерации"
+summary: "Стриминг больших аргументов инструмента кусками, без ожидания полного JSON."
+section: theory
+group: models
+tags: [api, tools, streaming]
+doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/fine-grained-tool-streaming"
+sort_order: 119
+published: true
+---
+
+![Fine-grained streaming](/entry-images/api-request-response.svg)
+
+### ❓ Что это
+
+Fine-grained tool streaming — стриминг JSON-аргументов вызова тула по мере генерации, кусками
+(`input_json_delta`), а не единым блоком после завершения. Без этого стриминг текста работает плавно,
+а тело вызова тула молча «зависает» до конца — особенно заметно на больших аргументах.
+
+### 🎯 Зачем тебе
+
+UI, где важно показывать прогресс в реальном времени и во время формирования аргументов тула —
+например, Claude пишет длинный файл через text editor tool, и пользователь видит текст появляющимся
+по мере генерации, а не спиннер до конца.
+
+### 💻 Минимальный пример
+
+```
+event: content_block_delta
+data: {"type": "input_json_delta", "partial_json": "{\"path\": \"src/App"}
+```
+
+Парсер накапливает `partial_json` по кускам и парсит финальный JSON только после `content_block_stop`
+— промежуточные куски сами по себе невалидны.
+
+### ⚠️ Грабли
+
+- **Нельзя парсить каждый кусок отдельно** — валиден только полностью собранный результат.
+- **Нужен буфер накопления по каждому content_block индексу** — особенно при параллельных вызовах.
+- **Полезен в первую очередь для UX**, не для производительности — вызов тула исполняется только
+  после получения полного аргумента.
+
+### 🔗 Первоисточник
+Fine-grained tool streaming — docs.claude.com/en/agents-and-tools/tool-use/fine-grained-tool-streaming

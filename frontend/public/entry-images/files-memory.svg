@@ -1,0 +1,13 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="200" fill="#111110"/>
+<rect x="40" y="70" width="160" height="60" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="55" y="105" fill="#f2f0ed" font-family="monospace" font-size="12">файл загружен раз</text>
+<rect x="270" y="30" width="160" height="50" rx="8" fill="#1b1a19" stroke="#d97757"/>
+<text x="290" y="60" fill="#d97757" font-family="monospace" font-size="12">сессия 1</text>
+<rect x="270" y="90" width="160" height="50" rx="8" fill="#1b1a19" stroke="#d97757"/>
+<text x="290" y="120" fill="#d97757" font-family="monospace" font-size="12">сессия 2</text>
+<rect x="270" y="150" width="160" height="40" rx="8" fill="#1b1a19" stroke="#d97757"/>
+<text x="290" y="175" fill="#d97757" font-family="monospace" font-size="12">сессия N</text>
+<path d="M200 100 L270 55M200 100 L270 115M200 100 L270 165" stroke="#a8a49e" stroke-width="1.5" fill="none" marker-end="url(#h6)"/>
+<defs><marker id="h6" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#a8a49e"/></marker></defs>
+</svg>

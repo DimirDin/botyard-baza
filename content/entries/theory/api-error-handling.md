@@ -10,28 +10,43 @@ sort_order: 70
 published: true
 ---
 
+![Error handling](/entry-images/api-request-response.svg)
+
 ### ❓ Что это
-Слой обработки ошибок API отвечает за перехват и корректную отработку сбойных статус-кодов, включая retry-стратегию с экспоненциальной задержкой для временных сетевых сбоев и перегрузок (5xx).
+
+Основные коды ошибок: `400` (невалидный запрос), `401` (неверный ключ), `403` (доступ запрещён),
+`429` (rate limit), `500`/`529` (перегрузка Anthropic, временная). Разные коды требуют разной
+реакции: `400` повторять бессмысленно без изменения запроса, `429`/`529` — кандидаты на retry с
+backoff, `401` — немедленная остановка и алерт.
 
 ### 🎯 Зачем тебе
-Без грамотного хендлинга временная ошибка 429 роняет всю сессию пользователя. С правильным retry бот «перетерпит» затык шлюза и ответит без видимого сбоя.
+
+Без нормальной обработки ошибок продакшен рано или поздно ловит каскадный сбой: временная перегрузка
+Anthropic при наивном коде превращается в видимый пользователю даунтайм, хотя проблема длилась
+секунды.
 
 ### 💻 Минимальный пример
-```python
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
-import anthropic
 
-@retry(stop=stop_after_attempt(5),
-       wait=wait_exponential(multiplier=2, min=2, max=16),
-       retry=retry_if_exception_type((anthropic.RateLimitError, anthropic.APIStatusError)),
-       reraise=True)
-def call_claude(prompt):
-    return client.messages.create(model="claude-sonnet-5", max_tokens=300,
-                                   messages=[{"role": "user", "content": prompt}])
+```python
+import time, random
+RETRYABLE = {429, 500, 529}
+def call_with_backoff(fn, max_attempts=5):
+    for i in range(max_attempts):
+        try:
+            return fn()
+        except ApiError as e:
+            if e.status_code not in RETRYABLE or i == max_attempts - 1:
+                raise
+            time.sleep(min(2 ** i + random.random(), 30))
 ```
 
 ### ⚠️ Грабли
-Не путай типы ошибок: retry имеет смысл для 429/5xx, но не для 400 (невалидный запрос) — там нужна правка кода, а не повторная отправка того же самого.
+
+- **`400` почти никогда не решается повтором** — чини сам запрос, а не ретрай.
+- **`529` — не твоя проблема с лимитами**, а перегрузка на стороне Anthropic, уместен терпеливый
+  backoff.
+- **Отсутствие таймаута на HTTP-клиенте** — запрос может висеть неопределённо долго без явного
+  timeout.
 
 ### 🔗 Первоисточник
-platform.claude.com — Errors and Rate Limits
+Error handling — platform.claude.com

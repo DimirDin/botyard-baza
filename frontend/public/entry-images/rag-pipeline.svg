@@ -1,0 +1,13 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="200" fill="#111110"/>
+<rect x="20" y="75" width="130" height="50" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="35" y="105" fill="#f2f0ed" font-family="monospace" font-size="12">запрос</text>
+<rect x="190" y="75" width="130" height="50" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="200" y="105" fill="#f2f0ed" font-family="monospace" font-size="12">поиск/индекс</text>
+<rect x="360" y="75" width="130" height="50" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="375" y="105" fill="#f2f0ed" font-family="monospace" font-size="12">top-k чанки</text>
+<rect x="530" y="75" width="150" height="50" rx="8" fill="#d97757"/>
+<text x="550" y="105" fill="#111110" font-family="monospace" font-size="12">ответ Claude</text>
+<path d="M150 100 H190M320 100 H360M490 100 H530" stroke="#d97757" stroke-width="2" marker-end="url(#h4)"/>
+<defs><marker id="h4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#d97757"/></marker></defs>
+</svg>

@@ -1,0 +1,15 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="200" fill="#111110"/>
+<rect x="40" y="40" width="180" height="120" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="60" y="65" fill="#f2f0ed" font-family="monospace" font-size="13">Haiku</text>
+<text x="60" y="90" fill="#a8a49e" font-family="monospace" font-size="11">быстро</text>
+<text x="60" y="108" fill="#a8a49e" font-family="monospace" font-size="11">дёшево</text>
+<rect x="260" y="40" width="180" height="120" rx="8" fill="#1b1a19" stroke="#d97757" stroke-width="2"/>
+<text x="280" y="65" fill="#d97757" font-family="monospace" font-size="13">Sonnet</text>
+<text x="280" y="90" fill="#a8a49e" font-family="monospace" font-size="11">баланс</text>
+<text x="280" y="108" fill="#a8a49e" font-family="monospace" font-size="11">универсал</text>
+<rect x="480" y="40" width="180" height="120" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="500" y="65" fill="#f2f0ed" font-family="monospace" font-size="13">Opus</text>
+<text x="500" y="90" fill="#a8a49e" font-family="monospace" font-size="11">максимум</text>
+<text x="500" y="108" fill="#a8a49e" font-family="monospace" font-size="11">сложные задачи</text>
+</svg>

@@ -1,0 +1,12 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="200" fill="#111110"/>
+<rect x="30" y="60" width="300" height="90" rx="8" fill="#1b1a19" stroke="#d97757" stroke-dasharray="4 3"/>
+<text x="50" y="85" fill="#d97757" font-family="monospace" font-size="13">thinking (скрытый черновик)</text>
+<text x="50" y="110" fill="#a8a49e" font-family="monospace" font-size="11">шаг 1 → шаг 2 → проверка</text>
+<text x="50" y="130" fill="#a8a49e" font-family="monospace" font-size="11">гипотеза → пересмотр</text>
+<path d="M330 105 H400" stroke="#d97757" stroke-width="2" marker-end="url(#h3)"/>
+<rect x="400" y="60" width="270" height="90" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="420" y="90" fill="#f2f0ed" font-family="monospace" font-size="13">финальный ответ</text>
+<text x="420" y="115" fill="#a8a49e" font-family="monospace" font-size="11">видимый пользователю</text>
+<defs><marker id="h3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#d97757"/></marker></defs>
+</svg>

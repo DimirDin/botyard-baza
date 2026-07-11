@@ -1,0 +1,16 @@
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="220" fill="#111110"/>
+<rect x="40" y="40" width="260" height="140" rx="10" fill="#1b1a19" stroke="#3a3836"/>
+<text x="60" y="65" fill="#d97757" font-family="monospace" font-size="13">POST /v1/messages</text>
+<text x="60" y="90" fill="#f2f0ed" font-family="monospace" font-size="12">model: "claude-..."</text>
+<text x="60" y="110" fill="#f2f0ed" font-family="monospace" font-size="12">messages: [...]</text>
+<text x="60" y="130" fill="#f2f0ed" font-family="monospace" font-size="12">tools: [...]</text>
+<text x="60" y="150" fill="#f2f0ed" font-family="monospace" font-size="12">max_tokens: N</text>
+<path d="M300 110 H400" stroke="#d97757" stroke-width="2" marker-end="url(#h2)"/>
+<rect x="400" y="40" width="260" height="140" rx="10" fill="#1b1a19" stroke="#3a3836"/>
+<text x="420" y="65" fill="#d97757" font-family="monospace" font-size="13">200 OK</text>
+<text x="420" y="90" fill="#f2f0ed" font-family="monospace" font-size="12">content: [...]</text>
+<text x="420" y="110" fill="#f2f0ed" font-family="monospace" font-size="12">stop_reason</text>
+<text x="420" y="130" fill="#f2f0ed" font-family="monospace" font-size="12">usage: {in, out}</text>
+<defs><marker id="h2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#d97757"/></marker></defs>
+</svg>

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="260" fill="#111110"/>
+<style>.b{fill:#1b1a19;stroke:#d97757;stroke-width:1.5;rx:8}.t{fill:#f2f0ed;font-family:monospace;font-size:15px}.a{fill:#d97757;font-family:monospace;font-size:12px}</style>
+<rect class="b" x="30" y="100" width="140" height="60" rx="8"/>
+<text class="t" x="55" y="135">модель</text>
+<rect class="b" x="280" y="100" width="140" height="60" rx="8"/>
+<text class="t" x="300" y="135">инструмент</text>
+<rect class="b" x="530" y="100" width="140" height="60" rx="8"/>
+<text class="t" x="545" y="128">результат</text>
+<text class="t" x="545" y="148">в контекст</text>
+<path d="M170 120 H280" stroke="#d97757" stroke-width="2" marker-end="url(#h)"/>
+<path d="M420 130 H530" stroke="#d97757" stroke-width="2" marker-end="url(#h)"/>
+<path d="M600 160 C600 220 100 220 100 160" stroke="#d97757" stroke-width="2" fill="none" marker-end="url(#h)"/>
+<defs><marker id="h" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#d97757"/></marker></defs>
+<text class="a" x="180" y="112">tool_use</text>
+<text class="a" x="430" y="145">tool_result</text>
+<text class="a" x="330" y="240">цикл повторяется, пока задача не решена</text>
+</svg>

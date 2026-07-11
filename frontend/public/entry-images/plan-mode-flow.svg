@@ -1,0 +1,15 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="700" height="200" fill="#111110"/>
+<rect x="30" y="75" width="150" height="50" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="45" y="105" fill="#f2f0ed" font-family="monospace" font-size="12">исследование</text>
+<rect x="220" y="75" width="150" height="50" rx="8" fill="#1b1a19" stroke="#d97757" stroke-width="2"/>
+<text x="245" y="105" fill="#d97757" font-family="monospace" font-size="12">план (текст)</text>
+<rect x="410" y="40" width="130" height="50" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="425" y="70" fill="#f2f0ed" font-family="monospace" font-size="12">одобрено</text>
+<rect x="410" y="110" width="130" height="50" rx="8" fill="#1b1a19" stroke="#3a3836"/>
+<text x="425" y="140" fill="#f2f0ed" font-family="monospace" font-size="12">правки к плану</text>
+<rect x="580" y="40" width="100" height="50" rx="8" fill="#d97757"/>
+<text x="595" y="70" fill="#111110" font-family="monospace" font-size="12">правки в коде</text>
+<path d="M180 100 H220M370 90 L410 65M370 110 L410 135M540 65 H580" stroke="#a8a49e" stroke-width="1.5" fill="none" marker-end="url(#h5)"/>
+<defs><marker id="h5" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#a8a49e"/></marker></defs>
+</svg>
