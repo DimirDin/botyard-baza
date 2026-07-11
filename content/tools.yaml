@@ -49,6 +49,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/skills)
+
     ### ❓ Что это
     **Skills** — официальный репозиторий Anthropic с примерами **Agent Skills**: папками из инструкций, скриптов и ресурсов, которые Claude подгружает динамически, чтобы лучше справляться со специфическими задачами. Каждый скилл — это самостоятельная папка с файлом `SKILL.md`, где хранятся инструкции и метаданные. Часть скиллов (например, создание и редактирование документов) реально используется внутри продакшен-функций Claude — работа с файлами `.docx`, `.pdf`, `.pptx` и `.xlsx`.
 
@@ -80,6 +82,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-cookbooks)
+
     ### ❓ Что это
     **Claude Cookbooks** — официальная коллекция ноутбуков и рецептов от **Anthropic**, показывающая эффективные способы использования Claude. Это готовые Python-примеры (Jupyter notebooks), которые можно копировать почти без изменений в свой проект.
 
@@ -104,6 +108,8 @@
   badge:
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-agent-sdk-python)
+
     ### ❓ Что это
     **Claude Agent SDK for Python** — официальный SDK от Anthropic для программной сборки агентов на Claude. Под капотом использует движок Claude Code (CLI бандлится вместе с пакетом), но даёт Python-интерфейс: асинхронную функцию `query()` для разовых запросов и класс `ClaudeSDKClient` для двусторонних интерактивных сессий с поддержкой кастомных инструментов и хуков.
 
@@ -137,6 +143,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/punkpeye/awesome-mcp-servers)
+
     ### ❓ Что это
     **Awesome MCP Servers** — один из самых крупных курируемых списков серверов **Model Context Protocol (MCP)**, открытого протокола, который позволяет AI-моделям безопасно работать с локальными и удалёнными ресурсами: файлами, базами данных, API и другими источниками контекста. Список синхронизирован с веб-каталогом на glama.ai/mcp/servers и поддерживается активным сообществом (свой Discord и сабреддит r/mcp).
 
@@ -158,6 +166,8 @@
   badge:
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/b0ea1e57-df16-4b04-9276-1980e17ab6ec)
+
     ### ❓ Что это
     Альтернативный курируемый список серверов **Model Context Protocol (MCP)** — открытого протокола для безопасного взаимодействия AI-моделей с локальными и удалёнными ресурсами (файлы, БД, API). Организован по категориям и отмечает официальные реализации отдельным значком.
 
@@ -179,6 +189,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/servers)
+
     ### ❓ Что это
     Официальный репозиторий **эталонных реализаций** серверов **Model Context Protocol (MCP)**, поддерживаемый управляющей группой протокола (steering group). Здесь только небольшой набор образцовых серверов — полный каталог сторонних MCP-серверов стоит искать в [MCP Registry](https://registry.modelcontextprotocol.io/).
 
@@ -219,6 +231,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/subinium/awesome-claude-code)
+
     ### ❓ Что это
     Курируемый **Awesome**-список инструментов, скиллов, плагинов и MCP-серверов для агентных кодинг-инструментов — в первую очередь **Claude Code**, но также **Codex**, **Gemini CLI**, **Cursor** и других. Правило отбора простое и жёсткое: в список попадают только репозитории с **1000+ звёзд**.
 
@@ -283,6 +297,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://github.com/user-attachments/assets/e91255af-e4ba-4d71-b1a8-bd081e8a234a)
+
     ### ❓ Что это
     **Awesome Claude Skills** от **Composio** — курируемый список из **1000+** production-скиллов, ресурсов и инструментов для кастомизации рабочих процессов Claude AI. Помимо Claude Code, охватывает смежные экосистемы вроде Codex, Gemini CLI и **Rube** (собственный MCP-коннектор Composio).
 
@@ -304,6 +320,8 @@
   badge: editors_choice
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/trailofbits/skills)
+
     ### ❓ Что это
     **Trail of Bits Skills Marketplace** — маркетплейс плагинов Claude Code от известной ИБ-компании **Trail of Bits**, собирающий скиллы для AI-ассистированного анализа безопасности, тестирования и аудита кода. Совместим и с **Codex** через его поддержку Claude-маркетплейсов.
 
@@ -345,6 +363,8 @@
   badge: editors_choice
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/microsoft/playwright-mcp)
+
     ### ❓ Что это
 
     **Playwright MCP** — официальный сервер от **Microsoft**, который даёт LLM доступ к браузеру
@@ -450,6 +470,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/exa-labs/exa-mcp-server)
+
     ### ❓ Что это
 
     **Exa MCP Server** от **Exa Labs** подключает AI-ассистентов к поисковому движку **Exa**:
@@ -549,6 +571,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/zed-industries/zed)
+
     ### ❓ Что это
 
     **Zed** — быстрый многопользовательский код-редактор от **Zed Industries** (той же команды, что
@@ -683,6 +707,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://raw.githubusercontent.com/punkpeye/awesome-mcp-clients/main/screenshots/askit-mcp/cli.png)
+
     ### ❓ Что это
 
     **Awesome MCP Clients** — курируемый список (в формате awesome-list) приложений и библиотек,
@@ -827,6 +853,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/southleft/figma-console-mcp)
+
     ### ❓ Что это
 
     **Figma Console MCP** от студии **Southleft** превращает Figma в API для AI-агента: сервер даёт
@@ -903,6 +931,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/pascalporedda/awesome-claude-code)
+
     ### ❓ Что это
     Несмотря на общее название, это конкретный проект — **звуковые уведомления** для Claude Code через хуки `Notification`, `Stop` и `SubagentStop`. Автор задумывает репозиторий как будущий центральный хаб community-хуков (с менеджером для их установки), но пока это готовый рабочий набор звуков без внешних зависимостей.
 
@@ -1066,6 +1096,8 @@
   badge: editors_choice
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/anthropic-sdk-go)
+
     ### ❓ Что это
     Официальная библиотека от **Anthropic** для доступа к **Claude API** из Go-приложений — тонкая типобезопасная обёртка над HTTP API с автогенерируемыми типами запросов и ответов.
 
@@ -1100,6 +1132,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/tmikus/anthropic-sdk-rust)
+
     ### ❓ Что это
     **anthropic_rust** — неофициальный (community) Rust SDK для Claude API от автора **tmikus**: идиоматичный код на типах Rust, async/await поверх tokio, builder-паттерн для запросов.
 
@@ -1240,6 +1274,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/block/goose)
+
     ### ❓ Что это
     **goose** — открытый AI-агент, который работает прямо на твоей машине: desktop-приложение под macOS/Linux/Windows, CLI для терминала и API для встраивания куда угодно, написан на **Rust**. Проект стартовал в **Block** (материнская компания Square и Cash App), а недавно **переехал** из `block/goose` под управление **Agentic AI Foundation (AAIF)** при Linux Foundation — часть ссылок и упоминаний в репозитории ещё в процессе обновления.
 
@@ -1377,6 +1413,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/wshobson/agents)
+
     ### ❓ Что это
     **Agentic Plugin Marketplace** — не просто набор субагентов, а целая production-ready экосистема "строительных блоков" для агентской разработки: **88 плагинов**, **194 агента**, **158 скиллов**, **106 команд** и **16 оркестраторов**. Фишка проекта — единый источник в Markdown (`plugins/`), из которого генерируются нативные артефакты сразу для пяти харнессов: **Claude Code**, **OpenAI Codex CLI**, **Cursor**, **OpenCode** и **Gemini CLI** (плюс **GitHub Copilot**) — без "усреднения" под наименьший общий знаменатель.
 
@@ -1425,6 +1463,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/0xfurai/claude-code-subagents)
+
     ### ❓ Что это
     Обширная коллекция **100+ специализированных субагентов** для **Claude Code** — каждый заточен под конкретный домен и настроен на подходящую модель Claude по балансу стоимости/сложности задачи. Агенты разложены по разделам:
     - **Programming Languages & Frameworks** — например, `bash-expert`, `python-expert`, `javascript-expert`, `typescript-expert`, `java-expert`, `go-expert`, `rust-expert`, `c-expert`, `cpp-expert`, `php-expert`, `ruby-expert`, `scala-expert`, `kotlin-expert`, `swift-expert`, `dart-expert`, `lua-expert`, `haskell-expert`, `ocaml-expert`, `perl-expert`, `csharp-expert`, `clojure-expert`, `elixir-expert`, `erlang-expert`;
@@ -1497,6 +1537,8 @@
   badge:
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/vijaythecoder/awesome-claude-agents)
+
     ### ❓ Что это
     **Awesome Claude Agents** — набор из **24 субагентов**, оформленных как полноценная "AI-команда разработки" для Claude Code: не просто список экспертов, а система с оркестраторами, которые сами анализируют проект и подбирают нужных специалистов. Автор прямо предупреждает: проект **экспериментальный и прожорливый по токенам** — сложный многоагентный workflow может съесть 10–50 тыс. токенов на одну фичу.
 
@@ -1533,6 +1575,8 @@
   badge: editors_choice
   verify_status: check
   body_md: |
+    ![](https://img.youtube.com/vi/-kSOTtYzgEw/hqdefault.jpg)
+
     ### ❓ Что это
     **CrewAI** — открытый Python-фреймворк для построения продакшн-готовых мультиагентных workflow, за которым стоит компания **CrewAI Inc**. Даёт два уровня абстракции: **CrewAI Crews** — ролевые автономные агенты, работающие совместно, и **CrewAI Flows** — событийно-управляемые автоматизации с точным контролем, одиночными вызовами LLM и нативной поддержкой Crews внутри. Через курсы на learn.crewai.com сертифицировано уже больше **100 000 разработчиков** — по сути один из стандартов в теме продакшн-агентов.
 
@@ -1654,6 +1698,8 @@
   verify_status: known
 
   body_md: |
+    ![](https://opengraph.githubassets.com/1/obra/superpowers)
+
     ### ❓ Что это
     **Superpowers** — это не просто набор скиллов, а целая методология разработки софта для коммитящих код агентов. Автор — **Jesse Vincent** и команда **Prime Radiant**. Идея: как только агент видит, что вы начинаете что-то строить, он не бросается сразу писать код — сначала уточняет спеку через вопросы, показывает дизайн кусками для одобрения, затем готовит план реализации, понятный "въедливому джуну без вкуса и контекста", с упором на честный red/green **TDD**, **YAGNI** и **DRY**. После вашего "go" запускается **subagent-driven-development** — агент диспатчит саб-агентов на каждую задачу плана, проверяет их работу и двигается дальше, иногда автономно работая часами.
 
@@ -1692,6 +1738,8 @@
   verify_status: known
 
   body_md: |
+    ![](https://opengraph.githubassets.com/1/forrestchang/andrej-karpathy-skills)
+
     ### ❓ Что это
     Один-единственный файл `CLAUDE.md`, собранный **Forrest Chang** по мотивам [поста Andrej Karpathy](https://x.com/karpathy/status/2015883857489522876) о типичных проблемах LLM-кодинга: модели молча делают неверные предположения, не признают, что запутались, любят раздувать абстракции и код на 1000 строк там, где хватило бы 100, а ещё иногда трогают комментарии и код, которые не до конца понимают, хотя это не относится к задаче.
 
@@ -1910,6 +1958,8 @@
 # (те, которыми ты реально пользовался — приоритет на бейдж editors_choice)
 # и обязательного прогона через scripts/sync_content.py + GitHub API перед публикацией.
   body_md: |
+    ![](https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/assets/awesome-claude-code-banner.png)
+
     ### ❓ Что это
     **Awesome Claude Code** — курируемый список лучших ресурсов для Claude Code: скиллов, агентов, статус-лайнов, инструментов и плагинов, собранный **hesreallyhim** и сообществом. Список специально перезапущен так, чтобы подсвечивать проекты, не попавшие в прошлую итерацию, — часть "легаси"-ресурсов пока лежит отдельно в `README_ALTERNATIVES` и постепенно мигрирует в новый формат.
 
@@ -1941,6 +1991,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/1c-syntax/claude-code-bsl-lsp)
+
     ### ❓ Что это
     Плагин **Claude Code**, который подключает **BSL Language Server** как полноценный LSP-сервер для файлов `.bsl` (1С:Предприятие) и `.os` (**OneScript**). Даёт агенту диагностику качества кода, go to definition, find references, hover-подсказки, code actions/quick fixes, навигацию по символам и форматирование — прямо внутри сессии Claude Code.
 
@@ -1970,6 +2022,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/1c-syntax/bsl-language-server)
+
     ### ❓ Что это
     **BSL Language Server** — реализация протокола **Language Server Protocol** для языка 1С:Предприятие 8 (**BSL**) и **OneScript**. Это движок, который отдаёт диагностику, автодополнение и другие LSP-возможности любому клиенту, поддерживающему протокол — в том числе плагину `claude-code-bsl-lsp` для Claude Code.
 
@@ -1994,6 +2048,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/Nikolay-Shirokov/cc-1c-skills)
+
     ### ❓ Что это
     Набор **навыков (skills)** для AI-агентов, в первую очередь для **Claude Code**, закрывающий полный цикл разработки на платформе **1С:Предприятие 8.3** — от создания конфигураций, расширений, внешних обработок и отчётов до загрузки изменений в информационную базу, публикации на веб-сервере (портативный Apache) и тестирования через веб-клиент. Навыки дают модели готовые абстракции над XML-форматами и CLI конфигуратора, а не заставляют разбираться в деталях реализации вручную.
 
@@ -2023,6 +2079,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/Desko77/claude-code-skills-1c)
+
     ### ❓ Что это
     Набор из **95 скилов**, **29 правил** и **4 команд** для Claude Code, ориентированный на разработку 1С:Предприятие: конфигурации, расширения, обработки, формы, макеты, запросы, роли, подсистемы, базы данных, веб-публикация и веб-тестирование, а также разработка под 1С 7.7, правила обмена «Конвертация данных» и интеграция с Mobile SMARTS (Клеверенс). Отдельный класс — справочники API прикладных конфигураций, например `zup-hr-api-reference` для 1С:ЗУП 3.1.
 
@@ -2049,6 +2107,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/Arman-Kudaibergenov/1c-ai-development-kit)
+
     ### ❓ Что это
     **1C AI Development Kit** — готовая экосистема для AI-ассистированной разработки на **1С:Предприятие 8.3**, с поддержкой и **Claude Code**, и **Cursor IDE**. Включает **71 skill** для Claude Code (метаданные, формы, EPF/ERF, СКД, макеты, роли, подсистемы, конфигурация, расширения, база данных, workflow-скилы), 12 специализированных агентов и 9 правил для Cursor, а также 29 спецификаций форматов 1С. Проект собрал наработки нескольких решений сообщества (cc-1c-skills, cursor_rules_1c, 1c-batch и другие) в единый комплект.
 
@@ -2073,6 +2133,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/sfrangulov/claude-code-handbook-ru)
+
     ### ❓ Что это
     Курируемый **handbook по Claude Code на русском** — не сырой список, а подборка того, что автор реально применяет в клиентских проектах либо что массово проверено сообществом по install-count. Покрывает skills, sub-agents, оркестрацию нескольких агентов, workflow-методологии (spec → plan → ship), plugins, hooks, MCP-серверы, шаблоны `CLAUDE.md`, статуслайны и мониторинг расхода токенов. Полный сырой каталог (1411 записей) вынесен отдельно в `catalog/`.
 
@@ -2102,6 +2164,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/miolamio/claude-skills)
+
     ### ❓ Что это
     Коллекция навыков для Claude Code, заточенных под работу с русским текстом: **`en-ru-translator-adv`** — переводчик EN→RU в три этапа (черновой перевод, рефлексия, финальная редактура) по принципам информационного стиля Ильяхова; **`ru-editor`** — редактор, вычищающий из текста AI-маркеры (ChatGPT-измы, синонимические тройки, канцеляризмы) в 15 операций редактуры и 16 самопроверок; **`ru-textovod`** — проверка орфографии/пунктуации/грамматики через API Textovod.com; плюс `ascii-art-beautifier` для выравнивания ASCII-диаграмм и `telegram-cli` — CLI-клиент Telegram прямо из терминала Claude Code.
 
@@ -2127,6 +2191,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/artwist-polyakov/polyakov-claude-skills)
+
     ### ❓ Что это
     Набор из почти двух десятков скиллов-плагинов для Claude Code, значительная часть — интеграции с российскими сервисами: **`yandex-webmaster`** (индексация, поисковые запросы, переобход, сайтмапы через API v4), **`yandex-metrika`** (трафик, конверсии, UTM, cache-first стратегия с TSV-индексами), **`yandex-wordstat`** (поисковый спрос, динамика по месяцам, регионы), **`telegraph-publisher`** (публикация страниц с медиа). Плюс скилы общего назначения: `docx-contracts`, `agent-deck`, `ssh-remote-connection`, `codex-review`, `reddit-skill`, `knowledge-compiler` и другие.
 
@@ -2235,6 +2301,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://media.githubusercontent.com/media/microsoft/autogen/refs/heads/main/python/packages/autogen-studio/docs/ags_screen.png)
+
     ### ❓ Что это
     **AutoGen** — фреймворк для создания мультиагентных AI-приложений, которые действуют автономно или вместе с человеком. Архитектура слоями: **Core API** (message passing, event-driven агенты, локальный/распределённый runtime), **AgentChat API** (упрощённый API для быстрого прототипирования, групповые чаты) и **Extensions API** (клиенты LLM, выполнение кода). Отдельно идёт **AutoGen Studio** — no-code GUI для мультиагентных workflow.
 
@@ -2399,6 +2467,8 @@
   description_ru: "Консольный инспектор MCP-серверов — подключается к любому серверу (stdio, npx-пакет, SSE, streamable HTTP) и позволяет вручную вызывать его tools, resources и prompts из терминала."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/wong2/mcp-cli)
+
     ### ❓ Что это
     **mcp-cli** — CLI-инспектор для **Model Context Protocol**: умеет запускать MCP-серверы из разных источников, listать `Tools`, `Resources`, `Prompts`, вызывать их и поддерживает **OAuth** для SSE и Streamable HTTP серверов.
 
@@ -2431,6 +2501,8 @@
   description_ru: "Официальный MCP-сервер от команды Redis — natural-language интерфейс к hash/list/set/sorted set/stream и JSON-документам, с поддержкой векторного поиска и EntraID-аутентификации для Azure."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/redis/mcp-redis)
+
     ### ❓ Что это
     **Redis MCP Server** — официальный сервер организации `redis` (не community-форк), реализующий natural-language интерфейс к Redis по протоколу **MCP**. Поддерживает `hashes, lists, sets, sorted sets, streams` и JSON-документы, а также векторный поиск с фильтрацией. Есть нативная поддержка **EntraID (Azure AD)** аутентификации для Azure Managed Redis.
 
@@ -2498,6 +2570,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/github/github-mcp-server)
+
     ### ❓ Что это
     **GitHub MCP Server** — официальный сервер Model Context Protocol от **GitHub**, соединяющий AI-инструменты напрямую с платформой GitHub. Даёт агентам и чат-ботам возможность читать код и репозитории, управлять issues и pull request'ами, анализировать код и автоматизировать workflow — всё через естественноязыковые запросы.
 
@@ -2541,6 +2615,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/firebase/firebase-tools)
+
     ### ❓ Что это
     Важно: это **не самостоятельный MCP-пакет**, а часть большого CLI-инструмента **firebase-tools** — той же утилиты `firebase`, которой тестируют, деплоят и управляют Firebase-проектами из терминала. Как сказано в README: "This repository is also the home of the official Firebase MCP Server" — MCP-сервер живёт внутри репозитория в `./src/mcp` и запускается той же командой `firebase`, а не отдельным пакетом.
 
@@ -2578,6 +2654,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/ansible-collections/ansible.mcp)
+
     ### ❓ Что это
     **Ansible MCP Collection** (`ansible.mcp`) — набор Ansible-контента для автоматизации взаимодействия с серверами Model Context Protocol, поддерживаемый **Ansible Cloud Content team**. Коллекция даёт модули для запроса информации о сервере, обнаружения доступных инструментов и вызова MCP tool'ов прямо из playbook'ов и Execution Environments.
 
@@ -2651,6 +2729,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://www.qodo.ai/images/pr_agent/diagram-v0.9.png)
+
     ### ❓ Что это
     **PR-Agent** — открытый AI-агент для код-ревью пул-реквестов, "The Original Open-Source PR Reviewer". Важное уточнение из README: это **community-поддерживаемый legacy-проект Qodo**, отдельный от основного коммерческого продукта Qodo для код-ревью (бывший Codium-ai / Qodo Merge). Qodo подарила PR-Agent open-source сообществу, репозиторий теперь живёт в организации `the-pr-agent` и развивается внешними мейнтейнерами (первый — Naor Peled).
 
@@ -2747,6 +2827,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/zylon-ai/private-gpt/main/fern/docs/assets/privategpt_banner.png)
+
     ### ❓ Что это
     **PrivateGPT** — open-source API-слой, который превращает локальные модели в готовые к продакшену AI-приложения. Сам PrivateGPT модели не запускает: он подключается к любому OpenAI-совместимому серверу инференса (Ollama, llama.cpp, vLLM) через `OPENAI_API_BASE` и добавляет поверх стандартный слой — сообщения, retrieval, инструменты, БД. Проект теперь называется PrivateGPT и разрабатывается компанией **Zylon** — это переименованный и переработанный бывший `imartinez/privateGPT`.
 
@@ -2797,6 +2879,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/03168b17-a11d-4b2a-b0f7-c1cce69e5a2c)
+
     ### ❓ Что это
     **Langflow** — платформа для сборки и деплоя AI-агентов и workflow с визуальным конструктором и встроенными API- и MCP-серверами: любой собранный flow превращается в инструмент, который можно подключить к приложению на любом стеке. Поддерживает основные LLM, векторные базы и растущую библиотеку AI-компонентов "из коробки".
 
@@ -2866,6 +2950,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/plandex-ai/plandex/main/images/plandex-v2-yt.png)
+
     ### ❓ Что это
     **Plandex** — терминальный AI-инструмент для крупных задач разработки, которые растягиваются на много шагов и затрагивают десятки файлов одновременно. Использует умное управление контекстом с эффективным окном до 2 млн токенов и накопительную песочницу для ревью diff'ов перед применением.
 
@@ -2964,6 +3050,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/5810ae13-15d6-4b60-afd2-927adc501861)
+
     ### ❓ Что это
     **Langfuse** — open source LLM engineering платформа, которая помогает разрабатывать, мониторить, оценивать и отлаживать AI-приложения. Инструментирует вызовы LLM, retrieval, embedding и действия агентов через трейсы, даёт версионирование промптов, встроенный playground и датасеты для тестирования перед деплоем.
 
@@ -2999,6 +3087,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/Arize-ai/phoenix-assets/main/images/socal/github-large-banner-phoenix-v2.jpg?raw=true)
+
     ### ❓ Что это
     **Phoenix** — open source платформа AI-observability для экспериментов, оценки и отладки LLM-приложений от **Arize**. Даёт runtime-трейсинг на базе OpenTelemetry, LLM-powered эвалюации ответов и retrieval, версионируемые датасеты для файнтюна, отслеживание экспериментов с промптами и моделями, а также встроенный playground для реплея трейсов.
 
@@ -3051,6 +3141,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://github.com/jina-ai/reader/assets/2041322/2067c7a2-c12e-4465-b107-9a16ca178d41)
+
     ### ❓ Что это
     **Reader** от **Jina AI** — сервис, который конвертирует любую веб-страницу в чистый markdown, пригодный для скармливания LLM, через простой запрос вида `https://r.jina.ai/[URL]`. Дополнительно даёт веб-поиск с фетчем топ-результатов через `https://s.jina.ai/[query]`.
 
@@ -3079,6 +3171,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/firecrawl/firecrawl/main/img/open-source-cloud.png)
+
     ### ❓ Что это
     **Firecrawl** — API для поиска, скрейпинга и взаимодействия с сайтами в масштабе. Покрывает 96% веба, включая JS-heavy страницы, с P95-задержкой 3.4 секунды на миллионах страниц, и отдаёт результат в markdown, JSON или скриншотах, готовых для LLM.
 
@@ -3106,6 +3200,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/simonw/llm)
+
     ### ❓ Что это
     **LLM** — CLI-инструмент и Python-библиотека от **Саймона Уиллисона** для общения с **OpenAI**, **Anthropic Claude**, **Google Gemini**, **Meta Llama** и десятками других моделей — как через удалённые API, так и с моделями, запущенными локально на своей машине. Расширяется через систему плагинов.
 
@@ -3139,6 +3235,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/simonw/files-to-prompt)
+
     ### ❓ Что это
     **files-to-prompt** — CLI-утилита, которая конкатенирует содержимое файлов и целых директорий в единый текстовый промпт для LLM, добавляя перед каждым файлом его относительный путь. Написана Саймоном Уиллисоном при помощи Claude 3 Opus.
 
@@ -3215,6 +3313,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/Chainlit/chainlit/main/images/quick-start.png)
+
     ### ❓ Что это
     **Chainlit** — Python-библиотека для сборки "production-ready conversational AI applications за минуты, а не недели". Даёт готовый веб-чат-интерфейс поверх твоей Python-логики без необходимости писать фронтенд, с нативной интеграцией OpenAI, Anthropic, LangChain, LlamaIndex, ChromaDB и Pinecone.
 
@@ -3245,6 +3345,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/prompt-eng-interactive-tutorial)
+
     ### ❓ Что это
     Официальный интерактивный туториал **Anthropic** по prompt engineering для Claude — девять глав плюс приложение, с разбивкой по уровням сложности: базовый (структура промпта, ясность, роли), средний (разделение данных, форматирование вывода, пошаговое рассуждение, few-shot примеры) и продвинутый (борьба с галлюцинациями и индустриальные кейсы — чат-боты, юридическая и финансовая сфера, разработка ПО).
 
@@ -3269,6 +3371,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/python-sdk)
+
     ### ❓ Что это
     Официальная **Python-реализация Model Context Protocol (MCP)** — открытого протокола, который стандартизирует, как приложения передают контекст (инструменты, ресурсы, промпты) языковым моделям. README текущей версии описывает **v2** как pre-release (alpha/beta) ветку под активной разработкой — для продакшена рекомендована стабильная **v1.x**.
 
@@ -3319,6 +3423,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/typescript-sdk)
+
     ### ❓ Что это
     Официальная **TypeScript-реализация Model Context Protocol (MCP)** — протокола, который "позволяет приложениям предоставлять контекст для LLM стандартизированным способом, отделяя предоставление контекста от самого взаимодействия с LLM". Текущая main-ветка — это **v2 (beta)**.
 
@@ -3373,6 +3479,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/run-llama/llama_index)
+
     ### ❓ Что это
     **LlamaIndex** — open-source "data framework" для построения агентных LLM-приложений: даёт коннекторы данных (API, PDF, SQL и т.д.), способы структурировать данные в индексы и graph'ы, и продвинутый retrieval/query-интерфейс поверх этих данных. Пакет разделён на стартовый `llama-index` (core + набор интеграций) и `llama-index-core` для точечной сборки с нужными интеграциями из **LlamaHub** (300+ пакетов).
 
@@ -3411,6 +3519,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/langchain-ai/langchain)
+
     ### ❓ Что это
     **LangChain** — фреймворк "для построения агентов и LLM-приложений", который позволяет связывать друг с другом взаимозаменяемые компоненты и сторонние интеграции. Часть большой экосистемы: **Deep Agents** (высокоуровневый пакет для агентов), **LangGraph** (оркестрация агентных workflow) и **LangSmith** (observability и отладка).
 
@@ -3439,6 +3549,8 @@
   badge: null
   verify_status: known
   body_md: |
+    ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/chat-ui/chat-ui-2026.png)
+
     ### ❓ Что это
     **Chat UI** — SvelteKit-приложение, которое реализует чат с большими языковыми моделями и **питает HuggingChat** на `hf.co/chat`. Начиная с последних версий проект отказался от кучи отдельных провайдер-специфичных интеграций и работает **исключительно через OpenAI-совместимые API** — достаточно указать `OPENAI_BASE_URL`.
 
@@ -3506,6 +3618,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/github/github-mcp-server)
+
     ### ❓ Что это
     Официальный **MCP-сервер GitHub** — подключает Claude и другие MCP-совместимые агенты к репозиториям, issues, pull request'ам, code review и GitHub Actions напрямую через протокол Model Context Protocol.
 
@@ -3527,6 +3641,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/3fce101a-b7d4-482f-9182-0be70ed1ad56)
+
     ### ❓ Что это
     Официальный **MCP-сервер Supabase**, позволяющий агенту работать с проектами Supabase: таблицами, миграциями, SQL-запросами и настройками проекта.
 
@@ -3548,6 +3664,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/stripe/agent-toolkit)
+
     ### ❓ Что это
     Официальный **Stripe Agent Toolkit** — набор инструментов и MCP-сервер для работы с платежами, клиентами, подписками и биллингом Stripe напрямую из агента.
 
@@ -3569,6 +3687,8 @@
   badge: null
   verify_status: check
   body_md: |
+    ![](https://opengraph.githubassets.com/1/getsentry/sentry-mcp)
+
     ### ❓ Что это
     Официальный hosted **MCP-сервер Sentry** — даёт агенту доступ к ошибкам и стектрейсам проекта прямо из Sentry, без необходимости поднимать локальный сервер.
 
@@ -3674,6 +3794,8 @@
   badge: editors_choice
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/ComposioHQ/composio)
+
     ### ❓ Что это
     **Composio** — платформа-коннектор, дающая агентам единообразный доступ к более чем 250 внешним сервисам (Slack, Gmail, CRM, платежи и т.д.) через один MCP-слой вместо интеграции каждого API отдельно.
 
@@ -3800,6 +3922,8 @@
   badge: null
   verify_status: check
   body_md: |
+    ![](https://raw.githubusercontent.com/Maciek-roboblog/Claude-Code-Usage-Monitor/main/doc/scnew.png)
+
     ### ❓ Что это
     **Claude Code Usage Monitor** — терминальный инструмент для отслеживания расхода токенов и приближения к лимитам подписки в реальном времени.
 
@@ -3821,6 +3945,8 @@
   badge: null
   verify_status: check
   body_md: |
+    ![](https://raw.githubusercontent.com/greggh/claude-code.nvim/main/assets/claude-code.png?raw=true)
+
     ### ❓ Что это
     **claude-code.nvim** — плагин Neovim, встраивающий Claude Code прямо в редактор: запуск сессии, просмотр диффов и общение с агентом без выхода из vim.
 
@@ -3842,6 +3968,8 @@
   badge: null
   verify_status: check
   body_md: |
+    ![](https://raw.githubusercontent.com/stevemolitor/claude-code.el/main/images/transient.png)
+
     ### ❓ Что это
     **claude-code.el** — пакет Emacs, предоставляющий интерфейс к Claude Code прямо внутри редактора.
 
@@ -3906,440 +4034,927 @@
   description_ru: "MCP-сервер Firecrawl: веб-скрапинг и краулинг сайтов в структурированный контент прямо из Claude."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/firecrawl/firecrawl-mcp-server/main/img/fire.png)
+
     ### ❓ Что это
     MCP-сервер Firecrawl: веб-скрапинг и краулинг сайтов в структурированный контент прямо из Claude.
 
-    Репозиторий: https://github.com/firecrawl/firecrawl-mcp-server
+    ### 🎯 Для чего
+    Нужен агенту живой доступ к вебу: поиск, скрейпинг страниц, извлечение чистого контента без ручного парсинга HTML.
+
+    ### 💻 Как установить
+    ```bash
+    env FIRECRAWL_API_KEY=fc-YOUR_API_KEY npx -y firecrawl-mcp
+    # или глобально:
+    npm install -g firecrawl-mcp
+    ```
+
+    ### 🚀 Как пользоваться
+    Добавить в конфиг MCP-клиента с переменной `FIRECRAWL_API_KEY`. Есть режим `HTTP_STREAMABLE_SERVER=true` для потоковой выдачи.
+
+    ### ⚠️ Грабли
+    Нужен API-ключ Firecrawl (firecrawl.dev) — сервис не полностью локальный, часть функций идёт через облако авторов.
 
 - repo: netdata/netdata
   category: mcp/servers
   description_ru: "Платформа мониторинга инфраструктуры в реальном времени; включает MCP-сервер для запросов к метрикам из Claude."
   verify_status: known
   body_md: |
+    ![](https://www.netdata.cloud/img/readme-images/netdata_readme_logo_light.png)
+
     ### ❓ Что это
     Платформа мониторинга инфраструктуры в реальном времени; включает MCP-сервер для запросов к метрикам из Claude.
 
-    Репозиторий: https://github.com/netdata/netdata
+    ### 🎯 Для чего
+    Real-time мониторинг инфраструктуры (метрики, алерты, дашборды) с MCP-доступом, чтобы AI-агент мог сам запрашивать данные наблюдаемости.
+
+    ### 🚀 Как пользоваться
+    MCP — лишь одна из возможностей целой платформы Netdata; сначала разворачивается сам агент на хостах/в Docker, затем к нему подключается MCP-эндпоинт.
+
+    ### ⚠️ Грабли
+    Это не MCP-сервер сам по себе, а вся платформа наблюдаемости — развёртывание тяжелее, чем у типичного точечного MCP-сервера.
 
 - repo: brightdata/brightdata-mcp
   category: mcp/servers
   description_ru: "MCP-сервер Bright Data: доступ к публичным веб-данным и обход блокировок при сборе информации из Claude."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/b3917553-6cf9-4264-bc7a-9b8b74df0a17)
+
     ### ❓ Что это
     MCP-сервер Bright Data: доступ к публичным веб-данным и обход блокировок при сборе информации из Claude.
 
-    Репозиторий: https://github.com/brightdata/brightdata-mcp
+    ### 🎯 Для чего
+    Доступ к публичному вебу без банов, рейт-лимитов и капч через инфраструктуру Bright Data.
+
+    ### 🚀 Как пользоваться
+    Свой сервер поднимать не нужно — просто добавить URL в MCP-клиент:
+    ```
+    https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
+    ```
+
+    ### ⚠️ Грабли
+    Нужен платный аккаунт и токен Bright Data.
 
 - repo: gannonh/firebase-mcp
   category: mcp/servers
   description_ru: "MCP-сервер для Firebase: работа с Firestore, Auth и Storage проекта прямо из Claude."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/gannonh/firebase-mcp/main/assets/logo.png)
+
     ### ❓ Что это
     MCP-сервер для Firebase: работа с Firestore, Auth и Storage проекта прямо из Claude.
 
-    Репозиторий: https://github.com/gannonh/firebase-mcp
+    ### 🎯 Для чего
+    Работа с Firestore, Auth и Storage вашего Firebase-проекта прямо из Claude.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/gannonh/firebase-mcp
+    cd firebase-mcp
+    npm install
+    npm run build
+    ```
+
+    ### 🚀 Как пользоваться
+    MCP_TRANSPORT=http MCP_HTTP_PORT=3000 node dist/index.js
+    # или через npx:
+    MCP_TRANSPORT=http MCP_HTTP_PORT=3000 npx @gannonh/firebase-mcp
+
+    ### ⚠️ Грабли
+    Известная проблема: `firestore_list_collections` может кидать Zod validation error в логах клиента — это баг валидации в MCP SDK, на сами данные не влияет.
 
 - repo: karanb192/reddit-mcp-buddy
   category: mcp/servers
   description_ru: "MCP-сервер для Reddit: чтение постов, комментариев и поиск по сабреддитам без API-ключей."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/karanb192/reddit-mcp-buddy/main/assets/images/reddit-mcp-buddy-demo-2026.gif)
+
     ### ❓ Что это
     MCP-сервер для Reddit: чтение постов, комментариев и поиск по сабреддитам без API-ключей.
 
-    Репозиторий: https://github.com/karanb192/reddit-mcp-buddy
+    ### 🎯 Для чего
+    Браузинг Reddit, поиск постов и анализ активности пользователей без необходимости заводить API-ключи Reddit.
+
+    ### 💻 Как установить
+    ```bash
+    claude mcp add --transport stdio reddit-mcp-buddy -s user -- npx -y reddit-mcp-buddy
+    ```
+
+    ### 🚀 Как пользоваться
+    npx -y reddit-mcp-buddy --auth — авторизованный режим с более высоким лимитом; --http — HTTP-режим на порту (по умолчанию через REDDIT_BUDDY_PORT).
+
+    ### ⚠️ Грабли
+    Анонимный режим ограничен ~10 запросами/мин, авторизованный поднимает лимит до 100 rpm.
 
 - repo: awslabs/mcp
   category: mcp/servers
   description_ru: "Официальная коллекция MCP-серверов AWS Labs для работы с сервисами AWS из Claude."
   verify_status: known
   body_md: |
+    ![](https://contrib.rocks/image?repo=awslabs/mcp&max=2000)
+
     ### ❓ Что это
     Официальная коллекция MCP-серверов AWS Labs для работы с сервисами AWS из Claude.
 
-    Репозиторий: https://github.com/awslabs/mcp
+    ### 🎯 Для чего
+    Набор специализированных MCP-серверов для сервисов AWS — от IAM до различных баз данных и аналитики.
+
+    ### 🚀 Как пользоваться
+    Единого install нет — это монорепозиторий, каждый сервер ставится отдельно (см. документацию awslabs.github.io/mcp).
+
+    ### ⚠️ Грабли
+    Официально это предшественник нового «Agent Toolkit for AWS» — для продакшена AWS рекомендует мигрировать туда; этот репозиторий по-прежнему поддерживается и принимает контрибуции.
 
 - repo: modelcontextprotocol/registry
   category: mcp/servers
   description_ru: "Официальный реестр MCP-серверов сообщества — каталог и API для их поиска и публикации."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/registry)
+
     ### ❓ Что это
     Официальный реестр MCP-серверов сообщества — каталог и API для их поиска и публикации.
 
-    Репозиторий: https://github.com/modelcontextprotocol/registry
+    ### 🎯 Для чего
+    Официальный community-driven реестр MCP-серверов — по сути «app store» для поиска готовых серверов.
+
+    ### 💻 Как установить
+    ```bash
+    # Стабильный релиз
+    docker run -p 8080:8080 ghcr.io/modelcontextprotocol/registry:latest
+
+    # Версия из main (continuous deployment)
+    docker run -p 8080:8080 ghcr.io/modelcontextprotocol/registry:main
+    ```
+
+    ### 🚀 Как пользоваться
+    REST API для поиска и публикации серверов; живая документация — registry.modelcontextprotocol.io/docs.
 
 - repo: Coding-Solo/godot-mcp
   category: mcp/servers
   description_ru: "MCP-сервер для движка Godot: управление сценами и запуск проекта из Claude."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/Coding-Solo/godot-mcp)
+
     ### ❓ Что это
     MCP-сервер для движка Godot: управление сценами и запуск проекта из Claude.
 
-    Репозиторий: https://github.com/Coding-Solo/godot-mcp
+    ### 🎯 Для чего
+    MCP-сервер для движка Godot: запуск редактора, запуск проекта, чтение debug-вывода из Claude.
+
+    ### 💻 Как установить
+    ```bash
+    claude mcp add godot -- npx @coding-solo/godot-mcp
+    # с явным путём к Godot:
+    claude mcp add godot -e GODOT_PATH=/path/to/godot -e DEBUG=true -- npx @coding-solo/godot-mcp
+    ```
+
+    ### 🚀 Как пользоваться
+    Для сборки из исходников: git clone + npm install + npm run build.
 
 - repo: GLips/Figma-Context-MCP
   category: mcp/servers
   description_ru: "MCP-сервер, отдающий данные макета Figma в Claude для генерации кода по дизайну."
   verify_status: known
   body_md: |
+    ![](https://img.youtube.com/vi/6G9yb-LrEqg/maxresdefault.jpg)
+
     ### ❓ Что это
     MCP-сервер, отдающий данные макета Figma в Claude для генерации кода по дизайну.
 
-    Репозиторий: https://github.com/GLips/Figma-Context-MCP
+    ### 🎯 Для чего
+    Отдаёт AI-агенту точные данные о layout из Figma-файлов — для генерации UI по дизайну, а не по скриншоту.
+
+    ### 🚀 Как пользоваться
+    Настраивается как обычный MCP-сервер в клиенте (Cursor и др.); подробности и демо — на framelink.ai.
+
+    ### ⚠️ Грабли
+    Нужен Figma API-токен.
 
 - repo: ahujasid/blender-mcp
   category: mcp/servers
   description_ru: "MCP-сервер для Blender: создание и правка 3D-сцен через Claude."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/ahujasid/blender-mcp/main/assets/addon-instructions.png)
+
     ### ❓ Что это
     MCP-сервер для Blender: создание и правка 3D-сцен через Claude.
 
-    Репозиторий: https://github.com/ahujasid/blender-mcp
+    ### 🎯 Для чего
+    Подключает Blender к Claude через MCP — промпт-ассистируемое 3D-моделирование, создание и правка сцен.
+
+    ### 💻 Как установить
+    ```bash
+    brew install uv
+    claude mcp add blender uvx blender-mcp
+    ```
+
+    ### 🚀 Как пользоваться
+    DISABLE_TELEMETRY=true uvx blender-mcp — запуск без отправки телеметрии.
 
 - repo: haris-musa/excel-mcp-server
   category: mcp/servers
   description_ru: "MCP-сервер для чтения и записи Excel-файлов без установленного Office."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/haris-musa/excel-mcp-server/main/assets/logo.png)
+
     ### ❓ Что это
     MCP-сервер для чтения и записи Excel-файлов без установленного Office.
 
-    Репозиторий: https://github.com/haris-musa/excel-mcp-server
+    ### 🎯 Для чего
+    Чтение, создание и правка Excel-файлов без установленного Microsoft Excel.
+
+    ### 💻 Как установить
+    ```bash
+    uvx excel-mcp-server stdio
+    # или: sse / streamable-http
+    ```
+
+    ### 🚀 Как пользоваться
+    Конфиг MCP-клиента:
+    ```json
+    {"mcpServers":{"excel":{"command":"uvx","args":["excel-mcp-server","stdio"]}}}
+    ```
+    Путь к файлам задаётся переменной `EXCEL_FILES_PATH`.
 
 - repo: idosal/git-mcp
   category: mcp/servers
   description_ru: "MCP-сервер, превращающий любой GitHub-репозиторий в источник контекста для Claude."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/2bf3e3df-556c-49c6-ab7b-36c279d53bba)
+
     ### ❓ Что это
     MCP-сервер, превращающий любой GitHub-репозиторий в источник контекста для Claude.
 
-    Репозиторий: https://github.com/idosal/git-mcp
+    ### 🎯 Для чего
+    Превращает любой GitHub-репозиторий в документационный MCP-хаб, устраняя галлюцинации кода — агент видит актуальный контент, а не догадки по памяти.
+
+    ### 💻 Как установить
+    ```bash
+    npx mcp-remote https://gitmcp.io/{owner}/{repo}
+    ```
+
+    ### 🚀 Как пользоваться
+    Работает как удалённый сервис — свой сервер поднимать не обязательно. Для сборки из исходников: git clone + pnpm install + npx @modelcontextprotocol/inspector.
 
 - repo: googleapis/mcp-toolbox
   category: mcp/servers
   description_ru: "MCP Toolbox для баз данных от Google — сервер для безопасного доступа к SQL-БД из Claude."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/googleapis/mcp-toolbox/main/logo.png)
+
     ### ❓ Что это
     MCP Toolbox для баз данных от Google — сервер для безопасного доступа к SQL-БД из Claude.
 
-    Репозиторий: https://github.com/googleapis/mcp-toolbox
+    ### 🎯 Для чего
+    MCP-сервер для баз данных от Google: готовые инструменты для Postgres/MySQL/BigQuery/Spanner и др., плюс фреймворк для своих безопасных query-инструментов.
+
+    ### 💻 Как установить
+    ```bash
+    npx @toolbox-sdk/server --config tools.yaml
+    # или Docker/Homebrew/go install — см. документацию
+    ```
+
+    ### 🚀 Как пользоваться
+    Два режима: prebuilt generic tools для быстрого подключения клиента к БД, либо кастомный фреймворк для продакшен-инструментов (NL2SQL, семантический поиск).
+
+    ### ⚠️ Грабли
+    Репозиторий переименован из googleapis/genai-toolbox.
 
 - repo: CodeGraphContext/CodeGraphContext
   category: mcp/servers
   description_ru: "MCP-сервер, строящий граф кода для навигации по зависимостям и структуре проекта."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/CodeGraphContext/CodeGraphContext/main/images/install&cli.gif)
+
     ### ❓ Что это
     MCP-сервер, строящий граф кода для навигации по зависимостям и структуре проекта.
 
-    Репозиторий: https://github.com/CodeGraphContext/CodeGraphContext
+    ### 🎯 Для чего
+    Строит граф локального кода в графовой БД, чтобы AI-ассистент мог ориентироваться в зависимостях и структуре проекта, а не только в тексте файлов.
+
+    ### 💻 Как установить
+    ```bash
+    pip install codegraphcontext
+    ```
+
+    ### 🚀 Как пользоваться
+    Работает и как самостоятельный CLI для анализа кода, и как MCP-сервер для IDE-агентов.
+
+    ### ⚠️ Грабли
+    Репозиторий переехал (был Shashankss1205/CodeGraphContext).
 
 - repo: blazickjp/arxiv-mcp-server
   category: mcp/servers
   description_ru: "MCP-сервер для поиска и чтения научных статей с arXiv из Claude."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/blazickjp/arxiv-mcp-server)
+
     ### ❓ Что это
     MCP-сервер для поиска и чтения научных статей с arXiv из Claude.
 
-    Репозиторий: https://github.com/blazickjp/arxiv-mcp-server
+    ### 🎯 Для чего
+    Поиск и анализ научных статей arXiv прямо из Claude.
+
+    ### 💻 Как установить
+    ```bash
+    npx -y @smithery/cli install arxiv-mcp-server --client claude
+    # или из исходников через uv (см. репозиторий)
+    ```
+
+    ### ⚠️ Грабли
+    Авторы прямо предупреждают о риске prompt injection: вредоносно оформленная статья может содержать инструкции, атакующие поведение агента (OWASP LLM01).
 
 - repo: ezyang/codemcp
   category: mcp/servers
   description_ru: "MCP-сервер для парного программирования: даёт Claude инструменты чтения и правки файлов проекта."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/ezyang/codemcp/main/static/screenshot.png?raw=true)
+
     ### ❓ Что это
     MCP-сервер для парного программирования: даёт Claude инструменты чтения и правки файлов проекта.
 
-    Репозиторий: https://github.com/ezyang/codemcp
+    ### 🎯 Для чего
+    Превращает Claude Desktop в пары-программиста — прямое редактирование файлов и запуск тестов в локальном проекте без копирования кода туда-обратно.
+
+    ### ⚠️ Грабли
+    Автор прямо пишет, что считает проект устаревшим после появления Claude Code по подписке — но отдельные идеи (Git-версионирование правок) остаются интересными.
 
 - repo: modelcontextprotocol/rust-sdk
   category: mcp/frameworks
   description_ru: "Официальный Rust SDK для написания MCP-серверов и клиентов."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/rust-sdk)
+
     ### ❓ Что это
     Официальный Rust SDK для написания MCP-серверов и клиентов.
 
-    Репозиторий: https://github.com/modelcontextprotocol/rust-sdk
+    ### 🎯 Для чего
+    Официальный Rust SDK для Model Context Protocol на асинхронном рантайме tokio.
+
+    ### ⚠️ Грабли
+    При переходе на 1.x есть breaking changes — см. отдельный migration guide в Discussions репозитория.
 
 - repo: modelcontextprotocol/csharp-sdk
   category: mcp/frameworks
   description_ru: "Официальный C#/.NET SDK для написания MCP-серверов и клиентов."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/csharp-sdk)
+
     ### ❓ Что это
     Официальный C#/.NET SDK для написания MCP-серверов и клиентов.
 
-    Репозиторий: https://github.com/modelcontextprotocol/csharp-sdk
+    ### 🎯 Для чего
+    Официальный C# SDK для MCP-серверов и клиентов, разрабатывается совместно с Microsoft.
+
+    ### 🚀 Как пользоваться
+    Гайд Getting Started и полная API-документация — на csharp.sdk.modelcontextprotocol.io.
 
 - repo: modelcontextprotocol/inspector
   category: mcp/frameworks
   description_ru: "Официальный инструмент для отладки и тестирования MCP-серверов через визуальный интерфейс."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/modelcontextprotocol/inspector/main/mcp-inspector.png)
+
     ### ❓ Что это
     Официальный инструмент для отладки и тестирования MCP-серверов через визуальный интерфейс.
 
-    Репозиторий: https://github.com/modelcontextprotocol/inspector
+    ### 🎯 Для чего
+    Визуальный инструмент для тестирования и отладки MCP-серверов — прокси между вашим сервером и веб-UI.
+
+    ### 💻 Как установить
+    ```bash
+    npx @modelcontextprotocol/inspector
+    # или Docker:
+    docker run --rm -p 127.0.0.1:6274:6274 -p 127.0.0.1:6277:6277 ghcr.io/modelcontextprotocol/inspector:latest
+    ```
+
+    ### 🚀 Как пользоваться
+    npx @modelcontextprotocol/inspector node build/index.js — открывает браузерный UI для интерактивных вызовов инструментов сервера.
 
 - repo: microsoft/markitdown
   category: code/skills
   description_ru: "Утилита Microsoft для конвертации PDF, Office и других файлов в Markdown для подачи в LLM."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/microsoft/markitdown)
+
     ### ❓ Что это
     Утилита Microsoft для конвертации PDF, Office и других файлов в Markdown для подачи в LLM.
 
-    Репозиторий: https://github.com/microsoft/markitdown
+    ### 🎯 Для чего
+    Конвертация PDF, Office-документов и других файлов в Markdown для подачи в LLM-пайплайны.
+
+    ### 💻 Как установить
+    ```bash
+    pip install 'markitdown[pdf, docx, pptx]'
+    ```
+
+    ### 🚀 Как пользоваться
+    Опционально с OCR: pip install markitdown-ocr плюс OpenAI-совместимый клиент.
+
+    ### ⚠️ Грабли
+    Официальное предупреждение: инструмент делает I/O с правами текущего процесса (как open()/requests.get()) — санитизируйте входные данные в недоверенных окружениях.
 
 - repo: oraios/serena
   category: code/skills
   description_ru: "Тулкит-агент с семантическим анализом кода через LSP; подключается к Claude как MCP-сервер."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/oraios/serena)
+
     ### ❓ Что это
     Тулкит-агент с семантическим анализом кода через LSP; подключается к Claude как MCP-сервер.
 
-    Репозиторий: https://github.com/oraios/serena
+    ### 🎯 Для чего
+    Семантический поиск и редактирование кода через LSP — «IDE для агента», ускоряет работу в больших кодовых базах по сравнению с построчным чтением файлов.
+
+    ### 🚀 Как пользоваться
+    Инструкции по установке — только через Quick Start в README проекта.
+
+    ### ⚠️ Грабли
+    Авторы прямо предупреждают: НЕ ставить через MCP/plugin-маркетплейсы — там устаревшие и неоптимальные команды установки.
 
 - repo: bytebase/dbhub
   category: code/skills
   description_ru: "Универсальный MCP-сервер для баз данных: PostgreSQL, MySQL, SQL Server и другие из Claude."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/bytebase/dbhub/main/docs/images/workbench/workbench.webp)
+
     ### ❓ Что это
     Универсальный MCP-сервер для баз данных: PostgreSQL, MySQL, SQL Server и другие из Claude.
 
-    Репозиторий: https://github.com/bytebase/dbhub
+    ### 🎯 Для чего
+    Единый MCP-сервер для Postgres, MySQL, SQL Server, MariaDB и SQLite — без лишних зависимостей, экономно расходует токены на схему.
+
+    ### 💻 Как установить
+    ```bash
+    docker run --rm --init --name dbhub --publish 8080:8080 bytebase/dbhub \
+      --transport http --port 8080 --dsn "postgres://user:password@localhost:5432/dbname?sslmode=disable"
+    ```
+
+    ### 🚀 Как пользоваться
+    Есть демо-режим без реальной БД: npx @bytebase/dbhub@latest --transport http --port 8080 --demo.
 
 - repo: wonderwhy-er/DesktopCommanderMCP
   category: code/skills
   description_ru: "MCP-сервер для управления файлами и терминалом на компьютере из Claude."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/wonderwhy-er/DesktopCommanderMCP/main/screenshots/docker-config.png)
+
     ### ❓ Что это
     MCP-сервер для управления файлами и терминалом на компьютере из Claude.
 
-    Репозиторий: https://github.com/wonderwhy-er/DesktopCommanderMCP
+    ### 🎯 Для чего
+    Терминал, поиск по файловой системе и diff-редактирование файлов для Claude — работает через подписку клиента, а не через токены API.
+
+    ### 💻 Как установить
+    ```bash
+    npx @wonderwhy-er/desktop-commander@latest setup
+    ```
+
+    ### 🚀 Как пользоваться
+    claude mcp add --scope user desktop-commander -- npx -y @wonderwhy-er/desktop-commander@latest
+
+    ### ⚠️ Грабли
+    Построен поверх официального MCP Filesystem Server, добавляя поиск и diff-редактирование сверху.
 
 - repo: pchalasani/claude-code-tools
   category: code/skills
   description_ru: "Набор утилит и MCP-инструментов, расширяющих возможности Claude Code."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/pchalasani/claude-code-tools/main/assets/title-blade-runner-theme.png)
+
     ### ❓ Что это
     Набор утилит и MCP-инструментов, расширяющих возможности Claude Code.
 
-    Репозиторий: https://github.com/pchalasani/claude-code-tools
+    ### 🎯 Для чего
+    Набор практических утилит продуктивности для Claude Code, Codex-CLI и похожих CLI-агентов: скиллы, хуки, плагины.
+
+    ### 💻 Как установить
+    ```bash
+    uv tool install claude-code-tools
+    ```
+
+    ### ⚠️ Грабли
+    Поисковый движок `aichat search` требует отдельный Rust-бинарник.
 
 - repo: Helicone/helicone
   category: code/monitoring
   description_ru: "Открытая платформа наблюдаемости для LLM: логирование запросов, стоимость и трассировка."
   verify_status: known
   body_md: |
+    ![](https://marketing-assets-helicone.s3.us-west-2.amazonaws.com/Twitter_Cover_A1.png)
+
     ### ❓ Что это
     Открытая платформа наблюдаемости для LLM: логирование запросов, стоимость и трассировка.
 
-    Репозиторий: https://github.com/Helicone/helicone
+    ### 🎯 Для чего
+    Open-source платформа наблюдаемости для LLM: мониторинг, оценка качества и эксперименты — подключается одной строкой кода.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/Helicone/helicone.git
+    cd docker
+    cp .env.example .env
+    ./helicone-compose.sh helicone up
+    ```
+
+    ### 🚀 Как пользоваться
+    Или облачный вариант: завести ключ на helicone.ai/signup и подставить свой baseURL в код.
+
+    ### ⚠️ Грабли
+    Бесплатный тир ограничен 10k запросов в месяц.
 
 - repo: AgentOps-AI/agentops
   category: code/monitoring
   description_ru: "SDK для мониторинга и отладки AI-агентов: сессии, стоимость, воспроизведение шагов."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/AgentOps-AI/agentops/main/docs/images/external/logo/github-banner.png)
+
     ### ❓ Что это
     SDK для мониторинга и отладки AI-агентов: сессии, стоимость, воспроизведение шагов.
 
-    Репозиторий: https://github.com/AgentOps-AI/agentops
+    ### 🎯 Для чего
+    Python SDK для мониторинга AI-агентов, трекинга стоимости LLM-вызовов и бенчмаркинга — интегрируется с CrewAI, LangChain, AutoGen, OpenAI Agents SDK.
+
+    ### 💻 Как установить
+    ```bash
+    pip install agentops
+    ```
+
+    ### 🚀 Как пользоваться
+    Инициализировать клиента в коде — дальше аналитика по всем LLM-вызовам собирается автоматически.
 
 - repo: olimorris/codecompanion.nvim
   category: apps/editors
   description_ru: "Плагин Neovim для работы с LLM прямо в редакторе: чат, правки кода, агентные действия."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/64da6a69-a54d-4799-b034-59d9efd27b76)
+
     ### ❓ Что это
     Плагин Neovim для работы с LLM прямо в редакторе: чат, правки кода, агентные действия.
 
-    Репозиторий: https://github.com/olimorris/codecompanion.nvim
+    ### 🎯 Для чего
+    AI-кодинг прямо в Neovim: чат, инлайн-правки кода, агентные действия с разными LLM-провайдерами (Anthropic, OpenAI, Gemini, Ollama и др.).
+
+    ### 🚀 Как пользоваться
+    Полная документация по установке и настройке — codecompanion.olimorris.dev; при проблемах — команда `:checkhealth codecompanion`.
 
 - repo: yetone/avante.nvim
   category: apps/editors
   description_ru: "Плагин Neovim в духе Cursor: инлайн-предложения и правки кода с помощью LLM."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/2e2f2a58-2b28-4d11-afd1-87b65612b2de)
+
     ### ❓ Что это
     Плагин Neovim в духе Cursor: инлайн-предложения и правки кода с помощью LLM.
 
-    Репозиторий: https://github.com/yetone/avante.nvim
+    ### 🎯 Для чего
+    Превращает Neovim в подобие Cursor AI IDE — инлайн-предложения и агентные правки кода.
+
+    ### ⚠️ Грабли
+    Проект в активной разработке — API и поведение могут заметно меняться между версиями.
 
 - repo: karthink/gptel
   category: apps/editors
   description_ru: "Клиент LLM для Emacs: чат и работа с моделями из любого буфера."
   verify_status: known
   body_md: |
+    ![](https://github.com/karthink/gptel/assets/8607532/3562a6e2-7a5c-4f7e-8e57-bf3c11589c73)
+
     ### ❓ Что это
     Клиент LLM для Emacs: чат и работа с моделями из любого буфера.
 
-    Репозиторий: https://github.com/karthink/gptel
+    ### 🎯 Для чего
+    Простой расширяемый LLM-клиент для Emacs: чат с разными моделями и провайдерами в любом буфере.
+
+    ### 💻 Как установить
+    ```bash
+    Доступен через NonGNU ELPA и MELPA (`M-x package-install RET gptel`).
+    ```
 
 - repo: Mintplex-Labs/anything-llm
   category: apps/desktop
   description_ru: "Десктоп/сервер-приложение для чата с документами: RAG, агенты, поддержка разных LLM."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/Mintplex-Labs/anything-llm/master/images/youtube.png)
+
     ### ❓ Что это
     Десктоп/сервер-приложение для чата с документами: RAG, агенты, поддержка разных LLM.
 
-    Репозиторий: https://github.com/Mintplex-Labs/anything-llm
+    ### 🎯 Для чего
+    Приватный self-hosted аналог ChatGPT: чат с документами (RAG), агенты, мультипользовательский режим, локальный или облачный LLM.
+
+    ### 🚀 Как пользоваться
+    Из коробки — встроенные агенты, векторная БД и document-пайплайны без дополнительной настройки.
+
+    ### ⚠️ Грабли
+    Параллельно развивается смежный проект Open Computer — окружение с полным доступом к компьютеру для AI-агентов.
 
 - repo: janhq/jan
   category: apps/desktop
   description_ru: "Открытый десктоп-клиент для локального и облачного запуска LLM, альтернатива ChatGPT."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/f3f87889-c133-433b-b250-236218150d3f)
+
     ### ❓ Что это
     Открытый десктоп-клиент для локального и облачного запуска LLM, альтернатива ChatGPT.
 
-    Репозиторий: https://github.com/janhq/jan
+    ### 🎯 Для чего
+    Open-source альтернатива ChatGPT, работающая 100% офлайн на компьютере пользователя.
+
+    ### 💻 Как установить
+    ```bash
+    Готовые сборки — на jan.ai или в GitHub Releases. Для разработки:
+    git clone https://github.com/janhq/jan
+    cd jan
+    make dev
+    ```
+
+    ### ⚠️ Грабли
+    Репозиторий переехал (был Jan-hq/jan).
 
 - repo: enricoros/big-AGI
   category: apps/desktop
   description_ru: "Продвинутый веб/десктоп-клиент для LLM с персонами, вызовом инструментов и генерацией."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/42f7420b-9331-421b-9a18-2e653aaa7d9b)
+
     ### ❓ Что это
     Продвинутый веб/десктоп-клиент для LLM с персонами, вызовом инструментов и генерацией.
 
-    Репозиторий: https://github.com/enricoros/big-AGI
+    ### 🎯 Для чего
+    Мульти-модельное AI-рабочее пространство: персоны, мультимодальные Beam-чаты сразу с несколькими моделями, text-to-image, голос, стриминг, PDF-импорт.
+
+    ### 🚀 Как пользоваться
+    Деплой on-prem или в облаке; поддерживает Anthropic, Gemini, DeepSeek, xAI и другие API.
 
 - repo: chatboxai/chatbox
   category: apps/desktop
   description_ru: "Десктоп-клиент для разных LLM-провайдеров с локальным хранением истории."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/chatboxai/chatbox/main/doc/statics/icon.png)
+
     ### ❓ Что это
     Десктоп-клиент для разных LLM-провайдеров с локальным хранением истории.
 
-    Репозиторий: https://github.com/chatboxai/chatbox
+    ### 🎯 Для чего
+    Десктоп/мобильный клиент для разных LLM-провайдеров (community edition, лицензия GPLv3).
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/chatboxai/chatbox.git
+    cd chatbox
+    pnpm install
+    ```
+
+    ### ⚠️ Грабли
+    Есть отдельная закрытая Pro-версия; код периодически синхронизируется между репозиториями в обе стороны.
 
 - repo: browser-use/browser-use
   category: agents/autonomous
   description_ru: "Библиотека, позволяющая LLM-агенту управлять браузером и выполнять задачи на сайтах."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/57865ee6-6004-49d5-b2c2-6dff39ec2ba9)
+
     ### ❓ Что это
     Библиотека, позволяющая LLM-агенту управлять браузером и выполнять задачи на сайтах.
 
-    Репозиторий: https://github.com/browser-use/browser-use
+    ### 🎯 Для чего
+    Даёт AI-агенту управлять браузером как человек — открывать страницы, кликать, заполнять формы по текстовому описанию задачи.
+
+    ### 💻 Как установить
+    ```bash
+    uv add browser-use
+    # или: pip install browser-use
+    ```
+
+    ### 🚀 Как пользоваться
+    Примеры реальных сценариев — в examples/use-cases репозитория.
 
 - repo: pydantic/pydantic-ai
   category: agents/orchestration
   description_ru: "Агентный фреймворк на Python с типобезопасностью Pydantic; поддерживает Anthropic и другие модели."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/pydantic/pydantic-ai)
+
     ### ❓ Что это
     Агентный фреймворк на Python с типобезопасностью Pydantic; поддерживает Anthropic и другие модели.
 
-    Репозиторий: https://github.com/pydantic/pydantic-ai
+    ### 🎯 Для чего
+    Агентный фреймворк на Python с типобезопасностью через Pydantic Validation — цель авторов: перенести «ощущение FastAPI» в разработку GenAI-приложений и агентов.
+
+    ### ⚠️ Грабли
+    От создателей Pydantic и Pydantic Logfire.
 
 - repo: deepset-ai/haystack
   category: agents/orchestration
   description_ru: "Фреймворк для RAG и агентных пайплайнов с готовыми компонентами поиска и генерации."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/deepset-ai/haystack/main/images/banner.png)
+
     ### ❓ Что это
     Фреймворк для RAG и агентных пайплайнов с готовыми компонентами поиска и генерации.
 
-    Репозиторий: https://github.com/deepset-ai/haystack
+    ### 🎯 Для чего
+    Оркестрация LLM-пайплайнов: модульные RAG-системы, мультимодальные приложения, семантический поиск, автономные агенты с явным контролем retrieval/routing/memory.
+
+    ### 💻 Как установить
+    ```bash
+    pip install haystack-ai
+    ```
+
+    ### 🚀 Как пользоваться
+    Превью-версии: pip install --pre haystack-ai.
 
 - repo: FlowiseAI/Flowise
   category: agents/orchestration
   description_ru: "Визуальный конструктор LLM-приложений и агентов без кода, drag-and-drop."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/FlowiseAI/Flowise)
+
     ### ❓ Что это
     Визуальный конструктор LLM-приложений и агентов без кода, drag-and-drop.
 
-    Репозиторий: https://github.com/FlowiseAI/Flowise
+    ### 🎯 Для чего
+    Визуальный no-code конструктор AI-агентов и LLM-пайплайнов методом drag-and-drop.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g flowise
+    npx flowise start
+    # или Docker:
+    docker run -d --name flowise -p 3000:3000 flowise
+    ```
+
+    ### ⚠️ Грабли
+    Нужен Node.js версии 20.0.0 или выше.
 
 - repo: eyaltoledano/claude-task-master
   category: agents/workflow
   description_ru: "Система управления задачами для Claude Code: разбивает проект на задачи и ведёт их по плану."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/eyaltoledano/claude-task-master/main/images/logo.png?raw=true)
+
     ### ❓ Что это
     Система управления задачами для Claude Code: разбивает проект на задачи и ведёт их по плану.
 
-    Репозиторий: https://github.com/eyaltoledano/claude-task-master
+    ### 🎯 Для чего
+    Система управления задачами для AI-driven разработки: разбивает проект на задачи и ведёт план, интегрируется с Cursor/Windsurf/Roo.
+
+    ### 💻 Как установить
+    ```bash
+    claude mcp add taskmaster-ai -- npx -y task-master-ai
+    ```
+
+    ### 🚀 Как пользоваться
+    task-master init для инициализации проекта; есть «core»-режим с ~70% экономией токенов через переменную TASK_MASTER_TOOLS.
+
+    ### ⚠️ Грабли
+    После установки через deep-link всё равно нужно вручную подставить свои API-ключи вместо плейсхолдеров.
 
 - repo: dottxt-ai/outlines
   category: libs/python
   description_ru: "Python-библиотека для структурированной генерации: гарантированный JSON, регэкспы, грамматики."
   verify_status: known
   body_md: |
+    ![](https://raw.githubusercontent.com/dottxt-ai/outlines/main/docs/assets/images/install.png)
+
     ### ❓ Что это
     Python-библиотека для структурированной генерации: гарантированный JSON, регэкспы, грамматики.
 
-    Репозиторий: https://github.com/dottxt-ai/outlines
+    ### 🎯 Для чего
+    Структурированная генерация из LLM: гарантированный JSON, регулярные выражения и грамматики — вместо надежды, что модель сама соблюдёт формат.
+
+    ### ⚠️ Грабли
+    Для нестандартных схем (XML, FHIR, кастомные грамматики) авторы предлагают обращаться напрямую к команде.
 
 - repo: 567-labs/instructor
   category: libs/python
   description_ru: "Python-библиотека для получения структурированных данных из LLM через Pydantic-модели."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/567-labs/instructor)
+
     ### ❓ Что это
     Python-библиотека для получения структурированных данных из LLM через Pydantic-модели.
 
-    Репозиторий: https://github.com/567-labs/instructor
+    ### 🎯 Для чего
+    Надёжный структурированный JSON от любой LLM через Pydantic-модели — вместо парсинга сырого текстового ответа руками.
 
+    ### 💻 Как установить
+    ```bash
+    pip install instructor
+    # или: uv add instructor / poetry add instructor
+    ```
 
-# ===== Партия 2026-07-11 (добор): проверено с GITHUB_TOKEN на сервере, HTTP 200. =====
+    ### ⚠️ Грабли
+    Репозиторий переехал (был instructor-ai/instructor).
+
 - repo: VRSEN/agency-swarm
   category: libs/python
   description_ru: "Python-фреймворк для оркестрации ролей агентов с настраиваемой коммуникацией; поддерживает разные LLM."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/VRSEN/agency-swarm)
+
     ### ❓ Что это
     Python-фреймворк для оркестрации ролей агентов с настраиваемой коммуникацией; поддерживает разные LLM.
 
-    Репозиторий: https://github.com/VRSEN/agency-swarm
+    ### 🎯 Для чего
+    Фреймворк для мультиагентных приложений — оркестрация «агентств» из специализированных AI-агентов по аналогии с реальными оргструктурами.
+
+    ### 💻 Как установить
+    ```bash
+    pip install -U agency-swarm
+    ```
+
+    ### ⚠️ Грабли
+    v1.x переходит на OpenAI Agents SDK + Responses API — миграция с v0.x требует отдельного гайда.
 
 - repo: CopilotKit/CopilotKit
   category: libs/javascript
   description_ru: "React-фреймворк для встраивания AI-ассистентов и агентов в интерфейс приложения."
   verify_status: known
   body_md: |
+    ![](https://github.com/user-attachments/assets/aeb56c28-c766-44a5-810c-5d999bb6a32a)
+
     ### ❓ Что это
     React-фреймворк для встраивания AI-ассистентов и агентов в интерфейс приложения.
 
-    Репозиторий: https://github.com/CopilotKit/CopilotKit
+    ### 🎯 Для чего
+    Фронтенд-стек для агентов и Generative UI: общее состояние и human-in-the-loop для React, Angular, Vue, React Native и за пределами браузера.
+
+    ### 💻 Как установить
+    ```bash
+    npx copilotkit@latest create
+    ```
+
+    ### ⚠️ Грабли
+    Авторы протокола AG-UI.
 
 - repo: modelcontextprotocol/modelcontextprotocol
   category: libs/other
   description_ru: "Официальная спецификация и документация протокола MCP."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/modelcontextprotocol/modelcontextprotocol)
+
     ### ❓ Что это
     Официальная спецификация и документация протокола MCP.
 
-    Репозиторий: https://github.com/modelcontextprotocol/modelcontextprotocol
+    ### 🎯 Для чего
+    Официальная спецификация и документация протокола MCP — источник истины по схеме и формату сообщений.
+
+    ### 🚀 Как пользоваться
+    Схема описана в TypeScript, из неё же генерируется JSON Schema для более широкой совместимости.
+
+    ### ⚠️ Грабли
+    Не путать с modelcontextprotocol/servers (готовые серверы) — здесь только спецификация протокола.
 
 - repo: jaw9c/awesome-remote-mcp-servers
   category: libs/other
   description_ru: "Курируемый список удалённых (hosted) MCP-серверов."
   verify_status: known
   body_md: |
+    ![](https://opengraph.githubassets.com/1/jaw9c/awesome-remote-mcp-servers)
+
     ### ❓ Что это
     Курируемый список удалённых (hosted) MCP-серверов.
 
-    Репозиторий: https://github.com/jaw9c/awesome-remote-mcp-servers
+    ### 🎯 Для чего
+    Курируемый список именно удалённых (remote, доступных по интернету) MCP-серверов — с упором на официальные и хорошо поддерживаемые.
+
+    ### ⚠️ Грабли
+    Для ChatGPT Custom Integrations / Claude Custom Connectors авторы отдельно рекомендуют смотреть remote-mcp.com.
 
