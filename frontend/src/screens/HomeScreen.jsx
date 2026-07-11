@@ -5,7 +5,7 @@ import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { FeedbackForm } from "../components/FeedbackForm";
 
-export function HomeScreen({ onNavigate }) {
+export function HomeScreen({ user, onNavigate }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [guide, setGuide] = useState(null); // прогресс гида, для карточки "продолжить"
@@ -21,7 +21,27 @@ export function HomeScreen({ onNavigate }) {
 
   return (
     <>
-      <PromptLine section="home" />
+      <PromptLine
+        section="home"
+        right={
+          user?.is_admin && (
+            <span
+              onClick={() => onNavigate("admin")}
+              style={{
+                color: "var(--accent)",
+                cursor: "pointer",
+                border: "1px solid var(--accent)",
+                padding: "2px 6px",
+                borderRadius: 4,
+                fontSize: 12,
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              🔒 admin
+            </span>
+          )
+        }
+      />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !data && <Spinner />}

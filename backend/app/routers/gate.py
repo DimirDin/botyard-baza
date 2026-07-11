@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Header, HTTPException
 
 from app.gate import check_subscription, rate_limit_recheck, validate_init_data
+from app.config import settings
 
 router = APIRouter(prefix="/api/gate", tags=["gate"])
 
@@ -11,7 +12,15 @@ async def gate_check(x_telegram_init_data: str = Header(...)):
     if not user["tg_id"]:
         raise HTTPException(401, "initData: no user")
     subscribed = await check_subscription(user["tg_id"])
-    return {"subscribed": subscribed, "user": {"tg_id": user["tg_id"], "username": user["username"]}}
+    is_admin = user["tg_id"] in settings.admin_ids
+    return {
+        "subscribed": subscribed,
+        "user": {
+            "tg_id": user["tg_id"],
+            "username": user["username"],
+            "is_admin": is_admin
+        }
+    }
 
 
 @router.post("/recheck")

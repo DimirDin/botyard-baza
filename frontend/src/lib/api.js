@@ -55,4 +55,7 @@ export const api = {
   guideComplete: (slug) => request(`/guide/lessons/${slug}/complete`, { method: "POST" }),
   guideProgress: () => request("/guide/progress"),
   sendFeedback: (text) => request("/feedback", { method: "POST", body: JSON.stringify({ text }) }),
+  adminStats: () => request("/admin/stats"),
+  adminUsers: () => request("/admin/users"),
+  adminEvents: () => request("/admin/events"),
 };

@@ -12,6 +12,7 @@ import { CalculatorScreen } from "./screens/CalculatorScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { SearchScreen } from "./screens/SearchScreen";
 import { GuideTrack } from "./components/GuideTrack";
+import { AdminScreen } from "./screens/AdminScreen";
 import { api } from "./lib/api";
 import { initTelegram, getStartParam, onBackButton, hideBackButton } from "./lib/telegram";
 
@@ -33,6 +34,7 @@ function resolveStartParam(param) {
 export default function App() {
   const [gateState, setGateState] = useState("checking"); // checking | blocked | ok | error
   const [home, setHome] = useState(null);
+  const [user, setUser] = useState(null);
   const [screen, setScreen] = useState("home");
   const [screenParam, setScreenParam] = useState(null);
   const [history, setHistory] = useState([]);
@@ -43,6 +45,7 @@ export default function App() {
       .gateCheck()
       .then((res) => {
         setGateState(res.subscribed ? "ok" : "blocked");
+        if (res.user) setUser(res.user);
         if (res.subscribed) {
           const deepLink = resolveStartParam(getStartParam());
           if (deepLink) navigate(deepLink.screen, deepLink.params, false);
@@ -92,7 +95,8 @@ export default function App() {
 
   return (
     <>
-      {screen === "home" && <HomeScreen onNavigate={navigate} />}
+      {screen === "home" && <HomeScreen user={user} onNavigate={navigate} />}
+      {screen === "admin" && <AdminScreen onBack={goBack} />}
       {screen === "base" && (
         <EntriesListScreen
           initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
@@ -122,7 +126,7 @@ export default function App() {
         />
       )}
 
-      <BottomNav active={activeTab} onSelect={(tab) => navigate(tab)} />
+      {screen !== "admin" && <BottomNav active={activeTab} onSelect={(tab) => navigate(tab)} />}
     </>
   );
 }
