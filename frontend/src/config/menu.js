@@ -204,7 +204,7 @@ export const TOOLS_MENU = [
 // уроки внутри уровня идут по order_in_level (см. baza.guide_lessons).
 export const GUIDE_MENU = [
   { level: 1, label: "Новичок", icon: "level-1", desc: "Что такое Claude, первый диалог, Chat/Cowork/Code, модели, файлы." },
-  { level: 2, label: "Уверенный пользователь", icon: "level-2", desc: "Проекты, память, коннекторы — рабочий процесс на каждый день." },
+  { level: 2, label: "Уверенный пользователь", icon: "level-2", desc: "Проекты, Artifacts, Skills, коннекторы, Research, память, Styles." },
   { level: 3, label: "Продвинутый", icon: "level-3", desc: "Claude Code, MCP, субагенты — Claude как инженерный инструмент." },
   { level: 4, label: "Мастер", icon: "level-4", desc: "Агентные паттерны, автоматизация, собственные интеграции." },
 ];
