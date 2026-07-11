@@ -86,6 +86,19 @@ export function HomeScreen({ onNavigate }) {
               </section>
             )}
 
+            {data.news_latest?.length > 0 && (
+              <section style={{ marginBottom: 24 }}>
+                <span className="segment-label segment-label--source">новости</span>
+                {data.news_latest.map((n) => (
+                  <div key={n.slug} className="card">
+                    <p className="card__title">{n.title}</p>
+                    {n.summary && <p style={{ color: "var(--text-body)", fontSize: 15, margin: "6px 0" }}>{n.summary}</p>}
+                    <p className="card__meta">{n.published_at?.slice(0, 10)}</p>
+                  </div>
+                ))}
+              </section>
+            )}
+
             <section style={{ marginBottom: 24 }}>
               <span className="segment-label segment-label--example">топ промптов</span>
               {data.top_prompts.map((p) => (

@@ -114,6 +114,10 @@ export async function mockFetch(path, options = {}) {
       },
       top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, category: p.category, copies_count: p.copies_count })),
       recent_entries: entries.map((e) => ({ slug: e.slug, title: e.title, updated_at: e.updated_at })),
+      news_latest: [
+        { slug: "news-sonnet-5", title: "Вышла Sonnet 5", summary: "Новая модель среднего размера от Anthropic.", published_at: "2026-07-10" },
+        { slug: "news-cowork", title: "Cowork в облаке", summary: "Совместная работа с Claude в браузере.", published_at: "2026-07-08" },
+      ],
     };
   }
   if (path === "/favorites/ids") return mockFavorites.map((f) => `${f.item_type}:${f.item_id}`);
