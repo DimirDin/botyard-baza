@@ -8,7 +8,7 @@ doc_url: "https://anthropic.skilljar.com/claude-code-in-action"
 related_entry: "cc-headless-ci-cd"
 related_tools: ["anthropics/claude-agent-sdk-python"]
 ---
-![](/guide/4/guide-headless-automation.svg)
+![](/guide/4/guide-headless-automation.jpg)
 
 ### ❓ Что это
 **Headless-режим** запускает Claude Code без интерактивного диалога: задача передаётся аргументом командной строки, агент отрабатывает автономно от начала до конца и возвращает код завершения — 0 при успехе, 1 при ошибке, как любая обычная CLI-утилита в скрипте или пайплайне. Никто не сидит и не нажимает «да, разрешаю» на каждый шаг — весь процесс происходит без участия человека.
@@ -31,7 +31,18 @@ Headless-режим также полезен для массовых пакет
 ```
 Каждый PR автоматически прогоняется через агента без ручного запуска.
 
-![](/guide/4/guide-headless-automation-detail.svg)
+```mermaid
+graph TD
+  Push[Разработчик делает git push] --> CI[CI/CD Trigger: GitHub Actions]
+  CI --> Install[Установка Claude Code CLI]
+  Install --> Run[Запуск claude-code --non-interactive]
+  
+  Run --> Check{Агент нашел баги?}
+  Check -->|Да| Report[Добавить комментарий к PR / Завалить билд: Exit Code 1]
+  Check -->|Нет| Pass[Пропустить пайплайн: Exit Code 0]
+  
+  click Run href "entry:cc-headless-ci-cd" "Подробнее про настройку CI/CD"
+```
 
 Типичные сценарии использования headless-режима:
 - **Автоматическое ревью PR** — как в примере выше, блокирует мерж при обнаружении критичных проблем.

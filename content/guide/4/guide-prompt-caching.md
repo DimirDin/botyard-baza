@@ -7,7 +7,7 @@ order_in_level: 6
 doc_url: "https://anthropic.skilljar.com/claude-with-the-anthropic-api"
 related_entry: "api-prompt-caching"
 ---
-![](/guide/4/guide-prompt-caching.svg)
+![](/guide/4/guide-prompt-caching.jpg)
 
 ### ❓ Что это
 **Prompt Caching** — технология Anthropic API, позволяющая временно кэшировать тяжёлые неизменяемые блоки контекста. Повторные запросы читают их из кэша вместо полного повторного прогона через модель — модель не «пережёвывает» один и тот же большой текст заново на каждом запросе, если он не изменился.
@@ -34,7 +34,18 @@ response = client.messages.create(
 ```
 Блок с `cache_control` кэшируется, следующие запросы с тем же блоком обходятся заметно дешевле.
 
-![](/guide/4/guide-prompt-caching-detail.svg)
+```mermaid
+graph TD
+  Request[API запрос с cache_control] --> CheckCache{Префикс найден в кэше?}
+  CheckCache -->|Да: Cache Hit| ReadCache[Считать токены из кэша: быстро, -90% стоимости]
+  CheckCache -->|Нет: Cache Miss| WriteCache[Прочитать токены полностью и записать в кэш: стандартный тариф]
+  
+  ReadCache --> LLM[Claude LLM]
+  WriteCache --> LLM
+  LLM --> Response[Ответ API с метриками cache_creation_input_tokens / cache_read_input_tokens]
+  
+  click ReadCache href "entry:api-prompt-caching" "Подробнее про экономию на Prompt Caching"
+```
 
 Практические рекомендации по применению:
 - **Кэшируй самое стабильное** — системные инструкции, справочная документация, большие кодовые базы — то, что не меняется от запроса к запросу.

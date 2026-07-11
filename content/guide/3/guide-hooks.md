@@ -8,7 +8,7 @@ doc_url: "https://code.claude.com/docs/en/hooks"
 related_entry: "code-hooks-basics"
 related_tools: ["disler/claude-code-hooks-mastery"]
 ---
-![](/guide/3/guide-hooks.svg)
+![](/guide/3/guide-hooks.jpg)
 
 ### ❓ Что это
 **Hooks** — обработчики событий жизненного цикла Claude Code: команда, которая срабатывает в конкретный момент (например, после каждой правки файла, до выполнения bash-команды, в начале сессии) независимо от того, что «решила» сделать модель в этот раз. Это ключевое отличие от простой просьбы «пожалуйста, всегда форматируй код после правок» в CLAUDE.md — просьба может быть проигнорирована или забыта, hook сработает механически, каждый раз, без исключений.
@@ -36,7 +36,29 @@ related_tools: ["disler/claude-code-hooks-mastery"]
 ```
 После каждой правки файла эта команда запустится сама, без напоминаний.
 
-![](/guide/3/guide-hooks-detail.svg)
+```mermaid
+sequenceDiagram
+  autonumber
+  actor User as Пользователь
+  participant CC as Claude Code CLI
+  participant H1 as PreToolUse Hooks
+  participant Tool as Исполнение Tool (Write/Command)
+  participant H2 as PostToolUse Hooks
+
+  User->>CC: Запрос на изменение файла
+  CC->>H1: Trigger PreToolUse: проверка безопасности
+  alt Безопасно
+    H1-->>CC: Разрешить исполнение
+    CC->>Tool: Запись файла
+    Tool-->>CC: Файл изменен
+    CC->>H2: Trigger PostToolUse: npx prettier --write
+    H2-->>CC: Файл отформатирован
+    CC->>User: Показать диф и результат
+  else Опасно
+    H1-->>CC: Заблокировать исполнение
+    CC->>User: Ошибка: Заблокировано хуком безопасности
+  end
+```
 
 Другие практические примеры использования hooks:
 - **Блокировка опасных команд** — `PreToolUse` может проверить, не содержит ли команда `rm -rf`, и отклонить выполнение до того, как оно случится.

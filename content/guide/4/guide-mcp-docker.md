@@ -8,7 +8,7 @@ doc_url: "https://code.claude.com/docs/en/mcp-quickstart"
 related_entry: "cc-mcp-docker-setup"
 related_tools: ["docker/mcp-gateway"]
 ---
-![](/guide/4/guide-mcp-docker.svg)
+![](/guide/4/guide-mcp-docker.jpg)
 
 ### ❓ Что это
 Интеграция Claude Code с локальным Docker через MCP-сервер даёт агенту типизированные инструменты для сборки образов, просмотра статуса контейнеров, чтения логов и перезапуска — не выходя из текущей сессии. Это конкретный практический пример того, как MCP (с уровня 3) применяется к реальной инфраструктурной задаче, а не просто к работе с текстом или кодом.
@@ -35,7 +35,17 @@ claude mcp list
 }
 ```
 
-![](/guide/4/guide-mcp-docker-detail.svg)
+```mermaid
+graph TD
+  CC[Claude Code] -->|1. Request logs/status| MCPServer[Docker MCP Server]
+  MCPServer -->|2. Socket connection| Socket[unix:///var/run/docker.sock]
+  Socket -->|3. Docker API| Daemon[Docker Daemon]
+  Daemon -->|4. Container data| Socket
+  Socket -->|5. Raw responses| MCPServer
+  MCPServer -->|6. JSON-RPC data| CC
+  
+  click MCPServer href "entry:cc-mcp-docker-setup" "Подробнее про настройку Docker MCP"
+```
 
 Практические сценарии, где это реально экономит время:
 - **«Почему упал контейнер backend?»** — агент сам смотрит логи и exit-код, находит причину, предлагает фикс конфигурации.

@@ -8,7 +8,7 @@ doc_url: "https://modelcontextprotocol.io"
 related_entry: "con-mcp-architecture"
 related_tools: ["jlowin/fastmcp"]
 ---
-![](/guide/3/guide-mcp-basics.svg)
+![](/guide/3/guide-mcp-basics.jpg)
 
 ### ❓ Что это
 **MCP** (Model Context Protocol) — открытый стандарт связи между Claude и внешними инструментами. MCP-сервер «объявляет», какие у него есть инструменты (например, «прочитать таблицу из базы данных», «создать issue в GitHub», «отправить сообщение в Slack»), а Claude может их вызывать, не требуя отдельной кастомной интеграции под каждый сервис.
@@ -28,7 +28,15 @@ claude mcp list   # проверить, что подключилось
 ```
 После подключения в диалоге можно просто попросить: «покажи структуру таблицы users» — и Claude сам вызовет нужный инструмент MCP-сервера, получит результат и ответит на основе реальных данных, а не догадок.
 
-![](/guide/3/guide-mcp-basics-detail.svg)
+```mermaid
+graph LR
+  CC[MCP Client: Claude Desktop / Code] -->|JSON-RPC over Stdio/SSE| Trans[Transport Layer]
+  Trans -->|Request: Tools/List| Server[MCP Server: Database / API]
+  Server -->|Response: Schema/Tools| Trans
+  Trans -->|Result| CC
+  
+  click Server href "entry:con-mcp-architecture" "Подробнее про архитектуру MCP"
+```
 
 Несколько типичных категорий MCP-серверов, которые стоит знать:
 - **Серверы для баз данных** — Postgres, MySQL, SQLite: чтение схем, выполнение запросов.

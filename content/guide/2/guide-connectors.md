@@ -7,7 +7,7 @@ order_in_level: 4
 doc_url: "https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities"
 related_entry: "ca-data-connectors"
 ---
-![](/guide/2/guide-connectors.svg)
+![](/guide/2/guide-connectors.jpg)
 
 ### ❓ Что это
 **Connectors** — интеграции, которые связывают claude.ai с внешними хранилищами вроде Notion или Google Drive напрямую, без ручной загрузки файлов каждый раз, когда что-то меняется. В отличие от файла, один раз загруженного в Project Knowledge, коннектор читает актуальную версию источника в момент запроса.
@@ -22,7 +22,18 @@ related_entry: "ca-data-connectors"
 ### 💻 Как это выглядит на практике
 В настройках Проекта: «Подключить источник данных» → выбираешь сервис (например, Google Drive) → авторизуешься через свой аккаунт → указываешь конкретную папку или страницу. Дальше при ответе Claude сам подтягивает свежий текст оттуда, если вопрос это подразумевает.
 
-![](/guide/2/guide-connectors-detail.svg)
+```mermaid
+graph LR
+  User[Пользователь] -->|1. Запрос| Claude[Claude AI]
+  Claude -->|2. Чтение источника| Connector[Notion / Google Drive Connector]
+  Connector -->|3. OAuth Запрос| OAuth[OAuth Gateway]
+  OAuth -->|4. Проверка прав| Service[Внешний сервис]
+  Service -->|5. Возврат данных| Connector
+  Connector -->|6. Актуальный контекст| Claude
+  Claude -->|7. Ответ| User
+  
+  click Connector href "entry:ca-data-connectors" "Подробнее про коннекторы"
+```
 
 Типичные сценарии использования:
 - **Notion как база знаний команды** — «что у нас написано про процесс онбординга новых сотрудников» подтягивает актуальную страницу, а не устаревшую копию.
