@@ -2,9 +2,9 @@
 slug: guide-prompt-caching
 level: 4
 title: "Prompt Caching — снижение затрат до 90% на повторяющемся контексте"
-summary: "Как не платить полную цену за один и тот же большой контекст на каждом запросе к API."
-order_in_level: 5
-doc_url: "https://platform.claude.com/docs/en/about-claude/pricing"
+summary: "Как не платить полную цену за один и тот же большой контекст на каждом запросе к API. По мотивам Module 7 курса Anthropic Academy «Building with the Claude API»."
+order_in_level: 6
+doc_url: "https://anthropic.skilljar.com/claude-with-the-anthropic-api"
 related_entry: "api-prompt-caching"
 ---
 ![](/guide/4/guide-prompt-caching.svg)
@@ -47,5 +47,8 @@ response = client.messages.create(
 
 Вторая ошибка — пытаться кэшировать слишком маленькие блоки контекста. Есть минимальный порог объёма для эффективного кэширования (порядка 1–2 тысяч токенов у Sonnet/Opus, больше у Haiku — точный порог стоит сверять в актуальной документации перед реализацией) — кэширование пары предложений просто не даст заметной экономии и добавит ненужную сложность коду без реальной пользы.
 
+### 🔗 Смотри в приложении
+Механика кэша, TTL и цифры экономии — в статье [«Prompt Caching: снижение затрат до 90%»](entry:api-prompt-caching). Прикинуть, сколько токенов реально уходит на твой контекст — калькулятор токенов на Home.
+
 ### 🔗 Официальный источник
-platform.claude.com — Prompt Caching
+Anthropic Academy, курс «Building with the Claude API», Module 7 «Features of Claude» — anthropic.skilljar.com/claude-with-the-anthropic-api; platform.claude.com — Prompt Caching

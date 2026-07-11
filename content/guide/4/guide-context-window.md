@@ -2,10 +2,11 @@
 slug: guide-context-window
 level: 4
 title: "Контекстное окно — почему середина промпта запоминается хуже"
-summary: "Эффект затухания внимания в длинном контексте и как располагать важное, чтобы модель это точно не пропустила."
-order_in_level: 4
-doc_url: "https://www.anthropic.com/research"
+summary: "Эффект затухания внимания в длинном контексте и как располагать важное, чтобы модель это точно не пропустила. По мотивам «Controlling Context» из курса Anthropic Academy «Claude Code in Action»."
+order_in_level: 2
+doc_url: "https://anthropic.skilljar.com/claude-code-in-action"
 related_entry: "con-context-window-limits"
+related_tools: ["ryoppippi/ccusage"]
 ---
 ![](/guide/4/guide-context-window.svg)
 
@@ -41,5 +42,8 @@ related_entry: "con-context-window-limits"
 
 Вторая ошибка — недооценивать этот эффект и считать, что раз модель формально «видела» файл или инструкцию в контексте, значит она гарантированно их учла с равным приоритетом. На практике позиция информации в промпте — не нейтральный фактор, а один из рычагов управления качеством ответа, наравне с самой формулировкой задачи.
 
+### 🔗 Смотри в приложении
+Более широкий разбор ограничений контекстного окна — в статье [«Контекстное окно и эффект затухания внимания»](entry:con-context-window-limits). Если хочешь видеть, сколько контекста/токенов реально расходуется в сессиях Claude Code — в разделе Софт: [ccusage — CLI-анализ расхода токенов](tool:ryoppippi/ccusage).
+
 ### 🔗 Официальный источник
-anthropic.com/research
+Anthropic Academy, курс «Claude Code in Action», Module 3 «Controlling Context» — anthropic.skilljar.com/claude-code-in-action; anthropic.com/research

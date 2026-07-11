@@ -1,11 +1,12 @@
 ---
 slug: guide-headless-automation
 level: 4
-title: "Headless-режим — Claude Code без человека за клавиатурой"
-summary: "Как запустить агента автономно, например внутри CI/CD, чтобы он сам ревьюил каждый Pull Request."
-order_in_level: 2
-doc_url: "https://code.claude.com/docs"
+title: "Headless-режим и Claude Code SDK — без человека за клавиатурой"
+summary: "Как запустить агента автономно через SDK, например внутри CI/CD, чтобы он сам ревьюил каждый Pull Request. По мотивам «The Claude Code SDK» из курса Anthropic Academy «Claude Code in Action»."
+order_in_level: 4
+doc_url: "https://anthropic.skilljar.com/claude-code-in-action"
 related_entry: "cc-headless-ci-cd"
+related_tools: ["anthropics/claude-agent-sdk-python"]
 ---
 ![](/guide/4/guide-headless-automation.svg)
 
@@ -40,10 +41,15 @@ Headless-режим также полезен для массовых пакет
 
 Результат работы headless-агента обычно логируется целиком — это полезно для последующего разбора, что именно он сделал и на основе чего принял решение.
 
+Помимо флага `--non-interactive` в CLI, тот же headless-режим доступен программно через **Claude Code SDK** — библиотеку, которая даёт более гибкий контроль из кода (Python/TypeScript), чем просто вызов CLI-команды из shell-скрипта: явная обработка каждого шага сессии, структурированный доступ к результатам, более тонкое управление разрешениями из кода вызывающего приложения.
+
+### 🔗 Смотри в приложении
+Подробный разбор автоматизации в CI/CD с примерами конфигов — в статье [«Headless-режим и интеграция в CI/CD»](entry:cc-headless-ci-cd). Официальный Python SDK для программного управления агентом — в разделе Софт: [claude-agent-sdk-python](tool:anthropics/claude-agent-sdk-python).
+
 ### ⚠️ Частая ошибка новичка
 Не ограничивать бюджет токенов и таймаут шага. Если сборка циклически падает, headless-агент может бесконечно пытаться её исправить и выжечь весь баланс API за считанные минуты — всегда ставь явные лимиты на количество попыток и время выполнения, особенно при первом внедрении в незнакомый пайплайн.
 
 Вторая ошибка — давать headless-агенту слишком широкие полномочия без промежуточного контроля, особенно на первых порах. Разумная практика — начинать с того, что агент только предлагает изменения (например, комментирует PR), а не сразу мержит их автоматически, пока не накопится доверие к качеству его решений в конкретном проекте.
 
 ### 🔗 Официальный источник
-code.claude.com/docs
+Anthropic Academy, курс «Claude Code in Action», Module 4 «Hooks and the SDK» — anthropic.skilljar.com/claude-code-in-action; code.claude.com/docs
