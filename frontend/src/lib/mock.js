@@ -7,6 +7,7 @@ const entries = [
   { id: 1, slug: "cc-slash-commands", section: "code", group_slug: "claude-code", title: "Слэш-команды Claude Code", summary: "Встроенные /-команды и как добавить свои.", tags: ["cli"], updated_at: "2026-07-01" },
   { id: 2, slug: "cc-claude-md-config", section: "code", group_slug: "claude-md", title: "CLAUDE.md: конфигурация проекта", summary: "Что писать в CLAUDE.md и как это влияет на поведение.", tags: ["config"], updated_at: "2026-06-20" },
   { id: 3, slug: "con-cyrillic-tokenization", section: "theory", group_slug: "tokenization", title: "Токенизация кириллицы", summary: "Почему русский текст стоит дороже английского.", tags: ["tokenization"], updated_at: "2026-06-15" },
+  { id: 4, slug: "con-agentic-design-patterns", section: "theory", group_slug: "agentic-patterns", title: "Агентные паттерны: Router, Orchestrator, Subagents", summary: "Архитектурные шаблоны разделения сложной задачи между специализированными вызовами модели.", tags: ["concepts", "agentic-patterns"], updated_at: "2026-07-11" }
 ];
 
 const entryBody = {
@@ -138,7 +139,24 @@ export async function mockFetch(path, options = {}) {
     if (value === -1) entryBody.dislikes += entryBody.my_rating === -1 ? 1 : -1;
     return { likes: entryBody.likes, dislikes: entryBody.dislikes, my_rating: entryBody.my_rating };
   }
-  if (path.startsWith("/entries/")) return entryBody;
+  if (path.startsWith("/entries/")) {
+    const slug = path.slice("/entries/".length);
+    if (slug === "con-agentic-design-patterns") {
+      return {
+        id: 4,
+        slug: "con-agentic-design-patterns",
+        section: "theory",
+        title: "Агентные паттерны: Router, Orchestrator, Subagents",
+        doc_url: "https://docs.claude.com/en/docs_site_map.md",
+        updated_at: "2026-07-11",
+        likes: 5,
+        dislikes: 0,
+        my_rating: null,
+        body_md: "### ❓ Что это\nОбзор архитектурных шаблонов разделения сложной задачи между специализированными вызовами модели.\n\n```mermaid\ngraph TD\n  Query([Запрос пользователя]) --> Router{Router}\n  \n  Router -->|Простой запрос| Single[Single Call]\n  Router -->|Сложный запрос| Orchestrator[Orchestrator]\n  \n  Orchestrator --> Sub1[Subagent 1: Разработчик]\n  Orchestrator --> Sub2[Subagent 2: Тестировщик]\n  \n  click Router href \"entry:con-building-effective-agents\" \"Подробнее про Workflow\"\n  click Orchestrator href \"entry:cc-agent-teams\" \"Смотреть команды агентов\"\n  click Sub1 href \"entry:cc-skills-authoring\" \"Как писать скиллы\"\n```\n\n### 🎯 Зачем тебе\nПроектирование систем."
+      };
+    }
+    return entryBody;
+  }
   if (path.startsWith("/entries")) {
     const q = new URLSearchParams(path.split("?")[1] || "");
     return entries.filter((e) =>

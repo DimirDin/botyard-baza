@@ -10,7 +10,20 @@ sort_order: 30
 published: true
 ---
 
-![Agentic design patterns](/entry-images/agent-loop.svg)
+```mermaid
+graph TD
+  Query([Запрос пользователя]) --> Router{Router}
+  
+  Router -->|Простой запрос| Single[Single Call]
+  Router -->|Сложный запрос| Orchestrator[Orchestrator]
+  
+  Orchestrator --> Sub1[Subagent 1: Разработчик]
+  Orchestrator --> Sub2[Subagent 2: Тестировщик]
+  
+  click Router href "entry:con-building-effective-agents" "Подробнее про Workflow"
+  click Orchestrator href "entry:cc-agent-teams" "Смотреть команды агентов"
+  click Sub1 href "entry:cc-skills-authoring" "Как писать скиллы"
+```
 
 ### ❓ Что это
 

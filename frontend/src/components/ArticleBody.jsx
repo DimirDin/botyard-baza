@@ -1,5 +1,7 @@
+import React from "react";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Mermaid } from "./Mermaid";
 
 // Заголовки в content/entries/*.md — эмодзи-префиксы. Оформление статей (§14)
 // требует заменить их на цветные powerline-лейблы, а не показывать как есть.
@@ -81,7 +83,35 @@ function makeLinkRenderer(onNavigate) {
 export function ArticleBody({ bodyMd, onNavigate }) {
   if (!bodyMd) return null;
   const sections = splitSections(bodyMd);
-  const components = { a: makeLinkRenderer(onNavigate) };
+  const components = {
+    a: makeLinkRenderer(onNavigate),
+    pre(props) {
+      const { children, ...rest } = props;
+      const hasMermaid = React.Children.toArray(children).some(
+        (child) =>
+          child &&
+          child.props &&
+          child.props.className &&
+          child.props.className.includes("language-mermaid")
+      );
+      if (hasMermaid) {
+        return <>{children}</>;
+      }
+      return <pre {...rest}>{children}</pre>;
+    },
+    code(props) {
+      const { children, className, node, ...rest } = props;
+      const match = /language-(\w+)/.exec(className || "");
+      const language = match ? match[1] : "";
+      
+      if (language === "mermaid") {
+        const chartCode = String(children).replace(/\n$/, "");
+        return <Mermaid chart={chartCode} onNavigate={onNavigate} />;
+      }
+      
+      return <code className={className} {...rest}>{children}</code>;
+    }
+  };
 
   return (
     <div className="article-body">
