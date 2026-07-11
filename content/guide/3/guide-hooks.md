@@ -3,9 +3,10 @@ slug: guide-hooks
 level: 3
 title: "Hooks — автоматика, которая срабатывает всегда, а не по памяти"
 summary: "Как заставить форматирование и проверки выполняться гарантированно, а не зависеть от того, вспомнит ли Claude их запустить."
-order_in_level: 5
+order_in_level: 8
 doc_url: "https://code.claude.com/docs/en/hooks"
 related_entry: "code-hooks-basics"
+related_tools: ["disler/claude-code-hooks-mastery"]
 ---
 ![](/guide/3/guide-hooks.svg)
 
@@ -45,10 +46,13 @@ related_entry: "code-hooks-basics"
 
 Matcher поддерживает регулярные выражения, так что можно точечно настраивать, на какие именно инструменты и файлы реагировать — например, применять форматирование только к `.ts`-файлам, игнорируя остальные.
 
+### 🔗 Смотри в приложении
+Базовые типы событий и примеры конфигов — в статье [«Hooks в Claude Code: автоматические триггеры на события»](entry:code-hooks-basics). Полигон с примерами всех 13 типов хуков — в разделе Софт: [disler/claude-code-hooks-mastery](tool:disler/claude-code-hooks-mastery).
+
 ### ⚠️ Частая ошибка новичка
 Класть такие правила только в свой личный конфиг, а не в `.claude/settings.json` проекта. Личный конфиг работает только у тебя — если хочешь, чтобы гарантия действовала для всей команды, правило нужно закоммитить в проект, чтобы оно применялось у каждого, кто клонирует репозиторий и запускает Claude Code.
 
 Вторая ошибка — путать `PreToolUse` и `PostToolUse` по назначению. `PostToolUse` может дать обратную связь и что-то поправить постфактум, но не может отменить уже выполненное действие — для реальной блокировки опасной команды до её выполнения нужен именно `PreToolUse`, иначе защита сработает слишком поздно.
 
 ### 🔗 Официальный источник
-code.claude.com/docs/en/hooks
+Anthropic Academy, курс «Claude Code 101», Module 4 «Customizing Claude Code» — anthropic.skilljar.com/claude-code-101; code.claude.com/docs/en/hooks
