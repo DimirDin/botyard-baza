@@ -29,7 +29,8 @@ async def get_lesson(slug: str, user: dict = Depends(require_subscribed)):
     row = await pool.fetchrow(
         """
         SELECT l.id, l.slug, l.level, l.title, l.summary, l.body_md, l.doc_url, l.order_in_level,
-               l.related_entry, (gp.lesson_id IS NOT NULL) AS completed
+               l.related_entry, l.related_tools, l.related_prompts,
+               (gp.lesson_id IS NOT NULL) AS completed
         FROM baza.guide_lessons l
         LEFT JOIN baza.guide_progress gp ON gp.lesson_id = l.id AND gp.tg_id = $1
         WHERE l.slug = $2 AND l.published
@@ -38,7 +39,19 @@ async def get_lesson(slug: str, user: dict = Depends(require_subscribed)):
     )
     if not row:
         raise HTTPException(404, "Урок не найден")
-    return dict(row)
+    lesson = dict(row)
+
+    related_tools = await pool.fetch(
+        "SELECT repo, name, description_ru FROM baza.tools WHERE repo = ANY($1) AND published",
+        lesson["related_tools"],
+    ) if lesson["related_tools"] else []
+    related_prompts = await pool.fetch(
+        "SELECT slug, title, category FROM baza.prompts WHERE slug = ANY($1)",
+        lesson["related_prompts"],
+    ) if lesson["related_prompts"] else []
+    lesson["related_tools"] = [dict(r) for r in related_tools]
+    lesson["related_prompts"] = [dict(r) for r in related_prompts]
+    return lesson
 
 
 @router.post("/lessons/{slug}/complete")

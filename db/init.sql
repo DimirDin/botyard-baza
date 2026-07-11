@@ -88,6 +88,8 @@ CREATE TABLE IF NOT EXISTS baza.guide_lessons (
     doc_url        TEXT,
     order_in_level SMALLINT NOT NULL,
     related_entry  TEXT,                            -- slug статьи baza.entries, необязательно
+    related_tools  TEXT[] NOT NULL DEFAULT '{}',     -- repo из baza.tools, "Смотри также"
+    related_prompts TEXT[] NOT NULL DEFAULT '{}',    -- slug из baza.prompts, "Смотри также"
     published      BOOLEAN DEFAULT true,
     updated_at     TIMESTAMPTZ DEFAULT now()
 );

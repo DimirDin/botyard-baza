@@ -1,4 +1,4 @@
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 // Заголовки в content/entries/*.md — эмодзи-префиксы. Оформление статей (§14)
@@ -18,6 +18,8 @@ const HEADER_MAP = [
   { match: "💻 Как это выглядит на практике", label: "на практике", cls: "segment-label--example" },
   { match: "⚠️ Частая ошибка новичка", label: "частая ошибка", cls: "segment-label--gotcha" },
   { match: "🔗 Официальный источник", label: "источник", cls: "segment-label--source" },
+  // Новая секция лонгридов Гида (редизайн 2026-07) — инлайн-кросс-ссылки на Базу/Софт/Промпты.
+  { match: "🔗 Смотри в приложении", label: "смотри в приложении", cls: "segment-label--example" },
 ];
 
 function splitSections(md) {
@@ -39,16 +41,56 @@ function splitSections(md) {
   return sections;
 }
 
-export function ArticleBody({ bodyMd }) {
+// Ссылки вида [текст](entry:slug) / (tool:owner/repo) / (prompt:slug) — внутренняя навигация
+// по мини-аппу вместо ухода во внешний браузер (план редизайна Гида). Обычные http(s)-ссылки
+// рендерятся как есть, поведение не менялось.
+const INTERNAL_LINK_RE = /^(entry|tool|prompt):(.+)$/;
+
+// react-markdown по умолчанию санитизирует нестандартные URL-схемы (обнуляет href) —
+// пропускаем entry:/tool:/prompt: как есть, остальное отдаём дефолтной проверке безопасности.
+function urlTransform(url) {
+  return INTERNAL_LINK_RE.test(url) ? url : defaultUrlTransform(url);
+}
+
+function makeLinkRenderer(onNavigate) {
+  return function InternalLink({ href, children }) {
+    const match = INTERNAL_LINK_RE.exec(href || "");
+    if (!match || !onNavigate) {
+      return (
+        <a href={href} target="_blank" rel="noreferrer">
+          {children}
+        </a>
+      );
+    }
+    const [, kind, ref] = match;
+    return (
+      <a
+        href={href}
+        onClick={(e) => {
+          e.preventDefault();
+          onNavigate(kind, ref);
+        }}
+        style={{ color: "var(--accent)", cursor: "pointer" }}
+      >
+        {children}
+      </a>
+    );
+  };
+}
+
+export function ArticleBody({ bodyMd, onNavigate }) {
   if (!bodyMd) return null;
   const sections = splitSections(bodyMd);
+  const components = { a: makeLinkRenderer(onNavigate) };
 
   return (
     <div className="article-body">
       {sections.map((section, i) => {
         const isGotcha = section.header?.label === "грабли";
         const content = (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{section.body.join("\n")}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={components} urlTransform={urlTransform}>
+            {section.body.join("\n")}
+          </ReactMarkdown>
         );
         return (
           <div key={i} style={{ marginBottom: 20 }}>

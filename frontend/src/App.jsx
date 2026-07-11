@@ -110,6 +110,8 @@ export default function App() {
         <GuideTrack
           initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
           onOpenEntry={(slug) => navigate("entry", slug)}
+          onOpenTool={(slug) => navigate("tool", slug)}
+          onOpenPrompt={(category, slug) => navigate("prompts", { category, slug })}
         />
       )}
       {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}

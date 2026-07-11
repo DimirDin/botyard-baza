@@ -11,7 +11,7 @@ import { shareLink } from "../lib/telegram";
 // `initial` — переход сразу на конкретный урок: карточка "продолжить" на Home (даёт level+slug)
 // или диплинк ?start=guide_{slug} от кнопки "поделиться" на самом уроке (даёт только slug,
 // level подтягиваем из списка уроков после его загрузки) — см. App.jsx.
-export function GuideTrack({ initial, onOpenEntry }) {
+export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt }) {
   const [lessons, setLessons] = useState(null); // все уроки, с полем completed
   const [error, setError] = useState(false);
   const [level, setLevel] = useState(initial?.level ?? null); // null = список уровней
@@ -43,6 +43,19 @@ export function GuideTrack({ initial, onOpenEntry }) {
   };
 
   const lessonsByLevel = (lvl) => (lessons || []).filter((l) => l.level === lvl).sort((a, b) => a.order_in_level - b.order_in_level);
+
+  // Ссылки [текст](entry:slug|tool:owner/repo|prompt:slug) внутри тела урока (ArticleBody) и
+  // карточки "Смотри также" зовут этот единый обработчик. Категорию промпта берём из уже
+  // загруженного lesson.related_prompts (её отдаёт API) — по этой причине любой промпт,
+  // на который ссылаются инлайн в тексте, должен также быть в related_prompts фронтматтера.
+  const handleNavigate = (kind, ref) => {
+    if (kind === "entry" && onOpenEntry) onOpenEntry(ref);
+    if (kind === "tool" && onOpenTool) onOpenTool(ref.replace("/", "__"));
+    if (kind === "prompt" && onOpenPrompt) {
+      const known = lesson && lesson !== "loading" ? lesson.related_prompts?.find((p) => p.slug === ref) : null;
+      onOpenPrompt(known?.category, ref);
+    }
+  };
 
   const isLevelUnlocked = (lvl) => {
     if (lvl <= 1) return true;
@@ -109,7 +122,33 @@ export function GuideTrack({ initial, onOpenEntry }) {
                   ↗ поделиться
                 </span>
               </div>
-              <ArticleBody bodyMd={lesson.body_md} />
+              <ArticleBody bodyMd={lesson.body_md} onNavigate={handleNavigate} />
+              {(lesson.related_tools?.length > 0 || lesson.related_prompts?.length > 0) && (
+                <div style={{ marginBottom: 20 }}>
+                  <span className="segment-label segment-label--example">смотри также</span>
+                  {lesson.related_tools?.map((t) => (
+                    <div
+                      key={t.repo}
+                      className="card"
+                      onClick={() => onOpenTool && onOpenTool(t.repo.replace("/", "__"))}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <p className="card__title">🛠 {t.name}</p>
+                      <p className="card__meta">{t.description_ru}</p>
+                    </div>
+                  ))}
+                  {lesson.related_prompts?.map((p) => (
+                    <div
+                      key={p.slug}
+                      className="card"
+                      onClick={() => onOpenPrompt && onOpenPrompt(p.category, p.slug)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <p className="card__title">⚡ {p.title}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
               {lesson.related_entry && onOpenEntry && (
                 <button
                   onClick={() => onOpenEntry(lesson.related_entry)}
