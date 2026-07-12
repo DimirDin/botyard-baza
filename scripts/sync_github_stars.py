@@ -46,9 +46,12 @@ def fetch_repo(repo: str) -> dict | None:
         raise
 
 
+ROLLOVER_AFTER = timedelta(days=6)
+
+
 async def main() -> None:
     conn = await asyncpg.connect(DATABASE_URL)
-    rows = await conn.fetch("SELECT id, repo, stars FROM baza.tools ORDER BY repo")
+    rows = await conn.fetch("SELECT id, repo, stars, stars_prev, synced_at FROM baza.tools ORDER BY repo")
     now = datetime.now(timezone.utc)
     published = gone = stale = 0
 
@@ -67,9 +70,20 @@ async def main() -> None:
         archived = data["archived"]
         alive = not archived and (now - pushed_at) < STALE_AFTER
         stars = data["stargazers_count"]
-        # Первый синк (stars ещё 0): stars_prev = свежему значению, иначе весь
-        # счётчик звёзд показался бы как «прирост за неделю» в сортировке trending.
-        stars_prev = stars if row["stars"] == 0 else row["stars"]
+
+        # stars_prev — точка отсчёта "недельного роста" (§10, блок "инструменты недели" на Home).
+        # Скрипт запускается не только по крону раз в неделю, но и вручную при добавлении новых
+        # инструментов (см. §6 конвейера контента) — на таком внеплановом прогоне stars_prev
+        # НЕ должен сдвигаться, иначе рост у всех остальных 160+ инструментов обнулится из-за
+        # ресинка, нужного только чтобы опубликовать несколько новых записей (баг, поймали
+        # 2026-07-12: после серии ручных прогонов рост "инструментов недели" показывал +1
+        # почти у всех вместо реальных 130-200 за неделю).
+        # Сдвигаем stars_prev только если: это первый синк (stars ещё 0 — иначе весь счётчик
+        # звёзд выглядел бы приростом) ИЛИ прошло >= ROLLOVER_AFTER с прошлого синка (реальный
+        # недельный прогон крона). Иначе просто обновляем stars, оставляя stars_prev как было.
+        last_synced = row["synced_at"]
+        is_rollover = row["stars"] == 0 or last_synced is None or (now - last_synced) >= ROLLOVER_AFTER
+        stars_prev = row["stars"] if is_rollover else row["stars_prev"]
 
         await conn.execute(
             """
