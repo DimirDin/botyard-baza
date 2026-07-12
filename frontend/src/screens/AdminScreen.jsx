@@ -119,6 +119,34 @@ export function AdminScreen({ onBack }) {
               </div>
             </section>
 
+            {/* Traffic Sources — src_vcru/src_ads1/... из deep link бота, "organic" = без метки */}
+            <section style={{ marginBottom: 24 }}>
+              <span className="segment-label segment-label--why">traffic sources</span>
+              <div className="card" style={{ padding: "16px 12px", marginTop: 8 }}>
+                {stats.sources && stats.sources.length > 0 ? (
+                  stats.sources.map((s) => {
+                    const maxCount = stats.sources[0].count || 1;
+                    const percent = Math.round((s.count / maxCount) * 100);
+                    return (
+                      <div key={s.source} style={{ marginBottom: 12 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontFamily: "var(--font-mono)" }}>
+                          <span style={{ color: "var(--text-body)" }}>{s.source}</span>
+                          <span style={{ color: "var(--accent)" }}>{s.count}</span>
+                        </div>
+                        <div className="guide-progress" style={{ marginTop: 4 }}>
+                          <div className="guide-progress__bar" style={{ height: 6 }}>
+                            <div className="guide-progress__fill" style={{ width: `${percent}%`, height: 6 }} />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p style={{ margin: 0, color: "var(--text-muted)", fontSize: 14 }}>Пока нет пользователей</p>
+                )}
+              </div>
+            </section>
+
             {/* Tabs for details */}
             <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
               <button

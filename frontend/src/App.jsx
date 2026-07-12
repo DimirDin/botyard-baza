@@ -32,6 +32,13 @@ function resolveStartParam(param) {
   return null;
 }
 
+// src_{ключ} — метка источника трафика (t.me/bazadry_bot?start=src_vcru), не контентный
+// deep link: не превращается в навигацию, только отправляется в gate/check при первом визите.
+function resolveSourceParam(param) {
+  if (!param || !param.startsWith("src_")) return null;
+  return param.slice("src_".length) || null;
+}
+
 export default function App() {
   const [gateState, setGateState] = useState("checking"); // checking | blocked | ok | error
   const [home, setHome] = useState(null);
@@ -42,13 +49,14 @@ export default function App() {
 
   useEffect(() => {
     initTelegram();
+    const startParam = getStartParam();
     api
-      .gateCheck()
+      .gateCheck(resolveSourceParam(startParam))
       .then((res) => {
         setGateState(res.subscribed ? "ok" : "blocked");
         if (res.user) setUser(res.user);
         if (res.subscribed) {
-          const deepLink = resolveStartParam(getStartParam());
+          const deepLink = resolveStartParam(startParam);
           if (deepLink) navigate(deepLink.screen, deepLink.params, false);
         }
       })

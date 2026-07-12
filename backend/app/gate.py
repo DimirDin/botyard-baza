@@ -46,8 +46,12 @@ def validate_init_data(init_data: str) -> dict:
     return {"tg_id": user.get("id"), "username": user.get("username"), "raw": parsed}
 
 
-async def check_subscription(tg_id: int, force: bool = False) -> bool:
-    """Возвращает True если пользователь подписан на канал. Кэширует в Redis + PG."""
+async def check_subscription(tg_id: int, force: bool = False, source: str | None = None) -> bool:
+    """Возвращает True если пользователь подписан на канал. Кэширует в Redis + PG.
+
+    source — метка источника трафика (src_vcru, src_ads1...) из deep link бота,
+    пишется только на INSERT (первый визит), при повторных заходах не трогается.
+    """
     r = get_redis()
     cache_key = f"baza:sub:{tg_id}"
 
@@ -63,12 +67,12 @@ async def check_subscription(tg_id: int, force: bool = False) -> bool:
     pool = get_pool()
     await pool.execute(
         """
-        INSERT INTO baza.users (tg_id, is_subscribed, sub_checked_at, last_seen)
-        VALUES ($1, $2, now(), now())
+        INSERT INTO baza.users (tg_id, is_subscribed, sub_checked_at, last_seen, source)
+        VALUES ($1, $2, now(), now(), $3)
         ON CONFLICT (tg_id) DO UPDATE
         SET is_subscribed = $2, sub_checked_at = now(), last_seen = now()
         """,
-        tg_id, is_subscribed,
+        tg_id, is_subscribed, source,
     )
     return is_subscribed
 

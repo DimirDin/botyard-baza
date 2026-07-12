@@ -38,8 +38,10 @@ async def start(message: Message):
         except Exception:
             decoded = ""
         # base64-декод сырого текста может «успешно» дать мусор — доверяем ему,
-        # только если результат похож на наш формат deep link (§16)
-        known = ("entry_", "tool_", "prompt_", "section_")
+        # только если результат похож на наш формат deep link (§16).
+        # src_ — метка источника трафика (vc.ru, реклама...), не контентный deep link,
+        # но прокидывается тем же путём — Mini App сама решает, что с ней делать (см. App.jsx).
+        known = ("entry_", "tool_", "prompt_", "section_", "src_")
         payload = decoded if decoded.startswith(known) else (raw if raw.startswith(known) else None)
         if raw == "feedback":
             return await start_feedback(message)

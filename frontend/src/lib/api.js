@@ -25,7 +25,7 @@ async function request(path, options = {}) {
 }
 
 export const api = {
-  gateCheck: () => request("/gate/check", { method: "POST" }),
+  gateCheck: (source) => request("/gate/check", { method: "POST", body: JSON.stringify({ source: source || null }) }),
   gateRecheck: () => request("/gate/recheck", { method: "POST" }),
   home: () => request("/home"),
   entries: (section) => request(`/entries${section ? `?section=${section}` : ""}`),

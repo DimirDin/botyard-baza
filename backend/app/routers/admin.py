@@ -59,14 +59,26 @@ async def get_admin_stats(user: dict = Depends(require_admin)):
             """
         )
         feature_usage = [{"event": r["event"], "count": r["count"]} for r in usage_records]
-        
+
+        # 7. Источники трафика — src_vcru/src_ads1/... из deep link бота, см. §16
+        source_records = await conn.fetch(
+            """
+            SELECT COALESCE(source, 'organic') AS source, COUNT(*) AS count
+            FROM baza.users
+            GROUP BY source
+            ORDER BY count DESC
+            """
+        )
+        sources = [{"source": r["source"], "count": r["count"]} for r in source_records]
+
     return {
         "total_users": total_users or 0,
         "subscribed_users": subscribed_users or 0,
         "dau": dau or 0,
         "wau": wau or 0,
         "mau": mau or 0,
-        "feature_usage": feature_usage
+        "feature_usage": feature_usage,
+        "sources": sources
     }
 
 
