@@ -11,7 +11,7 @@ import { hapticSuccess } from "../lib/telegram";
 // initial — переход с конкретного промпта (например, «топ промптов» на Home):
 // { category: "content/compress", slug: "..." } сразу открывает нужную группу
 // и подсвечивает карточку, а не просто кидает на список групп раздела.
-export function PromptsListScreen({ initial } = {}) {
+export function PromptsListScreen({ initial, onNavigate } = {}) {
   const [tab, setTab] = useState(() => initial?.category?.split("/")[0] || "code");
   const [group, setGroup] = useState(() => initial?.category?.split("/")[1] || null);
   const [prompts, setPrompts] = useState(null); // все промпты (одним запросом)
@@ -72,7 +72,7 @@ export function PromptsListScreen({ initial } = {}) {
     <>
       <PromptLine
         section={group ? `prompts/${tab}/${group}` : `prompts/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : null}
+        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
       />
       {!group && <SectionTabs menu={PROMPTS_MENU} active={tab} onSelect={setTab} iconBase="/icons/prompts" />}
       <div className="page">

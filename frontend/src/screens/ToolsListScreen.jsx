@@ -13,7 +13,7 @@ const SORTS = [
   { id: "new", label: "новое" },
 ];
 
-export function ToolsListScreen({ onOpenTool }) {
+export function ToolsListScreen({ onOpenTool, onNavigate }) {
   const [tab, setTab] = useState("mcp");
   const [group, setGroup] = useState(null);
   const [sort, setSort] = useState("stars");
@@ -51,7 +51,7 @@ export function ToolsListScreen({ onOpenTool }) {
     <>
       <PromptLine
         section={group ? `tools/${tab}/${group}` : `tools/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : null}
+        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
       />
       {!group && <SectionTabs menu={TOOLS_MENU} active={tab} onSelect={setTab} iconBase="/icons/tools" />}
       <div className="page">

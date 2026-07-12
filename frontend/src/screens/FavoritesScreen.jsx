@@ -6,7 +6,7 @@ import { api } from "../lib/api";
 
 const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖" };
 
-export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide }) {
+export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide, onNavigate }) {
   const [items, setItems] = useState(null);
   const [error, setError] = useState(false);
 
@@ -26,7 +26,7 @@ export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide }) {
 
   return (
     <>
-      <PromptLine section="favorites" />
+      <PromptLine section="favorites" right={<span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>} />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !items && <Spinner />}

@@ -7,7 +7,7 @@ import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { BASE_MENU } from "../config/menu";
 import { api } from "../lib/api";
 
-export function EntriesListScreen({ initial, onOpenEntry }) {
+export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
   const [tab, setTab] = useState(() => initial?.tab || "code");
   const [group, setGroup] = useState(null); // null = список групп
   const [entries, setEntries] = useState(null); // все статьи секции
@@ -95,7 +95,7 @@ export function EntriesListScreen({ initial, onOpenEntry }) {
     <>
       <PromptLine
         section={group ? `base/${tab}/${group}` : `base/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : null}
+        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
       />
       {!group && <SectionTabs menu={BASE_MENU} active={tab} onSelect={setTab} iconBase="/icons/base" />}
       <div className="page">

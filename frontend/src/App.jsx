@@ -26,6 +26,7 @@ function resolveStartParam(param) {
   if (type === "prompt") return { screen: "prompts" };
   if (type === "tool") return { screen: "tools" };
   if (type === "guide") return { screen: "guide", params: id ? { slug: id } : undefined };
+  if (type === "search") return { screen: "search" };
   // "Калькулятор" убран из BottomNav, но экран и API остаются рабочими для прямых ссылок.
   if (type === "calc") return { screen: "calc" };
   return null;
@@ -101,13 +102,14 @@ export default function App() {
         <EntriesListScreen
           initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
           onOpenEntry={(slug) => navigate("entry", slug)}
+          onNavigate={navigate}
         />
       )}
       {screen === "entry" && <EntryScreen slug={screenParam} onBack={history.length ? goBack : null} />}
-      {screen === "tools" && <ToolsListScreen onOpenTool={(slug) => navigate("tool", slug)} />}
+      {screen === "tools" && <ToolsListScreen onOpenTool={(slug) => navigate("tool", slug)} onNavigate={navigate} />}
       {screen === "tool" && <ToolDetail slug={screenParam} onBack={history.length ? goBack : null} />}
       {screen === "prompts" && (
-        <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} />
+        <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} onNavigate={navigate} />
       )}
       {screen === "calc" && <CalculatorScreen />}
       {screen === "guide" && (
@@ -116,6 +118,7 @@ export default function App() {
           onOpenEntry={(slug) => navigate("entry", slug)}
           onOpenTool={(slug) => navigate("tool", slug)}
           onOpenPrompt={(category, slug) => navigate("prompts", { category, slug })}
+          onNavigate={navigate}
         />
       )}
       {screen === "search" && (
@@ -131,6 +134,7 @@ export default function App() {
           onOpenEntry={(slug) => navigate("entry", slug)}
           onOpenTool={(slug) => navigate("tool", slug)}
           onOpenGuide={(level, slug) => navigate("guide", { level, slug })}
+          onNavigate={navigate}
         />
       )}
 

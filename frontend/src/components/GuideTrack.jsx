@@ -12,7 +12,7 @@ import { FavStar } from "./FavStar";
 // `initial` — переход сразу на конкретный урок: карточка "продолжить" на Home (даёт level+slug)
 // или диплинк ?start=guide_{slug} от кнопки "поделиться" на самом уроке (даёт только slug,
 // level подтягиваем из списка уроков после его загрузки) — см. App.jsx.
-export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt }) {
+export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onNavigate }) {
   const [lessons, setLessons] = useState(null); // все уроки, с полем completed
   const [error, setError] = useState(false);
   const [level, setLevel] = useState(initial?.level ?? null); // null = список уровней
@@ -212,7 +212,7 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt }) {
   // --- вид 1: список уровней с прогресс-баром ---
   return (
     <>
-      <PromptLine section="guide" />
+      <PromptLine section="guide" right={<span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>} />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !lessons && <Spinner />}

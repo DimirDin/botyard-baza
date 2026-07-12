@@ -127,6 +127,7 @@ export function HomeScreen({ user, onNavigate }) {
               <div className="chip" onClick={() => onNavigate("prompts")}>⚡ {data.counts.prompts_count} промптов</div>
               <div className="chip" onClick={() => onNavigate("base", { tab: "cheat" })}>📋 шпаргалки</div>
               <div className="chip" onClick={() => onNavigate("favorites")}>⭐ избранное</div>
+              <div className="chip" onClick={() => onNavigate("search")}>🔍 поиск</div>
             </section>
 
             <section style={{ marginTop: 20 }}>
