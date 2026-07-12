@@ -59,15 +59,10 @@ async def home():
         LIMIT 3
         """
     )
-    news_latest = await pool.fetch(
-        "SELECT slug, title, summary, published_at FROM baza.news "
-        "WHERE published ORDER BY published_at DESC LIMIT 3"
-    )
     return {
         "counts": dict(counts),
         "stats": stats,
         "top_prompts": [dict(r) for r in top_prompts],
         "recent_entries": [dict(r) for r in recent_entries],
         "tools_of_week": [dict(r) for r in tools_of_week],
-        "news_latest": [dict(r) for r in news_latest],
     }

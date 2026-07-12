@@ -119,25 +119,6 @@ async def sync_cheatsheets(conn: asyncpg.Connection) -> int:
     return count
 
 
-async def sync_news(conn: asyncpg.Connection) -> int:
-    count = 0
-    for md_file in CONTENT_DIR.glob("news/*.md"):
-        meta, body = parse_frontmatter(md_file.read_text(encoding="utf-8"))
-        await conn.execute(
-            """
-            INSERT INTO baza.news (slug, title, summary, body_md, doc_url, published_at, published, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, now())
-            ON CONFLICT (slug) DO UPDATE SET
-                title = $2, summary = $3, body_md = $4, doc_url = $5,
-                published_at = $6, published = $7, updated_at = now()
-            """,
-            meta["slug"], meta["title"], meta.get("summary"), body,
-            meta.get("doc_url"), meta["published_at"], meta.get("published", True),
-        )
-        count += 1
-    return count
-
-
 async def main():
     conn = await asyncpg.connect(DATABASE_URL)
     try:
@@ -146,8 +127,7 @@ async def main():
         p = await sync_prompts(conn)
         c = await sync_cheatsheets(conn)
         g = await sync_guide(conn)
-        n = await sync_news(conn)
-        print(f"Синк готов: entries={e} tools={t} prompts={p} cheatsheets={c} guide={g} news={n}")
+        print(f"Синк готов: entries={e} tools={t} prompts={p} cheatsheets={c} guide={g}")
     finally:
         await conn.close()
 

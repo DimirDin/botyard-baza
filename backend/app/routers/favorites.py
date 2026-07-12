@@ -8,7 +8,7 @@ router = APIRouter(prefix="/api/favorites", tags=["favorites"], dependencies=[De
 
 
 class FavoriteToggle(BaseModel):
-    item_type: str  # entry | tool | prompt
+    item_type: str  # entry | tool | prompt | guide
     item_id: int
 
 
@@ -19,15 +19,17 @@ async def list_favorites(user: dict = Depends(require_subscribed)):
     rows = await pool.fetch(
         """
         SELECT f.item_type, f.item_id, f.created_at,
-               COALESCE(e.title, t.name, p.title) AS title,
-               COALESCE(e.summary, t.description_ru, p.comment) AS subtitle,
-               e.slug AS entry_slug, p.slug AS prompt_slug, t.repo AS tool_repo
+               COALESCE(e.title, t.name, p.title, g.title) AS title,
+               COALESCE(e.summary, t.description_ru, p.comment, g.summary) AS subtitle,
+               e.slug AS entry_slug, p.slug AS prompt_slug, t.repo AS tool_repo,
+               g.slug AS guide_slug, g.level AS guide_level
         FROM baza.favorites f
         LEFT JOIN baza.entries e ON f.item_type = 'entry' AND e.id = f.item_id AND e.published
         LEFT JOIN baza.tools t ON f.item_type = 'tool' AND t.id = f.item_id AND t.published
         LEFT JOIN baza.prompts p ON f.item_type = 'prompt' AND p.id = f.item_id AND p.published
+        LEFT JOIN baza.guide_lessons g ON f.item_type = 'guide' AND g.id = f.item_id AND g.published
         WHERE f.tg_id = $1
-          AND COALESCE(e.id, t.id, p.id) IS NOT NULL  -- скрываем снятое с публикации
+          AND COALESCE(e.id, t.id, p.id, g.id) IS NOT NULL  -- скрываем снятое с публикации
         ORDER BY f.created_at DESC
         """,
         user["tg_id"],

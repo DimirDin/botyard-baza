@@ -118,11 +118,19 @@ export default function App() {
           onOpenPrompt={(category, slug) => navigate("prompts", { category, slug })}
         />
       )}
-      {screen === "search" && <SearchScreen onOpenEntry={(slug) => navigate("entry", slug)} />}
+      {screen === "search" && (
+        <SearchScreen
+          onOpenEntry={(slug) => navigate("entry", slug)}
+          onOpenTool={(slug) => navigate("tool", slug)}
+          onOpenPrompt={(category, slug) => navigate("prompts", { category, slug })}
+          onOpenGuide={(level, slug) => navigate("guide", { level, slug })}
+        />
+      )}
       {screen === "favorites" && (
         <FavoritesScreen
           onOpenEntry={(slug) => navigate("entry", slug)}
           onOpenTool={(slug) => navigate("tool", slug)}
+          onOpenGuide={(level, slug) => navigate("guide", { level, slug })}
         />
       )}
 

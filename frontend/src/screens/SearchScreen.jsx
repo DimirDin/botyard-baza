@@ -3,9 +3,9 @@ import { PromptLine } from "../components/PromptLine";
 import { EmptyState } from "../components/States";
 import { api } from "../lib/api";
 
-const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡" };
+const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖" };
 
-export function SearchScreen({ onOpenEntry }) {
+export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuide }) {
   const [q, setQ] = useState("");
   const [results, setResults] = useState(null);
   const debounceRef = useRef(null);
@@ -22,7 +22,12 @@ export function SearchScreen({ onOpenEntry }) {
     return () => clearTimeout(debounceRef.current);
   }, [q]);
 
-  const all = results ? [...results.entries, ...results.tools, ...results.prompts] : [];
+  const all = results ? [
+    ...results.entries,
+    ...results.tools,
+    ...results.prompts,
+    ...(results.guide || [])
+  ] : [];
 
   return (
     <>
@@ -50,8 +55,13 @@ export function SearchScreen({ onOpenEntry }) {
           <div
             key={`${item.type}-${i}`}
             className="card"
-            style={{ cursor: item.type === "entry" ? "pointer" : "default" }}
-            onClick={() => item.type === "entry" && onOpenEntry(item.slug)}
+            style={{ cursor: item.type === "prompt" ? "default" : "pointer" }}
+            onClick={() => {
+              if (item.type === "entry" && onOpenEntry) onOpenEntry(item.slug);
+              else if (item.type === "tool" && onOpenTool) onOpenTool(item.repo.replace("/", "__"));
+              else if (item.type === "prompt" && onOpenPrompt) onOpenPrompt(item.category, item.slug);
+              else if (item.type === "guide" && onOpenGuide) onOpenGuide(item.level, item.slug);
+            }}
           >
             <span className="card__meta">{TYPE_ICON[item.type]} {item.type}</span>
             <p className="card__title">{item.title || item.name}</p>

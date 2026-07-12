@@ -103,10 +103,6 @@ export async function mockFetch(path, options = {}) {
       },
       top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, category: p.category, copies_count: p.copies_count })),
       recent_entries: entries.map((e) => ({ slug: e.slug, title: e.title, updated_at: e.updated_at })),
-      news_latest: [
-        { slug: "news-sonnet-5", title: "Вышла Sonnet 5", summary: "Новая модель среднего размера от Anthropic.", published_at: "2026-07-10" },
-        { slug: "news-cowork", title: "Cowork в облаке", summary: "Совместная работа с Claude в браузере.", published_at: "2026-07-08" },
-      ],
     };
   }
   if (path === "/favorites/ids") return mockFavorites.map((f) => `${f.item_type}:${f.item_id}`);
@@ -119,7 +115,7 @@ export async function mockFetch(path, options = {}) {
   }
   if (path === "/favorites") {
     return mockFavorites.map((f) => {
-      const src = f.item_type === "entry" ? entries : f.item_type === "tool" ? tools : prompts;
+      const src = f.item_type === "entry" ? entries : f.item_type === "tool" ? tools : f.item_type === "guide" ? guideLessons : prompts;
       const item = src.find((x) => x.id === f.item_id);
       return item && {
         item_type: f.item_type, item_id: f.item_id,
@@ -127,6 +123,8 @@ export async function mockFetch(path, options = {}) {
         entry_slug: f.item_type === "entry" ? item.slug : null,
         prompt_slug: f.item_type === "prompt" ? item.slug : null,
         tool_repo: f.item_type === "tool" ? item.repo : null,
+        guide_slug: f.item_type === "guide" ? item.slug : null,
+        guide_level: f.item_type === "guide" ? item.level : null,
       };
     }).filter(Boolean);
   }
@@ -179,6 +177,7 @@ export async function mockFetch(path, options = {}) {
       entries: entries.filter((e) => e.title.toLowerCase().includes(q.toLowerCase())).map((e) => ({ ...e, type: "entry" })),
       tools: tools.filter((t) => t.name.toLowerCase().includes(q.toLowerCase())).map((t) => ({ ...t, type: "tool" })),
       prompts: prompts.filter((p) => p.title.toLowerCase().includes(q.toLowerCase())).map((p) => ({ ...p, type: "prompt" })),
+      guide: guideLessons.filter((l) => l.title.toLowerCase().includes(q.toLowerCase())).map((l) => ({ ...l, type: "guide" })),
     };
   }
   if (path === "/feedback") return { sent: true };

@@ -20,12 +20,18 @@ async def search(q: str):
         f"%{q}%",
     )
     prompts = await pool.fetch(
-        "SELECT slug, title FROM baza.prompts "
+        "SELECT slug, title, category FROM baza.prompts "
         "WHERE published AND (title ILIKE $1 OR body ILIKE $1) LIMIT 10",
+        f"%{q}%",
+    )
+    guide_lessons = await pool.fetch(
+        "SELECT slug, title, summary, level FROM baza.guide_lessons "
+        "WHERE published AND (title ILIKE $1 OR summary ILIKE $1 OR body_md ILIKE $1) LIMIT 10",
         f"%{q}%",
     )
     return {
         "entries": [{**dict(r), "type": "entry"} for r in entries],
         "tools": [{**dict(r), "type": "tool"} for r in tools],
         "prompts": [{**dict(r), "type": "prompt"} for r in prompts],
+        "guide": [{**dict(r), "type": "guide"} for r in guide_lessons],
     }

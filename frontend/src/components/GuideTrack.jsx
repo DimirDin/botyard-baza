@@ -5,6 +5,7 @@ import { Spinner, ErrorState, EmptyState } from "./States";
 import { GUIDE_MENU } from "../config/menu";
 import { api } from "../lib/api";
 import { shareLink } from "../lib/telegram";
+import { FavStar } from "./FavStar";
 
 // Три вложенных вида внутри одного экрана, без отдельных App-уровневых screen — тот же
 // паттерн, что у шпаргалок в EntriesListScreen: список уровней -> уроки уровня -> тело урока.
@@ -115,12 +116,15 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt }) {
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
                 <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
-                <span
-                  onClick={() => shareLink(`https://t.me/bazadry_bot?start=guide_${lesson.slug}`, lesson.title)}
-                  style={{ cursor: "pointer", color: "var(--accent)", whiteSpace: "nowrap", fontFamily: "var(--font-mono)", fontSize: 13 }}
-                >
-                  ↗ поделиться
-                </span>
+                <div style={{ display: "flex", gap: 12, alignItems: "center", flexShrink: 0 }}>
+                  <FavStar itemType="guide" itemId={lesson.id} />
+                  <span
+                    onClick={() => shareLink(`https://t.me/bazadry_bot?start=guide_${lesson.slug}`, lesson.title)}
+                    style={{ cursor: "pointer", color: "var(--accent)", whiteSpace: "nowrap", fontFamily: "var(--font-mono)", fontSize: 13 }}
+                  >
+                    ↗ поделиться
+                  </span>
+                </div>
               </div>
               <ArticleBody bodyMd={lesson.body_md} onNavigate={handleNavigate} />
               {(lesson.related_tools?.length > 0 || lesson.related_prompts?.length > 0) && (

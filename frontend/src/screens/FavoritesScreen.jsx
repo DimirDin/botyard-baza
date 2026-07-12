@@ -4,9 +4,9 @@ import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { api } from "../lib/api";
 
-const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡" };
+const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖" };
 
-export function FavoritesScreen({ onOpenEntry, onOpenTool }) {
+export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide }) {
   const [items, setItems] = useState(null);
   const [error, setError] = useState(false);
 
@@ -21,6 +21,7 @@ export function FavoritesScreen({ onOpenEntry, onOpenTool }) {
   const openItem = (item) => {
     if (item.item_type === "entry" && item.entry_slug) onOpenEntry(item.entry_slug);
     if (item.item_type === "tool" && item.tool_repo) onOpenTool(item.tool_repo.replace("/", "__"));
+    if (item.item_type === "guide" && item.guide_slug) onOpenGuide(item.guide_level, item.guide_slug);
   };
 
   return (
