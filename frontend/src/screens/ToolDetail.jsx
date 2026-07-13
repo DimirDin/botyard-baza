@@ -5,6 +5,7 @@ import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { timeAgo } from "../lib/timeAgo";
+import { shareLink } from "../lib/telegram";
 
 export function ToolDetail({ slug, onBack }) {
   const [tool, setTool] = useState(null);
@@ -33,7 +34,12 @@ export function ToolDetail({ slug, onBack }) {
               <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{tool.name}</h1>
               <span style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
                 {tool.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
-                <span className="card__meta">⭐ {tool.stars}</span>
+                <span className="card__meta">
+                  ⭐ {tool.stars}
+                  {tool.trending_delta > 0 && (
+                    <span style={{ color: "var(--seg-what)", marginLeft: 6 }}>▲ {tool.trending_delta} за неделю</span>
+                  )}
+                </span>
               </span>
             </div>
             <div style={{ marginTop: 8, marginBottom: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -52,25 +58,36 @@ export function ToolDetail({ slug, onBack }) {
               </>
             )}
 
-            <a
-              href={`https://github.com/${tool.repo}`}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-block",
-                marginTop: 16,
-                padding: "8px 16px",
-                background: "transparent",
-                color: "var(--accent)",
-                border: "1px solid var(--accent)",
-                borderRadius: 6,
-                fontFamily: "var(--font-mono)",
-                fontSize: 14,
-                textDecoration: "none",
-              }}
-            >
-              Открыть репозиторий →
-            </a>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <a
+                href={`https://github.com/${tool.repo}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "inline-block",
+                  marginTop: 16,
+                  padding: "8px 16px",
+                  background: "transparent",
+                  color: "var(--accent)",
+                  border: "1px solid var(--accent)",
+                  borderRadius: 6,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 14,
+                  textDecoration: "none",
+                }}
+              >
+                Открыть репозиторий →
+              </a>
+              <button
+                onClick={() => shareLink(`https://t.me/bazadry_bot?start=tool_${tool.repo.replace("/", "__")}`, tool.name)}
+                style={{
+                  marginTop: 16, padding: "8px 16px", background: "transparent", color: "var(--accent)",
+                  border: "1px solid var(--accent)", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
+                }}
+              >
+                ↗ поделиться
+              </button>
+            </div>
           </>
         )}
       </div>
