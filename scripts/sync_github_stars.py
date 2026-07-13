@@ -83,7 +83,11 @@ async def main() -> None:
         # недельный прогон крона). Иначе просто обновляем stars, оставляя stars_prev как было.
         last_synced = row["synced_at"]
         is_rollover = row["stars"] == 0 or last_synced is None or (now - last_synced) >= ROLLOVER_AFTER
-        stars_prev = row["stars"] if is_rollover else row["stars_prev"]
+        # На rollover baseline — это СВЕЖЕЕ значение stars (только что полученное с GitHub),
+        # а не старое row["stars"]: иначе у новых записей (row["stars"]==0) рост считался бы
+        # от нуля и показывал бы весь счётчик звёзд как "прирост за неделю" (баг, поймали
+        # 2026-07-13 на добавлении 7 новых инструментов — показывало +55714 и т.п.).
+        stars_prev = stars if is_rollover else row["stars_prev"]
 
         await conn.execute(
             """
