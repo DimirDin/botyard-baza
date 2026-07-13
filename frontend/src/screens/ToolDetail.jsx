@@ -32,18 +32,14 @@ export function ToolDetail({ slug, onBack }) {
           <>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
               <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{tool.name}</h1>
-              <span style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
-                {tool.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
-                <span className="card__meta">
-                  ⭐ {tool.stars}
-                  {tool.trending_delta > 0 && (
-                    <span style={{ color: "var(--seg-what)", marginLeft: 6 }}>▲ {tool.trending_delta} за неделю</span>
-                  )}
-                </span>
-              </span>
+              {tool.badge === "editors_choice" && <span className="chip chip--editors" style={{ flexShrink: 0 }}>выбор редакции</span>}
             </div>
-            <div style={{ marginTop: 8, marginBottom: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ marginTop: 8, marginBottom: 4, display: "flex", flexWrap: "wrap", rowGap: 4, columnGap: 12, alignItems: "center" }}>
               <FavStar itemType="tool" itemId={tool.id} />
+              <span className="card__meta">⭐ {tool.stars}</span>
+              {tool.trending_delta > 0 && (
+                <span className="card__meta" style={{ color: "var(--seg-what)" }}>▲ {tool.trending_delta} за неделю</span>
+              )}
               {tool.last_commit && <span className="card__meta">{timeAgo(tool.last_commit)}</span>}
             </div>
 
