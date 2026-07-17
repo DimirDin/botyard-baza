@@ -3,9 +3,9 @@ import { PromptLine } from "../components/PromptLine";
 import { EmptyState } from "../components/States";
 import { api } from "../lib/api";
 
-const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖" };
+const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖", component: "🧩" };
 
-export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuide }) {
+export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuide, onOpenComponent }) {
   const [q, setQ] = useState("");
   const [results, setResults] = useState(null);
   const debounceRef = useRef(null);
@@ -26,7 +26,8 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
     ...results.entries,
     ...results.tools,
     ...results.prompts,
-    ...(results.guide || [])
+    ...(results.guide || []),
+    ...(results.components || []),
   ] : [];
 
   return (
@@ -61,6 +62,7 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
               else if (item.type === "tool" && onOpenTool) onOpenTool(item.repo.replace("/", "__"));
               else if (item.type === "prompt" && onOpenPrompt) onOpenPrompt(item.category, item.slug);
               else if (item.type === "guide" && onOpenGuide) onOpenGuide(item.level, item.slug);
+              else if (item.type === "component" && onOpenComponent) onOpenComponent(item.slug);
             }}
           >
             <span className="card__meta">{TYPE_ICON[item.type]} {item.type}</span>

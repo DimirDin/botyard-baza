@@ -185,6 +185,7 @@ export async function mockFetch(path, options = {}) {
       tools: tools.filter((t) => t.name.toLowerCase().includes(q.toLowerCase())).map((t) => ({ ...t, type: "tool" })),
       prompts: prompts.filter((p) => p.title.toLowerCase().includes(q.toLowerCase())).map((p) => ({ ...p, type: "prompt" })),
       guide: guideLessons.filter((l) => l.title.toLowerCase().includes(q.toLowerCase())).map((l) => ({ ...l, type: "guide" })),
+      components: components.filter((c) => c.title.toLowerCase().includes(q.toLowerCase()) || c.summary.toLowerCase().includes(q.toLowerCase())).map((c) => ({ ...c, type: "component" })),
     };
   }
   if (path === "/feedback") return { sent: true };

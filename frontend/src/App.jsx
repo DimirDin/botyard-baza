@@ -141,6 +141,7 @@ export default function App() {
           onOpenTool={(slug) => navigate("tool", slug)}
           onOpenPrompt={(category, slug) => navigate("prompts", { category, slug })}
           onOpenGuide={(level, slug) => navigate("guide", { level, slug })}
+          onOpenComponent={(slug) => navigate("tools", { mode: "components", slug })}
         />
       )}
       {screen === "favorites" && (

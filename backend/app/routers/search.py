@@ -29,9 +29,15 @@ async def search(q: str):
         "WHERE published AND (title ILIKE $1 OR summary ILIKE $1 OR body_md ILIKE $1) LIMIT 10",
         f"%{q}%",
     )
+    components = await pool.fetch(
+        "SELECT slug, title, summary, comp_type FROM baza.cc_components "
+        "WHERE published AND search_tsv @@ plainto_tsquery('russian', $1) LIMIT 10",
+        q,
+    )
     return {
         "entries": [{**dict(r), "type": "entry"} for r in entries],
         "tools": [{**dict(r), "type": "tool"} for r in tools],
         "prompts": [{**dict(r), "type": "prompt"} for r in prompts],
         "guide": [{**dict(r), "type": "guide"} for r in guide_lessons],
+        "components": [{**dict(r), "type": "component"} for r in components],
     }
