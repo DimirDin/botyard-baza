@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.db import close_db, init_db
-from app.routers import calc, cheatsheets, entries, events, favorites, feedback, gate, guide, home, prompts, search, tools, admin
+from app.routers import calc, cheatsheets, components, entries, events, favorites, feedback, gate, guide, home, prompts, search, tools, admin
 
 
 @asynccontextmanager
@@ -32,6 +32,7 @@ app.include_router(calc.router)
 app.include_router(search.router)
 app.include_router(favorites.router)
 app.include_router(cheatsheets.router)
+app.include_router(components.router)
 app.include_router(events.router)
 app.include_router(guide.router)
 app.include_router(feedback.router)
