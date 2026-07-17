@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from app.db import get_pool
 from app.deps import require_subscribed
@@ -23,3 +23,16 @@ async def list_components(q: str | None = None):
             "FROM baza.cc_components WHERE published ORDER BY comp_type, sort_order"
         )
     return [dict(r) for r in rows]
+
+
+@router.get("/{slug}")
+async def component_detail(slug: str):
+    pool = get_pool()
+    row = await pool.fetchrow(
+        "SELECT slug, comp_type, category, name, title, summary, install_cmd, doc_url, body_md "
+        "FROM baza.cc_components WHERE slug = $1 AND published",
+        slug,
+    )
+    if not row:
+        raise HTTPException(404, "Компонент не найден")
+    return dict(row)
