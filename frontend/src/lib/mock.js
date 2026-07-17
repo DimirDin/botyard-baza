@@ -50,9 +50,12 @@ const prompts = [
 
 
 const components = [
-  { slug: "aitmpl-agent-postgres-pro", comp_type: "agents", category: "database", name: "postgres-pro", title: "postgres-pro", summary: "Глубокая экспертиза PostgreSQL: запросы, индексы, тюнинг.", install_cmd: "npx claude-code-templates@latest --agent database/postgres-pro --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/database/postgres-pro.md" },
-  { slug: "aitmpl-hook-telegram-notify", comp_type: "hooks", category: "notifications", name: "telegram-notify", title: "telegram-notify", summary: "Уведомление в Telegram о завершении задачи Claude Code.", install_cmd: "npx claude-code-templates@latest --hook notifications/telegram-notify --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/notifications/telegram-notify.md" },
-  { slug: "aitmpl-mcp-context7", comp_type: "mcps", category: "devtools", name: "context7", title: "context7", summary: "Актуальная документация библиотек прямо в контекст.", install_cmd: "npx claude-code-templates@latest --mcp devtools/context7 --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/context7.json" },
+  { slug: "aitmpl-agent-postgres-pro", comp_type: "agents", category: "database", name: "postgres-pro", title: "postgres-pro", summary: "Глубокая экспертиза PostgreSQL: запросы, индексы, тюнинг.", install_cmd: "npx claude-code-templates@latest --agent database/postgres-pro --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/database/postgres-pro.md",
+    body_md: "### 💻 Как установить\n```bash\nnpx claude-code-templates@latest --agent database/postgres-pro --yes\n```\n\n### 📄 Содержимое\nYou are a senior PostgreSQL expert...\n\n### 🔗 Первоисточник\n[postgres-pro](https://github.com/davila7/claude-code-templates)" },
+  { slug: "aitmpl-hook-dangerous-command-blocker", comp_type: "hooks", category: "security", name: "dangerous-command-blocker", title: "dangerous-command-blocker", summary: "Блокирует опасные bash-команды до выполнения.", install_cmd: "npx claude-code-templates@latest --hook security/dangerous-command-blocker --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/security/dangerous-command-blocker.json",
+    body_md: "### 💻 Как установить\n```bash\nnpx claude-code-templates@latest --hook security/dangerous-command-blocker --yes\n```\n\n### 📄 Содержимое\n```json\n{\"matcher\": \"Bash\"}\n```\n\n### 🔗 Первоисточник\n[dangerous-command-blocker](https://github.com/davila7/claude-code-templates)" },
+  { slug: "aitmpl-mcp-context7", comp_type: "mcps", category: "devtools", name: "context7", title: "context7", summary: "Актуальная документация библиотек прямо в контекст.", install_cmd: "npx claude-code-templates@latest --mcp devtools/context7 --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/context7.json",
+    body_md: "### 💻 Как установить\n```bash\nnpx claude-code-templates@latest --mcp devtools/context7 --yes\n```\n\n### 📄 Содержимое\n```json\n{\"command\": \"npx\", \"args\": [\"-y\", \"@upstash/context7-mcp\"]}\n```\n\n### 🔗 Первоисточник\n[context7](https://github.com/davila7/claude-code-templates)" },
 ];
 
 const cheatsheets = [
@@ -134,6 +137,7 @@ export async function mockFetch(path, options = {}) {
       };
     }).filter(Boolean);
   }
+  if (path.startsWith("/components/")) return components.find((c) => path.endsWith(c.slug)) || components[0];
   if (path.startsWith("/components")) return components;
   if (path.startsWith("/cheatsheets/")) return cheatsheets.find((c) => path.endsWith(c.slug)) || cheatsheets[0];
   if (path.startsWith("/cheatsheets")) return cheatsheets.map(({ body_md, ...rest }) => rest);

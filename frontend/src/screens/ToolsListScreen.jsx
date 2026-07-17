@@ -3,10 +3,9 @@ import { PromptLine } from "../components/PromptLine";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
-import { TOOLS_MENU } from "../config/menu";
+import { TOOLS_MENU, COMPONENTS_MENU } from "../config/menu";
 import { api } from "../lib/api";
 import { timeAgo } from "../lib/timeAgo";
-import { hapticSuccess, openLink } from "../lib/telegram";
 
 const SORTS = [
   { id: "stars", label: "звёзды" },
@@ -14,86 +13,73 @@ const SORTS = [
   { id: "new", label: "новое" },
 ];
 
-const COMP_TYPES = [
-  { id: "all", label: "Все" },
-  { id: "agents", label: "Агенты" },
-  { id: "commands", label: "Команды" },
-  { id: "mcps", label: "MCP" },
-  { id: "hooks", label: "Хуки" },
-  { id: "settings", label: "Настройки" },
-  { id: "skills", label: "Скиллы" },
-  { id: "loops", label: "Циклы" },
-];
-
-function ComponentsSegment({ highlightSlug }) {
-  const [compType, setCompType] = useState("all");
-  const [components, setComponents] = useState(null);
+function ComponentsSegment({ initial, onOpenComponent }) {
+  const [compTab, setCompTab] = useState(initial?.tab || "agents");
+  const [compGroup, setCompGroup] = useState(initial?.group || null);
+  const [allComponents, setAllComponents] = useState(null); // для счётчиков групп
+  const [groupComponents, setGroupComponents] = useState(null);
   const [error, setError] = useState(false);
-  const [copiedSlug, setCopiedSlug] = useState(null);
 
-  useEffect(() => {
+  const loadAll = () => {
     setError(false);
-    setComponents(null);
-    api.components().then(setComponents).catch(() => setError(true));
-  }, []);
-
-  useEffect(() => {
-    if (!highlightSlug || !components) return;
-    const el = document.getElementById(`cc-${highlightSlug}`);
-    el?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [highlightSlug, components]);
-
-  const copyInstall = async (c) => {
-    try {
-      await navigator.clipboard.writeText(c.install_cmd);
-      hapticSuccess();
-      setCopiedSlug(c.slug);
-      setTimeout(() => setCopiedSlug((s) => (s === c.slug ? null : s)), 1500);
-    } catch {
-      // буфер обмена недоступен (нет разрешения/не https) — тихо игнорируем, ссылка "Источник" всё равно рабочая
-    }
+    setAllComponents(null);
+    api.components().then(setAllComponents).catch(() => setError(true));
   };
 
-  const visible = components?.filter((c) => compType === "all" || c.comp_type === compType) ?? null;
+  useEffect(loadAll, []);
+  useEffect(() => {
+    if (!initial?.group) setCompGroup(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [compTab]);
+
+  useEffect(() => {
+    if (!compGroup || !allComponents) return;
+    setGroupComponents(allComponents.filter((c) => c.comp_type === compTab && c.category === compGroup));
+  }, [compGroup, compTab, allComponents]);
+
+  const compSection = COMPONENTS_MENU.find((s) => s.slug === compTab);
+  const counts = allComponents
+    ? allComponents.reduce((acc, c) => {
+        if (c.comp_type === compTab) acc[c.category] = (acc[c.category] || 0) + 1;
+        return acc;
+      }, {})
+    : null;
+  const groupLabel = compSection?.groups.find((g) => g.slug === compGroup)?.label;
 
   return (
-    <div className="page">
-      {error && <ErrorState onRetry={() => { setError(false); setComponents(null); api.components().then(setComponents).catch(() => setError(true)); }} />}
-      {!error && !components && <Spinner />}
+    <>
+      {!compGroup && <SectionTabs menu={COMPONENTS_MENU} active={compTab} onSelect={setCompTab} iconBase="/icons/components" />}
+      <div className="page">
+        {error && <ErrorState onRetry={compGroup ? () => setCompGroup(compGroup) : loadAll} />}
+        {!error && !compGroup && !allComponents && <Spinner />}
 
-      {components && (
-        <>
-          <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
-            {COMP_TYPES.map((t) => (
-              <div key={t.id} className={`chip ${compType === t.id ? "chip--active" : ""}`} onClick={() => setCompType(t.id)}>
-                {t.label}
+        {allComponents && !compGroup && compSection && (
+          <GroupList groups={compSection.groups} counts={counts} onOpen={setCompGroup} iconBase={`/icons/components/${compTab}`} />
+        )}
+
+        {compGroup && (
+          <>
+            <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
+              <span style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14 }}>
+                {groupLabel}
+              </span>
+            </div>
+            {!groupComponents && <Spinner />}
+            {groupComponents && groupComponents.length === 0 && <EmptyState text="в этой группе пока пусто" />}
+            {groupComponents?.map((c) => (
+              <div key={c.slug} className="card" onClick={() => onOpenComponent(c.slug)} style={{ cursor: "pointer" }}>
+                <p className="card__title">{c.title}</p>
+                <p style={{ color: "var(--text-body)", fontSize: 15, margin: "6px 0" }}>{c.summary}</p>
               </div>
             ))}
-          </div>
-
-          {visible.length === 0 && <EmptyState text="в этой категории пока пусто" />}
-
-          {visible.map((c) => (
-            <div key={c.slug} id={`cc-${c.slug}`} className="card">
-              <p className="card__title">{c.title}</p>
-              <p style={{ color: "var(--text-body)", fontSize: 15, margin: "6px 0" }}>{c.summary}</p>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
-                <div className="chip" onClick={() => copyInstall(c)}>
-                  {copiedSlug === c.slug ? "✓ скопировано" : "📋 копировать npx"}
-                </div>
-                <div className="chip" onClick={() => openLink(c.doc_url)}>
-                  🔗 источник
-                </div>
-              </div>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
-export function ToolsListScreen({ onOpenTool, onNavigate, initial }) {
+export function ToolsListScreen({ onOpenTool, onOpenComponent, onNavigate, initial }) {
   const [mode, setMode] = useState(initial?.mode === "components" ? "components" : "repos");
   const [tab, setTab] = useState("mcp");
   const [group, setGroup] = useState(null);
@@ -134,18 +120,18 @@ export function ToolsListScreen({ onOpenTool, onNavigate, initial }) {
         section={mode === "components" ? "tools/components" : group ? `tools/${tab}/${group}` : `tools/${tab}`}
         right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
       />
-      {!group && (
-        <div style={{ display: "flex", gap: 8, padding: "0 16px 12px" }}>
-          <div className={`chip ${mode === "repos" ? "chip--active" : ""}`} onClick={() => setMode("repos")} style={{ flex: 1, justifyContent: "center" }}>
-            Репозитории
-          </div>
-          <div className={`chip ${mode === "components" ? "chip--active" : ""}`} onClick={() => setMode("components")} style={{ flex: 1, justifyContent: "center" }}>
-            Компоненты
-          </div>
+      <div style={{ display: "flex", gap: 8, padding: "0 16px 12px" }}>
+        <div className={`chip ${mode === "repos" ? "chip--active" : ""}`} onClick={() => setMode("repos")} style={{ flex: 1, justifyContent: "center" }}>
+          Репозитории
         </div>
-      )}
+        <div className={`chip ${mode === "components" ? "chip--active" : ""}`} onClick={() => setMode("components")} style={{ flex: 1, justifyContent: "center" }}>
+          Компоненты
+        </div>
+      </div>
 
-      {mode === "components" && !group && <ComponentsSegment highlightSlug={initial?.slug} />}
+      {mode === "components" && (
+        <ComponentsSegment initial={initial?.mode === "components" ? initial : undefined} onOpenComponent={onOpenComponent} />
+      )}
 
       {mode === "repos" && (
         <>

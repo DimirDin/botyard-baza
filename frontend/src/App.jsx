@@ -7,6 +7,7 @@ import { EntriesListScreen } from "./screens/EntriesListScreen";
 import { EntryScreen } from "./screens/EntryScreen";
 import { ToolsListScreen } from "./screens/ToolsListScreen";
 import { ToolDetail } from "./screens/ToolDetail";
+import { ComponentDetail } from "./screens/ComponentDetail";
 import { PromptsListScreen } from "./screens/PromptsListScreen";
 import { CalculatorScreen } from "./screens/CalculatorScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
@@ -100,7 +101,7 @@ export default function App() {
   }
 
   const TABS = { base: "base", tools: "tools", prompts: "prompts", guide: "guide", favorites: "favorites" };
-  const activeTab = TABS[screen] || (screen === "entry" ? "base" : screen === "tool" ? "tools" : null);
+  const activeTab = TABS[screen] || (screen === "entry" ? "base" : screen === "tool" || screen === "component" ? "tools" : null);
 
   return (
     <>
@@ -118,10 +119,12 @@ export default function App() {
         <ToolsListScreen
           initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
           onOpenTool={(slug) => navigate("tool", slug)}
+          onOpenComponent={(slug) => navigate("component", slug)}
           onNavigate={navigate}
         />
       )}
       {screen === "tool" && <ToolDetail slug={screenParam} onBack={history.length ? goBack : null} />}
+      {screen === "component" && <ComponentDetail slug={screenParam} onBack={history.length ? goBack : null} />}
       {screen === "prompts" && (
         <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} onNavigate={navigate} />
       )}
@@ -141,7 +144,7 @@ export default function App() {
           onOpenTool={(slug) => navigate("tool", slug)}
           onOpenPrompt={(category, slug) => navigate("prompts", { category, slug })}
           onOpenGuide={(level, slug) => navigate("guide", { level, slug })}
-          onOpenComponent={(slug) => navigate("tools", { mode: "components", slug })}
+          onOpenComponent={(slug) => navigate("component", slug)}
         />
       )}
       {screen === "favorites" && (

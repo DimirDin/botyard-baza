@@ -49,6 +49,7 @@ export const api = {
   favorites: () => request("/favorites"),
   favoriteIds: () => request("/favorites/ids"),
   components: (q) => request(`/components${q ? `?q=${encodeURIComponent(q)}` : ""}`),
+  component: (slug) => request(`/components/${slug}`),
   cheatsheets: () => request("/cheatsheets"),
   cheatsheet: (slug) => request(`/cheatsheets/${slug}`),
   guideLessons: () => request("/guide/lessons"),

@@ -199,6 +199,88 @@ export const TOOLS_MENU = [
   },
 ];
 
+// Компоненты Claude Code из каталога aitmpl (baza.cc_components) — двухуровневое меню
+// тип→категория, тот же паттерн, что TOOLS_MENU. tab.slug должен совпадать с comp_type,
+// group.slug — ровно с полем category в БД (см. content/components/selection.json).
+export const COMPONENTS_MENU = [
+  {
+    slug: "agents",
+    label: "Агенты",
+    groups: [
+      { slug: "development-tools", label: "Разработка", desc: "Ревью кода, отладка, упрощение, исследование кодовой базы." },
+      { slug: "devops-infrastructure", label: "DevOps", desc: "Деплой, облако, мониторинг, разбор инцидентов." },
+      { slug: "programming-languages", label: "Языки", desc: "Специалисты по конкретным языкам — Go, Rust, Python, TypeScript и т.д." },
+      { slug: "database", label: "Базы данных", desc: "Оптимизация запросов, схем, индексов." },
+      { slug: "security", label: "Безопасность", desc: "Пентест, аудит уязвимостей." },
+    ],
+  },
+  {
+    slug: "commands",
+    label: "Команды",
+    groups: [
+      { slug: "git-workflow", label: "Git", desc: "Слэш-команды для веток, коммитов, PR." },
+      { slug: "deployment", label: "Деплой", desc: "CI/CD, релизы, настройка окружений." },
+      { slug: "testing", label: "Тесты", desc: "Генерация и запуск тестов." },
+      { slug: "security", label: "Безопасность", desc: "Аудит и проверки безопасности одной командой." },
+      { slug: "performance", label: "Производительность", desc: "Профилирование и поиск узких мест." },
+      { slug: "documentation", label: "Документация", desc: "Генерация README, changelog, доки." },
+      { slug: "analysis", label: "Анализ", desc: "Разбор кодовой базы и метрик проекта." },
+    ],
+  },
+  {
+    slug: "mcps",
+    label: "MCP",
+    groups: [
+      { slug: "devtools", label: "Инструменты разработки", desc: "MCP-серверы для IDE, линтеров, сборки." },
+      { slug: "database", label: "Базы данных", desc: "Подключение Claude к Postgres, MySQL и т.д." },
+      { slug: "web", label: "Web", desc: "Доступ к веб-страницам и API из диалога." },
+      { slug: "research", label: "Исследования", desc: "Поиск по научным статьям и базам знаний." },
+      { slug: "productivity", label: "Продуктивность", desc: "Заметки, задачи, календари." },
+      { slug: "filesystem", label: "Файловая система", desc: "Чтение и запись файлов на диске." },
+      { slug: "integration", label: "Интеграции", desc: "Связка с внешними сервисами и API." },
+      { slug: "browser_automation", label: "Браузер", desc: "Автоматизация браузера и скрейпинг." },
+    ],
+  },
+  {
+    slug: "hooks",
+    label: "Хуки",
+    groups: [
+      { slug: "security", label: "Безопасность", desc: "Блокировка опасных команд, защита .env и секретов." },
+      { slug: "git", label: "Git", desc: "Автоматика вокруг коммитов и пушей." },
+      { slug: "automation", label: "Автоматизация", desc: "Уведомления и триггеры на события Claude Code." },
+      { slug: "quality-gates", label: "Контроль качества", desc: "TDD-гейты, проверки перед коммитом." },
+      { slug: "monitoring", label: "Мониторинг", desc: "Отслеживание расхода контекста и токенов." },
+    ],
+  },
+  {
+    slug: "settings",
+    label: "Настройки",
+    groups: [
+      { slug: "permissions", label: "Разрешения", desc: "Готовые профили permissions для Claude Code." },
+      { slug: "statusline", label: "Статус-строка", desc: "Кастомные statusline-конфиги." },
+      { slug: "model", label: "Модель", desc: "Быстрые пресеты выбора модели (Haiku/Sonnet)." },
+      { slug: "environment", label: "Окружение", desc: "Таймауты, приватность, переменные окружения." },
+    ],
+  },
+  {
+    slug: "skills",
+    label: "Скиллы",
+    groups: [
+      { slug: "development", label: "Разработка", desc: "Чистый код, code review, ADR, async-паттерны." },
+      { slug: "document-processing", label: "Документы", desc: "Официальные скиллы Anthropic — PDF/DOCX/XLSX/PPTX." },
+      { slug: "productivity", label: "Продуктивность", desc: "Планирование, отладка, коммиты, создание скиллов." },
+      { slug: "workflow-automation", label: "Автоматизация workflow", desc: "GitHub Actions, n8n-паттерны." },
+    ],
+  },
+  {
+    slug: "loops",
+    label: "Циклы",
+    groups: [
+      { slug: "engineering", label: "Инженерные", desc: "Автономные циклы: ticket-to-pr, build-test-fix, ревью, уборка репо." },
+    ],
+  },
+];
+
 // Гид — линейный путь обучения от новичка до мастера, 4 уровня. В отличие от
 // БАЗЫ/ИНСТРУМЕНТОВ/ПРОМПТОВ это не таб+группа, а фиксированная последовательность —
 // уроки внутри уровня идут по order_in_level (см. baza.guide_lessons).
