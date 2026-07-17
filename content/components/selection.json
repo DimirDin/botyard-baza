@@ -1,133 +1,737 @@
 {
   "_comment": "Кураторская выборка aitmpl.com для Baza. Формат: type, category, name, ru — однострочник для summary. Редактируй свободно: удаляй строки, меняй ru, добавляй новые из aitmpl_catalog.csv.",
   "items": [
-    {"type": "agents", "category": "development-tools", "name": "code-reviewer", "ru": "Сеньор-ревьюер: качество, безопасность и производительность кода в одном проходе"},
-    {"type": "agents", "category": "development-tools", "name": "debugger", "ru": "Систематическая отладка: от симптома к первопричине по шагам"},
-    {"type": "agents", "category": "development-tools", "name": "error-detective", "ru": "Разбор логов и стектрейсов, поиск корня ошибки"},
-    {"type": "agents", "category": "development-tools", "name": "refactoring-specialist", "ru": "Безопасный рефакторинг без изменения поведения"},
-    {"type": "agents", "category": "development-tools", "name": "performance-engineer", "ru": "Профилирование и устранение узких мест производительности"},
-    {"type": "agents", "category": "development-tools", "name": "test-automator", "ru": "Автоматизация тестирования: генерация и поддержка тестовых наборов"},
-    {"type": "agents", "category": "development-tools", "name": "qa-expert", "ru": "Тест-планы, граничные случаи, регрессионное покрытие"},
-    {"type": "agents", "category": "development-tools", "name": "code-simplifier", "ru": "Упрощение переусложнённого кода без потери логики"},
-    {"type": "agents", "category": "development-tools", "name": "codebase-explorer", "ru": "Быстрая карта незнакомой кодовой базы"},
-    {"type": "agents", "category": "development-tools", "name": "unused-code-cleaner", "ru": "Поиск и удаление мёртвого кода"},
-    {"type": "agents", "category": "development-tools", "name": "technical-debt-manager", "ru": "Инвентаризация и приоритизация техдолга"},
-    {"type": "agents", "category": "development-tools", "name": "mcp-expert", "ru": "Помощник по разработке собственных MCP-серверов"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "devops-troubleshooter", "ru": "Диагностика инцидентов в проде: логи, метрики, гипотезы"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "kubernetes-specialist", "ru": "Kubernetes: манифесты, отладка, оптимизация кластера"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "terraform-specialist", "ru": "Terraform: модули, state, ревью планов"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "sre-engineer", "ru": "SLO, алёртинг и надёжность как инженерная практика"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "cloud-architect", "ru": "Проектирование облачной инфраструктуры"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "deployment-engineer", "ru": "CI/CD-пайплайны и стратегии деплоя"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "incident-responder", "ru": "Действия при инциденте: триаж, эскалация, постмортем"},
-    {"type": "agents", "category": "devops-infrastructure", "name": "monitoring-specialist", "ru": "Метрики, дашборды, алёртинг"},
-    {"type": "agents", "category": "database", "name": "postgres-pro", "ru": "Глубокая экспертиза PostgreSQL: запросы, индексы, тюнинг"},
-    {"type": "agents", "category": "database", "name": "database-optimizer", "ru": "Оптимизация схем и медленных запросов"},
-    {"type": "agents", "category": "programming-languages", "name": "python-pro", "ru": "Идиоматичный Python: типизация, асинхронность, структура проекта"},
-    {"type": "agents", "category": "programming-languages", "name": "typescript-pro", "ru": "Строгий TypeScript: типы, генерики, конфигурация"},
-    {"type": "agents", "category": "programming-languages", "name": "javascript-pro", "ru": "Современный JavaScript: ES2024+, паттерны, производительность"},
-    {"type": "agents", "category": "programming-languages", "name": "golang-pro", "ru": "Go: конкурентность, интерфейсы, производительность"},
-    {"type": "agents", "category": "programming-languages", "name": "rust-engineer", "ru": "Rust: владение, lifetimes, безопасный системный код"},
-    {"type": "agents", "category": "programming-languages", "name": "react-specialist", "ru": "React: хуки, состояние, производительность"},
-    {"type": "agents", "category": "programming-languages", "name": "nextjs-developer", "ru": "Next.js: SSR, роутинг, оптимизация"},
-    {"type": "agents", "category": "programming-languages", "name": "sql-pro", "ru": "Сложный SQL: оконные функции, CTE, планы выполнения"},
-    {"type": "agents", "category": "programming-languages", "name": "shell-scripting-pro", "ru": "Надёжные bash-скрипты для автоматизации"},
-    {"type": "agents", "category": "security", "name": "security-auditor", "ru": "Аудит безопасности кода и конфигураций"},
-    {"type": "agents", "category": "security", "name": "penetration-tester", "ru": "Пентест-подход: поиск векторов атаки в своём приложении"},
-    {"type": "agents", "category": "security", "name": "llm-redteam-specialist", "ru": "Red-team для LLM-приложений: промпт-инъекции и джейлбрейки"},
-
-    {"type": "commands", "category": "git-workflow", "name": "commit", "ru": "Умный коммит: анализ диффа и сообщение по Conventional Commits"},
-    {"type": "commands", "category": "git-workflow", "name": "create-pr", "ru": "Создание pull request с описанием из изменений"},
-    {"type": "commands", "category": "git-workflow", "name": "fix-github-issue", "ru": "Взять issue из GitHub и довести до фикса"},
-    {"type": "commands", "category": "git-workflow", "name": "pr-review", "ru": "Ревью пул-реквеста по чек-листу"},
-    {"type": "commands", "category": "git-workflow", "name": "branch-cleanup", "ru": "Чистка отработанных веток"},
-    {"type": "commands", "category": "git-workflow", "name": "create-worktrees", "ru": "Git worktrees для параллельных сессий Claude Code"},
-    {"type": "commands", "category": "testing", "name": "generate-tests", "ru": "Генерация тестов для выбранного кода"},
-    {"type": "commands", "category": "testing", "name": "generate-test-cases", "ru": "Тест-кейсы из требований"},
-    {"type": "commands", "category": "testing", "name": "e2e-setup", "ru": "Настройка E2E-тестирования с нуля"},
-    {"type": "commands", "category": "testing", "name": "setup-load-testing", "ru": "Нагрузочное тестирование: инструменты и сценарии"},
-    {"type": "commands", "category": "deployment", "name": "containerize-application", "ru": "Dockerfile и compose для приложения"},
-    {"type": "commands", "category": "deployment", "name": "ci-setup", "ru": "Настройка CI-пайплайна под проект"},
-    {"type": "commands", "category": "deployment", "name": "prepare-release", "ru": "Подготовка релиза: версия, ченджлог, теги"},
-    {"type": "commands", "category": "deployment", "name": "rollback-deploy", "ru": "Безопасный откат релиза"},
-    {"type": "commands", "category": "deployment", "name": "hotfix-deploy", "ru": "Быстрый хотфикс в прод по процедуре"},
-    {"type": "commands", "category": "security", "name": "security-audit", "ru": "Аудит безопасности проекта одной командой"},
-    {"type": "commands", "category": "security", "name": "secrets-scanner", "ru": "Поиск утёкших секретов в коде"},
-    {"type": "commands", "category": "security", "name": "dependency-audit", "ru": "Проверка зависимостей на известные CVE"},
-    {"type": "commands", "category": "performance", "name": "optimize-bundle-size", "ru": "Уменьшение размера фронтенд-бандла"},
-    {"type": "commands", "category": "performance", "name": "optimize-database-performance", "ru": "Оптимизация работы приложения с БД"},
-    {"type": "commands", "category": "performance", "name": "performance-audit", "ru": "Полный аудит производительности"},
-    {"type": "commands", "category": "documentation", "name": "generate-api-documentation", "ru": "Генерация документации API из кода"},
-    {"type": "commands", "category": "documentation", "name": "update-docs", "ru": "Актуализация документации по текущему коду"},
-    {"type": "commands", "category": "analysis", "name": "supply-chain-audit", "ru": "Аудит цепочки поставок зависимостей"},
-
-    {"type": "mcps", "category": "database", "name": "postgresql-integration", "ru": "Claude подключается к PostgreSQL: запросы и схема"},
-    {"type": "mcps", "category": "database", "name": "redis", "ru": "Работа с Redis из Claude"},
-    {"type": "mcps", "category": "database", "name": "supabase", "ru": "Управление Supabase-проектом"},
-    {"type": "mcps", "category": "database", "name": "mongodb-official", "ru": "Официальный MCP-сервер MongoDB"},
-    {"type": "mcps", "category": "devtools", "name": "github-official", "ru": "Официальный GitHub MCP: issues, PR, репозитории"},
-    {"type": "mcps", "category": "devtools", "name": "context7", "ru": "Актуальная документация библиотек прямо в контекст"},
-    {"type": "mcps", "category": "devtools", "name": "sentry", "ru": "Ошибки и трейсы Sentry внутри Claude"},
-    {"type": "mcps", "category": "devtools", "name": "grafana", "ru": "Дашборды и метрики Grafana"},
-    {"type": "mcps", "category": "devtools", "name": "stripe", "ru": "Объекты и аналитика Stripe"},
-    {"type": "mcps", "category": "devtools", "name": "postman", "ru": "Коллекции и запросы Postman"},
-    {"type": "mcps", "category": "devtools", "name": "elasticsearch", "ru": "Поиск и агрегации Elasticsearch"},
-    {"type": "mcps", "category": "devtools", "name": "mermaid", "ru": "Рендер диаграмм Mermaid"},
-    {"type": "mcps", "category": "devtools", "name": "markitdown", "ru": "Конвертация документов в Markdown (Microsoft)"},
-    {"type": "mcps", "category": "browser_automation", "name": "playwright-mcp", "ru": "Управление браузером через Playwright"},
-    {"type": "mcps", "category": "filesystem", "name": "filesystem-access", "ru": "Контролируемый доступ к файловой системе"},
-    {"type": "mcps", "category": "integration", "name": "n8n-mcp", "ru": "Связка Claude с автоматизациями n8n"},
-    {"type": "mcps", "category": "productivity", "name": "notion", "ru": "Notion: страницы и базы данных"},
-    {"type": "mcps", "category": "research", "name": "arxiv-mcp-server", "ru": "Поиск и выгрузка статей arXiv"},
-    {"type": "mcps", "category": "web", "name": "searxng", "ru": "Приватный веб-поиск через SearXNG"},
-
-    {"type": "hooks", "category": "automation", "name": "telegram-notifications", "ru": "Уведомления в Telegram о событиях сессии Claude Code"},
-    {"type": "hooks", "category": "automation", "name": "telegram-error-notifications", "ru": "Алёрты об ошибках сессии в Telegram"},
-    {"type": "hooks", "category": "automation", "name": "telegram-detailed-notifications", "ru": "Подробные отчёты о работе Claude Code в Telegram"},
-    {"type": "hooks", "category": "automation", "name": "telegram-pr-webhook", "ru": "Вебхук о созданных PR в Telegram"},
-    {"type": "hooks", "category": "git", "name": "conventional-commits", "ru": "Валидация сообщений коммитов по конвенции"},
-    {"type": "hooks", "category": "git", "name": "prevent-direct-push", "ru": "Блокировка прямых пушей в main"},
-    {"type": "hooks", "category": "git", "name": "validate-branch-name", "ru": "Проверка имени ветки по шаблону"},
-    {"type": "hooks", "category": "security", "name": "dangerous-command-blocker", "ru": "Блокировка опасных bash-команд (rm -rf и подобных)"},
-    {"type": "hooks", "category": "security", "name": "env-file-protection", "ru": "Защита .env-файлов от чтения и правок"},
-    {"type": "hooks", "category": "security", "name": "secret-scanner", "ru": "Скан секретов перед записью файлов"},
-    {"type": "hooks", "category": "security", "name": "force-push-blocker", "ru": "Запрет force-push"},
-    {"type": "hooks", "category": "quality-gates", "name": "tdd-gate", "ru": "TDD-ворота: сначала тест, потом код"},
-    {"type": "hooks", "category": "quality-gates", "name": "scope-guard", "ru": "Контроль расползания скоупа задачи"},
-    {"type": "hooks", "category": "monitoring", "name": "desktop-notification-on-stop", "ru": "Десктоп-уведомление о завершении работы"},
-
-    {"type": "settings", "category": "model", "name": "use-haiku", "ru": "Haiku по умолчанию — для экономии на простых задачах"},
-    {"type": "settings", "category": "model", "name": "use-sonnet", "ru": "Sonnet по умолчанию"},
-    {"type": "settings", "category": "permissions", "name": "read-only-mode", "ru": "Режим только чтение: без правок и команд"},
-    {"type": "settings", "category": "permissions", "name": "deny-sensitive-files", "ru": "Запрет доступа к чувствительным файлам"},
-    {"type": "settings", "category": "permissions", "name": "allow-git-operations", "ru": "Git-операции без запроса подтверждений"},
-    {"type": "settings", "category": "environment", "name": "bash-timeouts", "ru": "Таймауты выполнения bash-команд"},
-    {"type": "settings", "category": "environment", "name": "privacy-focused", "ru": "Приватная конфигурация: телеметрия выключена"},
-    {"type": "settings", "category": "statusline", "name": "context-monitor", "ru": "Статус-бар: расход контекстного окна"},
-    {"type": "settings", "category": "statusline", "name": "git-branch-statusline", "ru": "Ветка и статус git в статус-баре"},
-    {"type": "settings", "category": "statusline", "name": "minimal-statusline", "ru": "Минималистичный статус-бар"},
-
-    {"type": "skills", "category": "document-processing", "name": "pdf-official", "ru": "Работа с PDF: чтение, формы, генерация (официальный скилл Anthropic)"},
-    {"type": "skills", "category": "document-processing", "name": "docx-official", "ru": "Word-документы (официальный скилл Anthropic)"},
-    {"type": "skills", "category": "document-processing", "name": "xlsx-official", "ru": "Excel-таблицы (официальный скилл Anthropic)"},
-    {"type": "skills", "category": "document-processing", "name": "pptx-official", "ru": "Презентации PowerPoint (официальный скилл Anthropic)"},
-    {"type": "skills", "category": "development", "name": "api-design-principles", "ru": "Принципы проектирования API"},
-    {"type": "skills", "category": "development", "name": "async-python-patterns", "ru": "Паттерны асинхронного Python"},
-    {"type": "skills", "category": "development", "name": "clean-code", "ru": "Практики чистого кода"},
-    {"type": "skills", "category": "development", "name": "code-review-checklist", "ru": "Чек-лист код-ревью"},
-    {"type": "skills", "category": "development", "name": "architecture-decision-records", "ru": "ADR: фиксация архитектурных решений"},
-    {"type": "skills", "category": "development", "name": "changelog-generator", "ru": "Генерация ченджлогов"},
-    {"type": "skills", "category": "productivity", "name": "commit-work", "ru": "Дисциплина коммитов в агентной работе"},
-    {"type": "skills", "category": "productivity", "name": "debugging-strategies", "ru": "Стратегии отладки"},
-    {"type": "skills", "category": "productivity", "name": "plan-writing", "ru": "Написание рабочих планов"},
-    {"type": "skills", "category": "productivity", "name": "skill-creator", "ru": "Создание собственных скиллов"},
-    {"type": "skills", "category": "workflow-automation", "name": "github-actions-templates", "ru": "Шаблоны GitHub Actions"},
-    {"type": "skills", "category": "workflow-automation", "name": "n8n-workflow-patterns", "ru": "Паттерны воркфлоу n8n"},
-
-    {"type": "loops", "category": "engineering", "name": "build-test-fix-loop", "ru": "Цикл build → test → fix до зелёного билда"},
-    {"type": "loops", "category": "engineering", "name": "test-coverage-loop", "ru": "Итеративное наращивание покрытия тестами"},
-    {"type": "loops", "category": "engineering", "name": "ticket-to-pr-loop", "ru": "Из тикета в готовый PR автономно"},
-    {"type": "loops", "category": "engineering", "name": "repo-cleanup-loop", "ru": "Итеративная чистка репозитория"},
-    {"type": "loops", "category": "engineering", "name": "adversarial-review-loop", "ru": "Состязательное ревью: строитель против критика"}
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "code-reviewer",
+      "ru": "Комплексный ревью кода: качество, уязвимости безопасности, best practices. Годится для PR с изменениями в критичной логике вроде аутентификации — ловит проблемы производительности и поддерживаемости, не только баги."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "debugger",
+      "ru": "Диагностика багов, поиск первопричины сбоев, разбор логов и стектрейсов. Подходит для нестабильных падений в проде, которые не воспроизводятся локально — например, NullPointerException в обработчике транзакций по краш-логам."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "error-detective",
+      "ru": "Разбирает, почему возникают ошибки, сопоставляет их между сервисами и ищет корень проблемы. Например, когда после деплоя посыпались таймауты в API gateway, ошибки подключения к БД и сбои очередей одновременно."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "refactoring-specialist",
+      "ru": "Превращает запутанный, дублирующийся код в чистую поддерживаемую структуру, не меняя поведение. Пример: методы на 200+ строк, глубокая вложенность условий и 15% дублирования в модуле обработки платежей."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "performance-engineer",
+      "ru": "Профилирует приложение, находит узкие места, внедряет кэширование. Занимается нагрузочным тестированием, настройкой CDN и оптимизацией запросов. Вызывать проактивно при проблемах с производительностью."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "test-automator",
+      "ru": "Создаёт полные наборы тестов — unit, integration, e2e. Настраивает CI-пайплайны, стратегии мокирования и тестовые данные. Вызывать проактивно для повышения покрытия или настройки автотестов."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "qa-expert",
+      "ru": "Стратегия QA и тест-план на весь цикл разработки, анализ метрик качества. Подходит перед стартом крупной фичи — например, чтобы выстроить подход к тестированию сложной e-commerce платформы с нуля."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "code-simplifier",
+      "ru": "Упрощает и причёсывает код ради ясности, единообразия и поддерживаемости, полностью сохраняя функциональность. По умолчанию работает с недавно изменённым кодом, если не указано иное."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "codebase-explorer",
+      "ru": "Глубокий разбор незнакомой кодовой базы: стек технологий, архитектура, паттерны, точки входа, потоки данных. Строит структурную ментальную модель проекта и может сразу оформить находки в CLAUDE.md."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "unused-code-cleaner",
+      "ru": "Находит и удаляет мёртвый код — неиспользуемые импорты, функции, классы — на нескольких языках. Вызывать проактивно после рефакторинга, при удалении фич или перед выкладкой в прод."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "technical-debt-manager",
+      "ru": "Анализирует техдолг: здоровье кода, поддерживаемость, план стратегического рефакторинга. Вызывать проактивно при росте сложности кодовой базы, планировании спринтов или приоритизации инженерных задач."
+    },
+    {
+      "type": "agents",
+      "category": "development-tools",
+      "name": "mcp-expert",
+      "ru": "Специалист по интеграции Model Context Protocol (MCP) в систему компонентов cli-tool. Вызывать проактивно для конфигурации MCP-серверов, спецификаций протокола и паттернов интеграции."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "devops-troubleshooter",
+      "ru": "Расследование продакшн-инцидентов: разбор логов, анализ причин сбоев деплоя, настройка мониторинга. Вызывать проактивно при отладке проблем в проде и поиске корневых причин."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "kubernetes-specialist",
+      "ru": "Проектирование, деплой, конфигурация и отладка кластеров Kubernetes и нагрузок в проде. Например, миграция микросервисов в K8s с высокой доступностью, security hardening и автоскейлингом."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "terraform-specialist",
+      "ru": "Terraform и Infrastructure as Code: модули, управление state, паттерны IaC, конфигурация провайдеров, workspace'ы, обнаружение дрифта. Вызывать проактивно для любых задач с Terraform."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "sre-engineer",
+      "ru": "Выстраивает надёжность системы через SLO, error budget и автоматизацию: SLI/SLO-фреймворки, снижение операционной рутины, отказоустойчивые архитектуры, chaos engineering, оптимизация реагирования на инциденты."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "cloud-architect",
+      "ru": "Проектирование и оптимизация облачной инфраструктуры в масштабе: мультиклауд-стратегии, миграция в облако, disaster recovery, оптимизация затрат, безопасность и compliance. Например, перенос монолита с on-prem в AWS."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "deployment-engineer",
+      "ru": "Проектирование и оптимизация CI/CD-пайплайнов и автоматизации деплоя. Подходит, когда релизы медленные и ручные — например, переход с деплоя раз в 2 недели с 4-часовым окном на ежедневные автоматизированные релизы."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "incident-responder",
+      "ru": "Работа с продакшн-инцидентами быстро и точно — вызывать немедленно при проблемах в проде. Координирует отладку, внедряет фиксы и оформляет постмортемы."
+    },
+    {
+      "type": "agents",
+      "category": "devops-infrastructure",
+      "name": "monitoring-specialist",
+      "ru": "Инфраструктура мониторинга и observability: сбор метрик, системы алёртинга, агрегация логов, distributed tracing, SLA-мониторинг и дашборды производительности. Вызывать проактивно для такого рода задач."
+    },
+    {
+      "type": "agents",
+      "category": "database",
+      "name": "postgres-pro",
+      "ru": "Оптимизация производительности PostgreSQL, проектирование HA-репликации, диагностика проблем БД в масштабе: тюнинг запросов и конфигурации, настройка репликации, стратегии бэкапов. Пример: latency запросов выросла с 50 до 500 мс в проде."
+    },
+    {
+      "type": "agents",
+      "category": "database",
+      "name": "database-optimizer",
+      "ru": "Анализирует медленные запросы, оптимизирует производительность БД в разных системах, выстраивает стратегии индексирования. Пример: запрос профиля пользователя выполняется 1.2 сек из-за неоптимальных индексов."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "python-pro",
+      "ru": "Типобезопасный production-ready Python для веб-API, системных утилит и сложных приложений с современными async-паттернами и полным покрытием типами. Например, FastAPI-сервис с SQLAlchemy async ORM, Pydantic и 90%+ покрытием тестами."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "typescript-pro",
+      "ru": "Продвинутые паттерны системы типов TypeScript: сложные дженерики, type-level программирование, сквозная типобезопасность в full-stack приложениях. Пример: клиентская API-библиотека с полным выводом типов и discriminated unions."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "javascript-pro",
+      "ru": "Разработка, оптимизация и рефакторинг современного JavaScript для браузера, Node.js и full-stack — ES2025, async-паттерны, производительность. Например, модернизация callback-based сервиса на Node.js в async/await с нормальной обработкой ошибок."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "golang-pro",
+      "ru": "Go-приложения с конкурентным программированием, высокой производительностью, микросервисами и cloud-native архитектурой — идиоматичные паттерны, обработка ошибок, эффективность. Пример: gRPC-микросервис на тысячи одновременных запросов с жёсткими требованиями к latency."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "rust-engineer",
+      "ru": "Rust-системы, где критичны безопасность памяти, паттерны владения, zero-cost абстракции и оптимизация производительности — системное программирование, embedded, async, высоконагруженные сервисы. Пример: tokio-сервис на тысячи одновременных соединений."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "react-specialist",
+      "ru": "Оптимизация production React-приложений, продвинутые фичи React 18+, решение сложных задач по управлению состоянием и архитектуре. Пример: дашборд тормозит из-за постоянных ре-рендеров, бандла на 850KB и утечек памяти при 8 кастомных хуках."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "nextjs-developer",
+      "ru": "Production-приложения на Next.js 14+ с App Router, server components и продвинутой оптимизацией производительности: server actions, Core Web Vitals, SEO. Пример: полная реализация e-commerce платформы на Next.js 14."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "sql-pro",
+      "ru": "Оптимизация сложных SQL-запросов, проектирование эффективных схем БД, решение проблем производительности в PostgreSQL, MySQL, SQL Server и Oracle — индексные стратегии, паттерны data warehouse. Пример: аналитический запрос на 100M+ строк с 5 join и window-функциями выполняется 8+ сек вместо нужных <500мс."
+    },
+    {
+      "type": "agents",
+      "category": "programming-languages",
+      "name": "shell-scripting-pro",
+      "ru": "Надёжные shell-скрипты с корректной обработкой ошибок, POSIX-совместимостью и паттернами автоматизации — bash/zsh, управление процессами, системная интеграция. Вызывать проактивно для автоматизации, скриптов деплоя, системного администрирования."
+    },
+    {
+      "type": "agents",
+      "category": "security",
+      "name": "security-auditor",
+      "ru": "Комплексные аудиты безопасности, оценка соответствия требованиям, анализ рисков в системах, инфраструктуре и процессах — систематический поиск уязвимостей и разрывов в compliance. Пример: полный аудит безопасности перед сертификацией SOC 2."
+    },
+    {
+      "type": "agents",
+      "category": "security",
+      "name": "penetration-tester",
+      "ru": "Санкционированное тестирование на проникновение: поиск реальных уязвимостей через активную эксплуатацию и подтверждение рисков. Для наступательного security-тестирования веб-приложения и инфраструктуры перед крупным релизом."
+    },
+    {
+      "type": "agents",
+      "category": "security",
+      "name": "llm-redteam-specialist",
+      "ru": "Red-team для LLM-развёртываний: джейлбрейк-пробы, дизайн харнесса для промпт-инъекций, оценка безопасности выдачи, доказательства устойчивости под EU AI Act Article 15 или NIST AI RMF MEASURE-2.7. Работает и с облачными, и с локальными/air-gapped моделями (Ollama, vLLM, llama.cpp)."
+    },
+    {
+      "type": "commands",
+      "category": "git-workflow",
+      "name": "commit",
+      "ru": "Оркестрирует создание коммита: сама анализирует изменённые файлы и дифф, формулирует сообщение по Conventional Commits и коммитит."
+    },
+    {
+      "type": "commands",
+      "category": "git-workflow",
+      "name": "create-pr",
+      "ru": "Собирает pull request из текущих изменений: пишет описание на основе диффа и коммитов, без ручного заполнения шаблона."
+    },
+    {
+      "type": "commands",
+      "category": "git-workflow",
+      "name": "fix-github-issue",
+      "ru": "Берёт номер или ссылку на issue из GitHub, разбирается в проблеме и доводит код до исправления."
+    },
+    {
+      "type": "commands",
+      "category": "git-workflow",
+      "name": "pr-review",
+      "ru": "Пошагово прогоняет pull request по чек-листу: продукт, архитектура, безопасность, производительность, тесты — и оставляет апдейт прямо в GitHub."
+    },
+    {
+      "type": "commands",
+      "category": "git-workflow",
+      "name": "branch-cleanup",
+      "ru": "Прибирает репозиторий: удаляет смёрженные ветки, чистит протухшие remote-ссылки и приводит структуру веток в порядок. Стоит гонять регулярно, а не только по случаю."
+    },
+    {
+      "type": "commands",
+      "category": "git-workflow",
+      "name": "create-worktrees",
+      "ru": "Разворачивает git worktree, чтобы вести несколько параллельных сессий Claude Code над одним репозиторием без переключения веток."
+    },
+    {
+      "type": "commands",
+      "category": "testing",
+      "name": "generate-tests",
+      "ru": "Пишет полноценный тестовый файл под конкретный исходник или компонент — вызывай, когда явно нужно сгенерировать тесты именно для этого файла."
+    },
+    {
+      "type": "commands",
+      "category": "testing",
+      "name": "generate-test-cases",
+      "ru": "Генерирует набор тест-кейсов с автоматическим анализом требований и оптимизацией покрытия, а не просто список сценариев наугад."
+    },
+    {
+      "type": "commands",
+      "category": "testing",
+      "name": "e2e-setup",
+      "ru": "Настраивает end-to-end тестирование с нуля: выбор фреймворка и интеграция с CI — комплексно, а не один тестовый пример."
+    },
+    {
+      "type": "commands",
+      "category": "testing",
+      "name": "setup-load-testing",
+      "ru": "Настраивает нагрузочное тестирование: метрики производительности и поиск узких мест закладываются сразу в конфигурацию."
+    },
+    {
+      "type": "commands",
+      "category": "deployment",
+      "name": "containerize-application",
+      "ru": "Контейнеризирует приложение: генерирует Dockerfile с multi-stage сборкой, учитывает безопасность и оптимизацию образа."
+    },
+    {
+      "type": "commands",
+      "category": "deployment",
+      "name": "ci-setup",
+      "ru": "Разворачивает CI/CD-пайплайн под проект: автотесты, сборка и деплой в одной конфигурации."
+    },
+    {
+      "type": "commands",
+      "category": "deployment",
+      "name": "prepare-release",
+      "ru": "Готовит и валидирует релизный пакет: прогоняет тесты, актуализирует документацию, автоматизирует рутинные шаги перед выпуском."
+    },
+    {
+      "type": "commands",
+      "category": "deployment",
+      "name": "rollback-deploy",
+      "ru": "Откатывает деплой на предыдущую версию с проверками безопасности, учётом состояния БД и мониторингом хода отката."
+    },
+    {
+      "type": "commands",
+      "category": "deployment",
+      "name": "hotfix-deploy",
+      "ru": "Выкатывает критический хотфикс в прод по процедуре экстренного релиза: валидация на каждом шаге и готовый план отката."
+    },
+    {
+      "type": "commands",
+      "category": "security",
+      "name": "security-audit",
+      "ru": "Проводит комплексную оценку безопасности проекта и анализ уязвимостей одним запуском."
+    },
+    {
+      "type": "commands",
+      "category": "security",
+      "name": "secrets-scanner",
+      "ru": "Сканирует кодовую базу на утёкшие секреты: ключи, токены, пароли и прочие чувствительные данные в коде."
+    },
+    {
+      "type": "commands",
+      "category": "security",
+      "name": "dependency-audit",
+      "ru": "Проверяет зависимости на известные уязвимости, соответствие лицензий и выдаёт рекомендации по обновлению."
+    },
+    {
+      "type": "commands",
+      "category": "performance",
+      "name": "optimize-bundle-size",
+      "ru": "Уменьшает размер фронтенд-бандла: анализирует состав, правит конфигурацию сборки и внедряет code splitting."
+    },
+    {
+      "type": "commands",
+      "category": "performance",
+      "name": "optimize-database-performance",
+      "ru": "Оптимизирует работу с базой данных: запросы, индексы и общую производительность ради скорости ответов и масштабируемости."
+    },
+    {
+      "type": "commands",
+      "category": "performance",
+      "name": "performance-audit",
+      "ru": "Прогоняет полный аудит производительности: метрики, поиск узких мест и конкретные рекомендации по оптимизации."
+    },
+    {
+      "type": "commands",
+      "category": "documentation",
+      "name": "generate-api-documentation",
+      "ru": "Автогенерирует справочную документацию по API прямо из кода, с несколькими форматами вывода и автодеплоем."
+    },
+    {
+      "type": "commands",
+      "category": "documentation",
+      "name": "update-docs",
+      "ru": "Систематически актуализирует документацию проекта: статус реализации, изменения API, синхронизация содержимого с кодом."
+    },
+    {
+      "type": "commands",
+      "category": "analysis",
+      "name": "supply-chain-audit",
+      "ru": "Аудит цепочки поставок зависимостей проекта — проверка происхождения и рисков пакетов, от которых зависит сборка."
+    },
+    {
+      "type": "mcps",
+      "category": "database",
+      "name": "postgresql-integration",
+      "ru": "Подключает Claude к PostgreSQL для сложных запросов, работы со схемой и админки базы уровня продакшена — не только чтение, но и управление данными."
+    },
+    {
+      "type": "mcps",
+      "category": "database",
+      "name": "redis",
+      "ru": "Официальный сервер от Redis. Даёт Claude естественноязыковой интерфейс к Redis: смотреть, менять и запрашивать данные без ручных команд."
+    },
+    {
+      "type": "mcps",
+      "category": "database",
+      "name": "supabase",
+      "ru": "Подключает Claude Code к Supabase-проекту напрямую через MCP."
+    },
+    {
+      "type": "mcps",
+      "category": "database",
+      "name": "mongodb-official",
+      "ru": "Официальный сервер от MongoDB. Подключает Claude к базам MongoDB и кластерам Atlas — запросы, агрегации, управление коллекциями."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "github-official",
+      "ru": "Официальный MCP-сервер GitHub. Работа с репозиториями, issues и pull request'ами прямо из Claude."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "context7",
+      "ru": "Context7 от Upstash подтягивает актуальную, привязанную к версии документацию и примеры кода прямо из источника и вставляет их в промпт. Активируется фразой «use context7»."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "sentry",
+      "ru": "Даёт Claude доступ к ошибкам и трейсам из Sentry — заточен под сценарии, где разработчик работает вместе с агентом, а не под общий доступ к API Sentry."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "grafana",
+      "ru": "Подключает Claude к дашбордам и мониторингу Grafana — работает как с self-hosted инстансами, так и с Grafana Cloud."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "stripe",
+      "ru": "Даёт AI-агентам доступ к Stripe API через MCP-сервер — объекты, платежи, аналитика."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "postman",
+      "ru": "MCP-сервер от Postman связывает Claude напрямую с вашими API в Postman — на естественном языке управляет коллекциями, окружениями и воркспейсами."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "elasticsearch",
+      "ru": "Подключает Claude к данным и индексам Elasticsearch: поисковые запросы, маппинги, ES|QL и информация о шардах через обычный язык."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "mermaid",
+      "ru": "Генерирует диаграммы Mermaid на лету: флоучарты, диаграммы последовательностей, классов и другое — прямо по запросу."
+    },
+    {
+      "type": "mcps",
+      "category": "devtools",
+      "name": "markitdown",
+      "ru": "Сервер от Microsoft: конвертирует PDF, Word, Excel, изображения и аудио в Markdown."
+    },
+    {
+      "type": "mcps",
+      "category": "browser_automation",
+      "name": "playwright-mcp",
+      "ru": "Даёт Claude управление браузером через Playwright: взаимодействие со страницами идёт через структурированные accessibility-снапшоты, без скриншотов и визуальных моделей."
+    },
+    {
+      "type": "mcps",
+      "category": "filesystem",
+      "name": "filesystem-access",
+      "ru": "Безопасный доступ к файловой системе для Claude Code с настраиваемыми правами на директории и файловые операции."
+    },
+    {
+      "type": "mcps",
+      "category": "integration",
+      "name": "n8n-mcp",
+      "ru": "Строит и управляет workflow n8n прямо из Claude, со встроенной базой документации по всем нодам n8n для автоматизации."
+    },
+    {
+      "type": "mcps",
+      "category": "productivity",
+      "name": "notion",
+      "ru": "Официальный MCP-сервер Notion API — работа со страницами и базами данных."
+    },
+    {
+      "type": "mcps",
+      "category": "research",
+      "name": "arxiv-mcp-server",
+      "ru": "Поиск, скачивание и анализ научных статей с arXiv: полнотекстовый поиск, получение статей и локальное хранение для исследовательской работы."
+    },
+    {
+      "type": "mcps",
+      "category": "web",
+      "name": "searxng",
+      "ru": "MCP-сервер для SearXNG — приватного метапоискового движка. Поиск сразу по нескольким поисковикам без слежки за пользователем."
+    },
+    {
+      "type": "hooks",
+      "category": "automation",
+      "name": "telegram-notifications",
+      "ru": "По завершении сессии Claude Code шлёт уведомление в Telegram. Нужны переменные TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID (токен — от @BotFather, chat ID — через getUpdates)."
+    },
+    {
+      "type": "hooks",
+      "category": "automation",
+      "name": "telegram-error-notifications",
+      "ru": "Шлёт уведомление в Telegram, когда операция или вызов инструмента затягивается по времени — помогает заметить зависшую сессию. Требует TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID."
+    },
+    {
+      "type": "hooks",
+      "category": "automation",
+      "name": "telegram-detailed-notifications",
+      "ru": "По завершении сессии отправляет в Telegram развёрнутое сообщение: рабочая директория, длительность сессии, информация о системе. Требует TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID."
+    },
+    {
+      "type": "hooks",
+      "category": "automation",
+      "name": "telegram-pr-webhook",
+      "ru": "Срабатывает на создание PR через gh pr create и шлёт в Telegram ссылку на PR (плюс Vercel preview, если заданы VERCEL_PROJECT_NAME и VERCEL_TEAM_SLUG). Требует TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID."
+    },
+    {
+      "type": "hooks",
+      "category": "git",
+      "name": "conventional-commits",
+      "ru": "Проверяет каждый git-коммит на формат type(scope): description (feat, fix, docs, refactor и т.д.) — держит историю коммитов пригодной для генерации changelog и semver."
+    },
+    {
+      "type": "hooks",
+      "category": "git",
+      "name": "prevent-direct-push",
+      "ru": "Блокирует git push напрямую в main и develop, заставляя работать через feature/release/hotfix-ветки и pull request по Git Flow."
+    },
+    {
+      "type": "hooks",
+      "category": "git",
+      "name": "validate-branch-name",
+      "ru": "Проверяет имя ветки при checkout на соответствие Git Flow: feature/*, release/v*.*.*, hotfix/* — не даёт создать ветку с произвольным именем."
+    },
+    {
+      "type": "hooks",
+      "category": "security",
+      "name": "dangerous-command-blocker",
+      "ru": "Перехватывает bash-команды перед выполнением: блокирует катастрофические (rm -rf /, dd, mkfs), защищает критичные пути (.claude/, .git/, node_modules/) и предупреждает о подозрительных паттернах."
+    },
+    {
+      "type": "hooks",
+      "category": "security",
+      "name": "env-file-protection",
+      "ru": "Блокирует запись в .env-файлы через Write, чтобы случайно не перезаписать секреты. Фильтрует по паттерну имени файла без лишнего запуска процессов."
+    },
+    {
+      "type": "hooks",
+      "category": "security",
+      "name": "secret-scanner",
+      "ru": "Перед коммитом сканирует файлы на захардкоженные ключи и токены — Anthropic, OpenAI, AWS, Stripe, GitHub, Google и ещё 30+ провайдеров, плюс пароли и приватные ключи. Коммит с секретом блокируется, вместо этого предлагается использовать переменные окружения."
+    },
+    {
+      "type": "hooks",
+      "category": "security",
+      "name": "force-push-blocker",
+      "ru": "Блокирует git push с --force, --force-with-lease и -f, чтобы случайно не затереть чужую историю в remote."
+    },
+    {
+      "type": "hooks",
+      "category": "quality-gates",
+      "name": "tdd-gate",
+      "ru": "Не даёт править файлы с кодом (.py, .ts, .go, .rs и др.), пока для них нет соответствующего теста — навязывает порядок «сначала тест, потом реализация». Конфиги, миграции, DTO и сами тесты пропускает автоматически."
+    },
+    {
+      "type": "hooks",
+      "category": "quality-gates",
+      "name": "scope-guard",
+      "ru": "Сверяет список изменённых git-файлов с секцией «Files to Create/Modify» в .spec.md и предупреждает (не блокируя), если правки вышли за рамки заявленного скоупа задачи. Тесты, конфиги и документацию из проверки исключает."
+    },
+    {
+      "type": "hooks",
+      "category": "monitoring",
+      "name": "desktop-notification-on-stop",
+      "ru": "На событие Stop шлёт нативное уведомление на десктоп (osascript на macOS, notify-send на Linux) — одно на весь ответ, а не на каждый вызов инструмента. Удобно, когда переключаешься в другое окно, пока Claude работает."
+    },
+    {
+      "type": "settings",
+      "category": "model",
+      "name": "use-haiku",
+      "ru": "Переключает Claude Code на Haiku по умолчанию — ответы быстрее, подходит для простых рутинных задач."
+    },
+    {
+      "type": "settings",
+      "category": "model",
+      "name": "use-sonnet",
+      "ru": "Переключает Claude Code на Sonnet по умолчанию."
+    },
+    {
+      "type": "settings",
+      "category": "permissions",
+      "name": "read-only-mode",
+      "ru": "Разрешает Claude только читать код: любые правки файлов и выполнение команд заблокированы. Удобно для аудита безопасности и разбора незнакомой кодовой базы."
+    },
+    {
+      "type": "settings",
+      "category": "permissions",
+      "name": "deny-sensitive-files",
+      "ru": "Блокирует доступ к .env и файлам с секретами — Claude не сможет их прочитать или изменить."
+    },
+    {
+      "type": "settings",
+      "category": "permissions",
+      "name": "allow-git-operations",
+      "ru": "Разрешает Claude без подтверждения делать git status, diff, add, commit и push, но потенциально опасные операции по-прежнему требуют явного разрешения."
+    },
+    {
+      "type": "settings",
+      "category": "environment",
+      "name": "bash-timeouts",
+      "ru": "Настраивает таймауты для bash-команд — зависшие процессы обрываются, а на сборки и деплой оставляется достаточно времени."
+    },
+    {
+      "type": "settings",
+      "category": "environment",
+      "name": "privacy-focused",
+      "ru": "Отключает телеметрию, отправку отчётов об ошибках и весь необязательный сетевой трафик — для чувствительных проектов и строгих требований к приватности."
+    },
+    {
+      "type": "settings",
+      "category": "statusline",
+      "name": "context-monitor",
+      "ru": "Статус-бар с live-мониторингом контекстного окна: прогресс-бар, цветовые алерты, аналитика сессии (стоимость, длительность, число изменённых строк) и предупреждения перед авто-компактом."
+    },
+    {
+      "type": "settings",
+      "category": "statusline",
+      "name": "git-branch-statusline",
+      "ru": "Статус-бар показывает модель, текущую директорию, активную git-ветку и число незакоммиченных изменений."
+    },
+    {
+      "type": "settings",
+      "category": "statusline",
+      "name": "minimal-statusline",
+      "ru": "Статус-бар без лишнего: только имя модели и текущая директория."
+    },
+    {
+      "type": "skills",
+      "category": "document-processing",
+      "name": "pdf-official",
+      "ru": "Читает и извлекает текст/таблицы из PDF, склеивает и разбивает файлы, поворачивает страницы, ставит водяные знаки, шифрует, заполняет формы, вытаскивает картинки и распознаёт сканы через OCR. Вызывается на любое упоминание .pdf."
+    },
+    {
+      "type": "skills",
+      "category": "document-processing",
+      "name": "docx-official",
+      "ru": "Создаёт, читает и редактирует Word-файлы: оглавления, заголовки, номера страниц, фирменные бланки. Умеет вставлять и заменять картинки, делать find-and-replace, работать с правками и комментариями."
+    },
+    {
+      "type": "skills",
+      "category": "document-processing",
+      "name": "xlsx-official",
+      "ru": "Открывает, правит и чинит .xlsx/.xlsm/.csv/.tsv: добавляет столбцы, считает формулы, форматирует, строит графики, чистит грязные данные. Собирает таблицы с нуля или из других источников, конвертирует между табличными форматами."
+    },
+    {
+      "type": "skills",
+      "category": "document-processing",
+      "name": "pptx-official",
+      "ru": "Собирает слайд-деки и питчи с нуля, читает и вытаскивает текст из существующих .pptx, редактирует и объединяет презентации. Работает с шаблонами, layout'ами, заметками докладчика и комментариями к слайдам."
+    },
+    {
+      "type": "skills",
+      "category": "development",
+      "name": "api-design-principles",
+      "ru": "Проектирование REST и GraphQL API: как строить понятные, масштабируемые и удобные для разработчиков интерфейсы, которые не придётся ломать при росте."
+    },
+    {
+      "type": "skills",
+      "category": "development",
+      "name": "async-python-patterns",
+      "ru": "Асинхронный Python на asyncio: паттерны конкурентного программирования, async/await, построение неблокирующих высокопроизводительных систем."
+    },
+    {
+      "type": "skills",
+      "category": "development",
+      "name": "clean-code",
+      "ru": "Прагматичные стандарты кода: коротко, по делу, без переусложнения и лишних комментариев."
+    },
+    {
+      "type": "skills",
+      "category": "development",
+      "name": "code-review-checklist",
+      "ru": "Чек-лист для код-ревью: функциональность, безопасность, производительность, поддерживаемость — по пунктам, чтобы ничего не упустить."
+    },
+    {
+      "type": "skills",
+      "category": "development",
+      "name": "architecture-decision-records",
+      "ru": "Создание и ведение ADR — записей архитектурных решений, фиксирующих контекст и обоснование значимых технических выборов."
+    },
+    {
+      "type": "skills",
+      "category": "development",
+      "name": "changelog-generator",
+      "ru": "Собирает пользовательские ченджлоги из истории git-коммитов: категоризирует изменения и превращает технические коммиты в понятные релиз-ноты. То, на что уходили часы, — за минуты."
+    },
+    {
+      "type": "skills",
+      "category": "productivity",
+      "name": "commit-work",
+      "ru": "Дисциплина git-коммитов: разбор изменений, разбивка на логичные коммиты, чёткие сообщения (включая Conventional Commits). Вызывается при коммите, составлении сообщения или разбивке работы на несколько коммитов."
+    },
+    {
+      "type": "skills",
+      "category": "productivity",
+      "name": "debugging-strategies",
+      "ru": "Системный подход к отладке вместо гадания: проверенные стратегии, инструменты и методичные приёмы поиска причины бага."
+    },
+    {
+      "type": "skills",
+      "category": "productivity",
+      "name": "plan-writing",
+      "ru": "Структурированное планирование задач: разбивка на шаги, зависимости, критерии проверки. Для фич, рефакторинга и любой многошаговой работы."
+    },
+    {
+      "type": "skills",
+      "category": "productivity",
+      "name": "skill-creator",
+      "ru": "Создание новых скиллов, доработка и улучшение существующих, оценка их эффективности. Пишет скилл с нуля, редактирует, гоняет evals и оптимизирует описание под точность срабатывания."
+    },
+    {
+      "type": "skills",
+      "category": "workflow-automation",
+      "name": "github-actions-templates",
+      "ru": "Готовые к продакшену паттерны GitHub Actions для тестирования, сборки и деплоя приложений."
+    },
+    {
+      "type": "skills",
+      "category": "workflow-automation",
+      "name": "n8n-workflow-patterns",
+      "ru": "Проверенные архитектурные паттерны для построения воркфлоу в n8n."
+    },
+    {
+      "type": "loops",
+      "category": "engineering",
+      "name": "build-test-fix-loop",
+      "ru": "Собирает очередной пункт плана, гоняет тесты, тайпчек и линтер, и каждую ошибку скармливает обратно как следующую задачу — пока билд не станет зелёным. Запускать на этапе реализации фичи, когда нужен автономный проход до чистого CI."
+    },
+    {
+      "type": "loops",
+      "category": "engineering",
+      "name": "test-coverage-loop",
+      "ru": "Проход за проходом добавляет осмысленные тесты, пока покрытие не дойдёт до заданного порога и не останется стабильно зелёным. Подходит, когда нужно быстро подтянуть покрытие в старом модуле без ручного написания тестов."
+    },
+    {
+      "type": "loops",
+      "category": "engineering",
+      "name": "ticket-to-pr-loop",
+      "ru": "Берёт открытые баг-репорты и issues и превращает их в проверенные PR, готовые к ревью — по одному тикету за проход. Годится для рутинных задач из беклога, которые можно закрывать без постоянного участия человека."
+    },
+    {
+      "type": "loops",
+      "category": "engineering",
+      "name": "repo-cleanup-loop",
+      "ru": "Находит ценные незамерженные ветки и коммиты, вытаскивает их, а протухшие ветки и PR подчищает — пока репозиторий не станет опрятным. Запускать периодически на разросшихся репо, где накопился хвост брошенных веток."
+    },
+    {
+      "type": "loops",
+      "category": "engineering",
+      "name": "adversarial-review-loop",
+      "ru": "Перед мержем каждое изменение смотрит второй, независимый модельный ревьюер — код проходит, только если оба ревьюера с ним согласны. Полезно как дополнительный барьер качества на критичных участках, где одного автоматического ревью недостаточно."
+    }
   ]
 }
