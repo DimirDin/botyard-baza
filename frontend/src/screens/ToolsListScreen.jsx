@@ -69,7 +69,14 @@ function ComponentsSegment({ initial, onOpenComponent }) {
             {groupComponents?.map((c) => (
               <div key={c.slug} className="card" onClick={() => onOpenComponent(c.slug)} style={{ cursor: "pointer" }}>
                 <p className="card__title">{c.title}</p>
-                <p style={{ color: "var(--text-body)", fontSize: 15, margin: "6px 0" }}>{c.summary}</p>
+                <p
+                  style={{
+                    color: "var(--text-body)", fontSize: 15, margin: "6px 0",
+                    display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
+                  }}
+                >
+                  {c.summary}
+                </p>
               </div>
             ))}
           </>
