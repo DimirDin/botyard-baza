@@ -5499,3 +5499,181 @@
     Whisper-транскрипция (когда у видео нет субтитров) требует API-ключ (Groq или OpenAI) — бесплатны только субтитры от `yt-dlp`. На длинных видео (>10 мин) дефолтный бюджет кадров даёт «sparse scan» — для детального разбора конкретного момента лучше сразу сузить через `--start`/`--end`, а не гонять полный проход.
 
 
+
+- repo: davila7/claude-code-templates
+  category: code/skills
+  description_ru: "Каталог готовых компонентов для Claude Code: суб-агенты, слэш-команды, MCP-серверы, хуки, настройки, скиллы, агентные циклы — кураторская подборка 122 из ~1824."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/davila7/claude-code-templates)
+
+    ### ❓ Что это
+    **claude-code-templates (aitmpl.com)** — комьюнити-каталог готовых компонентов для Claude Code: суб-агенты, слэш-команды, MCP-серверы, хуки, настройки, скиллы и агентные циклы. Каждый компонент — отдельный файл в репозитории, ставится одной npx-командой без ручного копирования конфигов. Ниже — кураторская подборка из ~1824 компонентов каталога (122 лучших, по темам).
+
+    ### 🎯 Для чего
+    Быстро закрыть типовую потребность без написания своего агента/хука с нуля: ревью кода, работа с Postgres, security-хуки (блок опасных команд, защита `.env`), Telegram-уведомления о завершении задачи или ошибке, официальные скиллы Anthropic (pdf/docx/xlsx/pptx), git worktrees, готовые агентные циклы вроде ticket-to-pr и build-test-fix.
+
+    ### 💻 Как установить
+    Каждый компонент ставится своей командой:
+    ```bash
+    npx claude-code-templates@latest --agent database/postgres-pro --yes
+    npx claude-code-templates@latest --command deployment/ci-setup --yes
+    npx claude-code-templates@latest --mcp devtools/context7 --yes
+    npx claude-code-templates@latest --hook <категория>/<имя> --yes
+    npx claude-code-templates@latest --setting <категория>/<имя> --yes
+    npx claude-code-templates@latest --skill <категория>/<имя> --yes
+    npx claude-code-templates@latest --loop <категория>/<имя> --yes
+    ```
+    Путь `<категория>/<имя>` — из ссылки «источник» под каждым компонентом ниже.
+
+    ### 📦 Подборка (122 компонента)
+
+    **Агенты (34)**
+
+    - **cloud-architect** — Проектирование облачной инфраструктуры ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/cloud-architect.md))
+    - **code-reviewer** — Сеньор-ревьюер: качество, безопасность и производительность кода в одном проходе ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/code-reviewer.md))
+    - **code-simplifier** — Упрощение переусложнённого кода без потери логики ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/code-simplifier.md))
+    - **codebase-explorer** — Быстрая карта незнакомой кодовой базы ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/codebase-explorer.md))
+    - **database-optimizer** — Оптимизация схем и медленных запросов ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/database/database-optimizer.md))
+    - **debugger** — Систематическая отладка: от симптома к первопричине по шагам ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/debugger.md))
+    - **deployment-engineer** — CI/CD-пайплайны и стратегии деплоя ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/deployment-engineer.md))
+    - **devops-troubleshooter** — Диагностика инцидентов в проде: логи, метрики, гипотезы ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/devops-troubleshooter.md))
+    - **error-detective** — Разбор логов и стектрейсов, поиск корня ошибки ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/error-detective.md))
+    - **golang-pro** — Go: конкурентность, интерфейсы, производительность ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/golang-pro.md))
+    - **incident-responder** — Действия при инциденте: триаж, эскалация, постмортем ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/incident-responder.md))
+    - **javascript-pro** — Современный JavaScript: ES2024+, паттерны, производительность ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/javascript-pro.md))
+    - **kubernetes-specialist** — Kubernetes: манифесты, отладка, оптимизация кластера ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/kubernetes-specialist.md))
+    - **llm-redteam-specialist** — Red-team для LLM-приложений: промпт-инъекции и джейлбрейки ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/security/llm-redteam-specialist.md))
+    - **mcp-expert** — Помощник по разработке собственных MCP-серверов ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/mcp-expert.md))
+    - **monitoring-specialist** — Метрики, дашборды, алёртинг ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/monitoring-specialist.md))
+    - **nextjs-developer** — Next.js: SSR, роутинг, оптимизация ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/nextjs-developer.md))
+    - **penetration-tester** — Пентест-подход: поиск векторов атаки в своём приложении ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/security/penetration-tester.md))
+    - **performance-engineer** — Профилирование и устранение узких мест производительности ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/performance-engineer.md))
+    - **postgres-pro** — Глубокая экспертиза PostgreSQL: запросы, индексы, тюнинг ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/database/postgres-pro.md))
+    - **python-pro** — Идиоматичный Python: типизация, асинхронность, структура проекта ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/python-pro.md))
+    - **qa-expert** — Тест-планы, граничные случаи, регрессионное покрытие ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/qa-expert.md))
+    - **react-specialist** — React: хуки, состояние, производительность ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/react-specialist.md))
+    - **refactoring-specialist** — Безопасный рефакторинг без изменения поведения ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/refactoring-specialist.md))
+    - **rust-engineer** — Rust: владение, lifetimes, безопасный системный код ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/rust-engineer.md))
+    - **security-auditor** — Аудит безопасности кода и конфигураций ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/security/security-auditor.md))
+    - **shell-scripting-pro** — Надёжные bash-скрипты для автоматизации ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/shell-scripting-pro.md))
+    - **sql-pro** — Сложный SQL: оконные функции, CTE, планы выполнения ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/sql-pro.md))
+    - **sre-engineer** — SLO, алёртинг и надёжность как инженерная практика ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/sre-engineer.md))
+    - **technical-debt-manager** — Инвентаризация и приоритизация техдолга ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/technical-debt-manager.md))
+    - **terraform-specialist** — Terraform: модули, state, ревью планов ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/devops-infrastructure/terraform-specialist.md))
+    - **test-automator** — Автоматизация тестирования: генерация и поддержка тестовых наборов ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/test-automator.md))
+    - **typescript-pro** — Строгий TypeScript: типы, генерики, конфигурация ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/programming-languages/typescript-pro.md))
+    - **unused-code-cleaner** — Поиск и удаление мёртвого кода ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/development-tools/unused-code-cleaner.md))
+
+    **Слэш-команды (24)**
+
+    - **branch-cleanup** — Чистка отработанных веток
+    - **ci-setup** — Настройка CI-пайплайна под проект
+    - **commit** — Умный коммит: анализ диффа и сообщение по Conventional Commits
+    - **containerize-application** — Dockerfile и compose для приложения
+    - **create-pr** — Создание pull request с описанием из изменений
+    - **create-worktrees** — Git worktrees для параллельных сессий Claude Code
+    - **dependency-audit** — Проверка зависимостей на известные CVE
+    - **e2e-setup** — Настройка E2E-тестирования с нуля
+    - **fix-github-issue** — Взять issue из GitHub и довести до фикса
+    - **generate-api-documentation** — Генерация документации API из кода
+    - **generate-test-cases** — Тест-кейсы из требований
+    - **generate-tests** — Генерация тестов для выбранного кода
+    - **hotfix-deploy** — Быстрый хотфикс в прод по процедуре
+    - **optimize-bundle-size** — Уменьшение размера фронтенд-бандла
+    - **optimize-database-performance** — Оптимизация работы приложения с БД
+    - **performance-audit** — Полный аудит производительности
+    - **pr-review** — Ревью пул-реквеста по чек-листу
+    - **prepare-release** — Подготовка релиза: версия, ченджлог, теги
+    - **rollback-deploy** — Безопасный откат релиза
+    - **secrets-scanner** — Поиск утёкших секретов в коде
+    - **security-audit** — Аудит безопасности проекта одной командой
+    - **setup-load-testing** — Нагрузочное тестирование: инструменты и сценарии
+    - **supply-chain-audit** — Аудит цепочки поставок зависимостей
+    - **update-docs** — Актуализация документации по текущему коду
+
+    **MCP-серверы (19)**
+
+    - **arxiv-mcp-server** — Поиск и выгрузка статей arXiv ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/research/arxiv-mcp-server.json))
+    - **context7** — Актуальная документация библиотек прямо в контекст ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/context7.json))
+    - **elasticsearch** — Поиск и агрегации Elasticsearch ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/elasticsearch.json))
+    - **filesystem-access** — Контролируемый доступ к файловой системе ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/filesystem/filesystem-access.json))
+    - **github-official** — Официальный GitHub MCP: issues, PR, репозитории ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/github-official.json))
+    - **grafana** — Дашборды и метрики Grafana ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/grafana.json))
+    - **markitdown** — Конвертация документов в Markdown (Microsoft) ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/markitdown.json))
+    - **mermaid** — Рендер диаграмм Mermaid ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/mermaid.json))
+    - **mongodb-official** — Официальный MCP-сервер MongoDB ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/database/mongodb-official.json))
+    - **n8n-mcp** — Связка Claude с автоматизациями n8n ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/integration/n8n-mcp.json))
+    - **notion** — Notion: страницы и базы данных ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/productivity/notion.json))
+    - **playwright-mcp** — Управление браузером через Playwright ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/browser_automation/playwright-mcp.json))
+    - **postgresql-integration** — Claude подключается к PostgreSQL: запросы и схема ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/database/postgresql-integration.json))
+    - **postman** — Коллекции и запросы Postman ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/postman.json))
+    - **redis** — Работа с Redis из Claude ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/database/redis.json))
+    - **searxng** — Приватный веб-поиск через SearXNG ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/web/searxng.json))
+    - **sentry** — Ошибки и трейсы Sentry внутри Claude ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/sentry.json))
+    - **stripe** — Объекты и аналитика Stripe ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/stripe.json))
+    - **supabase** — Управление Supabase-проектом ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/database/supabase.json))
+
+    **Скиллы (16)**
+
+    - **api-design-principles** — Принципы проектирования API ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/api-design-principles))
+    - **architecture-decision-records** — ADR: фиксация архитектурных решений ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/architecture-decision-records))
+    - **async-python-patterns** — Паттерны асинхронного Python ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/async-python-patterns))
+    - **changelog-generator** — Генерация ченджлогов ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/changelog-generator))
+    - **clean-code** — Практики чистого кода ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/clean-code))
+    - **code-review-checklist** — Чек-лист код-ревью ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/code-review-checklist))
+    - **commit-work** — Дисциплина коммитов в агентной работе ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/commit-work))
+    - **debugging-strategies** — Стратегии отладки ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/debugging-strategies))
+    - **docx-official** — Word-документы (официальный скилл Anthropic) ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/docx-official))
+    - **github-actions-templates** — Шаблоны GitHub Actions ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/github-actions-templates))
+    - **n8n-workflow-patterns** — Паттерны воркфлоу n8n ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n-workflow-patterns))
+    - **pdf-official** — Работа с PDF: чтение, формы, генерация (официальный скилл Anthropic) ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/pdf-official))
+    - **plan-writing** — Написание рабочих планов ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/plan-writing))
+    - **pptx-official** — Презентации PowerPoint (официальный скилл Anthropic) ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/pptx-official))
+    - **skill-creator** — Создание собственных скиллов ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/skill-creator))
+    - **xlsx-official** — Excel-таблицы (официальный скилл Anthropic) ([источник](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/xlsx-official))
+
+    **Хуки (14)**
+
+    - **conventional-commits** — Валидация сообщений коммитов по конвенции ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/git/conventional-commits.json))
+    - **dangerous-command-blocker** — Блокировка опасных bash-команд (rm -rf и подобных) ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/security/dangerous-command-blocker.json))
+    - **desktop-notification-on-stop** — Десктоп-уведомление о завершении работы ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/monitoring/desktop-notification-on-stop.json))
+    - **env-file-protection** — Защита .env-файлов от чтения и правок ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/security/env-file-protection.json))
+    - **force-push-blocker** — Запрет force-push ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/security/force-push-blocker.json))
+    - **prevent-direct-push** — Блокировка прямых пушей в main ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/git/prevent-direct-push.json))
+    - **scope-guard** — Контроль расползания скоупа задачи ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/quality-gates/scope-guard.json))
+    - **secret-scanner** — Скан секретов перед записью файлов ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/security/secret-scanner.json))
+    - **tdd-gate** — TDD-ворота: сначала тест, потом код ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/quality-gates/tdd-gate.json))
+    - **telegram-detailed-notifications** — Подробные отчёты о работе Claude Code в Telegram ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/automation/telegram-detailed-notifications.json))
+    - **telegram-error-notifications** — Алёрты об ошибках сессии в Telegram ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/automation/telegram-error-notifications.json))
+    - **telegram-notifications** — Уведомления в Telegram о событиях сессии Claude Code ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/automation/telegram-notifications.json))
+    - **telegram-pr-webhook** — Вебхук о созданных PR в Telegram ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/automation/telegram-pr-webhook.json))
+    - **validate-branch-name** — Проверка имени ветки по шаблону ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/git/validate-branch-name.json))
+
+    **Настройки CC (10)**
+
+    - **allow-git-operations** — Git-операции без запроса подтверждений
+    - **bash-timeouts** — Таймауты выполнения bash-команд
+    - **context-monitor** — Статус-бар: расход контекстного окна
+    - **deny-sensitive-files** — Запрет доступа к чувствительным файлам
+    - **git-branch-statusline** — Ветка и статус git в статус-баре
+    - **minimal-statusline** — Минималистичный статус-бар
+    - **privacy-focused** — Приватная конфигурация: телеметрия выключена
+    - **read-only-mode** — Режим только чтение: без правок и команд
+    - **use-haiku** — Haiku по умолчанию — для экономии на простых задачах
+    - **use-sonnet** — Sonnet по умолчанию
+
+    **Агентные циклы (5)**
+
+    - **adversarial-review-loop** — Состязательное ревью: строитель против критика ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/loops/engineering/adversarial-review-loop.md))
+    - **build-test-fix-loop** — Цикл build → test → fix до зелёного билда ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/loops/engineering/build-test-fix-loop.md))
+    - **repo-cleanup-loop** — Итеративная чистка репозитория ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/loops/engineering/repo-cleanup-loop.md))
+    - **test-coverage-loop** — Итеративное наращивание покрытия тестами ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/loops/engineering/test-coverage-loop.md))
+    - **ticket-to-pr-loop** — Из тикета в готовый PR автономно ([источник](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/loops/engineering/ticket-to-pr-loop.md))
+
+    ### ⚠️ Грабли
+    - Компоненты — некураторский community-каталог: перед продакшен-использованием хуков и настроек (особенно тех, что трогают permissions/bash) стоит прочитать исходник по ссылке «источник», а не ставить вслепую.
+    - `npx claude-code-templates@latest` тянет актуальную версию каталога с GitHub — при офлайн-работе или проблемах с npx-реестром установка не пройдёт.
+
+    ### 🔗 Первоисточник
+    [github.com/davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) · aitmpl.com · MIT (сабколлекции — MIT/Apache 2.0/CC0, источник указан у каждого компонента)
