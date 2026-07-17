@@ -49,12 +49,45 @@ def load_catalog() -> dict[tuple[str, str], str]:
     return catalog
 
 
+def load_bodies() -> dict:
+    """slug -> {url, content, ext}, см. fetch_bodies.py"""
+    path = HERE / "bodies_cache.json"
+    return json.load(open(path, encoding="utf-8")) if path.exists() else {}
+
+
+def make_body_md(slug: str, install_cmd: str, doc_url: str, bodies: dict) -> str:
+    cached = bodies.get(slug)
+    lines = [
+        "### 💻 Как установить",
+        "```bash",
+        install_cmd,
+        "```",
+        "",
+        "### 📄 Содержимое",
+    ]
+    if cached:
+        content = cached["content"].strip()
+        if cached["ext"] == "json":
+            lines += ["```json", content, "```"]
+        else:
+            lines += [content]
+    else:
+        lines += ["_не удалось скачать содержимое с GitHub — см. ссылку на первоисточник ниже_"]
+    lines += [
+        "",
+        "### 🔗 Первоисточник",
+        f"[{slug}]({doc_url}) · aitmpl.com · MIT",
+    ]
+    return "\n".join(lines)
+
+
 def sql_str(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
 
 def main():
     catalog = load_catalog()
+    bodies = load_bodies()
     items = json.load(open(HERE / "selection.json"))["items"]
 
     # sort_order: по типу (в порядке TYPE_ORDER), внутри типа — по имени
@@ -84,6 +117,7 @@ def main():
                 "install_cmd": install_cmd,
                 "doc_url": doc_url,
                 "sort_order": sort_order,
+                "body_md": make_body_md(slug, install_cmd, doc_url, bodies),
             })
 
     lines = [
@@ -98,14 +132,15 @@ def main():
     for r in rows:
         lines.append(
             "INSERT INTO baza.cc_components "
-            "(slug, comp_type, category, name, title, summary, install_cmd, doc_url, sort_order) VALUES ("
+            "(slug, comp_type, category, name, title, summary, install_cmd, doc_url, sort_order, body_md) VALUES ("
             f"{sql_str(r['slug'])}, {sql_str(r['comp_type'])}, {sql_str(r['category'])}, "
             f"{sql_str(r['name'])}, {sql_str(r['title'])}, {sql_str(r['summary'])}, "
-            f"{sql_str(r['install_cmd'])}, {sql_str(r['doc_url'])}, {r['sort_order']})\n"
+            f"{sql_str(r['install_cmd'])}, {sql_str(r['doc_url'])}, {r['sort_order']}, {sql_str(r['body_md'])})\n"
             "ON CONFLICT (slug) DO UPDATE SET "
             "comp_type = EXCLUDED.comp_type, category = EXCLUDED.category, name = EXCLUDED.name, "
             "title = EXCLUDED.title, summary = EXCLUDED.summary, install_cmd = EXCLUDED.install_cmd, "
-            "doc_url = EXCLUDED.doc_url, sort_order = EXCLUDED.sort_order, updated_at = now();"
+            "doc_url = EXCLUDED.doc_url, sort_order = EXCLUDED.sort_order, body_md = EXCLUDED.body_md, "
+            "updated_at = now();"
         )
     lines.append("")
     lines.append("COMMIT;")
