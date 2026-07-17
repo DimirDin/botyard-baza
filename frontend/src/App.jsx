@@ -114,7 +114,13 @@ export default function App() {
         />
       )}
       {screen === "entry" && <EntryScreen slug={screenParam} onBack={history.length ? goBack : null} />}
-      {screen === "tools" && <ToolsListScreen onOpenTool={(slug) => navigate("tool", slug)} onNavigate={navigate} />}
+      {screen === "tools" && (
+        <ToolsListScreen
+          initial={screenParam && typeof screenParam === "object" ? screenParam : undefined}
+          onOpenTool={(slug) => navigate("tool", slug)}
+          onNavigate={navigate}
+        />
+      )}
       {screen === "tool" && <ToolDetail slug={screenParam} onBack={history.length ? goBack : null} />}
       {screen === "prompts" && (
         <PromptsListScreen initial={screenParam && typeof screenParam === "object" ? screenParam : undefined} onNavigate={navigate} />

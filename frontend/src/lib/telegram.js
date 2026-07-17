@@ -29,6 +29,11 @@ export function hapticError() {
   tg?.HapticFeedback?.notificationOccurred("error");
 }
 
+export function openLink(url) {
+  // tg.openLink — системный браузер; обычный <a>/window.open открывает GitHub внутри вебвью
+  tg?.openLink ? tg.openLink(url) : window.open(url, "_blank");
+}
+
 export function shareLink(url, text) {
   const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
   tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, "_blank");

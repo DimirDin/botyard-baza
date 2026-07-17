@@ -49,6 +49,12 @@ const prompts = [
 ];
 
 
+const components = [
+  { slug: "aitmpl-agent-postgres-pro", comp_type: "agents", category: "database", name: "postgres-pro", title: "postgres-pro", summary: "Глубокая экспертиза PostgreSQL: запросы, индексы, тюнинг.", install_cmd: "npx claude-code-templates@latest --agent database/postgres-pro --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/database/postgres-pro.md" },
+  { slug: "aitmpl-hook-telegram-notify", comp_type: "hooks", category: "notifications", name: "telegram-notify", title: "telegram-notify", summary: "Уведомление в Telegram о завершении задачи Claude Code.", install_cmd: "npx claude-code-templates@latest --hook notifications/telegram-notify --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/notifications/telegram-notify.md" },
+  { slug: "aitmpl-mcp-context7", comp_type: "mcps", category: "devtools", name: "context7", title: "context7", summary: "Актуальная документация библиотек прямо в контекст.", install_cmd: "npx claude-code-templates@latest --mcp devtools/context7 --yes", doc_url: "https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/mcps/devtools/context7.json" },
+];
+
 const cheatsheets = [
   { slug: "cheat-cc-slash", title: "Slash-команды Claude Code", category: "code", sort_order: 10,
     body_md: "| Команда | Что делает |\n|---|---|\n| /help | справка |\n| /clear | очистить контекст |" },
@@ -128,6 +134,7 @@ export async function mockFetch(path, options = {}) {
       };
     }).filter(Boolean);
   }
+  if (path.startsWith("/components")) return components;
   if (path.startsWith("/cheatsheets/")) return cheatsheets.find((c) => path.endsWith(c.slug)) || cheatsheets[0];
   if (path.startsWith("/cheatsheets")) return cheatsheets.map(({ body_md, ...rest }) => rest);
   if (path.endsWith("/rate")) {
