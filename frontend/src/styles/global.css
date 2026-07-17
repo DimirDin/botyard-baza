@@ -432,6 +432,51 @@ button {
   padding: 1px 4px;
 }
 
+/* ---- сырой исходник компонента (Софт → Компоненты) — свёрнут по умолчанию,
+   тот же моноширинный код-стиль, что .article-body pre, но с ограничением высоты
+   (файлы бывают под 30КБ) и переносом длинных строк вместо горизонтального скролла ---- */
+
+.raw-source {
+  margin-top: 8px;
+}
+
+.raw-source__summary {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.raw-source__summary::-webkit-details-marker {
+  display: none;
+}
+
+.raw-source__summary::before {
+  content: "▸ ";
+}
+
+.raw-source[open] .raw-source__summary::before {
+  content: "▾ ";
+}
+
+.raw-source__pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-body);
+  background: #1a1a18;
+  border: 1px solid #26261f;
+  border-radius: 4px;
+  padding: 12px;
+  margin-top: 8px;
+  max-height: 480px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 /* ---- шпаргалки: компактные таблицы под мобильный экран (§15) ---- */
 
 .cheatsheet-body table {

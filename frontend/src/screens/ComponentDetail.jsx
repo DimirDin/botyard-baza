@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
-import { ArticleBody } from "../components/ArticleBody";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { hapticSuccess, openLink } from "../lib/telegram";
@@ -60,7 +59,12 @@ export function ComponentDetail({ slug, onBack }) {
               </div>
             </div>
 
-            {component.body_md && <ArticleBody bodyMd={component.body_md} />}
+            {component.body_md && (
+              <details className="raw-source">
+                <summary className="raw-source__summary">Показать оригинальный исходник (EN)</summary>
+                <pre className="raw-source__pre"><code>{component.body_md}</code></pre>
+              </details>
+            )}
           </>
         )}
       </div>

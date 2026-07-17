@@ -56,29 +56,16 @@ def load_bodies() -> dict:
 
 
 def make_body_md(slug: str, install_cmd: str, doc_url: str, bodies: dict) -> str:
+    """Сырой оригинальный исходник компонента (промпт/конфиг), без обёртки —
+    install_cmd/doc_url уже показываются отдельными кнопками на ComponentDetail,
+    дублировать их в тексте не нужно. Рендерится на фронте как свёрнутый по
+    умолчанию моноширинный блок (см. ComponentDetail.jsx), а не через ArticleBody/
+    markdown — сырой текст может быть JSON/YAML/prompt произвольной структуры.
+    """
     cached = bodies.get(slug)
-    lines = [
-        "### 💻 Как установить",
-        "```bash",
-        install_cmd,
-        "```",
-        "",
-        "### 📄 Содержимое",
-    ]
-    if cached:
-        content = cached["content"].strip()
-        if cached["ext"] == "json":
-            lines += ["```json", content, "```"]
-        else:
-            lines += [content]
-    else:
-        lines += ["_не удалось скачать содержимое с GitHub — см. ссылку на первоисточник ниже_"]
-    lines += [
-        "",
-        "### 🔗 Первоисточник",
-        f"[{slug}]({doc_url}) · aitmpl.com · MIT",
-    ]
-    return "\n".join(lines)
+    if not cached:
+        return ""
+    return cached["content"].strip()
 
 
 def sql_str(value: str) -> str:
