@@ -3,6 +3,7 @@ import { PromptLine } from "../components/PromptLine";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { hapticSuccess, openLink } from "../lib/telegram";
+import { trackEvent } from "../lib/track";
 
 const TYPE_LABEL = {
   agents: "агент", commands: "команда", mcps: "MCP-сервер",
@@ -21,6 +22,10 @@ export function ComponentDetail({ slug, onBack }) {
   };
 
   useEffect(load, [slug]);
+
+  useEffect(() => {
+    if (component) trackEvent("view_component", { slug: component.slug, title: component.title, comp_type: component.comp_type });
+  }, [component]);
 
   const copyInstall = async () => {
     try {

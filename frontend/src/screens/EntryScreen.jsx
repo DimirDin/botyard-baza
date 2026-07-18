@@ -5,6 +5,7 @@ import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { shareLink } from "../lib/telegram";
+import { trackEvent } from "../lib/track";
 
 export function EntryScreen({ slug, onBack }) {
   const [entry, setEntry] = useState(null);
@@ -17,6 +18,10 @@ export function EntryScreen({ slug, onBack }) {
   };
 
   useEffect(load, [slug]);
+
+  useEffect(() => {
+    if (entry) trackEvent("view_entry", { slug: entry.slug, title: entry.title, section: entry.section });
+  }, [entry]);
 
   return (
     <>

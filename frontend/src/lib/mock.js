@@ -241,5 +241,81 @@ export async function mockFetch(path, options = {}) {
       ru_vs_en_delta_pct: tokens > 0 ? Math.round((tokens - enTokens) / enTokens * 100) : null,
     };
   }
+  if (path === "/events" && options.method === "POST") return { logged: JSON.parse(options.body || "{}").events?.length || 0 };
+  if (path === "/admin/stats") {
+    return {
+      total_users: 842,
+      subscribed_users: 611,
+      dau: 96,
+      wau: 340,
+      mau: 612,
+      feature_usage: [
+        { event: "view_entry", count: 1204 },
+        { event: "view_tool", count: 843 },
+        { event: "search", count: 412 },
+        { event: "view_component", count: 201 },
+      ],
+      sources: [
+        { source: "organic", count: 401 },
+        { source: "vcru", count: 220 },
+        { source: "ads1", count: 132 },
+        { source: "friend_share", count: 89 },
+      ],
+    };
+  }
+  if (path === "/admin/analytics") {
+    const days = Array.from({ length: 14 }).map((_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (13 - i));
+      return {
+        day: d.toISOString().slice(0, 10),
+        active: 40 + Math.round(Math.sin(i / 2) * 20 + i * 2),
+        new_users: 4 + Math.round(Math.cos(i / 3) * 3 + 1),
+      };
+    });
+    return {
+      activity_trend: days,
+      top_entries: [
+        { slug: "cc-slash-commands", title: "Слэш-команды Claude Code", section: "code", views: 312 },
+        { slug: "con-cyrillic-tokenization", title: "Токенизация кириллицы", section: "theory", views: 244 },
+        { slug: "cc-claude-md-config", title: "CLAUDE.md: конфигурация проекта", section: "code", views: 198 },
+      ],
+      top_tools: [
+        { repo: "anthropics/claude-code", name: "claude-code", category: "apps/desktop", views: 271 },
+        { repo: "some/mcp-server", name: "mcp-server-fs", category: "mcp/servers", views: 118 },
+      ],
+      top_searches: [
+        { query: "mcp", count: 61 },
+        { query: "hooks", count: 44 },
+        { query: "claude.md", count: 39 },
+        { query: "subagent", count: 22 },
+      ],
+      section_interest: [
+        { section: "code", views: 640 },
+        { section: "theory", views: 280 },
+        { section: "chat", views: 190 },
+        { section: "design", views: 94 },
+      ],
+      top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, category: p.category, copies_count: p.copies_count })),
+      top_liked: [{ slug: "cc-slash-commands", title: "Слэш-команды Claude Code", likes: 12, dislikes: 1 }],
+      top_disliked: [{ slug: "con-cyrillic-tokenization", title: "Токенизация кириллицы", likes: 2, dislikes: 5 }],
+      top_favorites: [
+        { item_type: "entry", ref: "cc-slash-commands", title: "Слэш-команды Claude Code", count: 18 },
+        { item_type: "tool", ref: "anthropics/claude-code", title: "claude-code", count: 14 },
+      ],
+    };
+  }
+  if (path === "/admin/users") {
+    return [
+      { tg_id: 1, username: "dev", first_seen: "2026-06-01T10:00:00Z", last_seen: "2026-07-18T09:00:00Z", is_subscribed: true },
+      { tg_id: 2, username: null, first_seen: "2026-07-10T10:00:00Z", last_seen: "2026-07-17T12:00:00Z", is_subscribed: false },
+    ];
+  }
+  if (path === "/admin/events") {
+    return [
+      { id: 1, tg_id: 1, event: "view_entry", payload: { slug: "cc-slash-commands", section: "code" }, created_at: "2026-07-18T09:00:00Z", username: "dev" },
+      { id: 2, tg_id: 2, event: "search", payload: { q: "mcp", results: 4 }, created_at: "2026-07-17T12:00:00Z", username: null },
+    ];
+  }
   return {};
 }

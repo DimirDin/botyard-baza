@@ -1,9 +1,22 @@
+import json
+
 import asyncpg
 import redis.asyncio as redis
 from app.config import settings
 
 pg_pool: asyncpg.Pool | None = None
 redis_client: redis.Redis | None = None
+
+
+async def _init_connection(conn: asyncpg.Connection) -> None:
+    # Без кодека asyncpg отправляет/получает jsonb только как str — Python dict
+    # ловит "expected str, got dict" при INSERT (см. baza.events.payload).
+    await conn.set_type_codec(
+        "jsonb",
+        encoder=json.dumps,
+        decoder=json.loads,
+        schema="pg_catalog",
+    )
 
 
 async def init_db():
@@ -13,6 +26,7 @@ async def init_db():
         min_size=2,
         max_size=10,
         command_timeout=30,
+        init=_init_connection,
     )
     redis_client = redis.from_url(settings.redis_url, decode_responses=True)
 

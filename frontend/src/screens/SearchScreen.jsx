@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { PromptLine } from "../components/PromptLine";
 import { EmptyState } from "../components/States";
 import { api } from "../lib/api";
+import { trackEvent } from "../lib/track";
 
 const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖", component: "🧩" };
 
@@ -17,7 +18,17 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
     }
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      api.search(q).then(setResults).catch(() => setResults(null));
+      const query = q.trim();
+      api.search(query).then((res) => {
+        setResults(res);
+        const total =
+          (res.entries?.length || 0) +
+          (res.tools?.length || 0) +
+          (res.prompts?.length || 0) +
+          (res.guide?.length || 0) +
+          (res.components?.length || 0);
+        trackEvent("search", { q: query, results: total });
+      }).catch(() => setResults(null));
     }, 300);
     return () => clearTimeout(debounceRef.current);
   }, [q]);

@@ -6,6 +6,7 @@ import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { timeAgo } from "../lib/timeAgo";
 import { shareLink } from "../lib/telegram";
+import { trackEvent } from "../lib/track";
 
 export function ToolDetail({ slug, onBack }) {
   const [tool, setTool] = useState(null);
@@ -18,6 +19,10 @@ export function ToolDetail({ slug, onBack }) {
   };
 
   useEffect(load, [slug]);
+
+  useEffect(() => {
+    if (tool) trackEvent("view_tool", { repo: tool.repo, name: tool.name, category: tool.category });
+  }, [tool]);
 
   return (
     <>
