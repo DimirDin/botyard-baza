@@ -5677,3 +5677,1841 @@
 
     ### 🔗 Первоисточник
     [github.com/davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) · aitmpl.com · MIT (сабколлекции — MIT/Apache 2.0/CC0, источник указан у каждого компонента)
+
+# --- дополнение: подборка «AI-инструменты для разработки» (mcp/clients, code/rules,
+# mcp/frameworks, libs/*, mcp/servers, code/monitoring, code/ci-cd, code/hooks,
+# code/routers, agents/multi-agent, apps/vscode, apps/editors) ---
+
+- repo: aaif-goose/goose
+  category: mcp/clients
+  description_ru: "Открытый CLI/агент от Block (бывш. Square) с полной поддержкой MCP-серверов — устанавливает зависимости, пишет и тестирует код автономно."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    **Goose** — open-source агентный CLI, изначально выпущенный командой **Block**: подключается к любому LLM-провайдеру (включая Claude через Anthropic API/Bedrock) и умеет вызывать MCP-серверы как инструменты «из коробки».
+
+    ### 🎯 Для чего
+    Ставьте, если нужен CLI-агент вне экосистемы Anthropic, который можно гонять на своей модели (в том числе локальной через Ollama) и подключать к произвольным MCP-серверам одной командой.
+
+    ### 💻 Как установить
+    ```bash
+    curl -fsSL https://github.com/block/goose/releases/download/stable/download_cli.sh | bash
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    goose configure   # выбор провайдера/модели
+    goose session start
+    ```
+    MCP-серверы прописываются в `~/.config/goose/config.yaml` — после этого доступны как обычные extensions.
+
+    ### ⚠️ Грабли
+    Организация-владелец репозитория на GitHub периодически переезжает (rename), проверяйте актуальную ссылку перед установкой скрипта из интернета.
+
+- repo: lobehub/lobehub
+  category: mcp/clients
+  description_ru: "Открытый веб-фреймворк для AI-чатов с плагинами, RAG и мультимодельностью — поддерживает Claude через API и MCP-плагины."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **LobeChat** (репозиторий переехал в `lobehub/lobehub`) — self-hosted чат-интерфейс с современным UI, поддержкой голоса, генерации изображений и системой плагинов, включая MCP.
+
+    ### 🎯 Для чего
+    Полезен как готовая «морда» для своего Claude API-ключа с многопользовательским доступом, историей диалогов и рынком плагинов — альтернатива официальному claude.ai для self-host сценариев.
+
+    ### 💻 Как установить
+    ```bash
+    docker run -d -p 3210:3210 \
+      -e ANTHROPIC_API_KEY=sk-ant-... \
+      lobehub/lobe-chat
+    ```
+
+    ### 🚀 Как пользоваться
+    Открыть `localhost:3210`, выбрать модель Claude в настройках провайдеров, подключить MCP-сервер через раздел Plugins/Tools.
+
+    ### ⚠️ Грабли
+    Полноценная многопользовательская установка с базой данных и S3 требует отдельного docker-compose — однострочный докер-запуск подходит только для личного использования.
+
+- repo: ggozad/oterm
+  category: mcp/clients
+  description_ru: "Терминальный TUI-клиент для Ollama с поддержкой MCP-инструментов — общение с локальными моделями прямо из консоли."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **oterm** — текстовый (TUI) клиент для локальных моделей через Ollama, умеет подключать MCP-серверы как источники инструментов и хранит историю сессий локально.
+
+    ### 🎯 Для чего
+    Подходит, если вы гоняете локальные модели (Llama, Qwen и т.п.) и хотите тот же MCP-инструментарий, что и в Claude Code, но без облачного API — полезно для офлайн-экспериментов или экономии токенов.
+
+    ### 💻 Как установить
+    ```bash
+    pipx install oterm
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    oterm
+    ```
+    MCP-серверы прописываются в конфиге `~/.config/oterm/config.json` по стандартной MCP-схеме (`command`/`args`).
+
+    ### ⚠️ Грабли
+    Работает только поверх моделей, доступных через локальный Ollama-демон — Claude по прямому API не подключить, это чисто локальный инструмент.
+
+- repo: apify/mcpc
+  category: mcp/clients
+  description_ru: "Универсальный терминальный MCP-клиент от Apify: постоянные сессии, stdio/HTTP-транспорт, OAuth 2.1, удобен для отладки своих MCP-серверов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcpc** — CLI-клиент общего назначения для протокола MCP: подключается к любому серверу (stdio или HTTP/SSE), поддерживает постоянные сессии, задачи (tasks) и OAuth 2.1 авторизацию.
+
+    ### 🎯 Для чего
+    Удобен для разработки и отладки собственных MCP-серверов — можно вручную вызывать инструменты, смотреть сырые JSON-RPC сообщения и тестировать авторизацию, не поднимая полноценного агента вроде Claude Code.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g mcpc
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    mcpc connect stdio -- node my-server.js
+    mcpc tools list
+    mcpc call my_tool '{"arg":1}'
+    ```
+
+    ### ⚠️ Грабли
+    Это низкоуровневый отладочный инструмент, а не агент — сам по себе LLM не вызывает, только исполняет команды к MCP-серверу вручную.
+
+- repo: PatrickJS/awesome-cursorrules
+  category: code/rules
+  description_ru: "Крупнейшая курируемая база `.cursorrules`-файлов и правил для популярных стеков — Next.js, React, Vue, Python, Go и десятки других."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Курируемый список готовых `.cursorrules` (и совместимых `.mdc`) для конкретных фреймворков и языков — от Next.js 14 App Router до Solidity и Unity.
+
+    ### 🎯 Для чего
+    Быстрый старт: вместо написания правил с нуля берёте готовый файл под свой стек и адаптируете под проект — экономит часы на формулировании конвенций для агента.
+
+    ### 💻 Как установить
+    Скопировать нужный `.cursorrules` из папки `rules/<стек>/` в корень проекта (для Claude Code — переименовать в `CLAUDE.md` и адаптировать формат).
+
+    ### 🚀 Как пользоваться
+    Правила подхватываются автоматически при следующем запуске агента — просто редактируйте файл под особенности своего проекта.
+
+    ### ⚠️ Грабли
+    Файлы написаны под формат Cursor (`.cursorrules`), для Claude Code синтаксис почти всегда переносится один в один, но специфичные Cursor-плейсхолдеры (`@codebase` и т.п.) нужно убрать.
+
+- repo: tonynguyennvt/cursor-rules-awesome
+  category: code/rules
+  description_ru: "Подборка Cursor-правил с акцентом на безопасность (OWASP), стандарты кодирования и SRE-практики."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Набор `.cursorrules`, ориентированный не столько на конкретный фреймворк, сколько на кросс-командные практики: безопасный код (OWASP Top 10), код-ревью чеклисты, SRE runbook-стиль инструкций.
+
+    ### 🎯 Для чего
+    Хорошая база, если нужно, чтобы агент по умолчанию держал в голове требования безопасности и эксплуатационной надёжности, а не только синтаксис языка.
+
+    ### 💻 Как установить
+    Скопировать нужный файл из репозитория в проект, переименовать под формат своего агента.
+
+    ### 🚀 Как пользоваться
+    Работает как обычный системный промпт/файл конвенций — агент следует правилам при каждой правке кода.
+
+    ### ⚠️ Грабли
+    Небольшой, не так активно поддерживаемый репозиторий — сверяйте актуальность практик (особенно OWASP-пунктов) перед использованием в продакшене.
+
+- repo: sanjeed5/awesome-cursor-rules-mdc
+  category: code/rules
+  description_ru: "Коллекция `.mdc`-правил с генератором на базе семантического поиска — можно подобрать готовый набор под свой стек автоматически."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Репозиторий с сотнями `.mdc`-файлов (новый формат правил Cursor) плюс собственный генератор: по описанию стека находит семантически близкие готовые правила.
+
+    ### 🎯 Для чего
+    Полезен, когда стек нестандартный или смешанный (например, FastAPI + HTMX + Postgres) — генератор соберёт релевантный набор правил вместо поиска вручную по папкам.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/sanjeed5/awesome-cursor-rules-mdc
+    ```
+    Генератор запускается локально по инструкции в README (Python + embeddings).
+
+    ### 🚀 Как пользоваться
+    Указать стек проекта — генератор вернёт список подходящих `.mdc`-файлов для копирования в проект.
+
+    ### ⚠️ Грабли
+    Формат `.mdc` специфичен для Cursor (frontmatter с `globs`/`alwaysApply`) — для Claude Code содержимое нужно вручную переносить в `CLAUDE.md` без метаданных.
+
+- repo: blefnk/awesome-cursor-rules
+  category: code/rules
+  description_ru: "Готовые правила под самый свежий стек — Next.js 15, React 19, TypeScript 5.x и Tailwind 4."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Фокус на самом актуальном фронтенд-стеке: правила заточены под последние мажорные версии Next.js, React, TS и Tailwind, включая новые паттерны (React Server Components, Server Actions).
+
+    ### 🎯 Для чего
+    Полезно, если проект уже мигрировал на последние версии этих фреймворков и хочется, чтобы агент не предлагал устаревшие API prior-версий.
+
+    ### 💻 Как установить
+    Скопировать релевантный файл в проект, адаптировать под конкретную конфигурацию (App Router vs Pages Router и т.п.).
+
+    ### 🚀 Как пользоваться
+    Подключается как обычный файл конвенций для агента.
+
+    ### ⚠️ Грабли
+    Из-за высокой частоты обновлений самих фреймворков правила могут отставать от самых свежих RC-версий — проверяйте актуальность перед использованием.
+
+- repo: instructa/ai-prompts
+  category: code/rules
+  description_ru: "Системные промпты и гайдлайны для кодинг-ассистентов — не только правила стиля, но и инструкции по поведению агента."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Набор системных промптов и инструкций, ориентированных на поведение агента в целом (как объяснять решения, как задавать уточняющие вопросы), а не только на синтаксис кода.
+
+    ### 🎯 Для чего
+    Полезен как источник идей для собственного `CLAUDE.md`/системного промпта — как формулировать ограничения, тон общения и правила эскалации к пользователю.
+
+    ### 💻 Как установить
+    Открыть репозиторий и скопировать нужные фрагменты промптов — единого инсталлятора нет.
+
+    ### 🚀 Как пользоваться
+    Адаптировать выбранные формулировки под свой проект и добавить в системный файл конвенций.
+
+    ### ⚠️ Грабли
+    Это скорее сборник идей, чем готовый плагин — требует ручной адаптации под конкретного агента и проект.
+
+- repo: modelcontextprotocol/go-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный Go SDK от Anthropic для разработки MCP-серверов и клиентов."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная Go-реализация протокола MCP от Anthropic: типобезопасные структуры для tools/resources/prompts, транспорт stdio и HTTP/SSE.
+
+    ### 🎯 Для чего
+    Выбирайте, если ваш бэкенд/инфраструктура уже на Go — не нужно поднимать отдельный Node/Python-процесс только ради MCP-сервера.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/modelcontextprotocol/go-sdk
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    srv := mcp.NewServer("my-server", "1.0.0")
+    srv.AddTool(...)
+    srv.Run(ctx, mcp.StdioTransport())
+    ```
+
+    ### ⚠️ Грабли
+    SDK моложе TS/Python-версий Anthropic — часть продвинутых фич (например, некоторые sampling-возможности) может появляться с задержкой.
+
+- repo: modelcontextprotocol/kotlin-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный Kotlin SDK от Anthropic для MCP — серверы и клиенты на JVM/Android."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная Kotlin-реализация MCP от Anthropic, совместимая с JVM и Kotlin Multiplatform (включая Android).
+
+    ### 🎯 Для чего
+    Актуален для команд с JVM/Android-бэкендом, которым нужно предоставить Claude доступ к внутренним сервисам без перехода на Node/Python.
+
+    ### 💻 Как установить
+    ```kotlin
+    dependencies {
+        implementation("io.modelcontextprotocol:kotlin-sdk:<version>")
+    }
+    ```
+
+    ### 🚀 Как пользоваться
+    Создать сервер через `Server(...)`, зарегистрировать инструменты `addTool`, запустить на нужном транспорте (stdio/SSE).
+
+    ### ⚠️ Грабли
+    Multiplatform-поддержка (iOS/JS-таргеты) на момент публикации SDK менее зрелая, чем чистый JVM-таргет — проверяйте актуальный статус в README.
+
+- repo: modelcontextprotocol/php-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный PHP SDK от Anthropic для MCP-серверов — подходит для интеграции с Laravel/Symfony проектами."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная PHP-реализация MCP: атрибуты для декларации инструментов, поддержка PSR-совместимых HTTP-стеков.
+
+    ### 🎯 Для чего
+    Позволяет открыть существующий PHP-бэкенд (Laravel, Symfony) как MCP-сервер без переписывания логики на другом языке.
+
+    ### 💻 Как установить
+    ```bash
+    composer require modelcontextprotocol/sdk
+    ```
+
+    ### 🚀 Как пользоваться
+    Инструменты объявляются PHP-атрибутами над методами, сервер поднимается как обычный PSR-7 HTTP-хендлер или CLI-процесс для stdio.
+
+    ### ⚠️ Грабли
+    Экосистема PHP MCP-серверов пока небольшая — меньше готовых примеров интеграции, чем для TS/Python.
+
+- repo: modelcontextprotocol/java-sdk
+  category: mcp/frameworks
+  description_ru: "Официальный Java SDK от Anthropic для MCP — Spring-friendly, для энтерпрайз-бэкендов на JVM."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальная Java-реализация MCP, включает интеграцию со Spring (starter для Spring Boot), синхронный и асинхронный (Reactor) API.
+
+    ### 🎯 Для чего
+    Естественный выбор для энтерпрайз-команд на Spring Boot — MCP-сервер поднимается как обычный Spring-бин без дополнительной инфраструктуры.
+
+    ### 💻 Как установить
+    ```xml
+    <dependency>
+      <groupId>io.modelcontextprotocol.sdk</groupId>
+      <artifactId>mcp-spring-webflux</artifactId>
+    </dependency>
+    ```
+
+    ### 🚀 Как пользоваться
+    Аннотировать бины как MCP-инструменты через предоставленный Spring Boot starter, остальное конфигурируется как обычный Spring-сервис.
+
+    ### ⚠️ Грабли
+    Реактивный (WebFlux) и блокирующий (WebMVC) варианты SDK имеют разный API — выбирайте вариант под существующий стек, чтобы не смешивать модели.
+
+- repo: langchain4j/langchain4j
+  category: mcp/frameworks
+  description_ru: "Java-фреймворк для AI-разработки (аналог LangChain) с нативной интеграцией MCP-клиента."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    LangChain4j — Java-библиотека для построения LLM-приложений: цепочки, RAG, память диалога, агенты, плюс встроенный MCP-клиент для подключения внешних инструментов.
+
+    ### 🎯 Для чего
+    Если ваш AI-слой пишется на Java/Kotlin и вы уже используете LangChain4j для RAG/агентов — MCP-клиент подключается без дополнительных зависимостей.
+
+    ### 💻 Как установить
+    ```xml
+    <dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-mcp</artifactId>
+    </dependency>
+    ```
+
+    ### 🚀 Как пользоваться
+    Создать `McpClient`, передать его как источник инструментов в `AiServices` — модель сама решает, когда вызывать MCP-инструмент.
+
+    ### ⚠️ Грабли
+    Библиотека большая и обновляется часто — держите версии `langchain4j-core` и `langchain4j-mcp` синхронными, иначе возможны конфликты API.
+
+- repo: swisnl/mcp-client
+  category: mcp/frameworks
+  description_ru: "Реализация универсального PHP MCP-клиента от агентства Swis — для подключения к MCP-серверам из любого PHP-приложения."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Легковесный PHP-клиент для MCP (в отличие от официального SDK — сфокусирован именно на клиентской части, без серверных примитивов).
+
+    ### 🎯 Для чего
+    Подходит, если нужно из существующего PHP-приложения (не обязательно на MCP-инфраструктуре Anthropic) дёргать сторонние MCP-серверы как источник инструментов для своего LLM-пайплайна.
+
+    ### 💻 Как установить
+    ```bash
+    composer require swisnl/mcp-client
+    ```
+
+    ### 🚀 Как пользоваться
+    ```php
+    $client = new McpClient($transport);
+    $tools = $client->listTools();
+    $result = $client->callTool('name', $args);
+    ```
+
+    ### ⚠️ Грабли
+    Проект от стороннего агентства (не Anthropic) — темп обновлений под новые версии спецификации MCP стоит сверять отдельно от официального SDK.
+
+- repo: anthropics/anthropic-sdk-python
+  category: libs/python
+  description_ru: "Официальный Python-клиент Anthropic для Messages API — базовая библиотека для любой интеграции Claude в Python."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный SDK от Anthropic для вызова Claude API из Python: синхронный и асинхронный клиенты, стриминг, tool use, поддержка prompt caching и batch API.
+
+    ### 🎯 Для чего
+    Основа для любой Python-интеграции с Claude — используется как напрямую, так и «под капотом» большинством фреймворков (LangChain, LlamaIndex и др.).
+
+    ### 💻 Как установить
+    ```bash
+    pip install anthropic
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from anthropic import Anthropic
+    client = Anthropic()
+    msg = client.messages.create(
+        model="claude-sonnet-4-5",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": "привет"}],
+    )
+    ```
+
+    ### ⚠️ Грабли
+    Актуальные названия моделей и лимиты — только по официальной документации/`content/cheatsheets/api-limits-and-models.md`, версии моделей меняются чаще, чем сам SDK.
+
+- repo: guidance-ai/guidance
+  category: libs/python
+  description_ru: "Библиотека для контроля структуры ответов LLM — ограничивает генерацию грамматикой прямо во время сэмплинга."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Guidance — библиотека для «управляемой генерации»: позволяет задавать ответу LLM жёсткую структуру (регулярки, JSON-схему, грамматики) на уровне токен-сэмплинга, а не постфактум-парсинга.
+
+    ### 🎯 Для чего
+    Полезна там, где нужна гарантированно валидная структура вывода (JSON, код по шаблону) и не хочется полагаться на надежду, что модель «не собьётся» с формата.
+
+    ### 💻 Как установить
+    ```bash
+    pip install guidance
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from guidance import models, gen
+    lm = models.Anthropic("claude-sonnet-4-5")
+    lm += "Ответь числом: " + gen(regex=r"\d+")
+    ```
+
+    ### ⚠️ Грабли
+    Глубокий контроль на уровне логитов (constrained decoding) доступен не для всех провайдеров одинаково — для API-моделей вроде Claude часть возможностей работает иначе, чем для локальных open-weight моделей.
+
+- repo: fastapi/fastapi
+  category: libs/python
+  description_ru: "Стандартный де-факто фреймворк для Python-бэкендов и API-интеграций с LLM — быстрый, с автогенерацией OpenAPI-схем."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    FastAPI — современный ASGI-фреймворк для Python с автоматической валидацией через Pydantic и генерацией OpenAPI/Swagger-документации.
+
+    ### 🎯 Для чего
+    Частый выбор как backend для AI-приложений: чистая типизация запросов/ответов упрощает и стриминг LLM-ответов, и описание MCP/tool-схем через Pydantic-модели.
+
+    ### 💻 Как установить
+    ```bash
+    pip install fastapi uvicorn
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from fastapi import FastAPI
+    app = FastAPI()
+    
+    @app.post("/chat")
+    async def chat(msg: str):
+        ...
+    ```
+    ```bash
+    uvicorn main:app --reload
+    ```
+
+    ### ⚠️ Грабли
+    Async-эндпоинты требуют, чтобы все вызовы к БД/внешним API внутри тоже были async — синхронный вызов внутри `async def` блокирует event loop.
+
+- repo: PrefectHQ/prefect
+  category: libs/python
+  description_ru: "Оркестратор рабочих процессов на Python — часто используется для построения надёжных агентных и RAG-конвейеров с ретраями и мониторингом."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Prefect — фреймворк оркестрации workflow: декораторы `@flow`/`@task`, встроенные ретраи, кэширование, расписания и UI для мониторинга запусков.
+
+    ### 🎯 Для чего
+    Полезен, когда агентный/RAG-пайплайн выходит за рамки одного скрипта — нужны ретраи на упавших шагах, расписание и видимость, что именно пошло не так в конкретном запуске.
+
+    ### 💻 Как установить
+    ```bash
+    pip install prefect
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from prefect import flow, task
+    
+    @task(retries=3)
+    def call_claude(prompt): ...
+    
+    @flow
+    def pipeline():
+        call_claude("...")
+    ```
+
+    ### ⚠️ Грабли
+    Полноценный Prefect Server/Cloud с UI требует отдельного деплоя — для простых скриптов иногда избыточен по сравнению с обычным `try/except` + логированием.
+
+- repo: stanfordnlp/dspy
+  category: libs/python
+  description_ru: "DSPy — фреймворк для программной оптимизации промптов вместо ручного prompt engineering, из Стэнфорда."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    DSPy — фреймворк, в котором промпты и few-shot примеры не пишутся руками, а компилируются/оптимизируются программно под заданную метрику качества, по аналогии с обучением модели.
+
+    ### 🎯 Для чего
+    Полезен, когда prompt engineering вручную упирается в потолок — DSPy автоматически подбирает формулировки и примеры под конкретную задачу и датасет с эталонными ответами.
+
+    ### 💻 Как установить
+    ```bash
+    pip install dspy
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    import dspy
+    lm = dspy.LM("anthropic/claude-sonnet-4-5")
+    dspy.configure(lm=lm)
+    qa = dspy.Predict("question -> answer")
+    ```
+
+    ### ⚠️ Грабли
+    Оптимизация (compile) требует размеченного датасета примеров и лишних вызовов API для подбора промптов — не бесплатно ни по времени, ни по токенам.
+
+- repo: langchain-ai/langchainjs
+  category: libs/javascript
+  description_ru: "JS/TS-версия LangChain — оркестрация цепочек, RAG и агентов на Node/edge-рантаймах с поддержкой Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    LangChain.js — портированная на JavaScript/TypeScript версия LangChain: цепочки, retrievers, агенты, интеграции с векторными БД и провайдерами моделей, включая Anthropic.
+
+    ### 🎯 Для чего
+    Выбор для команд, чей стек целиком на Node/Next.js — не нужно поднимать отдельный Python-сервис ради RAG-пайплайна.
+
+    ### 💻 Как установить
+    ```bash
+    npm install langchain @langchain/anthropic
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ts
+    import { ChatAnthropic } from "@langchain/anthropic";
+    const model = new ChatAnthropic({ model: "claude-sonnet-4-5" });
+    await model.invoke("привет");
+    ```
+
+    ### ⚠️ Грабли
+    API периодически меняется между мажорными версиями (миграция на `@langchain/core` модули) — при обновлении сверяйтесь с changelog, легко словить breaking changes.
+
+- repo: BuilderIO/gpt-crawler
+  category: libs/javascript
+  description_ru: "Инструмент для сборки документации сайта в единый файл знаний для LLM — полезен для подготовки контекста Claude по внешним докам."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    CLI-утилита на Playwright: обходит указанный сайт (например, документацию) и собирает контент в единый JSON/markdown-файл, пригодный для загрузки в контекст LLM или в кастомный GPT/проект Claude.
+
+    ### 🎯 Для чего
+    Удобно, когда нужно быстро скормить Claude документацию стороннего продукта, у которого нет готового MCP-сервера или API — например, для Projects/Claude.ai knowledge base.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/BuilderIO/gpt-crawler
+    cd gpt-crawler && npm i
+    ```
+
+    ### 🚀 Как пользоваться
+    Указать `url` и `selector` в `config.ts`, затем:
+    ```bash
+    npm start
+    ```
+    Результат — `output.json` со всем собранным контентом сайта.
+
+    ### ⚠️ Грабли
+    Обход чужого сайта краулером может нарушать его `robots.txt`/условия использования — проверяйте это перед массовым скрапингом сторонней документации.
+
+- repo: humanloop/humanloop-node
+  category: libs/javascript
+  description_ru: "Библиотека для мониторинга, трекинга и оценки работы LLM (включая Claude) в проде — логирование вызовов и версионирование промптов."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Node.js SDK платформы Humanloop: логирует вызовы к LLM-провайдерам (включая Anthropic), хранит версии промптов и позволяет прогонять оценки (evals) на исторических логах.
+
+    ### 🎯 Для чего
+    Полезен командам, которым нужна видимость, как промпт ведёт себя в проде на реальном трафике, и возможность откатиться на предыдущую версию промпта без деплоя кода.
+
+    ### 💻 Как установить
+    ```bash
+    npm install humanloop
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ts
+    import { Humanloop } from "humanloop";
+    const hl = new Humanloop({ apiKey: process.env.HUMANLOOP_KEY });
+    await hl.chat({ path: "my-prompt", messages: [...] });
+    ```
+
+    ### ⚠️ Грабли
+    Требует облачного аккаунта Humanloop (SaaS) — сами логи и версии промптов хранятся не локально, а на их платформе.
+
+- repo: brianc/node-postgres
+  category: libs/javascript
+  description_ru: "Модуль для PostgreSQL на Node.js — часто используется как фундамент для собственных Node MCP-серверов, работающих с БД."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    `node-postgres` (`pg`) — низкоуровневый, но стабильный и очень широко используемый клиент PostgreSQL для Node.js: пул соединений, параметризованные запросы, поддержка стриминга курсоров.
+
+    ### 🎯 Для чего
+    Основа почти для любого самописного MCP-сервера или backend-инструмента на Node, которому нужен прямой доступ к Postgres без ORM.
+
+    ### 💻 Как установить
+    ```bash
+    npm install pg
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ts
+    import { Pool } from "pg";
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    const { rows } = await pool.query("SELECT 1");
+    ```
+
+    ### ⚠️ Грабли
+    Все запросы — только через параметризацию (`$1, $2, ...`), никогда не собирайте SQL конкатенацией строк, особенно если строки приходят из ответа LLM.
+
+- repo: expressjs/express
+  category: libs/javascript
+  description_ru: "Классический Node.js веб-фреймворк — часто служит транспортным слоем для MCP HTTP/SSE-серверов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Express — минималистичный и самый распространённый веб-фреймворк для Node.js: роутинг, middleware, стандарт де-факто для HTTP API за последние 10+ лет.
+
+    ### 🎯 Для чего
+    Многие самописные MCP-серверы с HTTP/SSE-транспортом поднимаются именно на Express — простой и предсказуемый способ обслужить `/sse` и `/messages` эндпоинты для протокола MCP.
+
+    ### 💻 Как установить
+    ```bash
+    npm install express
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ts
+    import express from "express";
+    const app = express();
+    app.get("/health", (_, res) => res.send("ok"));
+    app.listen(3000);
+    ```
+
+    ### ⚠️ Грабли
+    Сам по себе не даёт ни валидации, ни типизации — для продакшена обычно добавляют Zod/Pydantic-аналог и явную обработку ошибок middleware.
+
+- repo: vercel/modelfusion
+  category: libs/javascript
+  description_ru: "Утилиты для генерации текста, работы с токенами и построения пайплайнов в JS/TS (ранее ai-utils, теперь ModelFusion)."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    ModelFusion (репозиторий переехал из `lgrammel/ai-utils`) — TypeScript-библиотека для построения типобезопасных LLM-пайплайнов: генерация текста, эмбеддинги, извлечение структурированных данных, множество провайдеров включая Anthropic.
+
+    ### 🎯 Для чего
+    Альтернатива LangChain.js для тех, кому важнее строгая типизация TypeScript и меньше «магии» в абстракциях — пайплайн строится из явных, предсказуемых функций.
+
+    ### 💻 Как установить
+    ```bash
+    npm install modelfusion
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ts
+    import { generateText, anthropic } from "modelfusion";
+    const text = await generateText({
+      model: anthropic.ChatTextGenerator({ model: "claude-sonnet-4-5" }),
+      prompt: "привет",
+    });
+    ```
+
+    ### ⚠️ Грабли
+    Проект сменил название и владельца репозитория (теперь под Vercel) — старые ссылки/примеры на `ai-utils` могут вести на устаревшую версию API.
+
+- repo: crystaldba/postgres-mcp
+  category: mcp/servers
+  description_ru: "Продвинутый MCP-сервер для PostgreSQL: анализ индексов, объяснение планов запросов, безопасный режим только для чтения."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер для Postgres с упором на аналитику и оптимизацию: EXPLAIN-планы, рекомендации по индексам, health-check базы — не просто «выполнить SQL», а помощник по производительности.
+
+    ### 🎯 Для чего
+    Полезен, если хотите, чтобы Claude не только читал данные, но и предлагал реальные оптимизации схемы/индексов на основе `EXPLAIN ANALYZE`, а не общих советов из памяти модели.
+
+    ### 💻 Как установить
+    ```bash
+    pip install postgres-mcp
+    ```
+    или запуск через `pipx run postgres-mcp --access-mode=restricted`.
+
+    ### 🚀 Как пользоваться
+    Прописать сервер в MCP-конфиге агента с `DATABASE_URL`; режим `restricted` разрешает только `SELECT`-запросы.
+
+    ### ⚠️ Грабли
+    Полный (unrestricted) режим даёт агенту возможность выполнять произвольный SQL, включая `DROP`/`DELETE` — на проде используйте только `restricted`-режим и read-replica.
+
+- repo: jerhadf/linear-mcp-server
+  category: mcp/servers
+  description_ru: "MCP-сервер для интеграции с Linear — создание, поиск и обновление задач прямо из диалога с Claude."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    MCP-сервер, оборачивающий Linear API: поиск issues, создание задач, комментарии, обновление статусов — стандартный CRUD по трекеру задач через MCP-инструменты.
+
+    ### 🎯 Для чего
+    Полезен для workflow, где Claude Code должен сам заводить/обновлять задачи по итогам сессии (баг нашёлся — завести issue) без переключения в веб-интерфейс Linear.
+
+    ### 💻 Как установить
+    ```bash
+    npx -y linear-mcp-server
+    ```
+    Требуется `LINEAR_API_KEY` в переменных окружения.
+
+    ### 🚀 Как пользоваться
+    Прописать сервер в MCP-конфиге агента — далее доступны инструменты `search_issues`, `create_issue`, `update_issue` и т.п.
+
+    ### ⚠️ Грабли
+    Персональный API-ключ Linear даёт агенту права как у вас — на общих/командных workspace стоит завести отдельный сервисный аккаунт с ограниченными правами.
+
+- repo: sashabaranov/go-openai
+  category: libs/go
+  description_ru: "Клиент OpenAI на Go — де-факто стандарт для Go-экосистемы, используется и для Ollama-совместимых моделей."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Самая популярная Go-библиотека для OpenAI-совместимого API: chat completions, стриминг, function calling. Благодаря OpenAI-совместимому режиму у многих провайдеров (включая некоторые прокси к Claude) используется как универсальный клиент.
+
+    ### 🎯 Для чего
+    Полезна, если инфраструктура уже стандартизована на OpenAI-совместимый формат запросов (например, через LiteLLM-прокси перед Claude) и нужен проверенный Go-клиент без написания HTTP-обвязки с нуля.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/sashabaranov/go-openai
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    client := openai.NewClient(apiKey)
+    resp, _ := client.CreateChatCompletion(ctx, req)
+    ```
+
+    ### ⚠️ Грабли
+    Нативно не понимает Anthropic Messages API формат — для прямой работы с Claude нужен либо OpenAI-совместимый прокси (LiteLLM и т.п.), либо родной Go SDK MCP/Anthropic.
+
+- repo: google/generative-ai-go
+  category: libs/go
+  description_ru: "Официальный Go SDK от Google для моделей семейства Gemini — полезен для мультимодельных Go-пайплайнов рядом с Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный клиент Google для Gemini API на Go: текст, изображения, function calling, embeddings.
+
+    ### 🎯 Для чего
+    Актуален для мультимодельных Go-приложений, где часть задач идёт на Gemini (например, из-за цены/скорости), а часть — на Claude через отдельный клиент.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/google/generative-ai-go/genai
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    client, _ := genai.NewClient(ctx, option.WithAPIKey(key))
+    model := client.GenerativeModel("gemini-2.5-pro")
+    resp, _ := model.GenerateContent(ctx, genai.Text("привет"))
+    ```
+
+    ### ⚠️ Грабли
+    API и модельные имена Google обновляются independently от Anthropic — для сравнения цен/лимитов сверяйтесь с актуальной документацией Google, а не по аналогии с Claude.
+
+- repo: cohere-ai/cohere-go
+  category: libs/go
+  description_ru: "Официальная Go-библиотека для интеграции API Cohere — актуальна для мультипровайдерных Go-пайплайнов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный Go SDK Cohere: генерация текста, rerank, embeddings — часто используется как дешёвая rerank-ступень перед финальным вызовом Claude в RAG-пайплайнах.
+
+    ### 🎯 Для чего
+    Полезен для гибридных архитектур: Cohere rerank для сужения кандидатов из векторного поиска, финальный ответ — от Claude.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/cohere-ai/cohere-go/v2
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    client := client.NewClient(client.WithToken(apiKey))
+    resp, _ := client.Rerank(ctx, &cohere.RerankRequest{...})
+    ```
+
+    ### ⚠️ Грабли
+    Rerank и generate — разные модели с разным ценообразованием у Cohere, не путайте лимиты одного эндпоинта с другим при планировании расходов.
+
+- repo: henomis/milvus-go
+  category: libs/go
+  description_ru: "Go-клиент для распределённой векторной базы данных Milvus."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Неофициальный, но широко используемый Go-клиент для Milvus — открытой распределённой векторной БД для хранения эмбеддингов и similarity-поиска.
+
+    ### 🎯 Для чего
+    Нужен для Go-бэкендов, реализующих собственный RAG поверх Claude: хранение эмбеддингов документов и быстрый top-k поиск перед формированием контекста для модели.
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/milvus-io/milvus-sdk-go/v2
+    ```
+    (либо уточнить актуальный путь модуля в README `henomis/milvus-go`).
+
+    ### 🚀 Как пользоваться
+    ```go
+    client, _ := client.NewGrpcClient(ctx, "localhost:19530")
+    client.Search(ctx, collection, ...)
+    ```
+
+    ### ⚠️ Грабли
+    Milvus сам по себе — тяжёлая распределённая система (etcd + MinIO + query/data nodes), для небольших проектов может быть избыточен по сравнению с pgvector.
+
+- repo: pinecone-io/go-pinecone
+  category: libs/go
+  description_ru: "Официальный SDK облачной векторной БД Pinecone на Go."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальный Go-клиент Pinecone — managed векторной базы данных: upsert/query эмбеддингов, метаданные, namespace-изоляция.
+
+    ### 🎯 Для чего
+    Актуален для Go-сервисов с RAG поверх Claude, где хочется managed-решение без своего кластера (в отличие от self-hosted Milvus/pgvector).
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/pinecone-io/go-pinecone/v3/pinecone
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    client, _ := pinecone.NewClient(pinecone.NewClientParams{ApiKey: key})
+    idx, _ := client.Index(host)
+    idx.UpsertVectors(ctx, vectors)
+    ```
+
+    ### ⚠️ Грабли
+    Managed-сервис — расходы растут с объёмом векторов и запросов, для прототипов дешевле начать с pgvector/локального Milvus и мигрировать при росте нагрузки.
+
+- repo: pkoukk/tiktoken-go
+  category: libs/go
+  description_ru: "Порт библиотеки Tiktoken на Go для точного подсчёта токенов OpenAI-совместимых моделей."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Go-порт OpenAI `tiktoken` — точный подсчёт количества токенов по BPE-энкодеру без обращения к API.
+
+    ### 🎯 Для чего
+    Полезен для прикидки стоимости/лимитов запроса до его отправки — но учитывайте, что токенизатор Claude отличается от OpenAI, для точного подсчёта токенов Claude нужен отдельный подход (count_tokens в Anthropic SDK).
+
+    ### 💻 Как установить
+    ```bash
+    go get github.com/pkoukk/tiktoken-go
+    ```
+
+    ### 🚀 Как пользоваться
+    ```go
+    enc, _ := tiktoken.GetEncoding("cl100k_base")
+    tokens := enc.Encode(text, nil, nil)
+    ```
+
+    ### ⚠️ Грабли
+    Даёт точный подсчёт только для энкодеров семейства OpenAI (cl100k_base и т.п.) — для Claude это лишь грубая оценка, реальное число токенов может заметно отличаться.
+
+- repo: ollama/ollama
+  category: libs/go
+  description_ru: "CLI-утилита и демон для запуска локальных LLM на своём компьютере — написан на Go, даёт OpenAI-совместимое API."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Ollama — локальный движок инференса open-weight моделей (Llama, Qwen, Mistral и др.): скачивает, квантует и запускает модели одной командой, отдаёт HTTP API.
+
+    ### 🎯 Для чего
+    Полезен для офлайн-экспериментов, приватных данных (модель не покидает машину) или как дешёвая локальная альтернатива для второстепенных задач в пайплайне, где основной «мозг» — Claude.
+
+    ### 💻 Как установить
+    ```bash
+    curl -fsSL https://ollama.com/install.sh | sh
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    ollama pull llama3.1
+    ollama run llama3.1
+    ```
+    HTTP API доступен на `localhost:11434` — совместим с клиентами вроде `oterm`.
+
+    ### ⚠️ Грабли
+    Качество и скорость сильно зависят от локального железа (VRAM/RAM) — не стоит ожидать паритета по качеству рассуждений с Claude на задачах, требующих сложной логики.
+
+- repo: 0xPlaygrounds/rig
+  category: libs/rust
+  description_ru: "Rig — эргономичный Rust-фреймворк для создания модульных ИИ-агентов с поддержкой множества провайдеров, включая Anthropic."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Rig — Rust-библиотека для построения LLM-приложений: агенты, RAG, векторные хранилища, единый интерфейс поверх нескольких провайдеров моделей.
+
+    ### 🎯 Для чего
+    Выбор для команд, которым нужна производительность и безопасность типов Rust в проде — например, высоконагруженный сервис-прокси перед Claude API.
+
+    ### 💻 Как установить
+    ```bash
+    cargo add rig-core
+    ```
+
+    ### 🚀 Как пользоваться
+    ```rust
+    let client = rig::providers::anthropic::Client::new(&api_key);
+    let agent = client.agent("claude-sonnet-4-5").build();
+    let resp = agent.prompt("привет").await?;
+    ```
+
+    ### ⚠️ Грабли
+    Экосистема моложе Python/JS-аналогов — часть интеграций (векторные БД, инструменты) реализована не так полно, проверяйте поддержку конкретного провайдера перед стартом проекта.
+
+- repo: jeremychone/rust-genai
+  category: libs/rust
+  description_ru: "Rust-библиотека для интеграции с 26+ провайдерами LLM (Claude, OpenAI, Ollama и др.) через единый интерфейс."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    `genai` — минималистичный Rust-клиент с единым API поверх множества провайдеров: переключение между Claude, OpenAI, Gemini, Ollama одной строкой конфигурации.
+
+    ### 🎯 Для чего
+    Удобен, когда нужно быстро сравнить ответы разных моделей на одном запросе или держать fallback-провайдера на случай недоступности основного.
+
+    ### 💻 Как установить
+    ```bash
+    cargo add genai
+    ```
+
+    ### 🚀 Как пользоваться
+    ```rust
+    let client = genai::Client::default();
+    let resp = client.exec_chat("claude-sonnet-4-5", chat_req, None).await?;
+    ```
+
+    ### ⚠️ Грабли
+    Единый интерфейс не покрывает провайдер-специфичные фичи (например, extended thinking или prompt caching Claude) — для тонкой настройки под конкретного провайдера иногда нужен родной SDK.
+
+- repo: pepperoni21/ollama-rs
+  category: libs/rust
+  description_ru: "Специализированный асинхронный клиент для локального API Ollama на Rust."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Асинхронная Rust-обёртка над HTTP API Ollama: генерация, чат, эмбеддинги, управление моделями (pull/list/delete).
+
+    ### 🎯 Для чего
+    Нужен, если Rust-сервис использует локальную модель через Ollama как часть пайплайна (например, для дешёвой предобработки перед вызовом Claude на финальном шаге).
+
+    ### 💻 Как установить
+    ```bash
+    cargo add ollama-rs
+    ```
+
+    ### 🚀 Как пользоваться
+    ```rust
+    let ollama = Ollama::default();
+    let res = ollama.generate(GenerationRequest::new("llama3.1".into(), prompt)).await?;
+    ```
+
+    ### ⚠️ Грабли
+    Работает только с локально запущенным демоном Ollama — сам по себе не обращается ни к каким облачным API.
+
+- repo: huggingface/candle
+  category: libs/rust
+  description_ru: "Минималистичный ML-фреймворк на Rust от Hugging Face — инференс моделей без Python-рантайма."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Candle — Rust-фреймворк для тензорных вычислений и инференса ML-моделей (включая LLM), нацеленный на минимальный бинарник и отсутствие зависимости от Python/PyTorch в рантайме.
+
+    ### 🎯 Для чего
+    Актуален, когда нужно встроить инференс небольшой открытой модели прямо в Rust-бинарник (edge/embedded-сценарии) — с Claude напрямую не связан, но часто используется рядом как локальный слой предобработки.
+
+    ### 💻 Как установить
+    ```bash
+    cargo add candle-core candle-transformers
+    ```
+
+    ### 🚀 Как пользоваться
+    Загрузка весов модели в формате safetensors и прямой forward-pass через API `candle-transformers` — примеры под конкретные архитектуры (Llama, Mistral и т.п.) есть в репозитории.
+
+    ### ⚠️ Грабли
+    Более низкоуровневый инструмент, чем Ollama/llama.cpp — требует больше кода для запуска конкретной модели, зато даёт полный контроль над рантаймом.
+
+- repo: EricLBuehler/mistral.rs
+  category: libs/rust
+  description_ru: "Высокопроизводительный движок локального инференса на Rust для Llama, Mistral, Gemma с поддержкой квантования."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    `mistral.rs` — быстрый локальный инференс-движок на Rust с поддержкой квантованных GGUF-моделей, есть OpenAI-совместимый HTTP-сервер режим.
+
+    ### 🎯 Для чего
+    Альтернатива llama.cpp/Ollama, когда важна максимальная скорость на CPU/GPU и нужен нативный Rust-интерфейс, а не только CLI.
+
+    ### 💻 Как установить
+    ```bash
+    cargo install --git https://github.com/EricLBuehler/mistral.rs mistralrs-server
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    mistralrs-server --port 1234 gguf -m <repo> -f <file.gguf>
+    ```
+    Далее доступен OpenAI-совместимый эндпоинт `/v1/chat/completions`.
+
+    ### ⚠️ Грабли
+    Совместимость с конкретными архитектурами моделей появляется постепенно — перед выбором свежей модели проверьте таблицу поддерживаемых архитектур в README.
+
+- repo: rustformers/llm
+  category: libs/rust
+  description_ru: "Экосистема библиотек для инференса локальных GGUF-моделей на CPU и GPU на Rust."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Набор Rust-крейтов для загрузки и инференса моделей в формате GGML/GGUF — предшественник многих современных Rust LLM-рантаймов.
+
+    ### 🎯 Для чего
+    Годится для встраивания простого локального инференса в существующий Rust-проект без внешних процессов (в отличие от вызова Ollama по HTTP).
+
+    ### 💻 Как установить
+    ```bash
+    cargo add llm
+    ```
+
+    ### 🚀 Как пользоваться
+    Загрузка модели в формате GGML/GGUF и вызов `Model::infer` согласно примерам в репозитории.
+
+    ### ⚠️ Грабли
+    Проект менее активно развивается, чем более новые альтернативы (candle, mistral.rs) — перед стартом нового проекта сравните дату последнего коммита с активностью аналогов.
+
+- repo: extism/extism
+  category: libs/rust
+  description_ru: "Плагин-система на WebAssembly — используется для безопасного изолированного исполнения агентных скиллов/плагинов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Extism — универсальный фреймворк для WASM-плагинов: любую функцию можно скомпилировать в WASM-модуль и безопасно (в песочнице) вызывать из хост-приложения на десятке языков, включая Rust, Go, Python, Node.
+
+    ### 🎯 Для чего
+    Полезен для построения плагинной архитектуры агента (вроде «скиллов»), где сторонний/сгенерированный код исполняется в изолированной песочнице, а не напрямую в основном процессе.
+
+    ### 💻 Как установить
+    ```bash
+    cargo add extism
+    ```
+
+    ### 🚀 Как пользоваться
+    ```rust
+    let mut plugin = Plugin::new(wasm_bytes, [], true)?;
+    let output = plugin.call::<&str, &str>("greet", "world")?;
+    ```
+
+    ### ⚠️ Грабли
+    WASM-песочница ограничивает доступ к файловой системе/сети по умолчанию — если плагину нужен I/O, права нужно явно пробросить через host-функции, продумывая модель доверия заранее.
+
+- repo: comet-ml/opik
+  category: code/monitoring
+  description_ru: "Open-source платформа для трейсинга, логирования и оценки работы LLM-приложений (в том числе на Claude)."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Opik от Comet — открытая платформа наблюдаемости для LLM/агентных приложений: трейсы вызовов, датасеты для оценки, встроенные и кастомные метрики качества.
+
+    ### 🎯 Для чего
+    Позволяет увидеть полную цепочку вызовов агента (включая промежуточные tool calls), а не только финальный ответ — полезно при отладке многошаговых Claude Code-подобных пайплайнов.
+
+    ### 💻 Как установить
+    ```bash
+    pip install opik
+    ```
+    Либо self-host через `docker compose` из репозитория.
+
+    ### 🚀 Как пользоваться
+    ```python
+    import opik
+    opik.configure()
+    
+    @opik.track
+    def my_llm_call(prompt): ...
+    ```
+
+    ### ⚠️ Грабли
+    Self-host версия требует своей инфраструктуры (ClickHouse и др. сервисы в compose) — для быстрого старта проще облачный вариант, для приватных данных — self-host.
+
+- repo: agenta-ai/agenta
+  category: code/monitoring
+  description_ru: "Платформа для совместной работы над промптами: A/B тестирование, оценки и трекинг версий."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Agenta — open-source LLMOps платформа: версионирование промптов, A/B тесты между вариантами, human-in-the-loop и автоматические оценки, наблюдение за трассами (evaluation + observability).
+
+    ### 🎯 Для чего
+    Удобна командам, где над промптами работают не только разработчики — non-технический ревьюер может сравнивать варианты промпта в UI без доступа к коду.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/agenta-ai/agenta
+    cd agenta && docker compose up -d
+    ```
+
+    ### 🚀 Как пользоваться
+    Подключить SDK (`pip install agenta`) к своему приложению, версии промптов и эксперименты редактируются через веб-UI.
+
+    ### ⚠️ Грабли
+    Полноценный self-host — это несколько сервисов в docker-compose (Postgres, Redis и др.) — для одного разработчика может быть избыточно тяжёлым решением.
+
+- repo: Promptfoo/promptfoo
+  category: code/monitoring
+  description_ru: "CLI-утилита для автоматического тестирования и валидации ответов LLM — промпт-регрессия как часть CI."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Promptfoo — CLI и библиотека для тестирования промптов: описываете тест-кейсы (вход + ожидаемые свойства ответа) в YAML, инструмент прогоняет их против одной или нескольких моделей и сравнивает результаты.
+
+    ### 🎯 Для чего
+    Полезен, чтобы ловить регрессии при смене модели/промпта до продакшена — как unit-тесты, но для качества LLM-ответов, легко встраивается в CI/CD.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g promptfoo
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    promptfoo init
+    promptfoo eval
+    promptfoo view   # веб-UI с результатами
+    ```
+
+    ### ⚠️ Грабли
+    Оценки на базе LLM-судьи (`llm-rubric`) сами стоят токенов и подвержены той же нестабильности, что и оцениваемая модель — для критичных метрик комбинируйте с детерминированными проверками (regex, json-schema).
+
+- repo: mlflow/mlflow
+  category: code/monitoring
+  description_ru: "Платформа управления жизненным циклом ML, дополненная разделом MLflow LLM Tracking/Tracing."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    MLflow — устоявшаяся open-source платформа ML-экспериментов, дополненная модулями GenAI: трейсинг LLM-вызовов, оценка (`mlflow.evaluate`), реестр промптов.
+
+    ### 🎯 Для чего
+    Хороший выбор, если в компании уже используется MLflow для классических ML-моделей — LLM/агентные трейсы ложатся в ту же инфраструктуру и UI без нового инструмента.
+
+    ### 💻 Как установить
+    ```bash
+    pip install mlflow
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    import mlflow
+    mlflow.anthropic.autolog()
+    with mlflow.start_run():
+        ...
+    ```
+
+    ### ⚠️ Грабли
+    GenAI-функциональность добавлена относительно недавно поверх старой ML-платформы — часть UI всё ещё заточена под классические ML-эксперименты, а не под просмотр многошаговых агентных трасс.
+
+- repo: wandb/wandb
+  category: code/monitoring
+  description_ru: "Weights & Biases — платформа экспериментов, включающая раздел Weave для трейсинга и мониторинга ИИ-агентов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    W&B — популярная платформа для трекинга ML-экспериментов, включает продукт **Weave** для наблюдаемости LLM/агентов: трейсы, датасеты, оценки, сравнение версий промптов.
+
+    ### 🎯 Для чего
+    Аналогично MLflow — удобен, если команда уже пользуется W&B для метрик обучения, теперь можно трейсить и Claude-based агентные пайплайны в том же дашборде.
+
+    ### 💻 Как установить
+    ```bash
+    pip install wandb weave
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    import weave
+    weave.init("my-project")
+    
+    @weave.op()
+    def call_claude(prompt): ...
+    ```
+
+    ### ⚠️ Грабли
+    Полная функциональность (командные дашборды, длинное хранение трасс) — платная SaaS-часть; open-source клиент бесплатен, но с ограничениями по хранению.
+
+- repo: k8sgpt-ai/k8sgpt
+  category: code/ci-cd
+  description_ru: "ИИ-агент для сканирования кластеров Kubernetes, диагностики ошибок и генерации рекомендаций на естественном языке."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    k8sgpt — CLI-инструмент, который сканирует Kubernetes-кластер (CrashLoopBackOff, неудачные деплои, проблемы с ресурсами и т.п.) и объясняет причину человеческим языком через LLM-провайдера.
+
+    ### 🎯 Для чего
+    Полезен для дежурных/SRE — вместо ручного разбора `kubectl describe` и логов агент сразу выдаёт вероятную причину и шаги исправления, экономя время в CI/CD и инцидентах.
+
+    ### 💻 Как установить
+    ```bash
+    brew install k8sgpt
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    k8sgpt auth add --backend anthropic --model claude-sonnet-4-5
+    k8sgpt analyze --explain
+    ```
+
+    ### ⚠️ Грабли
+    Требует прав на чтение объектов кластера через kubeconfig — на проде стоит завести отдельный read-only ServiceAccount вместо личных admin-прав.
+
+- repo: diggerhq/digger
+  category: code/ci-cd
+  description_ru: "Terraform-оркестратор в CI/CD, запускающий `plan`/`apply` прямо в вашем GitHub Actions/GitLab CI без отдельного сервера."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Digger — open-source альтернатива Atlantis/Terraform Cloud: запускает `terraform plan`/`apply` внутри вашего собственного CI-раннера (GitHub Actions и др.), комментирует план прямо в PR.
+
+    ### 🎯 Для чего
+    В контексте ИИ полезен как основа для «ИИ-ревью инфраструктурных изменений» — план из PR можно скормить Claude на анализ рисков перед `apply`, не поднимая отдельный сервер оркестрации.
+
+    ### 💻 Как установить
+    Добавить workflow-файл `digger.yml` в `.github/workflows/` по шаблону из документации + `digger.yml` конфиг с описанием проектов Terraform.
+
+    ### 🚀 Как пользоваться
+    PR с изменениями в Terraform-коде автоматически триггерит `plan`-комментарий; `apply` — по команде в комментарии или через merge (настраивается политикой).
+
+    ### ⚠️ Грабли
+    Digger выполняет `apply` с правами вашего CI-раннера — критично ограничить, кто может мержить/комментировать PR, иначе это прямой путь к неавторизованным изменениям инфраструктуры.
+
+- repo: coder/coder
+  category: code/ci-cd
+  description_ru: "Облачные среды разработки (CDE) с поддержкой ИИ-ассистентов — воспроизводимые dev-окружения для команды."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Coder — self-hosted платформа облачных сред разработки: воспроизводимые рабочие пространства как код (Terraform), доступ через браузер/SSH/IDE, интеграции с ИИ-агентами прямо в workspace.
+
+    ### 🎯 Для чего
+    Полезен для команд, где Claude Code/агенты должны работать в единообразных, изолированных и воспроизводимых окружениях, а не на разномастных локальных машинах разработчиков.
+
+    ### 💻 Как установить
+    ```bash
+    curl -fsSL https://coder.com/install.sh | sh
+    coder server
+    ```
+
+    ### 🚀 Как пользоваться
+    Описать шаблон workspace в Terraform, затем `coder create` — разработчик или агент получает готовое окружение по шаблону.
+
+    ### ⚠️ Грабли
+    Полноценный self-host требует администрирования отдельного сервера/кластера — для одиночного разработчика это явно избыточно, инструмент рассчитан на команду.
+
+- repo: run-llama/llama_deploy
+  category: code/ci-cd
+  description_ru: "Сервис для деплоя и масштабирования агентных систем LlamaIndex в облаке и CI."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    LlamaDeploy — фреймворк для превращения LlamaIndex-workflow (агентов) в независимо масштабируемые микросервисы с очередью сообщений между ними.
+
+    ### 🎯 Для чего
+    Полезен, когда агентный пайплайн на LlamaIndex перерастает прототип и его нужно задеплоить как отдельные сервисы с независимым масштабированием стадий (например, retrieval отдельно от генерации).
+
+    ### 💻 Как установить
+    ```bash
+    pip install llama-deploy
+    ```
+
+    ### 🚀 Как пользоваться
+    Описать `Workflow` в LlamaIndex, обернуть в `deployment` конфиг `llama_deploy`, задеплоить через CLI `llamactl`.
+
+    ### ⚠️ Грабли
+    Добавляет свою инфраструктуру (message queue, control plane) поверх LlamaIndex — для простых однопроцессных агентов это лишний слой сложности.
+
+- repo: mindsdb/mindshub
+  category: code/ci-cd
+  description_ru: "Платформа для автоматизации деплоя и запуска AI/ML-моделей прямо из баз данных через SQL-подобные запросы."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    MindsDB (репозиторий переименован в `mindshub`) — платформа, позволяющая обращаться к LLM (включая Claude) и ML-моделям SQL-подобными запросами прямо из существующей БД, без отдельного ML-сервиса.
+
+    ### 🎯 Для чего
+    Полезен, если аналитики уже работают через SQL и хочется дать им доступ к Claude («спроси модель по этой таблице») без написания Python-кода и отдельного API-слоя.
+
+    ### 💻 Как установить
+    ```bash
+    docker run -p 47334:47334 mindsdb/mindsdb
+    ```
+
+    ### 🚀 Как пользоваться
+    ```sql
+    CREATE MODEL claude_model
+    PREDICT answer
+    USING engine='anthropic', model_name='claude-sonnet-4-5';
+    ```
+
+    ### ⚠️ Грабли
+    Проект недавно сменил имя репозитория (mindsdb → mindshub) — при обновлении сверяйте актуальные Docker-образы и документацию, старые ссылки могут вести на архивную версию.
+
+- repo: jerryjliu/llama-hub
+  category: code/ci-cd
+  description_ru: "Коннекторы данных LlamaIndex (включая интеграцию с Git/GitHub) для CI/CD и RAG-автоматизаций."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    LlamaHub — репозиторий готовых data-коннекторов для LlamaIndex: загрузчики из GitHub, Notion, Slack, баз данных и десятков других источников для построения индекса под RAG.
+
+    ### 🎯 Для чего
+    Ускоряет подключение источника данных к RAG-пайплайну — вместо написания своего загрузчика для, скажем, GitHub-репозитория, берётся готовый коннектор.
+
+    ### 💻 Как установить
+    ```bash
+    pip install llama-index-readers-github
+    ```
+    (конкретный пакет — под нужный коннектор, единого мега-пакета `llama-hub` в актуальных версиях уже нет).
+
+    ### 🚀 Как пользоваться
+    ```python
+    from llama_index.readers.github import GithubRepositoryReader
+    docs = GithubRepositoryReader(...).load_data(branch="main")
+    ```
+
+    ### ⚠️ Грабли
+    Проект был реструктурирован — большинство коннекторов давно переехали в namespace-пакеты `llama-index-readers-*`, искать нужно по актуальному LlamaIndex hub, а не по старому монорепо.
+
+- repo: di-sukharev/opencommit
+  category: code/hooks
+  description_ru: "OpenCommit — генератор commit-сообщений по вашему `git diff`, поддерживает Claude как провайдера."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    CLI-утилита, которая читает staged `git diff` и генерирует осмысленное commit-сообщение по Conventional Commits через LLM (OpenAI, Anthropic и другие провайдеры).
+
+    ### 🎯 Для чего
+    Экономит время на формулировании commit-сообщений и приводит их к единому формату (`feat:`, `fix:` и т.п.) во всей команде без ручной дисциплины.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g opencommit
+    oco config set OCO_API_KEY=<ключ>
+    oco config set OCO_AI_PROVIDER=anthropic
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    git add .
+    oco
+    ```
+    Можно поставить как git-хук (`oco hook set`), чтобы вызывался автоматически при `git commit`.
+
+    ### ⚠️ Грабли
+    Отправляет содержимое diff во внешний API — на репозиториях с чувствительным кодом стоит убедиться, что это допустимо политикой безопасности проекта.
+
+- repo: Nutlope/aicommits
+  category: code/hooks
+  description_ru: "Простой CLI-инструмент для генерации сообщений коммитов на базе LLM."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Компактная альтернатива OpenCommit: тот же принцип (diff → LLM → commit-сообщение), но проще устроена и с меньшим числом настроек.
+
+    ### 🎯 Для чего
+    Подходит, если нужен максимально простой инструмент без сложной конфигурации провайдеров/промптов — поставил и сразу используешь.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g aicommits
+    aicommits config set OPENAI_KEY=<ключ>
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    git add .
+    aicommits
+    ```
+
+    ### ⚠️ Грабли
+    Из коробки заточен под OpenAI-ключ — для работы через Claude потребуется совместимый прокси (например, LiteLLM) вместо прямой интеграции с Anthropic API.
+
+- repo: the-cafe/git-ai-commit
+  category: code/hooks
+  description_ru: "Git-хук для генерации commit-сообщений, интегрированный в популярный фреймворк pre-commit."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Инструмент для автогенерации commit-сообщений, распространяемый как хук для фреймворка `pre-commit` — ставится в `.pre-commit-config.yaml` вместе с остальными хуками проекта.
+
+    ### 🎯 Для чего
+    Удобен, если в проекте уже используется `pre-commit` для линтеров/форматтеров — генерация commit-сообщений подключается тем же механизмом, без отдельной установки CLI.
+
+    ### 💻 Как установить
+    Добавить в `.pre-commit-config.yaml`:
+    ```yaml
+    - repo: https://github.com/the-cafe/git-ai-commit
+      hooks:
+        - id: git-ai-commit
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    pre-commit install
+    ```
+    Дальше хук срабатывает автоматически на `git commit`.
+
+    ### ⚠️ Грабли
+    Небольшой проект с ограниченной аудиторией — перед внедрением в командный workflow стоит протестировать на тестовом репозитории, есть ли конфликты с другими pre-commit хуками.
+
+- repo: ulab-uiuc/LLMRouter
+  category: code/routers
+  description_ru: "Научно-обоснованная open-source библиотека маршрутизации промптов между моделями на базе эмбеддингов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    LLMRouter — исследовательская (UIUC) библиотека для маршрутизации запросов между разными LLM на основе предсказанной сложности/типа задачи, с открытыми бенчмарками маршрутизации.
+
+    ### 🎯 Для чего
+    Полезен, если хочется не просто использовать готовый прокси-роутер, а разобраться в самой методологии маршрутизации (или обучить свой роутер) — код и датасеты открыты.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/ulab-uiuc/LLMRouter
+    pip install -r requirements.txt
+    ```
+
+    ### 🚀 Как пользоваться
+    Обучение/инференс роутера согласно примерам в репозитории — на выходе классификатор, решающий, на какую модель отправить конкретный промпт.
+
+    ### ⚠️ Грабли
+    Это исследовательский код, а не production-grade прокси-сервис — для реального прод-трафика поверх него потребуется собственная обвязка (retry, fallback, метрики).
+
+- repo: anyscale/llm-router
+  category: code/routers
+  description_ru: "Туториал/референсная реализация от Anyscale по построению классификатора сложности промптов для маршрутизации."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Обучающий репозиторий Anyscale, показывающий, как построить собственный «роутер» между сильной и слабой/дешёвой моделью на основе классификатора сложности запроса.
+
+    ### 🎯 Для чего
+    Хорошая отправная точка, если хотите не готовое SaaS-решение, а понять и реализовать свою логику: когда действительно нужен Claude Opus, а когда достаточно более дешёвой модели.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/anyscale/llm-router
+    ```
+
+    ### 🚀 Как пользоваться
+    Следовать ноутбукам/скриптам репозитория: сбор датасета запросов, обучение классификатора, интеграция в проксирующий слой перед вызовом моделей.
+
+    ### ⚠️ Грабли
+    Это учебный материал, а не поддерживаемая библиотека — код может требовать адаптации под текущие версии зависимостей и актуальные модели.
+
+- repo: Portkey-AI/gateway
+  category: code/routers
+  description_ru: "AI-шлюз с кэшированием, ретраями и авто-фоллбэком на резервные модели — единая точка входа к Claude и другим провайдерам."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Portkey Gateway — open-source AI-шлюз (можно self-host): единый OpenAI-совместимый эндпоинт поверх 100+ провайдеров, с кэшированием ответов, автоматическими ретраями/фоллбэками и балансировкой нагрузки между ключами/моделями.
+
+    ### 🎯 Для чего
+    Полезен для продакшн-инфраструктуры: если Claude API временно недоступен или упёрлись в rate limit — шлюз сам переключится на резервного провайдера/ключ без изменения кода приложения.
+
+    ### 💻 Как установить
+    ```bash
+    npx @portkey-ai/gateway
+    ```
+    или `docker run portkeyai/gateway`.
+
+    ### 🚀 Как пользоваться
+    Отправлять запросы на `http://localhost:8787/v1/chat/completions` вместо прямого API — конфиг фоллбэков/кэша задаётся в JSON-конфиге шлюза.
+
+    ### ⚠️ Грабли
+    Self-host версия не включает часть SaaS-функций Portkey (аналитика, guardrails UI) — для полного набора возможностей потребуется облачный аккаунт.
+
+- repo: songquanpeng/one-api
+  category: code/routers
+  description_ru: "Управление API-ключами с встроенным балансировщиком для 20+ провайдеров моделей, включая Claude."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    One API — self-hosted шлюз с единым OpenAI-совместимым форматом поверх множества провайдеров (включая Anthropic), плюс управление ключами, квотами и биллингом пользователей через веб-UI.
+
+    ### 🎯 Для чего
+    Подходит для внутренних продуктов, где нужно раздать разным командам/пользователям доступ к Claude с индивидуальными квотами и учётом расхода, не выдавая всем прямой мастер-ключ Anthropic.
+
+    ### 💻 Как установить
+    ```bash
+    docker run -p 3000:3000 justsong/one-api
+    ```
+
+    ### 🚀 Как пользоваться
+    Настроить в веб-UI канал с ключом Anthropic, выдавать пользователям токены One API с ограничениями по квоте — они обращаются к единому OpenAI-совместимому эндпоинту.
+
+    ### ⚠️ Грабли
+    Проект родом из китайскоязычного сообщества — часть документации и сообщений интерфейса может быть только на китайском, планируйте локализацию под свою команду.
+
+- repo: Not-Diamond/notdiamond-python
+  category: code/routers
+  description_ru: "SDK для динамической маршрутизации запросов между моделями на базе предсказания точности ответа."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Python SDK Not Diamond — сервис, который перед каждым запросом предсказывает, какая модель (в том числе Claude) даст лучший ответ на конкретный промпт, и роутит именно туда.
+
+    ### 🎯 Для чего
+    Альтернатива статичным правилам маршрутизации ("простое — на дешёвую модель") — решение принимается по факту содержимого промпта на основе обученного предиктора качества.
+
+    ### 💻 Как установить
+    ```bash
+    pip install notdiamond
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from notdiamond import NotDiamond
+    client = NotDiamond()
+    result, session_id, provider = client.chat.completions.create(
+        messages=[...], model=["anthropic/claude-sonnet-4-5", "openai/gpt-4o"]
+    )
+    ```
+
+    ### ⚠️ Грабли
+    Требует облачного API-ключа Not Diamond (SaaS-сервис) — сама маршрутизация не считается локально, это дополнительная сетевая зависимость и точка отказа в пайплайне.
+
+- repo: huggingface/smolagents
+  category: agents/multi-agent
+  description_ru: "Библиотека от Hugging Face, ориентированная на исполнение агентами чистого Python-кода вместо JSON tool-calls."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    smolagents — минималистичная библиотека агентов от HF: вместо классических JSON-based tool calls агент пишет и исполняет обычный Python-код для решения задачи («code agents»).
+
+    ### 🎯 Для чего
+    Подход с исполняемым кодом часто даёт более надёжные многошаговые действия, чем цепочка отдельных JSON tool-calls — полезно для задач с математикой, обработкой данных, циклами.
+
+    ### 💻 Как установить
+    ```bash
+    pip install smolagents
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from smolagents import CodeAgent, AnthropicModel
+    agent = CodeAgent(tools=[...], model=AnthropicModel("claude-sonnet-4-5"))
+    agent.run("посчитай...")
+    ```
+
+    ### ⚠️ Грабли
+    Исполнение сгенерированного кода агентом — по умолчанию в локальном Python-процессе; для недоверенных промптов обязательно используйте песочницу (у библиотеки есть режим sandbox через Docker/E2B).
+
+- repo: langgenius/dify
+  category: agents/multi-agent
+  description_ru: "Визуальный low-code конструктор для сборки LLM-приложений, агентных пайплайнов и RAG без написания кода."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Dify — open-source платформа для визуальной сборки LLM-приложений: drag-n-drop конструктор workflow, встроенный RAG, агенты с инструментами, поддержка множества провайдеров моделей включая Claude.
+
+    ### 🎯 Для чего
+    Хороший выбор для быстрых прототипов и для команд, где часть логики промпт-инжиниринга/workflow должны настраивать не-разработчики через UI, а не через код.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/langgenius/dify
+    cd dify/docker && docker compose up -d
+    ```
+
+    ### 🚀 Как пользоваться
+    Открыть веб-UI, создать приложение (Chatflow/Agent/Workflow), подключить Anthropic как провайдера модели в настройках, собрать граф узлов визуально.
+
+    ### ⚠️ Грабли
+    Полный self-host — это десяток сервисов в docker-compose (Postgres, Redis, Weaviate/векторная БД, worker'ы) — требует заметных ресурсов сервера даже для небольшой команды.
+
+- repo: chatchat-space/Langchain-Chatchat
+  category: agents/multi-agent
+  description_ru: "Оркестратор локальных агентов и баз знаний на базе LangChain — популярен в китайскоязычном сообществе."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Langchain-Chatchat — open-source платформа RAG-чата поверх LangChain: локальные базы знаний, несколько backend-моделей (включая облачные API вроде Claude через прокси), готовый веб-интерфейс.
+
+    ### 🎯 Для чего
+    Может быть интересен как готовое RAG-решение «из коробки» с интерфейсом администрирования баз знаний, без сборки своего RAG-пайплайна с нуля.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/chatchat-space/Langchain-Chatchat
+    cd Langchain-Chatchat && pip install -r requirements.txt
+    ```
+
+    ### 🚀 Как пользоваться
+    Настроить `model_config.py` с нужным провайдером модели, запустить `python startup.py -a` — поднимется веб-UI с базой знаний и чатом.
+
+    ### ⚠️ Грабли
+    Значительная часть документации и сообщений сообщества — на китайском языке, а прямая интеграция с Anthropic API не «из коробки», обычно требует OpenAI-совместимого прокси.
+
+- repo: TaskingAI/TaskingAI
+  category: agents/multi-agent
+  description_ru: "API-first платформа для организации совместной работы агентов, плагинов и баз данных."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    TaskingAI — open-source BaaS-платформа (Backend-as-a-Service) для GenAI-приложений: единый API для ассистентов, инструментов, RAG-коллекций и оркестрации между ними.
+
+    ### 🎯 Для чего
+    Полезна, когда нужен единый управляемый backend для нескольких GenAI-фич продукта (ассистент, поиск по базе знаний, инструменты) с единым API-слоем поверх Claude и других моделей.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/TaskingAI/TaskingAI
+    cd TaskingAI/docker && docker compose up -d
+    ```
+
+    ### 🚀 Как пользоваться
+    Создать ассистента и инструменты через веб-консоль или REST API, подключить провайдера Anthropic в настройках моделей.
+
+    ### ⚠️ Грабли
+    Ещё один self-host стек из нескольких сервисов — оцените, оправдан ли отдельный BaaS-слой для масштаба вашего продукта, или проще прямой вызов Claude API из своего backend.
+
+- repo: superagent-ai/superagent
+  category: agents/multi-agent
+  description_ru: "Инфраструктурный backend для запуска асинхронных многоагентных workflow в облаке."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Superagent — open-source framework/платформа для деплоя AI-агентов как API: определение агентов, инструментов и workflow, с готовым backend для асинхронного выполнения.
+
+    ### 🎯 Для чего
+    Подходит, когда агент должен быть доступен как асинхронный сервис (например, для длительных многошаговых задач), а не просто библиотека внутри одного скрипта.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/superagent-ai/superagent
+    docker compose up -d
+    ```
+
+    ### 🚀 Как пользоваться
+    Определить агента через API/конфиг, указав провайдера Anthropic и набор инструментов, вызывать через REST-эндпоинт асинхронно.
+
+    ### ⚠️ Грабли
+    Активность и направление проекта менялись со временем — перед внедрением в прод сверьте дату последних коммитов и релизов с актуальностью на момент установки.
+
+- repo: codota/tabnine-vscode
+  category: apps/vscode
+  description_ru: "Клиент AI-автодополнения Tabnine для VS Code."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Официальное расширение Tabnine для VS Code — построчное и построчное AI-автодополнение кода, с локальными и облачными моделями (не заточено конкретно под Claude, но может использоваться параллельно с Claude Code).
+
+    ### 🎯 Для чего
+    Полезен как быстрое инлайн-автодополнение «на лету» рядом с более «тяжёлым» агентным Claude Code — разные задачи: Tabnine для микро-автокомплита, Claude Code для многошаговых правок.
+
+    ### 💻 Как установить
+    Установить из маркетплейса VS Code по названию «Tabnine».
+
+    ### 🚀 Как пользоваться
+    Автодополнение появляется автоматически по мере набора кода — принимается по Tab, как обычный intellisense.
+
+    ### ⚠️ Грабли
+    Бесплатный тариф ограничен по возможностям (нет доступа к более крупным моделям) — для полного функционала нужна платная подписка.
+
+- repo: lgrammel/rubberduck-vscode
+  category: apps/vscode
+  description_ru: "Open-source чат-ассистент, интегрированный в редактор VS Code."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Rubberduck — open-source расширение VS Code с чатом, объяснением кода и генерацией диффов прямо в редакторе, поддерживает несколько провайдеров моделей.
+
+    ### 🎯 Для чего
+    Может быть интересен как лёгкая open-source альтернатива встроенным чатам других расширений — код полностью открыт, можно форкнуть и настроить под себя.
+
+    ### 💻 Как установить
+    Установить из маркетплейса VS Code по названию «Rubberduck AI».
+
+    ### 🚀 Как пользоваться
+    Открыть панель Rubberduck, задать провайдера/ключ API (включая Anthropic, если поддержан в текущей версии), общаться с кодовой базой в чате.
+
+    ### ⚠️ Грабли
+    Небольшой, не самый активно поддерживаемый проект — перед установкой сверьте дату последнего релиза и совместимость с текущей версией VS Code.
+
+- repo: Kilo-Org/kilocode
+  category: apps/vscode
+  description_ru: "Расширение Kilo Code для автономного кодинга в VS Code с интеграцией локальных и облачных моделей."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Kilo Code — форк/развитие открытых агентных расширений для VS Code (в духе Cline/Roo Code): автономный агент, который читает проект, предлагает и применяет правки, поддерживает Claude через Anthropic API.
+
+    ### 🎯 Для чего
+    Альтернатива Cline с несколько иным UX и набором фич (например, собственный маркетплейс режимов) — стоит сравнить, если Cline не полностью устраивает по эргономике.
+
+    ### 💻 Как установить
+    Установить из маркетплейса VS Code по названию «Kilo Code».
+
+    ### 🚀 Как пользоваться
+    Указать Anthropic API-ключ в настройках расширения, далее работать через чат-панель — агент предлагает диффы для одобрения.
+
+    ### ⚠️ Грабли
+    Как и у похожих расширений, автономные правки стоит применять с включённым git — чтобы легко откатить нежелательные изменения через diff-ревью перед принятием.
+
+- repo: VoidEditor/void
+  category: apps/vscode
+  description_ru: "Форк VS Code от Void для локальной и приватной генерации кода."
+  verify_status: check
+  body_md: |
+    ### ❓ Что это
+    Void — форк VS Code (не расширение, а отдельный редактор) с AI-функциями, встроенными на уровне ядра, с акцентом на возможность использовать локальные модели и приватность (не отправлять код третьим лицам без ведома пользователя).
+
+    ### 🎯 Для чего
+    Интересен, если хочется AI-функции уровня Cursor, но как open-source форк без vendor lock-in, с возможностью подключить и облачный Claude, и полностью локальную модель.
+
+    ### 💻 Как установить
+    Скачать сборку под свою ОС со страницы релизов репозитория.
+
+    ### 🚀 Как пользоваться
+    При первом запуске выбрать провайдера модели (в том числе Anthropic API-ключ) в настройках — далее работает как обычный VS Code с добавленными AI-панелями.
+
+    ### ⚠️ Грабли
+    Как форк VS Code, синхронизация с апстримом и совместимость с частью проприетарных расширений Microsoft Marketplace могут отставать или отсутствовать.
+
+- repo: warpdotdev/Warp
+  category: apps/editors
+  description_ru: "AI-акселерированный терминал с автодополнением команд, объяснением ошибок и встроенным агентным режимом."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Warp — переосмысленный терминал (Rust) с текстовым редактором ввода, блоками команд, AI-автодополнением и агентным режимом (Warp Agent Mode) для выполнения многошаговых задач в shell на естественном языке.
+
+    ### 🎯 Для чего
+    Полезен как альтернатива обычному терминалу для тех, кто хочет объяснение ошибок команд и AI-помощь по shell прямо в интерфейсе терминала, а не в отдельном чате.
+
+    ### 💻 Как установить
+    Скачать с официального сайта `warp.dev` (macOS/Linux/Windows).
+
+    ### 🚀 Как пользоваться
+    Открыть Warp, ввести запрос на естественном языке в командную строку через `#` или явно вызвать AI-панель — можно выбрать провайдера модели в настройках.
+
+    ### ⚠️ Грабли
+    Часть AI-функциональности требует аккаунта Warp и облачной обработки — полностью офлайн-режим доступен не для всех фич.
+
+- repo: sigoden/aichat
+  category: apps/editors
+  description_ru: "Консольный клиент с богатым TUI, поддерживающий Claude, OpenAI и Ollama одновременно."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    `aichat` — CLI/TUI чат-клиент на Rust с поддержкой множества провайдеров (Claude, OpenAI, Gemini, Ollama и др.) в одном инструменте, включая RAG-режим и режим "агента" с функциями.
+
+    ### 🎯 Для чего
+    Удобен как единая консольная точка входа для разных моделей — можно быстро переключаться между Claude и локальной моделью через Ollama прямо в терминале без смены инструмента.
+
+    ### 💻 Как установить
+    ```bash
+    cargo install aichat
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    aichat --model claude:claude-sonnet-4-5 "вопрос"
+    ```
+    Интерактивный REPL-режим запускается без аргументов: просто `aichat`.
+
+    ### ⚠️ Грабли
+    Конфигурация нескольких провайдеров и ключей хранится в одном YAML-файле (`~/.config/aichat/config.yaml`) — убедитесь, что права на файл ограничены, там лежат все API-ключи разом.
+
+- repo: prompt-toolkit/python-prompt-toolkit
+  category: apps/editors
+  description_ru: "Библиотека для построения интерактивных консольных приложений с автодополнением — часто фундамент под собственные AI-терминалы."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    `prompt_toolkit` — зрелая Python-библиотека для написания интерактивных CLI/REPL интерфейсов: подсветка синтаксиса, автодополнение, многострочный ввод, история команд.
+
+    ### 🎯 Для чего
+    Частый выбор как основа для собственного консольного клиента к Claude API — вместо `input()` даёт полноценный REPL с историей и автодополнением почти бесплатно.
+
+    ### 💻 Как установить
+    ```bash
+    pip install prompt_toolkit
+    ```
+
+    ### 🚀 Как пользоваться
+    ```python
+    from prompt_toolkit import PromptSession
+    session = PromptSession()
+    text = session.prompt("> ")
+    ```
+
+    ### ⚠️ Грабли
+    Библиотека низкоуровневая — сама по себе не даёт AI-функциональности, это just building block, вызовы к Claude API нужно писать поверх неё самостоятельно.
+
+- repo: nushell/nushell
+  category: apps/editors
+  description_ru: "Современный shell со структурированными данными — часто используется как база для AI-автодополнения команд в терминале."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    Nushell — shell нового поколения, где вывод команд — структурированные данные (таблицы), а не голый текст, что упрощает программную обработку (в том числе LLM-агентами, парсящими вывод команд).
+
+    ### 🎯 Для чего
+    Актуален, если строите собственного терминального агента поверх shell — структурированный вывод Nushell гораздо надёжнее скармливать LLM для интерпретации, чем произвольный текстовый вывод bash.
+
+    ### 💻 Как установить
+    ```bash
+    brew install nushell
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    nu
+    ls | where size > 1mb
+    ```
+    Вывод команд можно сериализовать в JSON/CSV нативно для передачи в LLM-пайплайн.
+
+    ### ⚠️ Грабли
+    Синтаксис и набор команд заметно отличаются от bash/zsh — существующие shell-скрипты не заработают без переписывания под Nushell.
