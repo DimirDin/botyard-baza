@@ -32,13 +32,13 @@ export function ToolDetail({ slug }) {
         {!error && !tool && <Spinner />}
         {tool && (
           <>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+            <div className="card__row">
               <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{tool.name}</h1>
               {tool.badge === "editors_choice" && <span className="chip chip--editors" style={{ flexShrink: 0 }}>выбор редакции</span>}
             </div>
             <div style={{ marginTop: 8, marginBottom: 4, display: "flex", flexWrap: "wrap", rowGap: 4, columnGap: 12, alignItems: "center" }}>
               <FavStar itemType="tool" itemId={tool.id} />
-              <span className="card__meta">⭐ {tool.stars}</span>
+              <span className="card__meta">★ {tool.stars}</span>
               {tool.trending_delta > 0 && (
                 <span className="card__meta" style={{ color: "var(--seg-what)" }}>▲ {tool.trending_delta} за неделю</span>
               )}

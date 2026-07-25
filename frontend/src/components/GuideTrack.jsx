@@ -115,7 +115,7 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
           {lesson === "loading" && <Spinner />}
           {lesson !== "loading" && (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <div className="card__row">
                 <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
                 <div style={{ display: "flex", gap: 12, alignItems: "center", flexShrink: 0 }}>
                   <FavStar itemType="guide" itemId={lesson.id} />
@@ -129,29 +129,39 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
               </div>
               <ArticleBody bodyMd={lesson.body_md} onNavigate={handleNavigate} />
               {(lesson.related_tools?.length > 0 || lesson.related_prompts?.length > 0) && (
-                <div style={{ marginBottom: 20 }}>
+                <div className="sect">
                   <span className="segment-label segment-label--example">смотри также</span>
-                  {lesson.related_tools?.map((t) => (
-                    <div
-                      key={t.repo}
-                      className="card"
-                      onClick={() => onOpenTool && onOpenTool(t.repo.replace("/", "__"))}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <p className="card__title">🛠 {t.name}</p>
-                      <p className="card__meta">{t.description_ru}</p>
-                    </div>
-                  ))}
-                  {lesson.related_prompts?.map((p) => (
-                    <div
-                      key={p.slug}
-                      className="card"
-                      onClick={() => onOpenPrompt && onOpenPrompt(p.category, p.slug)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <p className="card__title">⚡ {p.title}</p>
-                    </div>
-                  ))}
+                  <div className="stack">
+                    {lesson.related_tools?.map((t) => (
+                      <div
+                        key={t.repo}
+                        className="card"
+                        onClick={() => onOpenTool && onOpenTool(t.repo.replace("/", "__"))}
+                      >
+                        <div className="card__pad">
+                          <div className="card__row">
+                            <p className="card__title">{t.name}</p>
+                            <span className="badge">инструмент</span>
+                          </div>
+                          <p className="card__meta">{t.description_ru}</p>
+                        </div>
+                      </div>
+                    ))}
+                    {lesson.related_prompts?.map((p) => (
+                      <div
+                        key={p.slug}
+                        className="card"
+                        onClick={() => onOpenPrompt && onOpenPrompt(p.category, p.slug)}
+                      >
+                        <div className="card__pad">
+                          <div className="card__row">
+                            <p className="card__title">{p.title}</p>
+                            <span className="badge">промпт</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
               {lesson.related_entry && onOpenEntry && (
@@ -160,10 +170,10 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
                   style={{
                     marginTop: 16, marginRight: 10, padding: "10px 18px", borderRadius: 6,
                     fontFamily: "var(--font-mono)", fontSize: 14, background: "transparent",
-                    color: "var(--text-muted)", border: "1px solid #26261f", cursor: "pointer",
+                    color: "var(--text-muted)", border: "1px solid var(--line)", cursor: "pointer",
                   }}
                 >
-                  📖 читать подробнее в Базе
+                  читать подробнее в Базе
                 </button>
               )}
               <button
@@ -171,7 +181,7 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
                 disabled={marking}
                 style={{
                   marginTop: 16, padding: "10px 18px", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
-                  background: "var(--accent)", color: "#0a0a08", border: "1px solid var(--accent)",
+                  background: "var(--accent)", color: "var(--accent-ink)", border: "1px solid var(--accent)",
                   cursor: marking ? "default" : "pointer",
                 }}
               >
@@ -200,15 +210,19 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
             {meta?.label} ({items.filter((i) => i.completed).length} из {items.length})
           </p>
           {items.length === 0 && <EmptyState />}
-          {items.map((l) => (
-            <div key={l.slug} className="card" onClick={() => openLesson(l.slug)} style={{ cursor: "pointer" }}>
-              <span className="card__title">
-                {l.completed ? "✓ " : ""}
-                {l.title}
-              </span>
-              <p className="card__meta" style={{ marginTop: 4 }}>{l.summary}</p>
-            </div>
-          ))}
+          <div className="stack">
+            {items.map((l) => (
+              <div key={l.slug} className="card" onClick={() => openLesson(l.slug)}>
+                <div className="card__pad">
+                  <span className="card__title">
+                    {l.completed ? "✓ " : ""}
+                    {l.title}
+                  </span>
+                  <p className="card__meta">{l.summary}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </>
     );
@@ -225,37 +239,40 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !lessons && <Spinner />}
-        {lessons &&
-          GUIDE_MENU.map((m, i) => {
-            const items = lessonsByLevel(m.level);
-            const done = items.filter((it) => it.completed).length;
-            const pct = items.length ? Math.round((done / items.length) * 100) : 0;
-            const unlocked = isLevelUnlocked(m.level);
-            const clickable = items.length > 0 && unlocked;
-            return (
-              <div
-                key={m.level}
-                className="card"
-                onClick={() => clickable && setLevel(m.level)}
-                style={{ cursor: clickable ? "pointer" : "default", opacity: clickable ? 1 : 0.45 }}
-              >
-                <span className="tree-item">{i === GUIDE_MENU.length - 1 ? "└──" : "├──"}</span>
-                <span className="card__title">
-                  {!unlocked && "🔒 "}
-                  Уровень {m.level} · {m.label}
-                </span>
-                <p className="card__meta" style={{ marginTop: 4 }}>{m.desc}</p>
-                <div className="guide-progress">
-                  <div className="guide-progress__bar">
-                    <div className="guide-progress__fill" style={{ width: `${pct}%` }} />
+        {lessons && (
+          <div className="stack">
+            {GUIDE_MENU.map((m) => {
+              const items = lessonsByLevel(m.level);
+              const done = items.filter((it) => it.completed).length;
+              const pct = items.length ? Math.round((done / items.length) * 100) : 0;
+              const unlocked = isLevelUnlocked(m.level);
+              const clickable = items.length > 0 && unlocked;
+              return (
+                <div
+                  key={m.level}
+                  className="card"
+                  onClick={() => clickable && setLevel(m.level)}
+                  style={{ cursor: clickable ? "pointer" : "default", opacity: clickable ? 1 : 0.45 }}
+                >
+                  <div className="card__pad">
+                    <span className="card__title">
+                      Уровень {m.level} · {m.label}
+                    </span>
+                    <p className="card__meta">{m.desc}</p>
+                    <div className="guide-progress">
+                      <div className="guide-progress__bar">
+                        <div className="guide-progress__fill" style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="guide-progress__label">
+                        {!unlocked ? `сначала уровень ${m.level - 1}` : items.length > 0 ? `${done} из ${items.length}` : "скоро"}
+                      </span>
+                    </div>
                   </div>
-                  <span className="guide-progress__label">
-                    {!unlocked ? `сначала уровень ${m.level - 1}` : items.length > 0 ? `${done} из ${items.length}` : "скоро"}
-                  </span>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        )}
       </div>
     </>
   );

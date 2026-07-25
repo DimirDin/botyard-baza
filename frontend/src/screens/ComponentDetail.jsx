@@ -46,7 +46,7 @@ export function ComponentDetail({ slug }) {
         {!error && !component && <Spinner />}
         {component && (
           <>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+            <div className="card__row">
               <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{component.title}</h1>
               <span className="chip">{TYPE_LABEL[component.comp_type] || component.comp_type}</span>
             </div>
@@ -54,7 +54,7 @@ export function ComponentDetail({ slug }) {
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
               <div className="chip" onClick={copyInstall}>
-                {copied ? "✓ скопировано" : "📋 копировать npx"}
+                {copied ? "Скопировано" : "Копировать npx"}
               </div>
               <div className="chip" onClick={() => openLink(component.doc_url)}>
                 🔗 источник
