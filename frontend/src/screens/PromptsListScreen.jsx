@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
@@ -70,9 +70,14 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
 
   return (
     <>
-      <PromptLine
-        section={group ? `prompts/${tab}/${group}` : `prompts/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
+      <AppHeader
+        title="Промпты"
+        subtitle={group ?? "библиотека"}
+        action={
+          group
+            ? <button className="icon-btn" onClick={() => setGroup(null)}>назад</button>
+            : <button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>
+        }
       />
       {!group && <SectionTabs menu={PROMPTS_MENU} active={tab} onSelect={setTab} iconBase="/icons/prompts" />}
       <div className="page">
@@ -85,39 +90,43 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
 
         {group && (
           <>
-            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
+            <p className="card__meta">
               {groupLabel} ({groupPrompts.length})
             </p>
             {groupPrompts.length === 0 && <EmptyState />}
-            {groupPrompts.map((p) => (
-              <div
-                key={p.slug}
-                ref={p.slug === highlightSlug ? highlightRef : null}
-                className="card"
-                style={p.slug === highlightSlug ? { border: "1px solid var(--accent)" } : undefined}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-                  <p className="card__title" style={{ margin: 0 }}>{p.title}</p>
-                  <FavStar itemType="prompt" itemId={p.id} />
+            <div className="stack">
+              {groupPrompts.map((p) => (
+                <div
+                  key={p.slug}
+                  ref={p.slug === highlightSlug ? highlightRef : null}
+                  className="card"
+                  style={p.slug === highlightSlug ? { border: "1px solid var(--accent)" } : undefined}
+                >
+                  <div className="card__pad">
+                    <div className="card__row">
+                      <p className="card__title">{p.title}</p>
+                      <FavStar itemType="prompt" itemId={p.id} />
+                    </div>
+                    {p.comment && <p className="card__meta">{p.comment}</p>}
+                    <p style={{ color: "var(--text-2)", fontSize: 14, margin: "8px 0", whiteSpace: "pre-wrap" }}>
+                      {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
+                    </p>
+                    <div className="card__row">
+                      <span className="card__meta">{p.copies_count} копирований</span>
+                      <button
+                        onClick={() => handleCopy(p)}
+                        style={{
+                          background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
+                          padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600,
+                        }}
+                      >
+                        скопировать
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                {p.comment && <p className="card__meta">{p.comment}</p>}
-                <p style={{ color: "var(--text-body)", fontSize: 14, margin: "8px 0", whiteSpace: "pre-wrap" }}>
-                  {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
-                </p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="card__meta">{p.copies_count} копирований</span>
-                  <button
-                    onClick={() => handleCopy(p)}
-                    style={{
-                      background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
-                      padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600,
-                    }}
-                  >
-                    скопировать
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </>
         )}
       </div>

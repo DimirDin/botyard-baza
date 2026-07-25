@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { BASE_MENU } from "../config/menu";
@@ -58,10 +58,13 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
     if (cheatCurrent && cheatCurrent !== "loading") {
       return (
         <>
-          <PromptLine section="base/cheat" right={<span onClick={() => setCheatCurrent(null)} style={{ cursor: "pointer" }}>✗ назад</span>} />
+          <AppHeader
+            title="Шпаргалки"
+            action={<button className="icon-btn" onClick={() => setCheatCurrent(null)}>назад</button>}
+          />
           <div className="page">
-            <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
-            <div className="article-body cheatsheet-body">
+            <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
+            <div className="sheet article-body cheatsheet-body">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{cheatCurrent.body_md}</ReactMarkdown>
             </div>
           </div>
@@ -71,7 +74,7 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
 
     return (
       <>
-        <PromptLine section="base/cheat" />
+        <AppHeader title="Шпаргалки" />
         <SectionTabs menu={BASE_MENU} active={tab} onSelect={setTab} iconBase="/icons/base" />
         <div className="page">
           {error && <ErrorState onRetry={loadCheat} />}
@@ -79,13 +82,16 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
           {cheatCurrent === "loading" && <Spinner />}
           {cheatList && cheatList.length === 0 && <EmptyState />}
 
-          {cheatList?.map((c, i) => (
-            <div key={c.slug} className="card" onClick={() => openCheat(c.slug)} style={{ cursor: "pointer" }}>
-              <span className="tree-item">{i === cheatList.length - 1 ? "└──" : "├──"}</span>
-              <span className="card__title">{c.title}</span>
-              <p className="card__meta" style={{ marginTop: 4 }}>{c.category}</p>
-            </div>
-          ))}
+          <div className="stack">
+            {cheatList?.map((c) => (
+              <div key={c.slug} className="card" onClick={() => openCheat(c.slug)}>
+                <div className="card__pad">
+                  <span className="card__title">{c.title}</span>
+                  <p className="card__meta">{c.category}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </>
     );
@@ -93,9 +99,14 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
 
   return (
     <>
-      <PromptLine
-        section={group ? `base/${tab}/${group}` : `base/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
+      <AppHeader
+        title="База"
+        subtitle={group ?? "статьи"}
+        action={
+          group
+            ? <button className="icon-btn" onClick={() => setGroup(null)}>назад</button>
+            : <button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>
+        }
       />
       {!group && <SectionTabs menu={BASE_MENU} active={tab} onSelect={setTab} iconBase="/icons/base" />}
       <div className="page">
@@ -108,16 +119,20 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
 
         {group && (
           <>
-            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
+            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-3)", fontSize: 14, marginTop: 0 }}>
               {groupLabel} ({groupEntries.length})
             </p>
             {groupEntries.length === 0 && <EmptyState />}
-            {groupEntries.map((e) => (
-              <div key={e.slug} className="card" onClick={() => onOpenEntry(e.slug)} style={{ cursor: "pointer" }}>
-                <span className="card__title">{e.title}</span>
-                <p className="card__meta" style={{ marginTop: 4 }}>{e.summary}</p>
-              </div>
-            ))}
+            <div className="stack">
+              {groupEntries.map((e) => (
+                <div key={e.slug} className="card" onClick={() => onOpenEntry(e.slug)}>
+                  <div className="card__pad">
+                    <span className="card__title">{e.title}</span>
+                    <p className="card__meta">{e.summary}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </>
         )}
       </div>

@@ -1,24 +1,77 @@
-/* Дизайн-токены — §14 PROJECT_CONTEXT. Терминал в духе oh-my-zsh для хрома,
-   sans для тела статей. Не переносить эти токены в другие боты платформы —
-   бренд-исключение только для этого продукта (см. §3 PROJECT_CONTEXT). */
+/* Дизайн-система «Anthropic Studio» — спека
+   docs/superpowers/specs/2026-07-25-anthropic-studio-redesign-design.md
+   Тема только тёмная: светлой версии в продукте нет. */
+
+@import "@fontsource-variable/literata/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
 :root {
-  --bg: #111110;
-  --text-heading: #F5F3EC;
-  --text-body: #d8d6cc;
-  --text-muted: #8a8a86;
-  --text-muted-dim: #5a5a56;
-  --accent: #d97757;
+  /* ---- цвет ---- */
+  --bg: #16130F;
+  --surface: #201C17;
+  --surface-2: #2B251E;
+  --line: #332C24;
+  --text: #F5EFE4;
+  --text-2: #C4B9A8;
+  --text-3: #8B8072;
+  --accent: #E08256;
+  --accent-ink: #1A1410;
 
-  --seg-what: #6fcf97;
-  --seg-why: #5aa9e6;
-  --seg-example: #b98af0;
-  --seg-gotcha: #e0714f;
-  --seg-source: #5a5a56;
-  --error: #e05d44;
+  --seg-what: #8FBF83;
+  --seg-why: #7FB2CF;
+  --seg-example: #B394CB;
+  --seg-gotcha: #D9614A;
+  --seg-source: #8B8072;
+  --error: #D9614A;
 
-  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* ---- типографика ---- */
+  --font-display: "Literata Variable", Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --safe-top: env(safe-area-inset-top, 44px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --fs-0: 10px;
+  --fs-1: 11px;
+  --fs-2: 12px;
+  --fs-3: 13.5px;
+  --fs-4: 15px;
+  --fs-5: 17px;
+  --fs-6: 21px;
+  --fs-7: 25px;
+  --fs-8: 29px;
+
+  /* ---- размеры ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 20px;
+  --r-full: 999px;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 10px 26px -16px rgba(0, 0, 0, 0.9);
+
+  /* ---- движение ---- */
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 450ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- безопасные зоны ----
+     Значения приходят из Telegram через lib/insets.js (applyInsets), который
+     на рантайме выставляет инлайн-стили --safe-top/--safe-bottom/
+     --content-safe-top прямо на document.documentElement и перекрывает
+     фоллбэки ниже. Telegram также сам инжектирует CSS-переменные
+     --tg-safe-area-inset-* и --tg-content-safe-area-inset-* — поэтому
+     раскладка получает верные отступы, даже если JS-события Telegram
+     ни разу не выстрелят. */
+  --safe-top: var(--tg-safe-area-inset-top, 0px);
+  --safe-bottom: var(--tg-safe-area-inset-bottom, 0px);
+  --content-safe-top: var(--tg-content-safe-area-inset-top, 0px);
 }

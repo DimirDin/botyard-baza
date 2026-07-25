@@ -27,7 +27,7 @@ cd frontend && npm install && npm run dev
 ## Архитектура (не менять без явного запроса)
 - Backend: FastAPI + asyncpg, порт 3015, схема PostgreSQL `baza`, Redis-префикс `baza:`
 - Bot: aiogram 3, роль минимальная — `/start`, deep links, гейт-превью. Вся логика — в backend через API
-- Frontend: React 18 + Vite, Telegram Mini App SDK, эстетика «терминал в духе oh-my-zsh» (палитра и паттерны — см. внешний BAZA_CONTEXT.md, §13)
+- Frontend: React 18 + Vite, Telegram Mini App SDK, эстетика «Anthropic Studio» (тёмная палитра #16130F, шрифты Literata Variable и JetBrains Mono Variable, динамический живой фон; спецификация — docs/superpowers/specs/2026-07-25-anthropic-studio-redesign-design.md)
 - Контент — как код: `content/entries/*.md`, `content/tools.yaml`, `content/prompts.yaml`, `content/cheatsheets/*.md` → `scripts/sync_content.py` → БД. Никогда не пиши в БД контент напрямую мимо этого пайплайна
 - Гейт (`backend/app/gate.py`) — не менять логику TTL/деградации без сверки с внешним BAZA_CONTEXT.md §4, это самая чувствительная часть продукта
 

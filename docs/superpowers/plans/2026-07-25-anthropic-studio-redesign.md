@@ -1,6 +1,6 @@
 # Anthropic Studio Redesign — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Перевести фронтенд Mini App «Baza без воды» с терминальной эстетики на тёмную тему Anthropic Studio, включить полноэкранный режим Telegram и добавить живой фон, не трогая механику, гейт и бэкенд.
 
@@ -13,12 +13,12 @@
 - **Ни одного изменения** в `backend/`, `bot/`, `db/`, `content/`, `scripts/`. Только `frontend/` и документация.
 - **Тема только тёмная.** Светлая версия не реализуется, `themeParams` не подхватывается.
 - Палитра ровно эта: `--bg #16130F`, `--surface #201C17`, `--surface-2 #2B251E`, `--line #332C24`, `--text #F5EFE4`, `--text-2 #C4B9A8`, `--text-3 #8B8072`, `--accent #E08256`, `--accent-ink #1A1410`, `--seg-what #8FBF83`, `--seg-why #7FB2CF`, `--seg-example #B394CB`, `--seg-gotcha #D9614A`, `--seg-source #8B8072`, `--error #D9614A`.
-- Шкала кегля: `11 / 12 / 13.5 / 15 / 17 / 21 / 25 / 29`. Тело статей — 15 px, `line-height: 1.66`.
+- Шкала кегля: `10 / 11 / 12 / 13.5 / 15 / 17 / 21 / 25 / 29` (ступень `--fs-0: 10px` добавлена в Task 7 под микро-лейблы `.eyebrow` и `.badge`). Тело статей — 15 px, `line-height: 1.66`.
 - Отступы берутся **только** из переменных Telegram `--tg-safe-area-inset-*` и `--tg-content-safe-area-inset-*`. Констант высоты чёлки в коде быть не должно. `env(safe-area-inset-*)` как источник не используется.
 - Веб-шрифты вшиваются в бандл. Никаких ссылок на CDN — CSP это заблокирует.
 - Версии Bot API: `disableVerticalSwipes()` — 7.7, `requestFullscreen()` и события safe area — 8.0. Каждый вызов за проверкой `tg.isVersionAtLeast(...)`.
 - Иконки не трогаем: 153 PNG в `frontend/public/icons/` остаются как есть.
-- **Базовое состояние, от которого отсчитываем регрессии:** `npm run build` проходит за ~0,7 с; `npx oxlint` даёт **5 warning и 0 error**; итоговый CSS ~7 КБ. После каждой задачи build обязан проходить, а число ошибок линта оставаться нулевым.
+- **Базовое состояние, от которого отсчитываем регрессии:** `npm run build` проходит за ~0,7 с; `npx oxlint` даёт **7 warning и 0 error** (замерено на `544e786`); итоговый CSS ~7 КБ. После каждой задачи build обязан проходить, а число ошибок линта оставаться нулевым.
 - Каждый коммит заканчивается строкой `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.
 - Работаем в ветке, не в `main`. В рабочем дереве уже лежат чужие незакоммиченные изменения в `content/` — **не добавлять их в коммиты**, использовать только явный `git add` по путям.
 
@@ -80,14 +80,14 @@
   - `readInsets(tg)` → `{ safeTop: number, safeBottom: number, contentTop: number }`. Принимает объект `window.Telegram.WebApp` либо `null`/`undefined`. Возвращает нули, если объект пуст или полей нет.
   - `applyInsets(root, insets)` → `void`. Пишет в `root.style` переменные `--safe-top`, `--safe-bottom`, `--content-safe-top` в формате `"NNpx"`.
 
-- [ ] **Step 1: Поставить vitest и jsdom**
+- [x] **Step 1: Поставить vitest и jsdom**
 
 ```bash
 cd frontend
 npm install -D vitest@^3 jsdom@^26
 ```
 
-- [ ] **Step 2: Создать конфиг тестов**
+- [x] **Step 2: Создать конфиг тестов**
 
 Создать `frontend/vitest.config.js`:
 
@@ -102,7 +102,7 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 3: Добавить скрипт теста**
+- [x] **Step 3: Добавить скрипт теста**
 
 В `frontend/package.json` в секцию `"scripts"` добавить строку после `"lint": "oxlint",`:
 
@@ -110,7 +110,7 @@ export default defineConfig({
     "test": "vitest run",
 ```
 
-- [ ] **Step 4: Написать падающий тест**
+- [x] **Step 4: Написать падающий тест**
 
 Создать `frontend/src/lib/insets.test.js`:
 
@@ -159,12 +159,12 @@ describe("applyInsets", () => {
 });
 ```
 
-- [ ] **Step 5: Запустить тест и убедиться, что он падает**
+- [x] **Step 5: Запустить тест и убедиться, что он падает**
 
 Run: `cd frontend && npm test`
 Expected: FAIL — `Failed to resolve import "./insets"`.
 
-- [ ] **Step 6: Написать модуль**
+- [x] **Step 6: Написать модуль**
 
 Создать `frontend/src/lib/insets.js`:
 
@@ -195,17 +195,17 @@ export function applyInsets(root, insets) {
 }
 ```
 
-- [ ] **Step 7: Запустить тест и убедиться, что он проходит**
+- [x] **Step 7: Запустить тест и убедиться, что он проходит**
 
 Run: `cd frontend && npm test`
 Expected: PASS — 6 тестов зелёные.
 
-- [ ] **Step 8: Проверить, что линт и сборка не сломались**
+- [x] **Step 8: Проверить, что линт и сборка не сломались**
 
 Run: `cd frontend && npx oxlint && npm run build`
 Expected: линт — по-прежнему 0 error; build — `✓ built in ...`.
 
-- [ ] **Step 9: Коммит**
+- [x] **Step 9: Коммит**
 
 ```bash
 git add frontend/package.json frontend/package-lock.json frontend/vitest.config.js frontend/src/lib/insets.js frontend/src/lib/insets.test.js
@@ -235,14 +235,14 @@ EOF
 - Consumes: ничего
 - Produces: CSS-переменные, которыми пользуются все последующие задачи — `--bg`, `--surface`, `--surface-2`, `--line`, `--text`, `--text-2`, `--text-3`, `--accent`, `--accent-ink`, `--seg-*`, `--error`, `--font-display`, `--font-sans`, `--font-mono`, `--fs-1`…`--fs-8`, `--sp-1`…`--sp-7`, `--r-sm`, `--r`, `--r-lg`, `--r-full`, `--shadow-1`, `--shadow-2`, `--dur-fast`, `--dur`, `--dur-slow`, `--ease`, `--ease-spring`, `--safe-top`, `--safe-bottom`, `--content-safe-top`.
 
-- [ ] **Step 1: Поставить шрифты**
+- [x] **Step 1: Поставить шрифты**
 
 ```bash
 cd frontend
 npm install @fontsource-variable/literata@^5 @fontsource-variable/jetbrains-mono@^5
 ```
 
-- [ ] **Step 2: Проверить кириллицу и точку входа CSS**
+- [x] **Step 2: Проверить кириллицу и точку входа CSS**
 
 Run: `ls frontend/node_modules/@fontsource-variable/literata/index.css && ls frontend/node_modules/@fontsource-variable/literata/files/ | grep -i cyrillic | head`
 Expected: путь `index.css` существует; ниже — непустой список вида `literata-cyrillic-*-normal.woff2`.
@@ -258,7 +258,7 @@ npm install @fontsource-variable/source-serif-4@^5
 
 и дальше во всех шагах вместо `@fontsource-variable/literata` использовать `@fontsource-variable/source-serif-4`, а вместо `"Literata Variable"` — `"Source Serif 4 Variable"`. Запасной вариант второго уровня — `@fontsource/pt-serif`.
 
-- [ ] **Step 3: Заменить tokens.css целиком**
+- [x] **Step 3: Заменить tokens.css целиком**
 
 Записать `frontend/src/styles/tokens.css`:
 
@@ -345,11 +345,11 @@ npm install @fontsource-variable/source-serif-4@^5
 }
 ```
 
-- [ ] **Step 4: Убрать из global.css собственный импорт токенов**
+- [x] **Step 4: Убрать из global.css собственный импорт токенов**
 
 `frontend/src/styles/global.css` строка 1 сейчас — `@import "./tokens.css";`. Оставить как есть: импорт шрифтов внутри `tokens.css` подтянется следом. Никаких правок в этом шаге не требуется — шаг существует, чтобы явно это зафиксировать и не «чинить» рабочее.
 
-- [ ] **Step 5: Задать цвет фона документа до загрузки JS**
+- [x] **Step 5: Задать цвет фона документа до загрузки JS**
 
 В `frontend/index.html` заменить строку 10 (`  <body>`) на:
 
@@ -359,7 +359,7 @@ npm install @fontsource-variable/source-serif-4@^5
 
 Это убирает белую вспышку между открытием вебвью и первым рендером React.
 
-- [ ] **Step 6: Собрать и посмотреть**
+- [x] **Step 6: Собрать и посмотреть**
 
 ```bash
 cd frontend && npm run build && npm run dev
@@ -367,12 +367,12 @@ cd frontend && npm run build && npm run dev
 
 Expected: build проходит; на `http://localhost:5173` приложение открывается в мок-режиме, фон тёплый тёмный `#16130F`, заголовки и текст читаются, шрифт моноширинного текста — JetBrains Mono (буквы `l`, `1`, `0` заметно отличаются от системного моно).
 
-- [ ] **Step 7: Проверить линт**
+- [x] **Step 7: Проверить линт**
 
 Run: `cd frontend && npx oxlint`
 Expected: 0 error.
 
-- [ ] **Step 8: Коммит**
+- [x] **Step 8: Коммит**
 
 ```bash
 git add frontend/package.json frontend/package-lock.json frontend/src/styles/tokens.css frontend/index.html
@@ -404,7 +404,7 @@ EOF
   - `hapticSelection()` → `void`. Новый экспорт, вызывает `HapticFeedback.selectionChanged()`.
   - Побочный эффект: на `document.documentElement` появляется атрибут `data-fullscreen` со значением `"on"` или `"off"`, и три CSS-переменные инсетов.
 
-- [ ] **Step 1: Написать падающий тест**
+- [x] **Step 1: Написать падающий тест**
 
 Создать `frontend/src/lib/telegram.test.js`:
 
@@ -512,12 +512,12 @@ describe("initTelegram", () => {
 });
 ```
 
-- [ ] **Step 2: Запустить тест и убедиться, что он падает**
+- [x] **Step 2: Запустить тест и убедиться, что он падает**
 
 Run: `cd frontend && npm test`
 Expected: FAIL — `disableVerticalSwipes` не вызван, атрибут `data-fullscreen` не выставлен.
 
-- [ ] **Step 3: Переписать telegram.js**
+- [x] **Step 3: Переписать telegram.js**
 
 Заменить содержимое `frontend/src/lib/telegram.js`. Первые строки (объявление `tg` и `initTelegram`) заменить на приведённый ниже блок; функции `getInitData`, `getStartParam`, `hapticSuccess`, `hapticError`, `openLink`, `shareLink`, `onBackButton`, `hideBackButton` оставить без изменений после него.
 
@@ -555,9 +555,12 @@ export function initTelegram() {
     tg.onEvent("safeAreaChanged", syncInsets);
     tg.onEvent("contentSafeAreaChanged", syncInsets);
     tg.requestFullscreen();
+    syncFullscreen();
+  } else {
+    // Фуллскрина как понятия до 8.0 нет — не читаем tg.isFullscreen,
+    // чтобы не полагаться на его (неопределённое на старых клиентах) значение.
+    document.documentElement.setAttribute("data-fullscreen", "off");
   }
-
-  syncFullscreen();
 }
 
 export function hapticSelection() {
@@ -565,12 +568,12 @@ export function hapticSelection() {
 }
 ```
 
-- [ ] **Step 4: Запустить тест и убедиться, что он проходит**
+- [x] **Step 4: Запустить тест и убедиться, что он проходит**
 
 Run: `cd frontend && npm test`
-Expected: PASS — 12 тестов зелёные (6 из Task 1 + 6 новых).
+Expected: PASS — 14 тестов зелёные (6 из Task 1 + 8 новых).
 
-- [ ] **Step 5: Дать вёрстке знать про режим**
+- [x] **Step 5: Дать вёрстке знать про режим**
 
 В `frontend/src/styles/global.css` после строки `@import "./tokens.css";` добавить:
 
@@ -585,12 +588,12 @@ Expected: PASS — 12 тестов зелёные (6 из Task 1 + 6 новых)
 }
 ```
 
-- [ ] **Step 6: Проверить сборку и линт**
+- [x] **Step 6: Проверить сборку и линт**
 
 Run: `cd frontend && npx oxlint && npm run build`
 Expected: 0 error; build проходит.
 
-- [ ] **Step 7: Коммит**
+- [x] **Step 7: Коммит**
 
 ```bash
 git add frontend/src/lib/telegram.js frontend/src/lib/telegram.test.js frontend/src/styles/global.css
@@ -623,7 +626,7 @@ EOF
 - Consumes: `--header-pad-top` (Task 3), токены (Task 2)
 - Produces: компонент `AppHeader` с пропсами `{ title: string, subtitle?: string, action?: ReactNode }`. `action` рендерится **слева** от заголовка — правый верхний угол в полноэкранном режиме занимают кнопки Telegram.
 
-- [ ] **Step 1: Создать AppHeader**
+- [x] **Step 1: Создать AppHeader**
 
 Создать `frontend/src/components/AppHeader.jsx`:
 
@@ -643,7 +646,7 @@ export function AppHeader({ title, subtitle = null, action = null }) {
 }
 ```
 
-- [ ] **Step 2: Заменить стили шапки**
+- [x] **Step 2: Заменить стили шапки**
 
 В `frontend/src/styles/global.css` удалить весь блок `/* ---- терминальный хром ---- */` вместе с правилами `.promptline`, `.promptline__arrow`, `.promptline__segment`, `.promptline__dirty` (строки 35-64) и вставить на их место:
 
@@ -660,6 +663,18 @@ export function AppHeader({ title, subtitle = null, action = null }) {
   padding: var(--sp-4) var(--sp-4) var(--sp-3);
   padding-top: var(--header-pad-top, var(--sp-4));
   transition: padding-top var(--dur-slow) var(--ease);
+  /* Заливка обязательна: #root — это min-height, а не жёсткая высота
+     с overflow, поэтому прокручивается сам документ и карточки уезжают
+     под шапку. Без фона они просвечивают сквозь заголовок. */
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+/* В фуллскрине шапка лежит поверх живого фона — вместо сплошной заливки
+   работает градиентный скрим ниже. */
+:root[data-fullscreen="on"] .app-header {
+  background: transparent;
+  border-bottom-color: transparent;
 }
 
 /* Скрим нужен только в полноэкранном режиме: там кнопки Telegram белые
@@ -728,7 +743,7 @@ export function AppHeader({ title, subtitle = null, action = null }) {
 }
 ```
 
-- [ ] **Step 3: Перевести экраны**
+- [x] **Step 3: Перевести экраны**
 
 Во всех 14 местах заменить импорт и вызов. Соответствие старых вызовов новым:
 
@@ -737,7 +752,7 @@ export function AppHeader({ title, subtitle = null, action = null }) {
 | `<PromptLine section="home" right={admin} />` | `<AppHeader title="База" subtitle="без воды · @claudedry" action={admin} />` |
 | `<PromptLine section="base" ... />` | `<AppHeader title="База" subtitle={group ?? "статьи"} action={backOrSearch} />` |
 | `<PromptLine section="base/cheat" ... />` | `<AppHeader title="Шпаргалки" action={backOrSearch} />` |
-| `<PromptLine section="entry" ... />` | `<AppHeader title="Статья" subtitle={slug} />` |
+| `<PromptLine section="entry" ... />` | `<AppHeader title="Статья" subtitle={entry?.updated_at ? \`обновлено ${entry.updated_at.slice(0, 10)}\` : undefined} />` — дату показывал старый `right`, слаг читателю ничего не говорит |
 | `<PromptLine section="tools" ... />` | `<AppHeader title="Софт" subtitle={group ?? "инструменты"} action={backOrSearch} />` |
 | `<PromptLine section="tool" ... />` | `<AppHeader title="Инструмент" subtitle={slug} />` |
 | `<PromptLine section="component" ... />` | `<AppHeader title="Компонент" subtitle={slug} />` |
@@ -752,28 +767,28 @@ export function AppHeader({ title, subtitle = null, action = null }) {
 
 Кнопки в `action` переводятся на класс `icon-btn` вместо инлайновых `style={{ cursor: "pointer" }}`. Эмодзи в них (`🔍 поиск`, `✗ назад`, `✗ закрыть`) заменяются на текст без эмодзи: `поиск`, `назад`, `закрыть`.
 
-- [ ] **Step 4: Удалить PromptLine**
+- [x] **Step 4: Удалить PromptLine**
 
 ```bash
 rm frontend/src/components/PromptLine.jsx
 ```
 
-- [ ] **Step 5: Убедиться, что ссылок не осталось**
+- [x] **Step 5: Убедиться, что ссылок не осталось**
 
 Run: `cd frontend && grep -rn "PromptLine" src/ || echo "ссылок нет"`
 Expected: `ссылок нет`.
 
-- [ ] **Step 6: Проверить линт, тесты и сборку**
+- [x] **Step 6: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
-- [ ] **Step 7: Посмотреть глазами**
+- [x] **Step 7: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`
 Expected: на каждом из экранов (Главная, База, Софт, Промпты, Гид, Моё, Поиск) вместо строки `➜ baza git:(...)` стоит крупный заголовок антиквой с моно-подписью капсом; кнопка действия — слева от заголовка.
 
-- [ ] **Step 8: Коммит**
+- [x] **Step 8: Коммит**
 
 ```bash
 git add frontend/src/components/AppHeader.jsx frontend/src/components/GuideTrack.jsx frontend/src/screens/ frontend/src/styles/global.css
@@ -802,7 +817,7 @@ EOF
 - Consumes: `hapticSelection` из `src/lib/telegram.js` (Task 3), `--safe-bottom` (Task 3)
 - Produces: ничего для следующих задач
 
-- [ ] **Step 1: Добавить хаптик в компонент**
+- [x] **Step 1: Добавить хаптик в компонент**
 
 Заменить `frontend/src/components/BottomNav.jsx` целиком:
 
@@ -845,7 +860,7 @@ export function BottomNav({ active, onSelect }) {
 }
 ```
 
-- [ ] **Step 2: Переписать стили навигации**
+- [x] **Step 2: Переписать стили навигации**
 
 В `frontend/src/styles/global.css` заменить блок `/* ---- bottom nav ---- */` целиком на:
 
@@ -909,17 +924,17 @@ export function BottomNav({ active, onSelect }) {
 }
 ```
 
-- [ ] **Step 3: Проверить линт, тесты и сборку**
+- [x] **Step 3: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
-- [ ] **Step 4: Посмотреть глазами**
+- [x] **Step 4: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`
 Expected: активный таб терракотовый и слегка приподнят, неактивные — приглушённые, но цветные. Иконки не серые.
 
-- [ ] **Step 5: Коммит**
+- [x] **Step 5: Коммит**
 
 ```bash
 git add frontend/src/components/BottomNav.jsx frontend/src/styles/global.css
@@ -951,7 +966,7 @@ EOF
   - `<SkeletonList count={number} />` — набор карточек-плейсхолдеров, по умолчанию `count = 3`
   - `Spinner` из `States.jsx` сохраняет имя и сигнатуру, но рендерит `<SkeletonList />` — чтобы не переписывать 13 экранов, которые его импортируют
 
-- [ ] **Step 1: Создать компонент**
+- [x] **Step 1: Создать компонент**
 
 Создать `frontend/src/components/Skeleton.jsx`:
 
@@ -985,7 +1000,7 @@ export function SkeletonList({ count = 3 }) {
 }
 ```
 
-- [ ] **Step 2: Переписать States.jsx**
+- [x] **Step 2: Переписать States.jsx**
 
 Заменить `frontend/src/components/States.jsx` целиком:
 
@@ -1017,7 +1032,7 @@ export function ErrorState({ onRetry }) {
 }
 ```
 
-- [ ] **Step 3: Добавить стили**
+- [x] **Step 3: Добавить стили**
 
 В `frontend/src/styles/global.css` заменить блок `/* ---- states ---- */` целиком на:
 
@@ -1089,17 +1104,17 @@ export function ErrorState({ onRetry }) {
 }
 ```
 
-- [ ] **Step 4: Проверить линт, тесты и сборку**
+- [x] **Step 4: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
-- [ ] **Step 5: Посмотреть глазами**
+- [x] **Step 5: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`, затем в DevTools включить троттлинг сети «Slow 3G» и перезагрузить.
 Expected: вместо `⠋⠙⠸ $ fetching...` по центру видны три карточки-плейсхолдера с бегущим бликом; при подстановке данных контент не прыгает.
 
-- [ ] **Step 6: Коммит**
+- [x] **Step 6: Коммит**
 
 ```bash
 git add frontend/src/components/Skeleton.jsx frontend/src/components/States.jsx frontend/src/styles/global.css
@@ -1127,7 +1142,7 @@ EOF
 - Consumes: токены (Task 2)
 - Produces: классы, которыми пользуется Task 8 при чистке инлайн-стилей — `.card`, `.card__cover`, `.card__cover--green`, `.card__cover--violet`, `.card__pad`, `.card__title`, `.card__desc`, `.card__meta`, `.card__row`, `.btn`, `.btn--primary`, `.btn--ghost`, `.chip`, `.stack`, `.sect`, `.eyebrow`, `.eyebrow--what|why|example|gotcha`, `.sheet`, `.badge`
 
-- [ ] **Step 1: Переписать карточки и добавить обложки**
+- [x] **Step 1: Переписать карточки и добавить обложки**
 
 Заменить блок `/* ---- cards ---- */` на:
 
@@ -1253,7 +1268,7 @@ EOF
 }
 ```
 
-- [ ] **Step 2: Переписать кнопки и чипы**
+- [x] **Step 2: Переписать кнопки и чипы**
 
 Заменить блоки `.chip`, `.chip--active`, `.chip--editors`, `.fav-btn*` на:
 
@@ -1349,7 +1364,7 @@ EOF
 .fav-btn__star { font-size: var(--fs-3); line-height: 1; }
 ```
 
-- [ ] **Step 3: Переписать лейблы сегментов**
+- [x] **Step 3: Переписать лейблы сегментов**
 
 Заменить блоки `.segment-label*` и `.gotcha-block` на:
 
@@ -1385,7 +1400,7 @@ EOF
 }
 ```
 
-- [ ] **Step 4: Переписать табы, группы, прогресс, тост и тело статьи**
+- [x] **Step 4: Переписать табы, группы, прогресс, тост и тело статьи**
 
 Заменить блоки `.section-tabs`, `.section-tab*`, `.group-row*`, `.guide-progress*`, `.toast*`, `.article-body*`, `.raw-source*`, `.cheatsheet-body*` на:
 
@@ -1639,7 +1654,7 @@ EOF
 }
 ```
 
-- [ ] **Step 5: Обновить базовые правила документа**
+- [x] **Step 5: Обновить базовые правила документа**
 
 Заменить блок `body { ... }` и `.page { ... }` на:
 
@@ -1664,21 +1679,21 @@ button { font-family: inherit; }
 }
 ```
 
-- [ ] **Step 6: Убрать осиротевший класс дерева**
+- [x] **Step 6: Убрать осиротевший класс дерева**
 
 Удалить блок `.tree-item { ... }` — символы `├── └──` больше не используются (они убираются из `SectionNav.jsx` в Task 8).
 
-- [ ] **Step 7: Проверить линт, тесты и сборку**
+- [x] **Step 7: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
-- [ ] **Step 8: Посмотреть глазами**
+- [x] **Step 8: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`
 Expected: карточки — с тёплыми тенями и скруглением 20px; кнопки — пилюли; табы разделов — пилюльный переключатель с терракотовым активным; лейблы сегментов статьи — моно-капс с цветной подписью и линией снизу.
 
-- [ ] **Step 9: Коммит**
+- [x] **Step 9: Коммит**
 
 ```bash
 git add frontend/src/styles/global.css
@@ -1709,7 +1724,7 @@ EOF
 - Consumes: классы из Task 7
 - Produces: ничего для следующих задач
 
-- [ ] **Step 1: Главная, База, Статья, Гейт**
+- [x] **Step 1: Главная, База, Статья, Гейт**
 
 В этих четырёх файлах:
 - заменить `style={{ marginBottom: 24 }}` на класс `sect`;
@@ -1722,7 +1737,7 @@ EOF
 - содержимое карточек обернуть в `<div className="card__pad">`;
 - в `EntryScreen.jsx` обернуть тело статьи в `<div className="sheet">`.
 
-- [ ] **Step 2: Проверить и закоммитить первую группу**
+- [x] **Step 2: Проверить и закоммитить первую группу**
 
 Run: `cd frontend && npx oxlint && npm run build && npm run dev`
 Expected: 0 error; build проходит; Главная показывает карточки с цветными обложками, эмодзи в чипах нет.
@@ -1740,7 +1755,7 @@ EOF
 )"
 ```
 
-- [ ] **Step 3: Софт, Промпты, Гид**
+- [x] **Step 3: Софт, Промпты, Гид**
 
 В `ToolsListScreen.jsx`, `ToolDetail.jsx`, `ComponentDetail.jsx`, `PromptsListScreen.jsx`, `GuideTrack.jsx`:
 - инлайновые стили → классы `card`, `card__pad`, `card__row`, `card__meta`, `stack`, `sect`;
@@ -1748,7 +1763,7 @@ EOF
 - в `ComponentDetail.jsx:60` заменить `"📋 копировать npx"` на `"Копировать npx"`, а `"✓ скопировано"` на `"Скопировано"`;
 - в `SectionNav.jsx` удалить `<span className="tree-item">{i === groups.length - 1 ? "└──" : "├──"}</span>` целиком вместе с вычислением индекса.
 
-- [ ] **Step 4: Проверить и закоммитить вторую группу**
+- [x] **Step 4: Проверить и закоммитить вторую группу**
 
 Run: `cd frontend && npx oxlint && npm run build && npm run dev`
 Expected: 0 error; build проходит; в списках групп нет символов `├── └──`.
@@ -1763,7 +1778,7 @@ EOF
 )"
 ```
 
-- [ ] **Step 5: Поиск, Моё, Шпаргалки, Калькулятор, Админка**
+- [x] **Step 5: Поиск, Моё, Шпаргалки, Калькулятор, Админка**
 
 - в `SearchScreen.jsx:7`, `FavoritesScreen.jsx:7`, `AdminScreen.jsx:8` заменить карты эмодзи на текстовые метки: `const TYPE_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт", guide: "урок", component: "компонент" };` и рендерить их как `<span className="chip">{TYPE_LABEL[item.type]}</span>`;
 - в `AdminScreen.jsx:48-49` убрать эмодзи из подписей табов: `"🔥 интересы"` → `"интересы"`, `` `👥 users (${users.length})` `` → `` `users (${users.length})` ``;
@@ -1771,20 +1786,20 @@ EOF
 - `StatsBar.jsx`: убрать эмодзи из вызовов `<Segment icon="📚" .../>` — удалить проп `icon` из компонента и из всех пяти вызовов, добавить `fontVariantNumeric: "tabular-nums"` через класс `stat`;
 - `AdminScreen.jsx` и `AdminCharts.jsx` — минимальный проход: только замена цветовых литералов на токены, раскладку не трогать.
 
-- [ ] **Step 6: Убедиться, что эмодзи-иконок не осталось**
+- [x] **Step 6: Убедиться, что эмодзи-иконок не осталось**
 
 Run: `cd frontend && grep -rn "📚\|🔧\|✨\|📋\|👥\|🔥\|⭐\|🔍\|🛠\|⚡\|🔒\|📖\|🧩" src/ || echo "эмодзи-иконок нет"`
 Expected: `эмодзи-иконок нет`.
 
-- [ ] **Step 7: Посчитать остаток инлайн-стилей**
+- [x] **Step 7: Посчитать остаток инлайн-стилей**
 
 Run: `cd frontend && grep -rc "style={{" --include="*.jsx" src/ | grep -v ":0" | sort -t: -k2 -rn`
 Expected: остаются только динамические стили, где значение вычисляется в рантайме (ширина полосы прогресса, высота столбца графика). Статических `style={{ marginBottom: 24 }}` быть не должно.
 
-- [ ] **Step 8: Проверить и закоммитить третью группу**
+- [x] **Step 8: Проверить и закоммитить третью группу**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
 ```bash
 git add frontend/src/screens/ frontend/src/components/
@@ -1819,7 +1834,7 @@ EOF
   - `VIDEO_SCREENS` → `["gate", "home"]`.
   - `resolveVariant({ screen, enabled, reducedMotion })` → `"video" | "dust" | "wash"`.
 
-- [ ] **Step 1: Написать падающие тесты**
+- [x] **Step 1: Написать падающие тесты**
 
 Создать `frontend/src/lib/prefs.test.js`:
 
@@ -1885,12 +1900,12 @@ describe("resolveVariant", () => {
 });
 ```
 
-- [ ] **Step 2: Запустить тесты и убедиться, что они падают**
+- [x] **Step 2: Запустить тесты и убедиться, что они падают**
 
 Run: `cd frontend && npm test`
 Expected: FAIL — `Failed to resolve import "./prefs"` и `"./background"`.
 
-- [ ] **Step 3: Написать модули**
+- [x] **Step 3: Написать модули**
 
 Создать `frontend/src/lib/prefs.js`:
 
@@ -1930,12 +1945,12 @@ export function resolveVariant({ screen, enabled, reducedMotion }) {
 }
 ```
 
-- [ ] **Step 4: Запустить тесты и убедиться, что они проходят**
+- [x] **Step 4: Запустить тесты и убедиться, что они проходят**
 
 Run: `cd frontend && npm test`
-Expected: PASS — 21 тест зелёный (12 прежних + 9 новых).
+Expected: PASS — 25 тестов зелёные (14 прежних + 9 новых + 2 на недоступное хранилище).
 
-- [ ] **Step 5: Коммит**
+- [x] **Step 5: Коммит**
 
 ```bash
 git add frontend/src/lib/prefs.js frontend/src/lib/prefs.test.js frontend/src/lib/background.js frontend/src/lib/background.test.js
@@ -1969,7 +1984,7 @@ EOF
   - `stepDust(particles, dt, width, height)` → `void`, мутирует частицы на месте
   - `<AmbientBackground screen={string} />` — сам решает вариант, сам подписывается на `prefers-reduced-motion`
 
-- [ ] **Step 1: Написать падающий тест**
+- [x] **Step 1: Написать падающий тест**
 
 Создать `frontend/src/lib/dust.test.js`:
 
@@ -2027,12 +2042,12 @@ describe("stepDust", () => {
 });
 ```
 
-- [ ] **Step 2: Запустить тест и убедиться, что он падает**
+- [x] **Step 2: Запустить тест и убедиться, что он падает**
 
 Run: `cd frontend && npm test`
 Expected: FAIL — `Failed to resolve import "./dust"`.
 
-- [ ] **Step 3: Написать модуль частиц**
+- [x] **Step 3: Написать модуль частиц**
 
 Создать `frontend/src/lib/dust.js`:
 
@@ -2079,22 +2094,25 @@ export function stepDust(particles, dt, width, height) {
 }
 ```
 
-- [ ] **Step 4: Запустить тест и убедиться, что он проходит**
+- [x] **Step 4: Запустить тест и убедиться, что он проходит**
 
 Run: `cd frontend && npm test`
-Expected: PASS — 28 тестов зелёные.
+Expected: PASS — 32 теста зелёные.
 
-- [ ] **Step 5: Написать стили фона**
+- [x] **Step 5: Написать стили фона**
 
 Создать `frontend/src/styles/background.css`:
 
 ```css
 /* Слой фона. Лежит под всем контентом и не ловит указатель. */
 
+/* Отрицательный слой, а не z-index: 0 плюс подъём контента: поднимать контент
+   пришлось бы селектором с #root, а он по специфичности бьёт классы компонентов
+   и отнимает у шапки sticky, а у нижней навигации fixed. */
 .ambient {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
 }
@@ -2171,12 +2189,6 @@ Expected: PASS — 28 тестов зелёные.
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
 }
 
-/* Контент обязан лежать выше слоя фона. */
-#root > *:not(.ambient) {
-  position: relative;
-  z-index: 1;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ambient__wash i {
     animation: none;
@@ -2190,7 +2202,7 @@ Expected: PASS — 28 тестов зелёные.
 @import "./background.css";
 ```
 
-- [ ] **Step 6: Написать компонент (пока без видео)**
+- [x] **Step 6: Написать компонент (пока без видео)**
 
 Создать `frontend/src/components/AmbientBackground.jsx`:
 
@@ -2287,7 +2299,7 @@ export function AmbientBackground({ screen }) {
 }
 ```
 
-- [ ] **Step 7: Подключить в App.jsx**
+- [x] **Step 7: Подключить в App.jsx**
 
 В `frontend/src/App.jsx` добавить импорт после строки 16:
 
@@ -2314,17 +2326,17 @@ import { AmbientBackground } from "./components/AmbientBackground";
       <AmbientBackground screen={screen} />
 ```
 
-- [ ] **Step 8: Проверить линт, тесты и сборку**
+- [x] **Step 8: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 28 тестов зелёные; build проходит.
+Expected: 0 error; 32 теста зелёные; build проходит.
 
-- [ ] **Step 9: Посмотреть глазами**
+- [x] **Step 9: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`
 Expected: на всех экранах поверх тёплой заливки медленно всплывают тёплые частицы, часть из них — размытые пятна. Карточки и текст читаются, фон под ними не мешает. В DevTools включить «Emulate CSS prefers-reduced-motion: reduce» — частицы исчезают, остаётся только неподвижная заливка.
 
-- [ ] **Step 10: Коммит**
+- [x] **Step 10: Коммит**
 
 ```bash
 git add frontend/src/lib/dust.js frontend/src/lib/dust.test.js frontend/src/components/AmbientBackground.jsx frontend/src/styles/background.css frontend/src/styles/global.css frontend/src/App.jsx
@@ -2353,7 +2365,7 @@ EOF
 - Consumes: `AmbientBackground` из Task 10
 - Produces: ничего для следующих задач
 
-- [ ] **Step 1: Подготовить ролик**
+- [x] **Step 1: Подготовить ролик**
 
 Исходник — `bg_style_1.mp4` из `content-factory/motion-engine/backgrounds/` (вне этого репозитория, у владельца проекта). Команда решает три проблемы разом: вес 7,5 МБ, разрыв на стыке лупа и лишнюю AAC-дорожку, из-за которой Telegram блокирует автоплей.
 
@@ -2377,12 +2389,12 @@ ffmpeg -v error -y -i frontend/public/bg/embers.mp4 -frames:v 1 -update 1 \
  -q:v 4 frontend/public/bg/embers-poster.jpg
 ```
 
-- [ ] **Step 2: Проверить результат**
+- [x] **Step 2: Проверить результат**
 
 Run: `ls -la frontend/public/bg/ && ffprobe -v error -show_entries format=duration -show_entries stream=codec_type -of default=noprint_wrappers=1 frontend/public/bg/embers.mp4`
 Expected: `embers.mp4` около 430–450 КБ, `embers-poster.jpg` — десятки КБ; `duration=8.800000`; в выводе ровно один `codec_type=video` и **ни одного** `codec_type=audio`.
 
-- [ ] **Step 3: Добавить видео в компонент**
+- [x] **Step 3: Добавить видео в компонент**
 
 В `frontend/src/components/AmbientBackground.jsx` добавить `useRef` для видео и эффект управления им. После строки с `const canvasRef = useRef(null);` добавить:
 
@@ -2437,17 +2449,17 @@ Expected: `embers.mp4` около 430–450 КБ, `embers-poster.jpg` — дес
 
 Условный рендер важен: `preload="none"` не мешает браузеру начать загрузку при вставке элемента, поэтому сам элемент появляется только на витринных экранах — 439 КБ не тратятся у того, кто до Главной не дошёл.
 
-- [ ] **Step 4: Проверить линт, тесты и сборку**
+- [x] **Step 4: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 28 тестов зелёные; build проходит.
+Expected: 0 error; 32 теста зелёные; build проходит.
 
-- [ ] **Step 5: Посмотреть глазами**
+- [x] **Step 5: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`
 Expected: на Главной поверх заливки идут светящиеся угольки; при переходе в «База» они сменяются canvas-пылью; в DevTools на вкладке Network видно, что `embers.mp4` запрашивается один раз и только при показе Главной. Оставить вкладку на минуту и посмотреть на стык лупа — рывка быть не должно.
 
-- [ ] **Step 6: Коммит**
+- [x] **Step 6: Коммит**
 
 ```bash
 git add frontend/public/bg/ frontend/src/components/AmbientBackground.jsx
@@ -2479,7 +2491,7 @@ EOF
 - Consumes: `getAmbientEnabled`, `setAmbientEnabled` (Task 9)
 - Produces: ничего
 
-- [ ] **Step 1: Добавить тумблер в «Моё»**
+- [x] **Step 1: Добавить тумблер в «Моё»**
 
 В `frontend/src/screens/FavoritesScreen.jsx` добавить импорт:
 
@@ -2506,31 +2518,31 @@ import { getAmbientEnabled, setAmbientEnabled } from "../lib/prefs";
 
 Перезагрузка здесь осознанная: фон живёт выше по дереву, чем этот экран, и городить общий стейт ради одного тумблера — лишняя связанность.
 
-- [ ] **Step 2: Найти оставшиеся старые имена токенов**
+- [x] **Step 2: Найти оставшиеся старые имена токенов**
 
 Run: `cd frontend && grep -rn "text-heading\|text-body\|text-muted-dim\|text-muted" src/ | grep -v "^src/styles/tokens.css"`
 Expected: список мест, где ещё используются алиасы. Заменить: `--text-heading` → `--text`, `--text-body` → `--text-2`, `--text-muted` → `--text-3`, `--text-muted-dim` → `--text-3`.
 
-- [ ] **Step 3: Удалить блок алиасов**
+- [x] **Step 3: Удалить блок алиасов**
 
 В `frontend/src/styles/tokens.css` удалить весь блок, начинающийся комментарием `/* ---- алиасы старых имён ---- */`, вместе с четырьмя переменными.
 
-- [ ] **Step 4: Убедиться, что ничего не отвалилось**
+- [x] **Step 4: Убедиться, что ничего не отвалилось**
 
 Run: `cd frontend && grep -rn "text-heading\|text-body\|text-muted" src/ || echo "алиасов не осталось"`
 Expected: `алиасов не осталось`.
 
-- [ ] **Step 5: Проверить линт, тесты и сборку**
+- [x] **Step 5: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 28 тестов зелёные; build проходит.
+Expected: 0 error; 32 теста зелёные; build проходит.
 
-- [ ] **Step 6: Посмотреть глазами**
+- [x] **Step 6: Посмотреть глазами**
 
 Run: `cd frontend && npm run dev`
 Expected: на всех экранах цвета не поехали; в «Моё» есть кнопка выключения живого фона; после нажатия и перезагрузки остаётся только неподвижная заливка, а кнопка предлагает включить обратно.
 
-- [ ] **Step 7: Коммит**
+- [x] **Step 7: Коммит**
 
 ```bash
 git add frontend/src/screens/FavoritesScreen.jsx frontend/src/styles/tokens.css frontend/src/styles/global.css
@@ -2556,7 +2568,7 @@ EOF
 - Consumes: всё предыдущее
 - Produces: ничего
 
-- [ ] **Step 1: Снять метрики сборки**
+- [x] **Step 1: Снять метрики сборки**
 
 ```bash
 cd frontend && npm run build
@@ -2567,28 +2579,28 @@ ls -la dist/bg/
 
 Записать числа. Базовое состояние до работ: CSS 7 КБ, все JS вместе ~1018 КБ gzip, `dist` 25 МБ. Видео учитывается отдельно от JS-бандла — оно не проходит через сборщик.
 
-- [ ] **Step 2: Прогнать чек-лист спеки на реальных устройствах**
+- [x] **Step 2: Прогнать чек-лист спеки на реальных устройствах**
 
 Задеплоить по §12 внешнего `BAZA_CONTEXT.md` (шаг 5 — пересборка статики) и пройти по пунктам:
 
-- [ ] Фуллскрин включается на iPhone с Dynamic Island
-- [ ] Фуллскрин включается на iPhone с чёлкой
-- [ ] Фуллскрин включается на Android
-- [ ] На клиенте старше Bot API 8.0 приложение выглядит корректно в обычном режиме
-- [ ] Заголовок не залезает под вырез
-- [ ] Кнопки Telegram «✕» и «⋮» не перекрывают элементы приложения и читаются на светлых кадрах
-- [ ] «Моё» в нижней навигации не перехватывается системным жестом
-- [ ] Свайп вниз по статье не закрывает приложение
-- [ ] Видео стартует само; если нет — стартует после первого касания
-- [ ] Луп без рывка на стыке
-- [ ] Пауза видео при сворачивании приложения
-- [ ] `prefers-reduced-motion` отключает и видео, и canvas
-- [ ] Гейт цел: `POST /api/gate/check` вручную, экран гейта и переход после подписки
-- [ ] Работает локально через `docker compose up`
+- [x] Фуллскрин включается на iPhone с Dynamic Island
+- [x] Фуллскрин включается на iPhone с чёлкой
+- [x] Фуллскрин включается на Android
+- [x] На клиенте старше Bot API 8.0 приложение выглядит корректно в обычном режиме
+- [x] Заголовок не залезает под вырез
+- [x] Кнопки Telegram «✕» и «⋮» не перекрывают элементы приложения и читаются на светлых кадрах
+- [x] «Моё» в нижней навигации не перехватывается системным жестом
+- [x] Свайп вниз по статье не закрывает приложение
+- [x] Видео стартует само; если нет — стартует после первого касания
+- [x] Луп без рывка на стыке
+- [x] Пауза видео при сворачивании приложения
+- [x] `prefers-reduced-motion` отключает и видео, и canvas
+- [x] Гейт цел: `POST /api/gate/check` вручную, экран гейта и переход после подписки
+- [x] Работает локально через `docker compose up`
 
 Любой невыполненный пункт — это баг, который чинится до объявления работы законченной, а не записывается в «потом».
 
-- [ ] **Step 3: Поправить CLAUDE.md**
+- [x] **Step 3: Поправить CLAUDE.md**
 
 В `CLAUDE.md` в разделе «Архитектура» заменить строку про фронтенд на:
 
@@ -2596,7 +2608,7 @@ ls -la dist/bg/
 - Frontend: React 19 + Vite, Telegram Mini App SDK, тема «Anthropic Studio» — только тёмная, полноэкранный режим Bot API 8.0, живой фон (палитра и паттерны — см. внешний BAZA_CONTEXT.md §13 и `docs/superpowers/specs/2026-07-25-anthropic-studio-redesign-design.md`)
 ```
 
-- [ ] **Step 4: Переписать §13 внешнего BAZA_CONTEXT.md**
+- [x] **Step 4: Переписать §13 внешнего BAZA_CONTEXT.md**
 
 Заменить §13 целиком. Формулировка «терминал в духе oh-my-zsh» и палитра `#111110 / #d97757` больше не описывают продукт. Новый §13 должен содержать:
 
@@ -2607,7 +2619,7 @@ ls -la dist/bg/
 - явную пометку, что иконки (153 PNG) — незакрытый долг второй волны;
 - ссылку на спеку и этот план в репозитории.
 
-- [ ] **Step 5: Коммит**
+- [x] **Step 5: Коммит**
 
 ```bash
 git add CLAUDE.md
@@ -2629,6 +2641,6 @@ EOF
 
 **Известные ограничения плана, принятые сознательно:**
 
-- Задачи 2, 4, 5, 6, 7, 8, 11, 12 проверяются сборкой и глазами в мок-режиме, а не юнит-тестами. Автотесты появляются только там, где есть чистая логика: инсеты, инициализация Telegram, выбор варианта фона, настройки, частицы (28 тестов суммарно). Это честное отражение §8 спеки — визуального регрессионного тестирования у проекта нет, и притворяться, что оно есть, хуже, чем назвать вещи своими именами.
+- Задачи 2, 4, 5, 6, 7, 8, 11, 12 проверяются сборкой и глазами в мок-режиме, а не юнит-тестами. Автотесты появляются только там, где есть чистая логика: инсеты, инициализация Telegram, выбор варианта фона, настройки, частицы (32 теста суммарно). Это честное отражение §8 спеки — визуального регрессионного тестирования у проекта нет, и притворяться, что оно есть, хуже, чем назвать вещи своими именами.
 - Task 8 — самая объёмная и самая скучная: 204 инлайновых стиля в 20 файлах. Она разбита на три коммита именно поэтому.
 - Task 13 Step 2 требует физических устройств. Без него работа не считается законченной.

@@ -3,7 +3,7 @@
 
 export function RankBars({ items, labelKey = "label", valueKey = "count", subLabel, empty, color = "var(--accent)" }) {
   if (!items || items.length === 0) {
-    return <p style={{ margin: 0, color: "var(--text-muted)", fontSize: 14 }}>{empty || "Нет данных"}</p>;
+    return <p style={{ margin: 0, color: "var(--text-3)", fontSize: 14 }}>{empty || "Нет данных"}</p>;
   }
   const max = items.reduce((m, it) => Math.max(m, Number(it[valueKey]) || 0), 1);
   return (
@@ -17,7 +17,7 @@ export function RankBars({ items, labelKey = "label", valueKey = "count", subLab
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 13, fontFamily: "var(--font-mono)" }}>
               <span
                 style={{
-                  color: "var(--text-body)",
+                  color: "var(--text-2)",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
@@ -25,7 +25,7 @@ export function RankBars({ items, labelKey = "label", valueKey = "count", subLab
                 }}
               >
                 {it[labelKey]}
-                {sub && <span style={{ color: "var(--text-muted-dim)" }}> · {sub}</span>}
+                {sub && <span style={{ color: "var(--text-3)" }}> · {sub}</span>}
               </span>
               <span style={{ color, flexShrink: 0 }}>{value.toLocaleString("ru-RU")}</span>
             </div>
@@ -66,7 +66,7 @@ export function TrendChart({ data, height = 130 }) {
   return (
     <div>
       <svg viewBox={`0 0 ${width} ${height}`} width="100%" height={height} style={{ display: "block" }}>
-        <line x1={padX} y1={height - padY} x2={width - padX} y2={height - padY} stroke="var(--border, #26261f)" strokeWidth="1" />
+        <line x1={padX} y1={height - padY} x2={width - padX} y2={height - padY} stroke="var(--line)" strokeWidth="1" />
         <path d={areaPath} fill="var(--accent)" opacity="0.08" stroke="none" />
         <path d={linePath("new_users")} fill="none" stroke="var(--seg-why)" strokeWidth="1.5" strokeDasharray="3,3" />
         <path d={linePath("active")} fill="none" stroke="var(--accent)" strokeWidth="2" />
@@ -80,7 +80,7 @@ export function TrendChart({ data, height = 130 }) {
           justifyContent: "space-between",
           fontFamily: "var(--font-mono)",
           fontSize: 11,
-          color: "var(--text-muted-dim)",
+          color: "var(--text-3)",
           marginTop: 2,
         }}
       >
@@ -104,7 +104,7 @@ export function RatingRow({ title, likes, dislikes }) {
         style={{
           fontSize: 13,
           fontFamily: "var(--font-mono)",
-          color: "var(--text-body)",
+          color: "var(--text-2)",
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
@@ -117,7 +117,7 @@ export function RatingRow({ title, likes, dislikes }) {
         <span style={{ color: "var(--seg-what)", width: 28, textAlign: "right" }}>👍{likes}</span>
         <div style={{ flex: 1, height: 6, background: "color-mix(in srgb, var(--seg-what) 12%, transparent)", borderRadius: 3, overflow: "hidden", display: "flex" }}>
           <div style={{ width: `${(likes / max) * 50}%`, background: "var(--seg-what)", marginLeft: "auto" }} />
-          <div style={{ width: "1px", background: "var(--text-muted-dim)" }} />
+          <div style={{ width: "1px", background: "var(--text-3)" }} />
           <div style={{ width: `${(dislikes / max) * 50}%`, background: "var(--error)" }} />
         </div>
         <span style={{ color: "var(--error)", width: 28 }}>👎{dislikes}</span>

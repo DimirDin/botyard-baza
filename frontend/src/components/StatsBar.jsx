@@ -23,20 +23,19 @@ function useCountUp(target, duration = 1000) {
   return value;
 }
 
-function Segment({ color, icon, value, label }) {
+function Segment({ color, value, label }) {
   const count = useCountUp(value);
   if (value == null) return null;
   return (
     <span
-      className="chip"
+      className="chip stat"
       style={{
         cursor: "default",
         background: `color-mix(in srgb, ${color} 18%, transparent)`,
         color,
-        fontFamily: "var(--font-mono)",
       }}
     >
-      {icon} {count.toLocaleString("ru-RU")} {label}
+      {count.toLocaleString("ru-RU")} {label}
     </span>
   );
 }
@@ -67,11 +66,11 @@ export function StatsBar({ stats }) {
     <section ref={ref} style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24 }}>
       {visible && (
         <>
-          <Segment color="#6fcf97" icon="📚" value={stats.entries_count} label="статей" />
-          <Segment color="#5aa9e6" icon="🔧" value={stats.tools_count} label="инструментов" />
-          <Segment color="#b98af0" icon="✨" value={stats.prompts_count} label="промптов" />
-          <Segment color="#e0714f" icon="📋" value={stats.total_copies} label="копирований" />
-          <Segment color="#d97757" icon="👥" value={stats.subscribers} label="подписчиков" />
+          <Segment color="#6fcf97" value={stats.entries_count} label="статей" />
+          <Segment color="#5aa9e6" value={stats.tools_count} label="инструментов" />
+          <Segment color="#b98af0" value={stats.prompts_count} label="промптов" />
+          <Segment color="#e0714f" value={stats.total_copies} label="копирований" />
+          <Segment color="#d97757" value={stats.subscribers} label="подписчиков" />
         </>
       )}
     </section>

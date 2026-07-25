@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { hapticSuccess, openLink } from "../lib/telegram";
@@ -10,7 +10,7 @@ const TYPE_LABEL = {
   hooks: "хук", settings: "настройка", skills: "скилл", loops: "агентный цикл",
 };
 
-export function ComponentDetail({ slug, onBack }) {
+export function ComponentDetail({ slug }) {
   const [component, setComponent] = useState(null);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -40,27 +40,24 @@ export function ComponentDetail({ slug, onBack }) {
 
   return (
     <>
-      <PromptLine
-        section={component ? `tools/components/${component.slug}` : "tools/components"}
-        right={onBack ? <span onClick={onBack} style={{ cursor: "pointer" }}>✗ назад</span> : null}
-      />
+      <AppHeader title="Компонент" subtitle={slug} />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !component && <Spinner />}
         {component && (
           <>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-              <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{component.title}</h1>
+            <div className="card__row">
+              <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{component.title}</h1>
               <span className="chip">{TYPE_LABEL[component.comp_type] || component.comp_type}</span>
             </div>
-            <p style={{ fontSize: 17, color: "var(--text-body)", marginTop: 0 }}>{component.summary}</p>
+            <p style={{ fontSize: 17, color: "var(--text-2)", marginTop: 0 }}>{component.summary}</p>
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
               <div className="chip" onClick={copyInstall}>
-                {copied ? "✓ скопировано" : "📋 копировать npx"}
+                {copied ? "Скопировано" : "Копировать npx"}
               </div>
               <div className="chip" onClick={() => openLink(component.doc_url)}>
-                🔗 источник
+                источник
               </div>
             </div>
 

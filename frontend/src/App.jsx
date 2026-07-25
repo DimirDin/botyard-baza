@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BottomNav } from "./components/BottomNav";
-import { ErrorState } from "./components/States";
+import { ErrorState, Spinner } from "./components/States";
 import { GateScreen } from "./screens/GateScreen";
 import { HomeScreen } from "./screens/HomeScreen";
 import { EntriesListScreen } from "./screens/EntriesListScreen";
@@ -14,6 +14,7 @@ import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { SearchScreen } from "./screens/SearchScreen";
 import { GuideTrack } from "./components/GuideTrack";
 import { AdminScreen } from "./screens/AdminScreen";
+import { AmbientBackground } from "./components/AmbientBackground";
 import { api } from "./lib/api";
 import { initTelegram, getStartParam, onBackButton, hideBackButton } from "./lib/telegram";
 
@@ -94,10 +95,15 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.length]);
 
-  if (gateState === "checking") return <div className="spinner">⠋⠙⠸ проверяю доступ...</div>;
+  if (gateState === "checking") return <div className="page"><Spinner /></div>;
   if (gateState === "error") return <ErrorState onRetry={() => window.location.reload()} />;
   if (gateState === "blocked") {
-    return <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />;
+    return (
+      <>
+        <AmbientBackground screen="gate" />
+        <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />
+      </>
+    );
   }
 
   const TABS = { base: "base", tools: "tools", prompts: "prompts", guide: "guide", favorites: "favorites" };
@@ -105,6 +111,7 @@ export default function App() {
 
   return (
     <>
+      <AmbientBackground screen={screen} />
       {screen === "home" && <HomeScreen user={user} onNavigate={navigate} />}
       {screen === "admin" && <AdminScreen onBack={goBack} />}
       {screen === "base" && (
