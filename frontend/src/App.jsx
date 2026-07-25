@@ -17,6 +17,7 @@ import { AdminScreen } from "./screens/AdminScreen";
 import { AmbientBackground } from "./components/AmbientBackground";
 import { api } from "./lib/api";
 import { initTelegram, getStartParam, onBackButton, hideBackButton } from "./lib/telegram";
+import { ToastContainer } from "./components/Toast";
 
 // deep link: entry_{slug} | tool_{id} | prompt_{id} | section_{name} — §16 PROJECT_CONTEXT
 function resolveStartParam(param) {
@@ -164,6 +165,7 @@ export default function App() {
       )}
 
       {screen !== "admin" && <BottomNav active={activeTab} onSelect={(tab) => navigate(tab)} />}
+      <ToastContainer />
     </>
   );
 }

@@ -6,6 +6,7 @@ import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { shareLink } from "../lib/telegram";
 import { trackEvent } from "../lib/track";
+import { getReadingTime } from "../lib/readingTime";
 
 export function EntryScreen({ slug }) {
   const [entry, setEntry] = useState(null);
@@ -43,11 +44,13 @@ export function EntryScreen({ slug }) {
     return () => pageEl.removeEventListener("scroll", handleScroll);
   }, [entry]);
 
+  const readTime = getReadingTime(entry?.body_md);
+
   return (
     <>
       <AppHeader
         title="Статья"
-        subtitle={entry?.updated_at ? `обновлено ${entry.updated_at.slice(0, 10)}` : undefined}
+        subtitle={entry?.updated_at ? `обновлено ${entry.updated_at.slice(0, 10)} · ${readTime}` : undefined}
       />
       {progress > 0 && (
         <div

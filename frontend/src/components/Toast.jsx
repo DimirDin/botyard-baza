@@ -1,16 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { setToastListener } from "../lib/toast";
 
-export function Toast({ message, error = false, onDone }) {
+export function ToastContainer() {
+  const [toast, setToast] = useState(null);
+
   useEffect(() => {
-    if (!message) return;
-    const t = setTimeout(onDone, 2000);
-    return () => clearTimeout(t);
-  }, [message, onDone]);
+    setToastListener((newToast) => {
+      setToast(newToast);
+    });
+  }, []);
 
-  if (!message) return null;
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => {
+      setToast(null);
+    }, 2400);
+    return () => clearTimeout(timer);
+  }, [toast]);
+
+  if (!toast) return null;
+
   return (
-    <div className={`toast ${error ? "toast--error" : ""}`}>
-      {error ? "✗" : "✓"} {message} {error ? "(exit 1)" : "(exit 0)"}
+    <div className="toast-notification" key={toast.id} role="status">
+      <span className="toast-notification__icon">
+        {toast.type === "success" ? "✓" : toast.type === "error" ? "✕" : "ℹ"}
+      </span>
+      <span className="toast-notification__text">{toast.message}</span>
     </div>
   );
 }

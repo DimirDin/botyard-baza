@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Mermaid } from "./Mermaid";
+import { triggerHaptic } from "../lib/telegram";
+import { showToast } from "../lib/toast";
 
 // Заголовки в content/entries/*.md — эмодзи-префиксы. Оформление статей (§14)
 // требует заменить их на цветные powerline-лейблы, а не показывать как есть.
@@ -80,7 +82,6 @@ function makeLinkRenderer(onNavigate) {
   };
 }
 
-import { triggerHaptic } from "../lib/telegram";
 
 function extractText(node) {
   if (typeof node === "string") return node;
@@ -99,6 +100,7 @@ function CodeBlockWrapper({ children, ...rest }) {
     if (codeText) {
       navigator.clipboard.writeText(codeText).catch(() => {});
       triggerHaptic("impactLight");
+      showToast("Код скопирован", "success");
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     }

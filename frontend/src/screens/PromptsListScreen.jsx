@@ -3,10 +3,9 @@ import { AppHeader } from "../components/AppHeader";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
-import { Toast } from "../components/Toast";
 import { PROMPTS_MENU } from "../config/menu";
 import { api } from "../lib/api";
-import { hapticSuccess } from "../lib/telegram";
+import { showToast } from "../lib/toast";
 
 // initial — переход с конкретного промпта (например, «топ промптов» на Home):
 // { category: "content/compress", slug: "..." } сразу открывает нужную группу
@@ -16,13 +15,8 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
   const [group, setGroup] = useState(() => initial?.category?.split("/")[1] || null);
   const [prompts, setPrompts] = useState(null); // все промпты (одним запросом)
   const [error, setError] = useState(false);
-  const [toast, setToast] = useState(null); // { message, error }
   const highlightSlug = initial?.slug;
   const highlightRef = useRef(null);
-  // Сравнение со значением, а не одноразовый флаг — React 18 StrictMode вызывает
-  // эффект монтирования дважды в dev-режиме, одноразовый флаг «съедался» первым
-  // вызовом и второй уже сбрасывал group сразу после монтирования.
-  const prevTabRef = useRef(tab);
 
   const load = () => {
     setError(false);
@@ -31,20 +25,17 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
   };
 
   useEffect(load, []);
-  useEffect(() => {
-    if (prevTabRef.current !== tab) {
-      prevTabRef.current = tab;
-      setGroup(null);
-    }
-  }, [tab]);
 
+  // Скролл к промпту, указанному в deep link'е (§16)
   useEffect(() => {
-    if (highlightSlug && highlightRef.current) {
-      highlightRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
+    if (highlightSlug && group && prompts) {
+      setTimeout(() => {
+        highlightRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
     }
-  }, [prompts, highlightSlug]);
+  }, [highlightSlug, group, prompts]);
 
-  const section = PROMPTS_MENU.find((s) => s.slug === tab);
+  const section = PROMPTS_MENU.find((m) => m.slug === tab) || PROMPTS_MENU[0];
   const counts = prompts
     ? prompts.reduce((acc, p) => {
         const [cTab, cGroup] = (p.category || "").split("/");
@@ -58,12 +49,9 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
   const handleCopy = async (p) => {
     try {
       await navigator.clipboard.writeText(p.body);
-      hapticSuccess();
-      setToast({ message: "скопировано" });
+      showToast("Промпт скопирован", "success");
     } catch {
-      // Некоторые Telegram WebView (особенно старый Android) не дают доступ
-      // к navigator.clipboard — не блокируем весь флоу молча из-за этого.
-      setToast({ message: "не удалось скопировать", error: true });
+      showToast("Не удалось скопировать", "error");
     }
     api.copyPrompt(p.slug).catch(() => {});
   };
@@ -141,7 +129,6 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
           </>
         )}
       </div>
-      <Toast message={toast?.message} error={toast?.error} onDone={() => setToast(null)} />
     </>
   );
 }

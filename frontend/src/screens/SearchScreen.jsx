@@ -3,13 +3,20 @@ import { AppHeader } from "../components/AppHeader";
 import { EmptyState } from "../components/States";
 import { api } from "../lib/api";
 import { trackEvent } from "../lib/track";
+import { triggerHaptic } from "../lib/telegram";
 
 const TYPE_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт", guide: "урок", component: "компонент" };
+const QUICK_TAGS = ["claude-code", "mcp", "hooks", "subagent", "prompt", "шпаргалка"];
 
 export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuide, onOpenComponent }) {
   const [q, setQ] = useState("");
   const [results, setResults] = useState(null);
   const debounceRef = useRef(null);
+
+  const handleTagClick = (tag) => {
+    triggerHaptic("selection");
+    setQ(tag);
+  };
 
   useEffect(() => {
     if (!q.trim()) {
@@ -45,7 +52,7 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
     <>
       <AppHeader title="Поиск" />
       <div className="page">
-        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", marginBottom: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", marginBottom: 12 }}>
           <span style={{ color: "var(--accent)" }}>$</span>
           <input
             autoFocus
@@ -59,6 +66,19 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
             }}
           />
           <span style={{ color: "var(--accent)" }}>▊</span>
+        </div>
+
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
+          {QUICK_TAGS.map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              className={`chip ${q === tag ? "chip--active" : ""}`}
+              onClick={() => handleTagClick(tag)}
+            >
+              #{tag}
+            </button>
+          ))}
         </div>
 
         {results && all.length === 0 && <EmptyState text="ничего не найдено" />}
