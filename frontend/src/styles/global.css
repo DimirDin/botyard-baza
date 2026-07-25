@@ -759,8 +759,17 @@ button {
 
 /* ---- шпаргалки ---- */
 
+.cheatsheet-body {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
 .cheatsheet-body table {
   width: 100%;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   font-size: var(--fs-3);
   margin: var(--sp-3) 0;
@@ -781,12 +790,16 @@ button {
   padding: var(--sp-2);
   border-bottom: 1px solid var(--line);
   vertical-align: top;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .cheatsheet-body td:first-child {
   font-family: var(--font-mono);
   color: var(--seg-what);
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* ---- Микро-анимации и тактильный отклик (1.1, 1.2, 1.3) ---- */
