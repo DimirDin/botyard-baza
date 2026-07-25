@@ -171,6 +171,28 @@ button {
 }
 .btn--ghost:hover { border-color: var(--accent); color: var(--text); }
 
+.btn--outline-accent {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+.btn--outline-accent:hover {
+  background: rgba(224, 130, 86, 0.1);
+  color: var(--accent);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text-3);
+  font-family: var(--font-mono);
+}
+.btn--outline:hover {
+  border-color: var(--text-3);
+  color: var(--text);
+}
+
 .chip {
   display: inline-flex;
   align-items: center;

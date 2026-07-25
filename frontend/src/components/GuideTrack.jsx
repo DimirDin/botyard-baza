@@ -166,24 +166,18 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
               )}
               {lesson.related_entry && onOpenEntry && (
                 <button
+                  className="btn btn--outline"
                   onClick={() => onOpenEntry(lesson.related_entry)}
-                  style={{
-                    marginTop: 16, marginRight: 10, padding: "10px 18px", borderRadius: 6,
-                    fontFamily: "var(--font-mono)", fontSize: 14, background: "transparent",
-                    color: "var(--text-3)", border: "1px solid var(--line)", cursor: "pointer",
-                  }}
+                  style={{ marginTop: 16, marginRight: 10 }}
                 >
                   читать подробнее в Базе
                 </button>
               )}
               <button
+                className="btn btn--primary"
                 onClick={advance}
                 disabled={marking}
-                style={{
-                  marginTop: 16, padding: "10px 18px", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
-                  background: "var(--accent)", color: "var(--accent-ink)", border: "1px solid var(--accent)",
-                  cursor: marking ? "default" : "pointer",
-                }}
+                style={{ marginTop: 16, cursor: marking ? "default" : "pointer" }}
               >
                 {advanceLabel}
               </button>

@@ -70,11 +70,9 @@ export function EntryScreen({ slug }) {
             <button
               // ?start= (не ?startapp=): Main Mini App в BotFather не настроен,
               // deep link идёт через /start бота → web_app-кнопку (см. bot/main.py)
+              className="btn btn--outline-accent"
               onClick={() => shareLink(`https://t.me/bazadry_bot?start=entry_${entry.slug}`, entry.title)}
-              style={{
-                marginTop: 16, padding: "8px 16px", background: "transparent", color: "var(--accent)",
-                border: "1px solid var(--accent)", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
-              }}
+              style={{ marginTop: 16 }}
             >
               ↗ поделиться
             </button>

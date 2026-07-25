@@ -61,27 +61,15 @@ export function ToolDetail({ slug }) {
                 href={`https://github.com/${tool.repo}`}
                 target="_blank"
                 rel="noreferrer"
-                style={{
-                  display: "inline-block",
-                  marginTop: 16,
-                  padding: "8px 16px",
-                  background: "transparent",
-                  color: "var(--accent)",
-                  border: "1px solid var(--accent)",
-                  borderRadius: 6,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 14,
-                  textDecoration: "none",
-                }}
+                className="btn btn--outline-accent"
+                style={{ marginTop: 16, textDecoration: "none" }}
               >
                 Открыть репозиторий →
               </a>
               <button
+                className="btn btn--outline-accent"
                 onClick={() => shareLink(`https://t.me/bazadry_bot?start=tool_${tool.repo.replace("/", "__")}`, tool.name)}
-                style={{
-                  marginTop: 16, padding: "8px 16px", background: "transparent", color: "var(--accent)",
-                  border: "1px solid var(--accent)", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 14,
-                }}
+                style={{ marginTop: 16 }}
               >
                 ↗ поделиться
               </button>

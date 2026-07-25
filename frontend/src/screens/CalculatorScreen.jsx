@@ -69,12 +69,9 @@ export function CalculatorScreen() {
         </div>
 
         <button
+          className="btn btn--outline-accent"
           onClick={() => setText(DEMO_TEXT)}
-          style={{
-            background: "transparent", border: "1px solid var(--accent)", color: "var(--accent)",
-            borderRadius: 6, padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 12,
-            cursor: "pointer", marginBottom: 12,
-          }}
+          style={{ marginBottom: 12 }}
         >
           вставить пример текста подлиннее — для наглядности
         </button>
