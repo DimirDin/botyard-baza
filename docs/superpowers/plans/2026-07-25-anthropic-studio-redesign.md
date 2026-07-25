@@ -13,7 +13,7 @@
 - **Ни одного изменения** в `backend/`, `bot/`, `db/`, `content/`, `scripts/`. Только `frontend/` и документация.
 - **Тема только тёмная.** Светлая версия не реализуется, `themeParams` не подхватывается.
 - Палитра ровно эта: `--bg #16130F`, `--surface #201C17`, `--surface-2 #2B251E`, `--line #332C24`, `--text #F5EFE4`, `--text-2 #C4B9A8`, `--text-3 #8B8072`, `--accent #E08256`, `--accent-ink #1A1410`, `--seg-what #8FBF83`, `--seg-why #7FB2CF`, `--seg-example #B394CB`, `--seg-gotcha #D9614A`, `--seg-source #8B8072`, `--error #D9614A`.
-- Шкала кегля: `11 / 12 / 13.5 / 15 / 17 / 21 / 25 / 29`. Тело статей — 15 px, `line-height: 1.66`.
+- Шкала кегля: `10 / 11 / 12 / 13.5 / 15 / 17 / 21 / 25 / 29` (ступень `--fs-0: 10px` добавлена в Task 7 под микро-лейблы `.eyebrow` и `.badge`). Тело статей — 15 px, `line-height: 1.66`.
 - Отступы берутся **только** из переменных Telegram `--tg-safe-area-inset-*` и `--tg-content-safe-area-inset-*`. Констант высоты чёлки в коде быть не должно. `env(safe-area-inset-*)` как источник не используется.
 - Веб-шрифты вшиваются в бандл. Никаких ссылок на CDN — CSP это заблокирует.
 - Версии Bot API: `disableVerticalSwipes()` — 7.7, `requestFullscreen()` и события safe area — 8.0. Каждый вызов за проверкой `tg.isVersionAtLeast(...)`.
