@@ -7833,3 +7833,53 @@
   body_md: |
     ### ❓ Что это
     **mcp-server** от ProFullStack — это готовый бойлерплейт для разработчиков, желающих написать свой MCP-сервер с поддержкой Stdio и SSE транспортов.
+
+- repo: tavily-ai/tavily-mcp
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер от Tavily для релевантного веб-поиска и выемки очищенного от шума контента для LLM."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **tavily-mcp** — это официальный MCP-сервер поиска Tavily AI, разработанный специально для оптимизированной передачи результатов веб-поиска в контекстное окно Claude.
+
+    ### 🎯 Для чего
+    - Выполнение поисковых запросов в реальном времени.
+    - Извлечение очищенного от рекламы текста веб-страниц без расхода лишних токенов.
+
+    ### 💻 Как установить
+    ```bash
+    claude mcp add --transport http tavily https://mcp.tavily.com
+    ```
+
+- repo: cloudflare/mcp-server-cloudflare
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер Cloudflare для прямого управления Workers, KV, R2 и базами данных D1."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-server-cloudflare** позволяет агентам Claude создавать, деплоить и отлаживать сервисы в экосистеме Cloudflare напрямую через диалог.
+
+    ### 🎯 Для чего
+    - Управление и отладка Cloudflare Workers.
+    - Запросы к базам данных D1 (SQLite at edge) и хранилищам ключей KV / R2.
+
+- repo: chroma-core/chroma-mcp
+  category: mcp/servers
+  description_ru: "MCP-сервер для подключения векторной базы данных ChromaDB и реализации семантического RAG-поиска."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **chroma-mcp** добавляет возможность Claude производить векторизованный семантический поиск по эмбеддингам локальной или облачной базы ChromaDB.
+
+    ### 🎯 Для чего
+    - Быстрый доступ к документации и кодовой базе большого объёма через RAG.
+    - Хранение и поиск векторных эмбеддингов.
+
+- repo: browserbase/mcp-server-browserbase
+  category: mcp/servers
+  description_ru: "Облачный MCP-сервер для автоматизации браузера с обходом капч и проксированием в безопасном окружении."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-server-browserbase** — это мощная инфраструктура для браузерной автоматизации agents-first в облачной песочнице с поддержкой обхода CAPTCHA.
