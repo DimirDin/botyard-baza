@@ -555,9 +555,12 @@ export function initTelegram() {
     tg.onEvent("safeAreaChanged", syncInsets);
     tg.onEvent("contentSafeAreaChanged", syncInsets);
     tg.requestFullscreen();
+    syncFullscreen();
+  } else {
+    // Фуллскрина как понятия до 8.0 нет — не читаем tg.isFullscreen,
+    // чтобы не полагаться на его (неопределённое на старых клиентах) значение.
+    document.documentElement.setAttribute("data-fullscreen", "off");
   }
-
-  syncFullscreen();
 }
 
 export function hapticSelection() {
