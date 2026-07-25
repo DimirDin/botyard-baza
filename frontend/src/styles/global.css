@@ -1,5 +1,14 @@
 @import "./tokens.css";
 
+/* В полноэкранном режиме приложение заезжает под вырез экрана и под
+   плавающие «✕» и «⋮» Telegram. Скрим и отступы включаются только здесь. */
+:root[data-fullscreen="on"] {
+  --header-pad-top: calc(var(--sp-4) + var(--safe-top) + var(--content-safe-top));
+}
+:root[data-fullscreen="off"] {
+  --header-pad-top: var(--sp-4);
+}
+
 * {
   box-sizing: border-box;
 }

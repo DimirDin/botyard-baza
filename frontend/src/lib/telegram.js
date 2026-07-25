@@ -1,9 +1,46 @@
+import { readInsets, applyInsets } from "./insets";
+
 const tg = window.Telegram?.WebApp;
+
+function syncInsets() {
+  applyInsets(document.documentElement, readInsets(tg));
+}
+
+function syncFullscreen() {
+  document.documentElement.setAttribute(
+    "data-fullscreen",
+    tg?.isFullscreen ? "on" : "off"
+  );
+  // Кнопки Telegram переезжают вместе с режимом, поэтому инсеты
+  // перечитываем здесь же, не дожидаясь отдельного события.
+  syncInsets();
+}
 
 export function initTelegram() {
   if (!tg) return;
   tg.ready();
   tg.expand();
+
+  // 7.7: без этого свайп вниз по статье закрывает приложение.
+  // В полноэкранном режиме это критично — экран большой, свайпают часто.
+  if (tg.isVersionAtLeast("7.7")) tg.disableVerticalSwipes();
+
+  if (tg.isVersionAtLeast("8.0")) {
+    tg.onEvent("fullscreenChanged", syncFullscreen);
+    tg.onEvent("fullscreenFailed", syncFullscreen);
+    tg.onEvent("safeAreaChanged", syncInsets);
+    tg.onEvent("contentSafeAreaChanged", syncInsets);
+    tg.requestFullscreen();
+    syncFullscreen();
+  } else {
+    // Фуллскрина как понятия до 8.0 нет — не читаем tg.isFullscreen,
+    // чтобы не полагаться на его (неопределённое на старых клиентах) значение.
+    document.documentElement.setAttribute("data-fullscreen", "off");
+  }
+}
+
+export function hapticSelection() {
+  tg?.HapticFeedback?.selectionChanged();
 }
 
 export function getInitData() {
