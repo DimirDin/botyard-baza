@@ -5346,7 +5346,7 @@
   description_ru: "Desktop ADE для параллельной работы нескольких кодинг-агентов (Claude Code, Codex, OpenCode) в изолированных git worktree, с мобильным компаньоном для мониторинга."
   verify_status: known
   body_md: |
-    ![](docs/assets/readme-hero.jpg)
+    ![](https://raw.githubusercontent.com/stablyai/orca/main/docs/assets/readme-hero.jpg)
 
     ### ❓ Что это
     **Orca** — десктопное приложение (macOS/Windows/Linux) для запуска нескольких кодинг-агентов параллельно: Claude Code, Codex, OpenCode и др. — каждый в своём изолированном git worktree, с общим терминалом и единым местом мониторинга. Есть мобильный компаньон (iOS/Android) — можно следить за прогрессом агентов и отправлять доп. указания с телефона.
@@ -5368,7 +5368,7 @@
   description_ru: "Единая точка входа к 250+ AI-провайдерам (90+ бесплатных) с авто-фоллбэком и сжатием токенов — подключается к Claude Code как MCP/A2A-сервер."
   verify_status: check
   body_md: |
-    ![](docs/screenshots/MainOmniRoute.png)
+    ![](https://raw.githubusercontent.com/diegosouzapw/OmniRoute/main/docs/screenshots/MainOmniRoute.png)
 
     ### ❓ Что это
     **OmniRoute** — шлюз (gateway), который даёт один endpoint вместо интеграции с каждым AI-провайдером по отдельности: 250+ провайдеров, 90+ с бесплатным тиром, авто-фоллбэк при отказе/лимите, компрессия промптов (RTK + Caveman) для экономии токенов. Подключается к Claude Code, Codex, Cursor и др. как MCP/A2A-сервер.
@@ -7492,3 +7492,344 @@
 
     ### ⚠️ Грабли
     Синтаксис и набор команд заметно отличаются от bash/zsh — существующие shell-скрипты не заработают без переписывания под Nushell.
+
+- repo: motherduckdb/mcp-server-motherduck
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер от MotherDuck для работы с базами данных DuckDB и облачной аналитикой MotherDuck."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-server-motherduck** — это официальный MCP-сервер от команды MotherDuck, позволяющий Claude подключаться к локальным базам данных DuckDB, а также к облачным аналитическим базам MotherDuck, читать их структуру и выполнять SQL-запросы.
+
+    ### 🎯 Для чего
+    Используется для быстрого и мощного анализа структурированных данных (CSV, Parquet, JSON) прямо на вашем компьютере с помощью SQL. Claude может на лету генерировать агрегации, джойнить файлы и находить инсайты в ваших таблицах.
+
+    ### 💻 Как установить
+    Добавьте сервер в ваш конфигурационный файл (например, `claude_desktop_config.json`):
+    ```json
+    "mcpServers": {
+      "motherduck": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-motherduck",
+          "--db-path",
+          "/path/to/your/database.db"
+        ]
+      }
+    }
+    ```
+    Если вы хотите подключиться к облачной базе MotherDuck, укажите ваш токен в блоке `env` как `MOTHERDUCK_TOKEN`.
+
+    ### 🚀 Как пользоваться
+    Попросите Claude проанализировать файл или выполнить запрос:
+    ```
+    Посмотри структуру локальной БД DuckDB и выведи топ-5 самых дорогих заказов из таблицы orders.
+    ```
+
+    ### ⚠️ Грабли
+    По умолчанию сервер работает в безопасном режиме read-only. Если вам нужно изменять таблицы (выполнять `INSERT`, `CREATE` и т.д.), добавьте флаг `--read-write` в аргументы запуска.
+
+- repo: kirbah/mcp-youtube
+  category: mcp/servers
+  description_ru: "Высокоэффективный MCP-сервер для получения информации и текстовых транскриптов видео с YouTube."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-youtube** — это оптимизированный MCP-сервер, который даёт Claude возможность искать видео на YouTube, получать метаданные о роликах и извлекать их текстовые расшифровки (транскрипты) без лишнего расхода токенов.
+
+    ### 🎯 Для чего
+    Полезно для быстрого получения саммари лекций, поиска ключевых моментов в докладах или анализа видеоконтента без необходимости смотреть видео целиком.
+
+    ### 💻 Как установить
+    Добавьте сервер в ваш конфигурационный файл (например, `claude_desktop_config.json`):
+    ```json
+    "mcpServers": {
+      "youtube": {
+        "command": "npx",
+        "args": ["-y", "@kirbah/mcp-youtube"]
+      }
+    }
+    ```
+    Для включения расширенного поиска и аналитики можно передать ключ в `env` под именем `YOUTUBE_API_KEY`, но базовый импорт транскриптов работает и без него.
+
+    ### 🚀 Как пользоваться
+    Спросите Claude:
+    ```
+    Найди видео доклада про Claude Code на YouTube и сделай выжимку по его транскрипту.
+    ```
+
+    ### ⚠️ Грабли
+    Извлечение текстовой расшифровки зависит от наличия субтитров к видео на самом YouTube (как загруженных автором, так и автоматически сгенерированных).
+
+- repo: Azure/mcp-kubernetes
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер от Azure для интеграции Claude с кластерами Kubernetes, позволяющий управлять ресурсами и читать логи."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-kubernetes** — это мост между инструментами на базе MCP и вашими кластерами Kubernetes. Он позволяет Claude выполнять команды диагностики, просматривать состояние подов, сервисов и развертываний.
+
+    ### 🎯 Для чего
+    Помогает отлаживать проблемы в кластере, получать логи контейнеров, просматривать манифесты и анализировать события Kubernetes с помощью естественного языка.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "kubernetes": {
+        "command": "npx",
+        "args": ["-y", "@azure/mcp-kubernetes"]
+      }
+    }
+    ```
+
+- repo: makenotion/notion-mcp-server
+  category: mcp/servers
+  description_ru: "MCP-сервер для полной интеграции Claude с вашим рабочим пространством Notion: чтение страниц, создание заметок и поиск."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **notion-mcp-server** — это плагин, позволяющий Claude взаимодействовать с Notion API для работы с вашими базами знаний, страницами и задачами.
+
+    ### 🎯 Для чего
+    Позволяет Claude осуществлять поиск по вашим рабочим заметкам в Notion, создавать новые страницы с отчетами или дополнять существующие документы.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "notion": {
+        "command": "npx",
+        "args": ["-y", "@makenotion/notion-mcp-server"],
+        "env": {
+          "NOTION_API_KEY": "your_integration_token"
+        }
+      }
+    }
+    ```
+
+- repo: deepfates/mcp-replicate
+  category: mcp/servers
+  description_ru: "MCP-сервер для доступа к моделям машинного обучения на платформе Replicate, включая Flux и Llama."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-replicate** — это MCP-сервер, который дает Claude возможность запускать генерацию изображений, аудио и инференс текстовых моделей через API Replicate.
+
+    ### 🎯 Для чего
+    Позволяет генерировать изображения (например, используя Flux) по текстовому описанию прямо во время диалога с Claude.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "replicate": {
+        "command": "npx",
+        "args": ["-y", "mcp-replicate"],
+        "env": {
+          "REPLICATE_API_TOKEN": "your_token"
+        }
+      }
+    }
+    ```
+
+- repo: tacticlaunch/mcp-linear
+  category: mcp/servers
+  description_ru: "MCP-сервер для управления задачами и проектами в трекере Linear: создание issues, трекинг статусов и комментирование."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-linear** — это сервер интеграции с популярным трекером задач Linear.
+
+    ### 🎯 Для чего
+    Дает Claude возможность искать задачи в проектах, создавать новые тикеты из обсуждений и обновлять статусы выполнения.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "linear": {
+        "command": "npx",
+        "args": ["-y", "mcp-linear"],
+        "env": {
+          "LINEAR_API_KEY": "your_api_key"
+        }
+      }
+    }
+    ```
+
+- repo: StatelyCloud/statelydb-mcp-server
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер от Stately для генерации, визуализации и работы со схемами баз данных и логикой переходов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **statelydb-mcp-server** — это сервер для интеграции Claude с сервисами Stately для управления логикой состояний и схемами.
+
+    ### 🎯 Для чего
+    Помогает модели строить диаграммы переходов состояний и работать со структурами StatelyDB.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "statelydb": {
+        "command": "npx",
+        "args": ["-y", "@stately-cloud/statelydb-mcp-server"]
+      }
+    }
+    ```
+
+- repo: PatrickJS/awesome-cursorrules
+  category: code/rules
+  description_ru: "Огромная база файлов правил .cursorrules и конфигураций инструкций AI для веб-разработчиков."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **awesome-cursorrules** — это курируемый список правил для Cursor и CLAUDE.md для разработки на различных фреймворках (Next.js, React, Tailwind, NestJS и др.).
+
+    ### 🎯 Для чего
+    Позволяет быстро скопировать готовые проверенные принципы написания кода для вашего стека, чтобы модель не галлюцинировала и следовала лучшим практикам.
+
+- repo: taylorwilsdon/google_workspace_mcp
+  category: mcp/servers
+  description_ru: "Комплексный MCP-сервер для работы со всеми сервисами Google Workspace (Docs, Sheets, Gmail, Calendar) в одном плагине."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **google_workspace_mcp** — это единый сервер для подключения Claude к вашему Google-окружению.
+
+    ### 🎯 Для чего
+    Позволяет Claude читать входящие письма в Gmail, планировать встречи в Календаре, читать Google Документы и изменять Таблицы.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "google-workspace": {
+        "command": "npx",
+        "args": ["-y", "google_workspace_mcp"]
+      }
+    }
+    ```
+
+- repo: zilliztech/mcp-server-milvus
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер от Zilliz для интеграции Claude с векторной базой данных Milvus, семантического поиска и RAG."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-server-milvus** — это сервер для работы с векторными эмбеддингами и семантическим поиском в Milvus.
+
+    ### 🎯 Для чего
+    Дает Claude доступ к векторной базе данных для поиска релевантных кусков документации, поиска похожих векторов и реализации систем долгосрочной памяти.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "milvus": {
+        "command": "npx",
+        "args": ["-y", "@zilliztech/mcp-server-milvus"]
+      }
+    }
+    ```
+
+- repo: tinybirdco/mcp-tinybird
+  category: mcp/servers
+  description_ru: "Официальный MCP-сервер от Tinybird для управления аналитическими API, логами и источниками данных в реальном времени."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-tinybird** — это сервер для работы с платформой аналитики данных в реальном времени Tinybird.
+
+    ### 🎯 Для чего
+    Позволяет Claude просматривать статус пайплайнов данных, делать выборки из Tinybird API и анализировать события в реальном времени.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "tinybird": {
+        "command": "npx",
+        "args": ["-y", "@tinybirdco/mcp-tinybird"],
+        "env": {
+          "TINYBIRD_API_KEY": "your_token"
+        }
+      }
+    }
+    ```
+
+- repo: atharvagupta2003/mcp-stripe
+  category: mcp/servers
+  description_ru: "Общественный MCP-сервер для Stripe: управление платежами, клиентами, логами оплаты и возвратами."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-stripe** — это сервер от сообщества для прямого взаимодействия с платежным API Stripe из диалога.
+
+    ### 🎯 Для чего
+    Позволяет Claude выставлять счета, проверять статус оплаты пользователей, делать возвраты по ID платежа и просматривать баланс.
+
+    ### 💻 Как установить
+    Добавьте сервер в `claude_desktop_config.json`:
+    ```json
+    "mcpServers": {
+      "stripe": {
+        "command": "npx",
+        "args": ["-y", "mcp-stripe"],
+        "env": {
+          "STRIPE_API_KEY": "sk_test_..."
+        }
+      }
+    }
+    ```
+
+- repo: SmartManoj/Google-Sheets-MCP
+  category: mcp/servers
+  description_ru: "Python-совместимый MCP-сервер для быстрой интеграции Google Drive и Таблиц (Google Sheets)."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Google-Sheets-MCP** — это Python-реализация MCP-сервера для автоматизации работы с Google Таблицами.
+
+    ### 🎯 Для чего
+    Позволяет Claude записывать результаты анализа в таблицы, форматировать ячейки и экспортировать отчеты.
+
+- repo: sgl-project/sglang
+  category: libs/python
+  description_ru: "Высокопроизводительный движок инференса и структурированного вывода LLM с поддержкой Anthropic API."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **sglang** — это библиотека и движок для ускорения вызовов LLM, поддерживающая декларативный язык запросов и маршрутизацию между локальными моделями и Claude API.
+
+    ### 🎯 Для чего
+    Подходит для создания сложных цепочек рассуждений, авто-сжатия запросов и повышения пропускной способности при генерации структурированных ответов.
+
+- repo: dudegladiator/spreadsheet-mcp
+  category: mcp/servers
+  description_ru: "Продвинутый MCP-сервер для работы со сводными таблицами, ячейками, формулами и экспортом диаграмм."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **spreadsheet-mcp** — это многофункциональный MCP-сервер для взаимодействия с электронными таблицами, поддерживающий сложные формулы и построение чартов.
+
+    ### 🎯 Для чего
+    Позволяет Claude производить глубокие вычисления в электронных таблицах и визуализировать результаты в виде графиков.
+
+- repo: SmartManoj/Google-Search-MCP
+  category: mcp/servers
+  description_ru: "MCP-сервер для интеграции поиска Google без сложных настроек через неофициальные поисковые API."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **Google-Search-MCP** — это быстрый способ научить Claude искать информацию в Google без необходимости получать платные токены API.
+
+- repo: profullstack/mcp-server
+  category: mcp/frameworks
+  description_ru: "Модульный и расширяемый шаблон-фреймворк для быстрого создания и тестирования собственных MCP-серверов."
+  verify_status: known
+  body_md: |
+    ### ❓ Что это
+    **mcp-server** от ProFullStack — это готовый бойлерплейт для разработчиков, желающих написать свой MCP-сервер с поддержкой Stdio и SSE транспортов.
