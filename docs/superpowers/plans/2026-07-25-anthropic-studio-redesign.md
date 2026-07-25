@@ -2106,10 +2106,13 @@ Expected: PASS — 32 теста зелёные.
 ```css
 /* Слой фона. Лежит под всем контентом и не ловит указатель. */
 
+/* Отрицательный слой, а не z-index: 0 плюс подъём контента: поднимать контент
+   пришлось бы селектором с #root, а он по специфичности бьёт классы компонентов
+   и отнимает у шапки sticky, а у нижней навигации fixed. */
 .ambient {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
 }
@@ -2184,12 +2187,6 @@ Expected: PASS — 32 теста зелёные.
   opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
-}
-
-/* Контент обязан лежать выше слоя фона. */
-#root > *:not(.ambient) {
-  position: relative;
-  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
