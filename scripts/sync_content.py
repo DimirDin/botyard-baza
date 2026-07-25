@@ -29,6 +29,8 @@ async def sync_entries(conn: asyncpg.Connection) -> int:
     count = 0
     for md_file in CONTENT_DIR.glob("entries/*/*.md"):
         meta, body = parse_frontmatter(md_file.read_text(encoding="utf-8"))
+        section = meta.get("section") or (meta.get("category", "").split("/")[0] if "category" in meta else md_file.parent.name)
+        group = meta.get("group") or (meta.get("category", "").split("/")[1] if "category" in meta and "/" in meta["category"] else None)
         await conn.execute(
             """
             INSERT INTO baza.entries (slug, section, group_slug, title, summary, body_md, doc_url, tags, sort_order, published, updated_at)
@@ -37,7 +39,7 @@ async def sync_entries(conn: asyncpg.Connection) -> int:
                 section = $2, group_slug = $3, title = $4, summary = $5, body_md = $6,
                 doc_url = $7, tags = $8, sort_order = $9, published = $10, updated_at = now()
             """,
-            meta["slug"], meta["section"], meta.get("group"), meta["title"], meta.get("summary"),
+            meta["slug"], section, group, meta["title"], meta.get("summary"),
             body, meta.get("doc_url"), meta.get("tags", []), meta.get("sort_order", 100),
             meta.get("published", True),
         )
