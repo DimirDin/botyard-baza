@@ -571,7 +571,7 @@ export function hapticSelection() {
 - [ ] **Step 4: Запустить тест и убедиться, что он проходит**
 
 Run: `cd frontend && npm test`
-Expected: PASS — 12 тестов зелёные (6 из Task 1 + 6 новых).
+Expected: PASS — 14 тестов зелёные (6 из Task 1 + 8 новых).
 
 - [ ] **Step 5: Дать вёрстке знать про режим**
 
@@ -781,7 +781,7 @@ Expected: `ссылок нет`.
 - [ ] **Step 6: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
 - [ ] **Step 7: Посмотреть глазами**
 
@@ -927,7 +927,7 @@ export function BottomNav({ active, onSelect }) {
 - [ ] **Step 3: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
 - [ ] **Step 4: Посмотреть глазами**
 
@@ -1107,7 +1107,7 @@ export function ErrorState({ onRetry }) {
 - [ ] **Step 4: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
 - [ ] **Step 5: Посмотреть глазами**
 
@@ -1686,7 +1686,7 @@ button { font-family: inherit; }
 - [ ] **Step 7: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
 - [ ] **Step 8: Посмотреть глазами**
 
@@ -1799,7 +1799,7 @@ Expected: остаются только динамические стили, г�
 - [ ] **Step 8: Проверить и закоммитить третью группу**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 12 тестов зелёные; build проходит.
+Expected: 0 error; 14 тестов зелёные; build проходит.
 
 ```bash
 git add frontend/src/screens/ frontend/src/components/
@@ -1948,7 +1948,7 @@ export function resolveVariant({ screen, enabled, reducedMotion }) {
 - [ ] **Step 4: Запустить тесты и убедиться, что они проходят**
 
 Run: `cd frontend && npm test`
-Expected: PASS — 21 тест зелёный (12 прежних + 9 новых).
+Expected: PASS — 23 теста зелёные (14 прежних + 9 новых).
 
 - [ ] **Step 5: Коммит**
 
@@ -2097,7 +2097,7 @@ export function stepDust(particles, dt, width, height) {
 - [ ] **Step 4: Запустить тест и убедиться, что он проходит**
 
 Run: `cd frontend && npm test`
-Expected: PASS — 28 тестов зелёные.
+Expected: PASS — 30 тестов зелёные.
 
 - [ ] **Step 5: Написать стили фона**
 
@@ -2332,7 +2332,7 @@ import { AmbientBackground } from "./components/AmbientBackground";
 - [ ] **Step 8: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 28 тестов зелёные; build проходит.
+Expected: 0 error; 30 тестов зелёные; build проходит.
 
 - [ ] **Step 9: Посмотреть глазами**
 
@@ -2455,7 +2455,7 @@ Expected: `embers.mp4` около 430–450 КБ, `embers-poster.jpg` — дес
 - [ ] **Step 4: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 28 тестов зелёные; build проходит.
+Expected: 0 error; 30 тестов зелёные; build проходит.
 
 - [ ] **Step 5: Посмотреть глазами**
 
@@ -2538,7 +2538,7 @@ Expected: `алиасов не осталось`.
 - [ ] **Step 5: Проверить линт, тесты и сборку**
 
 Run: `cd frontend && npx oxlint && npm test && npm run build`
-Expected: 0 error; 28 тестов зелёные; build проходит.
+Expected: 0 error; 30 тестов зелёные; build проходит.
 
 - [ ] **Step 6: Посмотреть глазами**
 
@@ -2644,6 +2644,6 @@ EOF
 
 **Известные ограничения плана, принятые сознательно:**
 
-- Задачи 2, 4, 5, 6, 7, 8, 11, 12 проверяются сборкой и глазами в мок-режиме, а не юнит-тестами. Автотесты появляются только там, где есть чистая логика: инсеты, инициализация Telegram, выбор варианта фона, настройки, частицы (28 тестов суммарно). Это честное отражение §8 спеки — визуального регрессионного тестирования у проекта нет, и притворяться, что оно есть, хуже, чем назвать вещи своими именами.
+- Задачи 2, 4, 5, 6, 7, 8, 11, 12 проверяются сборкой и глазами в мок-режиме, а не юнит-тестами. Автотесты появляются только там, где есть чистая логика: инсеты, инициализация Telegram, выбор варианта фона, настройки, частицы (30 тестов суммарно). Это честное отражение §8 спеки — визуального регрессионного тестирования у проекта нет, и притворяться, что оно есть, хуже, чем назвать вещи своими именами.
 - Task 8 — самая объёмная и самая скучная: 204 инлайновых стиля в 20 файлах. Она разбита на три коммита именно поэтому.
 - Task 13 Step 2 требует физических устройств. Без него работа не считается законченной.
