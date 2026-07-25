@@ -1,7 +1,8 @@
 ---
 slug: cc-multi-agent-delegation
 title: "Делегирование задач и многоагентная оркестрация в Claude Code"
-category: code/subagents
+section: code
+group: subagents
 summary: "Практическое руководство по вызову суб-агентов, изолированным воркспейсам и изоляции контекста в сложных параллельных задачах."
 sort_order: 10
 updated_at: 2026-07-26

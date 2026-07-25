@@ -1,7 +1,8 @@
 ---
 slug: mcp-security-sandboxing
 title: "Безопасность и изоляция MCP-серверов в продакшене"
-category: code/mcp
+section: code
+group: mcp
 summary: "Принцип наименьших привилегий, защита от Prompt Injection и песочницы для безопасности вызовов Model Context Protocol."
 sort_order: 12
 updated_at: 2026-07-26
