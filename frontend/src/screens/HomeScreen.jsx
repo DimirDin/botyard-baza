@@ -67,10 +67,10 @@ export function HomeScreen({ user, onNavigate }) {
             )}
 
             <section className="sect">
-              <span className="segment-label segment-label--why">новое на неделе</span>
+              <span className="segment-label segment-label--why">статья недели</span>
               {data.recent_entries.length === 0 && <p style={{ color: "var(--text-3)" }}>пока пусто</p>}
               <div className="stack">
-                {data.recent_entries.map((e) => (
+                {data.recent_entries.slice(0, 1).map((e) => (
                   <div key={e.slug} className="card" onClick={() => onNavigate("entry", e.slug)}>
                     <div className="card__pad">
                       <div className="card__row">
@@ -86,9 +86,9 @@ export function HomeScreen({ user, onNavigate }) {
 
             {data.tools_of_week?.length > 0 && (
               <section className="sect">
-                <span className="segment-label segment-label--gotcha">инструменты недели</span>
+                <span className="segment-label segment-label--gotcha">5 инструментов недели</span>
                 <div className="stack">
-                  {data.tools_of_week.map((t) => (
+                  {data.tools_of_week.slice(0, 5).map((t) => (
                     <div
                       key={t.repo}
                       className="card"
@@ -111,9 +111,9 @@ export function HomeScreen({ user, onNavigate }) {
             )}
 
             <section className="sect">
-              <span className="segment-label segment-label--example">топ промптов</span>
+              <span className="segment-label segment-label--example">топ-5 промптов</span>
               <div className="stack">
-                {data.top_prompts.map((p) => (
+                {data.top_prompts.slice(0, 5).map((p) => (
                   <div
                     key={p.slug}
                     className="card"

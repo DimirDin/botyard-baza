@@ -36,17 +36,12 @@ async def home():
     stats["subscribers"] = int(subscribers_raw) if subscribers_raw is not None else None
 
     top_prompts = await pool.fetch(
-        "SELECT slug, title, category, copies_count FROM baza.prompts WHERE published ORDER BY copies_count DESC LIMIT 3"
+        "SELECT slug, title, category, copies_count FROM baza.prompts WHERE published ORDER BY copies_count DESC LIMIT 5"
     )
-    # "новое на неделе" — тот же отбор (топ-5 по updated_at), что и раньше, но
-    # показываем один случайный элемент из этого набора, а не весь список.
     recent_entries = await pool.fetch(
         """
-        SELECT slug, title, updated_at FROM (
-            SELECT slug, title, updated_at FROM baza.entries
-            WHERE published ORDER BY updated_at DESC LIMIT 5
-        ) recent
-        ORDER BY random() LIMIT 1
+        SELECT slug, title, updated_at FROM baza.entries
+        WHERE published ORDER BY updated_at DESC LIMIT 1
         """
     )
     tools_of_week = await pool.fetch(
@@ -56,7 +51,7 @@ async def home():
         FROM baza.tools
         WHERE published = true AND archived = false AND (stars - stars_prev) > 0
         ORDER BY (stars - stars_prev) DESC
-        LIMIT 3
+        LIMIT 5
         """
     )
     return {
