@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { ContextBar } from "../components/ContextBar";
+import { Spinner } from "../components/States";
 import { api } from "../lib/api";
 
 const MODELS = [
@@ -21,7 +22,7 @@ const DEMO_TEXT = `Ты — старший инженер, который про
 
 function PriceCard({ title, price, note }) {
   return (
-    <div style={{ background: "#1a1a18", border: "1px solid #26261f", borderRadius: 6, padding: "10px 12px", flex: 1, minWidth: 130 }}>
+    <div style={{ background: "var(--surface-2)", border: "1px solid var(--line)", borderRadius: 6, padding: "10px 12px", flex: 1, minWidth: 130 }}>
       <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-muted)" }}>{title}</p>
       <p style={{ margin: "4px 0 0", fontSize: 20, color: "var(--text-heading)" }}>${price}</p>
       {note && <p style={{ margin: "2px 0 0", fontSize: 11, color: "var(--text-muted-dim)" }}>{note}</p>}
@@ -56,7 +57,7 @@ export function CalculatorScreen() {
       <div className="page">
         <div
           style={{
-            background: "#1a1a18", border: "1px solid #26261f", borderRadius: 6, padding: "10px 12px",
+            background: "var(--surface-2)", border: "1px solid var(--line)", borderRadius: 6, padding: "10px 12px",
             fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--text-body)", marginBottom: 10,
           }}
         >
@@ -84,7 +85,7 @@ export function CalculatorScreen() {
           placeholder="Вставь текст, чтобы прикинуть число токенов..."
           rows={8}
           style={{
-            width: "100%", background: "#1a1a18", color: "var(--text-heading)", border: "1px solid #26261f",
+            width: "100%", background: "var(--surface-2)", color: "var(--text-heading)", border: "1px solid var(--line)",
             borderRadius: 6, padding: 12, fontFamily: "var(--font-sans)", fontSize: 16, resize: "vertical",
           }}
         />
@@ -98,7 +99,7 @@ export function CalculatorScreen() {
         </div>
 
         <div style={{ marginTop: 20, fontFamily: "var(--font-mono)" }}>
-          {loading && <span style={{ color: "var(--text-muted)" }}>⠋⠙⠸ считаю...</span>}
+          {loading && <Spinner />}
           {!loading && result && (
             <>
               <p style={{ fontSize: 30, color: "var(--text-heading)", margin: 0 }}>≈ {result.tokens} токенов</p>

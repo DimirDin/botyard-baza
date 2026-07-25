@@ -32,7 +32,7 @@ export function CheatsheetsScreen() {
         />
         <div className="page">
           <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{current.title}</h1>
-          <div className="article-body cheatsheet-body">
+          <div className="sheet article-body cheatsheet-body">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{current.body_md}</ReactMarkdown>
           </div>
         </div>
@@ -49,13 +49,16 @@ export function CheatsheetsScreen() {
         {current === "loading" && <Spinner />}
         {list && list.length === 0 && <EmptyState />}
 
-        {list?.map((c, i) => (
-          <div key={c.slug} className="card" onClick={() => open(c.slug)} style={{ cursor: "pointer" }}>
-            <span className="tree-item">{i === list.length - 1 ? "└──" : "├──"}</span>
-            <span className="card__title">{c.title}</span>
-            <p className="card__meta" style={{ marginTop: 4 }}>{c.category}</p>
-          </div>
-        ))}
+        <div className="stack">
+          {list?.map((c) => (
+            <div key={c.slug} className="card" onClick={() => open(c.slug)}>
+              <div className="card__pad">
+                <span className="card__title">{c.title}</span>
+                <p className="card__meta">{c.category}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

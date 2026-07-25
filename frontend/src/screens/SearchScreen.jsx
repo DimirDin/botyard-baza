@@ -4,7 +4,7 @@ import { EmptyState } from "../components/States";
 import { api } from "../lib/api";
 import { trackEvent } from "../lib/track";
 
-const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖", component: "🧩" };
+const TYPE_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт", guide: "урок", component: "компонент" };
 
 export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuide, onOpenComponent }) {
   const [q, setQ] = useState("");
@@ -53,7 +53,7 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
             onChange={(e) => setQ(e.target.value)}
             placeholder="поиск по базе, инструментам, промптам..."
             style={{
-              flex: 1, background: "transparent", border: "none", borderBottom: "1px solid #26261f",
+              flex: 1, background: "transparent", border: "none", borderBottom: "1px solid var(--line)",
               color: "var(--text-heading)", fontFamily: "var(--font-mono)", fontSize: 16, padding: "6px 0",
               outline: "none",
             }}
@@ -63,25 +63,29 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
 
         {results && all.length === 0 && <EmptyState text="ничего не найдено" />}
 
-        {all.map((item, i) => (
-          <div
-            key={`${item.type}-${i}`}
-            className="card"
-            style={{ cursor: item.type === "prompt" ? "default" : "pointer" }}
-            onClick={() => {
-              if (item.type === "entry" && onOpenEntry) onOpenEntry(item.slug);
-              else if (item.type === "tool" && onOpenTool) onOpenTool(item.repo.replace("/", "__"));
-              else if (item.type === "prompt" && onOpenPrompt) onOpenPrompt(item.category, item.slug);
-              else if (item.type === "guide" && onOpenGuide) onOpenGuide(item.level, item.slug);
-              else if (item.type === "component" && onOpenComponent) onOpenComponent(item.slug);
-            }}
-          >
-            <span className="card__meta">{TYPE_ICON[item.type]} {item.type}</span>
-            <p className="card__title">{item.title || item.name}</p>
-            {item.summary && <p className="card__meta">{item.summary}</p>}
-            {item.description_ru && <p className="card__meta">{item.description_ru}</p>}
-          </div>
-        ))}
+        <div className="stack">
+          {all.map((item, i) => (
+            <div
+              key={`${item.type}-${i}`}
+              className="card"
+              style={{ cursor: item.type === "prompt" ? "default" : "pointer" }}
+              onClick={() => {
+                if (item.type === "entry" && onOpenEntry) onOpenEntry(item.slug);
+                else if (item.type === "tool" && onOpenTool) onOpenTool(item.repo.replace("/", "__"));
+                else if (item.type === "prompt" && onOpenPrompt) onOpenPrompt(item.category, item.slug);
+                else if (item.type === "guide" && onOpenGuide) onOpenGuide(item.level, item.slug);
+                else if (item.type === "component" && onOpenComponent) onOpenComponent(item.slug);
+              }}
+            >
+              <div className="card__pad">
+                <span className="chip">{TYPE_LABEL[item.type]}</span>
+                <p className="card__title">{item.title || item.name}</p>
+                {item.summary && <p className="card__meta">{item.summary}</p>}
+                {item.description_ru && <p className="card__meta">{item.description_ru}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

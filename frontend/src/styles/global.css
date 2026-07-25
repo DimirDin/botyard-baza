@@ -136,12 +136,6 @@ button {
   overflow-y: auto;
 }
 
-.tree-item {
-  font-family: var(--font-mono);
-  color: var(--text-muted-dim);
-  margin-right: 6px;
-}
-
 /* ---- кнопки ---- */
 
 .btn {
@@ -231,6 +225,8 @@ button {
 }
 
 .fav-btn__star { font-size: var(--fs-3); line-height: 1; }
+
+.stat { font-variant-numeric: tabular-nums; }
 
 /* ---- лейблы разделов статьи ----
    Пять цветов — смысловая система (что это / зачем тебе / пример /
@@ -407,6 +403,32 @@ button {
   font-variant-numeric: tabular-nums;
   color: var(--text-3);
   white-space: nowrap;
+}
+
+/* ---- полоса контекстного окна (Калькулятор) ---- */
+
+.context-bar { margin-top: var(--sp-3); }
+
+.context-bar__head {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2);
+  color: var(--text-3);
+  margin-bottom: var(--sp-1);
+}
+
+.context-bar__track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.context-bar__fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width var(--dur) var(--ease);
 }
 
 /* ---- состояния загрузки и ошибок ---- */

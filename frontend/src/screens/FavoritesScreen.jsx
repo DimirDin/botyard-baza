@@ -4,7 +4,7 @@ import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { api } from "../lib/api";
 
-const TYPE_ICON = { entry: "📚", tool: "🛠", prompt: "⚡", guide: "📖" };
+const TYPE_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт", guide: "урок", component: "компонент" };
 
 export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide, onNavigate }) {
   const [items, setItems] = useState(null);
@@ -36,23 +36,27 @@ export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide, onNaviga
         {!error && !items && <Spinner />}
         {items && items.length === 0 && <EmptyState text="звёздочка на карточке добавит её сюда" />}
 
-        {items?.map((item) => (
-          <div
-            key={`${item.item_type}-${item.item_id}`}
-            className="card"
-            onClick={() => openItem(item)}
-            style={{ cursor: item.item_type === "prompt" ? "default" : "pointer" }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <div>
-                <span className="card__meta">{TYPE_ICON[item.item_type]} {item.item_type}</span>
-                <p className="card__title" style={{ margin: "4px 0" }}>{item.title}</p>
-                {item.subtitle && <p className="card__meta">{item.subtitle}</p>}
+        <div className="stack">
+          {items?.map((item) => (
+            <div
+              key={`${item.item_type}-${item.item_id}`}
+              className="card"
+              onClick={() => openItem(item)}
+              style={{ cursor: item.item_type === "prompt" ? "default" : "pointer" }}
+            >
+              <div className="card__pad">
+                <div className="card__row">
+                  <div>
+                    <span className="chip">{TYPE_LABEL[item.item_type]}</span>
+                    <p className="card__title">{item.title}</p>
+                    {item.subtitle && <p className="card__meta">{item.subtitle}</p>}
+                  </div>
+                  <FavStar itemType={item.item_type} itemId={item.item_id} />
+                </div>
               </div>
-              <FavStar itemType={item.item_type} itemId={item.item_id} />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );

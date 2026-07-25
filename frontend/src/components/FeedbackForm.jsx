@@ -32,14 +32,15 @@ export function FeedbackForm() {
         className="card"
         onClick={() => setOpen(true)}
         style={{
-          cursor: "pointer",
           textAlign: "center",
-          background: "color-mix(in srgb, var(--accent) 14%, #1a1a18)",
+          background: "color-mix(in srgb, var(--accent) 14%, var(--surface-2))",
           borderColor: "var(--accent)",
         }}
       >
-        <p className="card__title" style={{ color: "var(--accent)" }}>💬 Предложить инструмент или промпт</p>
-        <p className="card__meta">напиши прямо здесь — уйдёт на модерацию</p>
+        <div className="card__pad">
+          <p className="card__title" style={{ color: "var(--accent)" }}>💬 Предложить инструмент или промпт</p>
+          <p className="card__meta">напиши прямо здесь — уйдёт на модерацию</p>
+        </div>
       </div>
     );
   }
@@ -47,46 +48,50 @@ export function FeedbackForm() {
   if (status === "sent") {
     return (
       <div className="card" style={{ textAlign: "center" }}>
-        <p className="card__title">✓ Спасибо!</p>
-        <p className="card__meta">Передал на модерацию.</p>
+        <div className="card__pad">
+          <p className="card__title">✓ Спасибо!</p>
+          <p className="card__meta">Передал на модерацию.</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="card">
-      <p className="card__title" style={{ marginBottom: 8 }}>💬 Предложить инструмент или промпт</p>
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Ссылка на GitHub или текст промпта, можно с парой слов зачем"
-        rows={3}
-        style={{
-          width: "100%",
-          background: "#1a1a18",
-          border: "1px solid #2c2c28",
-          borderRadius: 6,
-          color: "var(--text-body)",
-          fontFamily: "var(--font-mono)",
-          fontSize: 16, // iOS/Telegram WebView зумит страницу при фокусе на input с font-size < 16px
-          padding: 8,
-          resize: "vertical",
-          boxSizing: "border-box",
-        }}
-      />
-      {status === "error" && (
-        <p style={{ color: "var(--seg-gotcha)", fontSize: 13, marginTop: 6 }}>Не отправилось, попробуй ещё раз.</p>
-      )}
-      <div style={{ display: "flex", gap: 8, marginTop: 8, justifyContent: "flex-end" }}>
-        <button className="chip" style={{ border: "none" }} onClick={() => setOpen(false)}>отмена</button>
-        <button
-          className="chip chip--active"
-          style={{ border: "none" }}
-          onClick={submit}
-          disabled={status === "sending" || !text.trim()}
-        >
-          {status === "sending" ? "отправка…" : "отправить"}
-        </button>
+      <div className="card__pad">
+        <p className="card__title">💬 Предложить инструмент или промпт</p>
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Ссылка на GitHub или текст промпта, можно с парой слов зачем"
+          rows={3}
+          style={{
+            width: "100%",
+            background: "var(--surface-2)",
+            border: "1px solid var(--line)",
+            borderRadius: 6,
+            color: "var(--text-body)",
+            fontFamily: "var(--font-mono)",
+            fontSize: 16, // iOS/Telegram WebView зумит страницу при фокусе на input с font-size < 16px
+            padding: 8,
+            resize: "vertical",
+            boxSizing: "border-box",
+          }}
+        />
+        {status === "error" && (
+          <p style={{ color: "var(--seg-gotcha)", fontSize: 13, marginTop: 6 }}>Не отправилось, попробуй ещё раз.</p>
+        )}
+        <div style={{ display: "flex", gap: 8, marginTop: 8, justifyContent: "flex-end" }}>
+          <button className="chip" style={{ border: "none" }} onClick={() => setOpen(false)}>отмена</button>
+          <button
+            className="chip chip--active"
+            style={{ border: "none" }}
+            onClick={submit}
+            disabled={status === "sending" || !text.trim()}
+          >
+            {status === "sending" ? "отправка…" : "отправить"}
+          </button>
+        </div>
       </div>
     </div>
   );

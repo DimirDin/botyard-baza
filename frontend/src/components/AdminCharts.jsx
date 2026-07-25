@@ -66,7 +66,7 @@ export function TrendChart({ data, height = 130 }) {
   return (
     <div>
       <svg viewBox={`0 0 ${width} ${height}`} width="100%" height={height} style={{ display: "block" }}>
-        <line x1={padX} y1={height - padY} x2={width - padX} y2={height - padY} stroke="var(--border, #26261f)" strokeWidth="1" />
+        <line x1={padX} y1={height - padY} x2={width - padX} y2={height - padY} stroke="var(--line)" strokeWidth="1" />
         <path d={areaPath} fill="var(--accent)" opacity="0.08" stroke="none" />
         <path d={linePath("new_users")} fill="none" stroke="var(--seg-why)" strokeWidth="1.5" strokeDasharray="3,3" />
         <path d={linePath("active")} fill="none" stroke="var(--accent)" strokeWidth="2" />

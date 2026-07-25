@@ -5,7 +5,7 @@ import { RankBars, TrendChart, RatingRow } from "../components/AdminCharts";
 import { api } from "../lib/api";
 
 const SECTION_LABEL = { code: "Код", chat: "Chat/Claude.ai", design: "Дизайн", theory: "Теория" };
-const FAV_ICON = { entry: "📚", tool: "🛠", prompt: "⚡" };
+const FAV_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт" };
 
 export function AdminScreen({ onBack }) {
   const [activeTab, setActiveTab] = useState("overview"); // overview | content | users | live
@@ -45,8 +45,8 @@ export function AdminScreen({ onBack }) {
 
   const tabs = [
     { id: "overview", label: "📊 обзор" },
-    { id: "content", label: "🔥 интересы" },
-    { id: "users", label: `👥 users (${users.length})` },
+    { id: "content", label: "интересы" },
+    { id: "users", label: `users (${users.length})` },
     { id: "live", label: `📡 live (${events.length})` },
   ];
 
@@ -200,7 +200,7 @@ function ContentTab({ analytics }) {
           items={analytics.top_favorites}
           labelKey="title"
           valueKey="count"
-          subLabel={(it) => FAV_ICON[it.item_type] || it.item_type}
+          subLabel={(it) => FAV_LABEL[it.item_type] || it.item_type}
           color="var(--seg-example)"
           empty="Пока никто ничего не сохранил в избранное"
         />
@@ -239,7 +239,7 @@ function UsersTab({ users }) {
             key={u.tg_id}
             style={{
               padding: "8px 0",
-              borderBottom: "1px solid var(--border)",
+              borderBottom: "1px solid var(--line)",
               fontFamily: "var(--font-mono)",
               fontSize: 12,
               lineHeight: "1.4em",
@@ -279,7 +279,7 @@ function LiveTab({ events }) {
             key={e.id}
             style={{
               padding: "8px 0",
-              borderBottom: "1px solid var(--border)",
+              borderBottom: "1px solid var(--line)",
               fontFamily: "var(--font-mono)",
               fontSize: 12,
               lineHeight: "1.4em",
