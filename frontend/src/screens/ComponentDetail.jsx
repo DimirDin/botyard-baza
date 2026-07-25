@@ -57,7 +57,7 @@ export function ComponentDetail({ slug }) {
                 {copied ? "Скопировано" : "Копировать npx"}
               </div>
               <div className="chip" onClick={() => openLink(component.doc_url)}>
-                🔗 источник
+                источник
               </div>
             </div>
 

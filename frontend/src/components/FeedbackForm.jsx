@@ -38,7 +38,7 @@ export function FeedbackForm() {
         }}
       >
         <div className="card__pad">
-          <p className="card__title" style={{ color: "var(--accent)" }}>💬 Предложить инструмент или промпт</p>
+          <p className="card__title" style={{ color: "var(--accent)" }}>Предложить инструмент или промпт</p>
           <p className="card__meta">напиши прямо здесь — уйдёт на модерацию</p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export function FeedbackForm() {
   return (
     <div className="card">
       <div className="card__pad">
-        <p className="card__title">💬 Предложить инструмент или промпт</p>
+        <p className="card__title">Предложить инструмент или промпт</p>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}

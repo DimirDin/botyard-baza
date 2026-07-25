@@ -90,7 +90,7 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
 
         {group && (
           <>
-            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
+            <p className="card__meta">
               {groupLabel} ({groupPrompts.length})
             </p>
             {groupPrompts.length === 0 && <EmptyState />}
