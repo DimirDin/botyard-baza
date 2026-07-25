@@ -60,7 +60,13 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
         <>
           <AppHeader
             title="Шпаргалки"
-            action={<button className="icon-btn" onClick={() => setCheatCurrent(null)}>назад</button>}
+            action={
+              <button className="icon-btn" onClick={() => setCheatCurrent(null)} aria-label="Назад">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+              </button>
+            }
           />
           <div className="page">
             <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
@@ -103,9 +109,20 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
         title="База"
         subtitle={group ?? "статьи"}
         action={
-          group
-            ? <button className="icon-btn" onClick={() => setGroup(null)}>назад</button>
-            : <button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>
+          group ? (
+            <button className="icon-btn" onClick={() => setGroup(null)} aria-label="Назад">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+          ) : (
+            <button className="icon-btn" onClick={() => onNavigate("search")} aria-label="Поиск">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+              </svg>
+            </button>
+          )
         }
       />
       {!group && <SectionTabs menu={BASE_MENU} active={tab} onSelect={setTab} iconBase="/icons/base" />}

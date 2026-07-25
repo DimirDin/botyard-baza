@@ -313,12 +313,19 @@ button {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
 }
 
-/* Обложка кодирует раздел цветом — она не декоративная. */
+/* Обложка статьи — элегантная с фоновым градиентным свечением. */
 .card__cover {
-  height: 78px;
+  height: 64px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #D89A6E, #BE5B36 55%, #7A4B58);
+  background: linear-gradient(135deg, #4A2B1D, #2B1C15 70%);
+}
+
+.card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
 }
 
 .card__cover::after {
@@ -326,12 +333,28 @@ button {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 76% 26%, rgba(255, 255, 255, 0.4), transparent 46%),
-    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 13px);
+    radial-gradient(circle at 80% 20%, rgba(224, 130, 86, 0.25), transparent 50%),
+    linear-gradient(180deg, transparent 40%, rgba(32, 28, 23, 0.8) 100%);
+  pointer-events: none;
 }
 
-.card__cover--green { background: linear-gradient(135deg, #A9BC9E, #5C7C55 60%, #35513E); }
-.card__cover--violet { background: linear-gradient(135deg, #B3A0C4, #7B5E92 58%, #46375B); }
+.card__cover--green {
+  background: linear-gradient(135deg, #243B27, #17241A 70%);
+}
+.card__cover--green::after {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(143, 191, 131, 0.25), transparent 50%),
+    linear-gradient(180deg, transparent 40%, rgba(32, 28, 23, 0.8) 100%);
+}
+
+.card__cover--violet {
+  background: linear-gradient(135deg, #372445, #21172A 70%);
+}
+.card__cover--violet::after {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(179, 148, 203, 0.25), transparent 50%),
+    linear-gradient(180deg, transparent 40%, rgba(32, 28, 23, 0.8) 100%);
+}
 
 .card__pad {
   display: flex;
@@ -638,7 +661,7 @@ button {
   white-space: nowrap;
 }
 
-.section-tab img { width: 20px; height: 20px; opacity: 0.55; }
+.section-tab img { width: 20px; height: 20px; opacity: 0.55; transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease); }
 
 .section-tab--active {
   background: var(--accent);
@@ -646,7 +669,11 @@ button {
   font-weight: 600;
 }
 
-.section-tab--active img { opacity: 1; }
+.section-tab--active img,
+.chip--active img {
+  opacity: 0.92;
+  filter: brightness(0);
+}
 
 .section-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 

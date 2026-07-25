@@ -30,7 +30,14 @@ export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide, onNaviga
       <AppHeader
         title="Моё"
         subtitle="избранное"
-        action={<button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>}
+        action={
+          <button className="icon-btn" onClick={() => onNavigate("search")} aria-label="Поиск">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+          </button>
+        }
       />
       <div className="page">
         <section className="sect">

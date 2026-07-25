@@ -109,7 +109,13 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
         <AppHeader
           title="Гид"
           subtitle={level ? `уровень ${level}` : "путь"}
-          action={<button className="icon-btn" onClick={() => setLesson(null)}>назад</button>}
+          action={
+            <button className="icon-btn" onClick={() => setLesson(null)} aria-label="Назад">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+          }
         />
         <div className="page">
           {lesson === "loading" && <Spinner />}
@@ -197,7 +203,13 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
         <AppHeader
           title="Гид"
           subtitle={level ? `уровень ${level}` : "путь"}
-          action={<button className="icon-btn" onClick={() => setLevel(null)}>назад</button>}
+          action={
+            <button className="icon-btn" onClick={() => setLevel(null)} aria-label="Назад">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+          }
         />
         <div className="page">
           <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-3)", fontSize: 14, marginTop: 0 }}>
@@ -228,7 +240,14 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
       <AppHeader
         title="Гид"
         subtitle={level ? `уровень ${level}` : "путь"}
-        action={<button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>}
+        action={
+          <button className="icon-btn" onClick={() => onNavigate("search")} aria-label="Поиск">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+          </button>
+        }
       />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
