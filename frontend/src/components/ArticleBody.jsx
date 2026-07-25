@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Mermaid } from "./Mermaid";
@@ -80,6 +80,44 @@ function makeLinkRenderer(onNavigate) {
   };
 }
 
+import { triggerHaptic } from "../lib/telegram";
+
+function extractText(node) {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (node && node.props && node.props.children) return extractText(node.props.children);
+  return "";
+}
+
+function CodeBlockWrapper({ children, ...rest }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e) => {
+    e.stopPropagation();
+    const codeText = extractText(children);
+    if (codeText) {
+      navigator.clipboard.writeText(codeText).catch(() => {});
+      triggerHaptic("impactLight");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    }
+  };
+
+  return (
+    <div className="code-block-wrapper">
+      <button
+        className={`copy-code-btn ${copied ? "copy-code-btn--copied" : ""}`}
+        onClick={handleCopy}
+        type="button"
+      >
+        {copied ? "✓ скопировано" : "копировать"}
+      </button>
+      <pre {...rest}>{children}</pre>
+    </div>
+  );
+}
+
 export function ArticleBody({ bodyMd, onNavigate }) {
   if (!bodyMd) return null;
   const sections = splitSections(bodyMd);
@@ -97,7 +135,7 @@ export function ArticleBody({ bodyMd, onNavigate }) {
       if (hasMermaid) {
         return <>{children}</>;
       }
-      return <pre {...rest}>{children}</pre>;
+      return <CodeBlockWrapper {...rest}>{children}</CodeBlockWrapper>;
     },
     code(props) {
       const { children, className, node, ...rest } = props;

@@ -66,6 +66,17 @@ export function hapticError() {
   tg?.HapticFeedback?.notificationOccurred("error");
 }
 
+export function hapticImpact(style = "light") {
+  tg?.HapticFeedback?.impactOccurred(style);
+}
+
+export function triggerHaptic(type = "selection") {
+  if (type === "selection") hapticSelection();
+  else if (type === "impactLight" || type === "light") hapticImpact("light");
+  else if (type === "success") hapticSuccess();
+  else if (type === "error") hapticError();
+}
+
 export function openLink(url) {
   // tg.openLink — системный браузер; обычный <a>/window.open открывает GitHub внутри вебвью
   tg?.openLink ? tg.openLink(url) : window.open(url, "_blank");

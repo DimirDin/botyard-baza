@@ -255,16 +255,21 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
                   style={{ cursor: clickable ? "pointer" : "default", opacity: clickable ? 1 : 0.45 }}
                 >
                   <div className="card__pad">
-                    <span className="card__title">
-                      Уровень {m.level} · {m.label}
-                    </span>
+                    <div className="card__row">
+                      <span className="card__title">
+                        Уровень {m.level} · {m.label}
+                      </span>
+                      {unlocked && items.length > 0 && (
+                        <span className="badge">{done}/{items.length} уроков</span>
+                      )}
+                    </div>
                     <p className="card__meta">{m.desc}</p>
                     <div className="guide-progress">
                       <div className="guide-progress__bar">
                         <div className="guide-progress__fill" style={{ width: `${pct}%` }} />
                       </div>
                       <span className="guide-progress__label">
-                        {!unlocked ? `сначала уровень ${m.level - 1}` : items.length > 0 ? `${done} из ${items.length}` : "скоро"}
+                        {!unlocked ? `сначала уровень ${m.level - 1}` : items.length > 0 ? `${pct}% завершено` : "скоро"}
                       </span>
                     </div>
                   </div>

@@ -49,9 +49,12 @@ export function HomeScreen({ user, onNavigate }) {
                   onClick={() => onNavigate("guide", { level: guide.next_lesson.level, slug: guide.next_lesson.slug })}
                 >
                   <div className="card__pad">
-                    <p className="card__title">{guide.next_lesson.title}</p>
+                    <div className="card__row">
+                      <p className="card__title">{guide.next_lesson.title}</p>
+                      <span className="badge">{guide.percent}%</span>
+                    </div>
                     <p className="card__meta">
-                      Уровень {guide.next_lesson.level} · пройдено {guide.completed} из {guide.total}
+                      Уровень {guide.next_lesson.level} · пройдено {guide.completed} из {guide.total} уроков
                     </p>
                     <div className="guide-progress">
                       <div className="guide-progress__bar">

@@ -10,6 +10,7 @@ import { trackEvent } from "../lib/track";
 export function EntryScreen({ slug }) {
   const [entry, setEntry] = useState(null);
   const [error, setError] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const load = () => {
     setError(false);
@@ -23,18 +24,45 @@ export function EntryScreen({ slug }) {
     if (entry) trackEvent("view_entry", { slug: entry.slug, title: entry.title, section: entry.section });
   }, [entry]);
 
+  useEffect(() => {
+    const pageEl = document.querySelector(".page");
+    if (!pageEl) return;
+
+    const handleScroll = () => {
+      const total = pageEl.scrollHeight - pageEl.clientHeight;
+      if (total <= 0) {
+        setProgress(0);
+      } else {
+        const pct = Math.min(100, Math.max(0, (pageEl.scrollTop / total) * 100));
+        setProgress(pct);
+      }
+    };
+
+    pageEl.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => pageEl.removeEventListener("scroll", handleScroll);
+  }, [entry]);
+
   return (
     <>
       <AppHeader
         title="Статья"
         subtitle={entry?.updated_at ? `обновлено ${entry.updated_at.slice(0, 10)}` : undefined}
       />
-      <div className="page">
+      {progress > 0 && (
+        <div
+          className="reading-progress-bar"
+          style={{ width: `${progress}%` }}
+          aria-hidden="true"
+        />
+      )}
+      <div className="page" style={{ position: "relative" }}>
         {error && <ErrorState onRetry={load} />}
         {!error && !entry && <Spinner />}
         {entry && (
-          <div className="sheet">
-            <div className="card__row">
+          <div className="sheet" style={{ position: "relative" }}>
+            <div className="entry-hero-glow" aria-hidden="true" />
+            <div className="card__row" style={{ position: "relative", zIndex: 1 }}>
               <h1 style={{ color: "var(--text)", fontSize: 24, marginTop: 0 }}>{entry.title}</h1>
               <FavStar itemType="entry" itemId={entry.id} />
             </div>
