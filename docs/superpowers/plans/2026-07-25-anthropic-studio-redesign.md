@@ -663,6 +663,18 @@ export function AppHeader({ title, subtitle = null, action = null }) {
   padding: var(--sp-4) var(--sp-4) var(--sp-3);
   padding-top: var(--header-pad-top, var(--sp-4));
   transition: padding-top var(--dur-slow) var(--ease);
+  /* Заливка обязательна: #root — это min-height, а не жёсткая высота
+     с overflow, поэтому прокручивается сам документ и карточки уезжают
+     под шапку. Без фона они просвечивают сквозь заголовок. */
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+/* В фуллскрине шапка лежит поверх живого фона — вместо сплошной заливки
+   работает градиентный скрим ниже. */
+:root[data-fullscreen="on"] .app-header {
+  background: transparent;
+  border-bottom-color: transparent;
 }
 
 /* Скрим нужен только в полноэкранном режиме: там кнопки Telegram белые
@@ -740,7 +752,7 @@ export function AppHeader({ title, subtitle = null, action = null }) {
 | `<PromptLine section="home" right={admin} />` | `<AppHeader title="База" subtitle="без воды · @claudedry" action={admin} />` |
 | `<PromptLine section="base" ... />` | `<AppHeader title="База" subtitle={group ?? "статьи"} action={backOrSearch} />` |
 | `<PromptLine section="base/cheat" ... />` | `<AppHeader title="Шпаргалки" action={backOrSearch} />` |
-| `<PromptLine section="entry" ... />` | `<AppHeader title="Статья" subtitle={slug} />` |
+| `<PromptLine section="entry" ... />` | `<AppHeader title="Статья" subtitle={entry?.updated_at ? \`обновлено ${entry.updated_at.slice(0, 10)}\` : undefined} />` — дату показывал старый `right`, слаг читателю ничего не говорит |
 | `<PromptLine section="tools" ... />` | `<AppHeader title="Софт" subtitle={group ?? "инструменты"} action={backOrSearch} />` |
 | `<PromptLine section="tool" ... />` | `<AppHeader title="Инструмент" subtitle={slug} />` |
 | `<PromptLine section="component" ... />` | `<AppHeader title="Компонент" subtitle={slug} />` |
