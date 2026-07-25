@@ -276,33 +276,70 @@ button {
   white-space: nowrap;
 }
 
-/* ---- states ---- */
+/* ---- состояния загрузки и ошибок ---- */
 
-.state-empty, .state-error {
-  font-family: var(--font-mono);
-  color: var(--text-muted);
-  text-align: center;
-  padding: 40px 16px;
+.skeleton,
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
 
+.skeleton-list {
+  gap: var(--sp-3);
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.skeleton__line {
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 50%, var(--surface) 100%);
+  background-size: 220% 100%;
+  animation: skeleton-shimmer 1.5s linear infinite;
+}
+
+.skeleton__line--title {
+  height: 16px;
+  width: 72%;
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    background-position: -220% 0;
+  }
+}
+
+.state-empty,
 .state-error {
-  color: var(--error);
-}
-
-.state-error button {
-  margin-top: 12px;
-  background: transparent;
-  border: 1px solid var(--error);
-  color: var(--error);
-  padding: 6px 14px;
-  border-radius: 4px;
-}
-
-.spinner {
-  font-family: var(--font-mono);
-  color: var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-7) var(--sp-4);
   text-align: center;
-  padding: 32px;
+  color: var(--text-3);
+  font-size: var(--fs-4);
+}
+
+.state-error__text {
+  margin: 0;
+  color: var(--error);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton__line {
+    animation: none;
+  }
 }
 
 /* ---- toast ---- */
