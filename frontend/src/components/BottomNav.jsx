@@ -1,4 +1,7 @@
-// См. комментарий в SectionNav.jsx — версия в query нужна против кэша WebView Telegram.
+import { hapticSelection } from "../lib/telegram";
+
+// Версия в query — против кэша WebView Telegram: он держит PNG по пути
+// на диске независимо от «Очистить кэш» в приложении.
 const ICON_VERSION = Date.now();
 
 const ITEMS = [
@@ -10,19 +13,21 @@ const ITEMS = [
 ];
 
 export function BottomNav({ active, onSelect }) {
+  const select = (id) => {
+    hapticSelection();
+    onSelect(id);
+  };
+
   return (
     <nav className="bottom-nav">
       {ITEMS.map((item) => (
         <button
           key={item.id}
           className={`bottom-nav__item ${active === item.id ? "bottom-nav__item--active" : ""}`}
-          onClick={() => onSelect(item.id)}
+          aria-current={active === item.id ? "page" : undefined}
+          onClick={() => select(item.id)}
         >
-          {item.icon ? (
-            <img className="bottom-nav__png" src={`${item.icon}?v=${ICON_VERSION}`} alt="" />
-          ) : (
-            <span className="bottom-nav__icon">{item.emoji}</span>
-          )}
+          <img className="bottom-nav__png" src={`${item.icon}?v=${ICON_VERSION}`} alt="" />
           <span>{item.label}</span>
         </button>
       ))}

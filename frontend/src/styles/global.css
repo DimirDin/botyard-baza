@@ -327,7 +327,7 @@ button {
   color: var(--error);
 }
 
-/* ---- bottom nav ---- */
+/* ---- нижняя навигация ---- */
 
 .bottom-nav {
   position: fixed;
@@ -337,10 +337,12 @@ button {
   max-width: 560px;
   margin: 0 auto;
   display: flex;
-  background: #171715;
-  border-top: 1px solid #26261f;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  /* Без этого «Моё» перехватывается системным жестом home. */
   padding-bottom: var(--safe-bottom);
   z-index: 20;
+  transition: padding-bottom var(--dur-slow) var(--ease);
 }
 
 .bottom-nav__item {
@@ -348,31 +350,39 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 10px 0 8px;
+  gap: 3px;
+  padding: var(--sp-3) 0 var(--sp-2);
   background: none;
   border: none;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 11px;
+  cursor: pointer;
+  color: var(--text-3);
+  font-family: var(--font-sans);
+  font-size: var(--fs-1);
+  transition: color var(--dur) var(--ease);
+}
+
+.bottom-nav__item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
 }
 
 .bottom-nav__item--active {
   color: var(--accent);
+  font-weight: 600;
 }
 
-.bottom-nav__icon {
-  font-size: 18px;
-}
-
+/* Неактивные иконки приглушаем яркостью, а не grayscale(1) —
+   обесцвеченная иконка читается как «выключено», а не «неактивно». */
 .bottom-nav__png {
   width: 22px;
   height: 22px;
-  filter: grayscale(1) brightness(1.4) opacity(0.5);
+  opacity: 0.55;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease-spring);
 }
 
 .bottom-nav__item--active .bottom-nav__png {
-  filter: none;
+  opacity: 1;
+  transform: translateY(-1px) scale(1.06);
 }
 
 /* ---- табы секций и группы (двухуровневое меню База/Инструменты) ---- */
