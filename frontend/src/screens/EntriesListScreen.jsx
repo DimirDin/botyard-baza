@@ -64,7 +64,7 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
           />
           <div className="page">
             <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
-            <div className="article-body cheatsheet-body">
+            <div className="sheet article-body cheatsheet-body">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{cheatCurrent.body_md}</ReactMarkdown>
             </div>
           </div>
@@ -82,13 +82,16 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
           {cheatCurrent === "loading" && <Spinner />}
           {cheatList && cheatList.length === 0 && <EmptyState />}
 
-          {cheatList?.map((c, i) => (
-            <div key={c.slug} className="card" onClick={() => openCheat(c.slug)} style={{ cursor: "pointer" }}>
-              <span className="tree-item">{i === cheatList.length - 1 ? "└──" : "├──"}</span>
-              <span className="card__title">{c.title}</span>
-              <p className="card__meta" style={{ marginTop: 4 }}>{c.category}</p>
-            </div>
-          ))}
+          <div className="stack">
+            {cheatList?.map((c) => (
+              <div key={c.slug} className="card" onClick={() => openCheat(c.slug)}>
+                <div className="card__pad">
+                  <span className="card__title">{c.title}</span>
+                  <p className="card__meta">{c.category}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </>
     );
@@ -120,12 +123,16 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
               {groupLabel} ({groupEntries.length})
             </p>
             {groupEntries.length === 0 && <EmptyState />}
-            {groupEntries.map((e) => (
-              <div key={e.slug} className="card" onClick={() => onOpenEntry(e.slug)} style={{ cursor: "pointer" }}>
-                <span className="card__title">{e.title}</span>
-                <p className="card__meta" style={{ marginTop: 4 }}>{e.summary}</p>
-              </div>
-            ))}
+            <div className="stack">
+              {groupEntries.map((e) => (
+                <div key={e.slug} className="card" onClick={() => onOpenEntry(e.slug)}>
+                  <div className="card__pad">
+                    <span className="card__title">{e.title}</span>
+                    <p className="card__meta">{e.summary}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </>
         )}
       </div>

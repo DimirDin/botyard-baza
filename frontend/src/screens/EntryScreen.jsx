@@ -33,8 +33,8 @@ export function EntryScreen({ slug }) {
         {error && <ErrorState onRetry={load} />}
         {!error && !entry && <Spinner />}
         {entry && (
-          <>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+          <div className="sheet">
+            <div className="card__row">
               <h1 style={{ color: "var(--text-heading)", fontSize: 24, marginTop: 0 }}>{entry.title}</h1>
               <FavStar itemType="entry" itemId={entry.id} />
             </div>
@@ -66,7 +66,7 @@ export function EntryScreen({ slug }) {
                 👎 {entry.dislikes}
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>
