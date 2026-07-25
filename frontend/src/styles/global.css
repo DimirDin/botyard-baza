@@ -53,6 +53,15 @@ button {
   padding: var(--sp-4) var(--sp-4) var(--sp-3);
   padding-top: var(--header-pad-top, var(--sp-4));
   transition: padding-top var(--dur-slow) var(--ease);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+/* В фуллскрине шапка лежит поверх живого фона — вместо сплошной заливки
+   работает градиентный скрим ниже. */
+:root[data-fullscreen="on"] .app-header {
+  background: transparent;
+  border-bottom-color: transparent;
 }
 
 /* Скрим нужен только в полноэкранном режиме: там кнопки Telegram белые

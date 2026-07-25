@@ -25,7 +25,10 @@ export function EntryScreen({ slug }) {
 
   return (
     <>
-      <AppHeader title="Статья" subtitle={slug} />
+      <AppHeader
+        title="Статья"
+        subtitle={entry?.updated_at ? `обновлено ${entry.updated_at.slice(0, 10)}` : undefined}
+      />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !entry && <Spinner />}
