@@ -5,6 +5,7 @@ import { createDust, stepDust } from "../lib/dust";
 
 export function AmbientBackground({ screen }) {
   const canvasRef = useRef(null);
+  const videoRef = useRef(null);
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
@@ -17,6 +18,28 @@ export function AmbientBackground({ screen }) {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || variant !== "video") {
+      video?.pause();
+      return;
+    }
+
+    const play = () => video.play().catch(() => {});
+    play();
+    const retry = () => play();
+    document.addEventListener("pointerdown", retry, { once: true });
+
+    const onVisibility = () => (document.hidden ? video.pause() : play());
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      document.removeEventListener("pointerdown", retry);
+      document.removeEventListener("visibilitychange", onVisibility);
+      video.pause();
+    };
+  }, [variant]);
 
   useEffect(() => {
     if (variant !== "dust") return;
@@ -83,6 +106,18 @@ export function AmbientBackground({ screen }) {
         <i />
         <i />
       </div>
+      {variant === "video" && (
+        <video
+          className="ambient__video"
+          ref={videoRef}
+          src="/bg/embers.mp4"
+          poster="/bg/embers-poster.jpg"
+          muted
+          loop
+          playsInline
+          preload="none"
+        />
+      )}
       <canvas className="ambient__canvas" ref={canvasRef} />
       <div className="ambient__grain" />
     </div>
