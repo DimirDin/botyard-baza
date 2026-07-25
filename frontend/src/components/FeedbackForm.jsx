@@ -70,7 +70,7 @@ export function FeedbackForm() {
             background: "var(--surface-2)",
             border: "1px solid var(--line)",
             borderRadius: 6,
-            color: "var(--text-body)",
+            color: "var(--text-2)",
             fontFamily: "var(--font-mono)",
             fontSize: 16, // iOS/Telegram WebView зумит страницу при фокусе на input с font-size < 16px
             padding: 8,

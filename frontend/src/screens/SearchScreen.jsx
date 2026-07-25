@@ -54,7 +54,7 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
             placeholder="поиск по базе, инструментам, промптам..."
             style={{
               flex: 1, background: "transparent", border: "none", borderBottom: "1px solid var(--line)",
-              color: "var(--text-heading)", fontFamily: "var(--font-mono)", fontSize: 16, padding: "6px 0",
+              color: "var(--text)", fontFamily: "var(--font-mono)", fontSize: 16, padding: "6px 0",
               outline: "none",
             }}
           />

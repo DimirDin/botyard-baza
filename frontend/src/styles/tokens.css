@@ -74,12 +74,4 @@
   --safe-top: var(--tg-safe-area-inset-top, 0px);
   --safe-bottom: var(--tg-safe-area-inset-bottom, 0px);
   --content-safe-top: var(--tg-content-safe-area-inset-top, 0px);
-
-  /* ---- алиасы старых имён ----
-     Нужны, чтобы global.css и инлайн-стили экранов продолжали работать,
-     пока их переводят на новые токены. Удаляются в Task 12. */
-  --text-heading: var(--text);
-  --text-body: var(--text-2);
-  --text-muted: var(--text-3);
-  --text-muted-dim: var(--text-3);
 }

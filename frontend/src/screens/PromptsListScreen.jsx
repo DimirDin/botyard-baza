@@ -108,7 +108,7 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
                       <FavStar itemType="prompt" itemId={p.id} />
                     </div>
                     {p.comment && <p className="card__meta">{p.comment}</p>}
-                    <p style={{ color: "var(--text-body)", fontSize: 14, margin: "8px 0", whiteSpace: "pre-wrap" }}>
+                    <p style={{ color: "var(--text-2)", fontSize: 14, margin: "8px 0", whiteSpace: "pre-wrap" }}>
                       {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
                     </p>
                     <div className="card__row">

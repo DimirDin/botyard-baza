@@ -58,7 +58,7 @@ export function AdminScreen({ onBack }) {
         action={onBack && <button className="icon-btn" onClick={onBack}>назад</button>}
       />
       <div className="page" style={{ paddingBottom: 32 }}>
-        <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0, display: "flex", alignItems: "center", gap: 8 }}>
+        <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0, display: "flex", alignItems: "center", gap: 8 }}>
           <span>💻</span> ENGINE ANALYTICS
         </h1>
 
@@ -110,10 +110,10 @@ export function AdminScreen({ onBack }) {
 function StatCard({ label, value, extra }) {
   return (
     <div className="card" style={{ padding: 12, margin: 0 }}>
-      <p style={{ margin: 0, color: "var(--text-muted-dim)", fontSize: 12, fontFamily: "var(--font-mono)" }}>{label}</p>
+      <p style={{ margin: 0, color: "var(--text-3)", fontSize: 12, fontFamily: "var(--font-mono)" }}>{label}</p>
       <p style={{ margin: "4px 0 0 0", color: "var(--accent)", fontSize: 20, fontWeight: "bold", fontFamily: "var(--font-mono)" }}>
         {value}
-        {extra && <span style={{ fontSize: 13, fontWeight: "normal", color: "var(--text-muted)" }}> {extra}</span>}
+        {extra && <span style={{ fontSize: 13, fontWeight: "normal", color: "var(--text-3)" }}> {extra}</span>}
       </p>
     </div>
   );
@@ -137,7 +137,7 @@ function OverviewTab({ stats, analytics }) {
       <Section label="активность за 14 дней" badgeClass="segment-label--why">
         <TrendChart data={analytics.activity_trend} />
         {!hasEvents && (
-          <p style={{ margin: "8px 0 0 0", color: "var(--text-muted)", fontSize: 12 }}>
+          <p style={{ margin: "8px 0 0 0", color: "var(--text-3)", fontSize: 12 }}>
             Пока накапливаем данные — трекинг просмотров только что включён, график заполнится за несколько дней.
           </p>
         )}
@@ -249,10 +249,10 @@ function UsersTab({ users }) {
             }}
           >
             <div>
-              <div style={{ color: "var(--text-heading)", fontWeight: "bold" }}>
+              <div style={{ color: "var(--text)", fontWeight: "bold" }}>
                 {u.username ? `@${u.username}` : `tg_id: ${u.tg_id}`}
               </div>
-              <div style={{ color: "var(--text-muted)", fontSize: 11, marginTop: 2 }}>
+              <div style={{ color: "var(--text-3)", fontSize: 11, marginTop: 2 }}>
                 seen: {u.first_seen?.slice(0, 10)} · active: {u.last_seen?.slice(0, 10)}
               </div>
             </div>
@@ -264,7 +264,7 @@ function UsersTab({ users }) {
           </div>
         ))
       ) : (
-        <p style={{ margin: 0, color: "var(--text-muted)", fontSize: 14 }}>Пользователи отсутствуют</p>
+        <p style={{ margin: 0, color: "var(--text-3)", fontSize: 14 }}>Пользователи отсутствуют</p>
       )}
     </div>
   );
@@ -285,20 +285,20 @@ function LiveTab({ events }) {
               lineHeight: "1.4em",
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", color: "var(--text-muted-dim)", marginBottom: 2 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", color: "var(--text-3)", marginBottom: 2 }}>
               <span>{e.created_at?.slice(11, 19)} ({e.created_at?.slice(0, 10)})</span>
               <span style={{ color: "var(--accent)" }}>{e.username ? `@${e.username}` : `id:${e.tg_id}`}</span>
             </div>
             <div>
-              <span style={{ color: "var(--text-heading)", fontWeight: "bold" }}>{e.event}</span>
+              <span style={{ color: "var(--text)", fontWeight: "bold" }}>{e.event}</span>
               {e.payload && Object.keys(e.payload).length > 0 && (
-                <span style={{ color: "var(--text-muted)", marginLeft: 6, fontSize: 11 }}>{JSON.stringify(e.payload)}</span>
+                <span style={{ color: "var(--text-3)", marginLeft: 6, fontSize: 11 }}>{JSON.stringify(e.payload)}</span>
               )}
             </div>
           </div>
         ))
       ) : (
-        <p style={{ margin: 0, color: "var(--text-muted)", fontSize: 14 }}>Событий не зафиксировано</p>
+        <p style={{ margin: 0, color: "var(--text-3)", fontSize: 14 }}>Событий не зафиксировано</p>
       )}
     </div>
   );

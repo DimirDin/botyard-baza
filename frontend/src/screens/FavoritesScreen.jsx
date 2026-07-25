@@ -3,6 +3,7 @@ import { AppHeader } from "../components/AppHeader";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { api } from "../lib/api";
+import { getAmbientEnabled, setAmbientEnabled } from "../lib/prefs";
 
 const TYPE_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт", guide: "урок", component: "компонент" };
 
@@ -32,6 +33,19 @@ export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide, onNaviga
         action={<button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>}
       />
       <div className="page">
+        <section className="sect">
+          <span className="eyebrow">оформление</span>
+          <button
+            className="btn btn--ghost"
+            onClick={() => {
+              setAmbientEnabled(!getAmbientEnabled());
+              window.location.reload();
+            }}
+          >
+            {getAmbientEnabled() ? "Выключить живой фон" : "Включить живой фон"}
+          </button>
+        </section>
+
         {error && <ErrorState onRetry={load} />}
         {!error && !items && <Spinner />}
         {items && items.length === 0 && <EmptyState text="звёздочка на карточке добавит её сюда" />}

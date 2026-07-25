@@ -47,10 +47,10 @@ export function ComponentDetail({ slug }) {
         {component && (
           <>
             <div className="card__row">
-              <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{component.title}</h1>
+              <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{component.title}</h1>
               <span className="chip">{TYPE_LABEL[component.comp_type] || component.comp_type}</span>
             </div>
-            <p style={{ fontSize: 17, color: "var(--text-body)", marginTop: 0 }}>{component.summary}</p>
+            <p style={{ fontSize: 17, color: "var(--text-2)", marginTop: 0 }}>{component.summary}</p>
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
               <div className="chip" onClick={copyInstall}>

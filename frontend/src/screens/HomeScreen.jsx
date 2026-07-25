@@ -65,7 +65,7 @@ export function HomeScreen({ user, onNavigate }) {
 
             <section className="sect">
               <span className="segment-label segment-label--why">новое на неделе</span>
-              {data.recent_entries.length === 0 && <p style={{ color: "var(--text-muted)" }}>пока пусто</p>}
+              {data.recent_entries.length === 0 && <p style={{ color: "var(--text-3)" }}>пока пусто</p>}
               <div className="stack">
                 {data.recent_entries.map((e, i) => (
                   <div key={e.slug} className="card" onClick={() => onNavigate("entry", e.slug)}>

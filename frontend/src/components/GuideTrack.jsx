@@ -116,7 +116,7 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
           {lesson !== "loading" && (
             <>
               <div className="card__row">
-                <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
+                <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{lesson.title}</h1>
                 <div style={{ display: "flex", gap: 12, alignItems: "center", flexShrink: 0 }}>
                   <FavStar itemType="guide" itemId={lesson.id} />
                   <span
@@ -170,7 +170,7 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
                   style={{
                     marginTop: 16, marginRight: 10, padding: "10px 18px", borderRadius: 6,
                     fontFamily: "var(--font-mono)", fontSize: 14, background: "transparent",
-                    color: "var(--text-muted)", border: "1px solid var(--line)", cursor: "pointer",
+                    color: "var(--text-3)", border: "1px solid var(--line)", cursor: "pointer",
                   }}
                 >
                   читать подробнее в Базе
@@ -206,7 +206,7 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
           action={<button className="icon-btn" onClick={() => setLevel(null)}>назад</button>}
         />
         <div className="page">
-          <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
+          <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-3)", fontSize: 14, marginTop: 0 }}>
             {meta?.label} ({items.filter((i) => i.completed).length} из {items.length})
           </p>
           {items.length === 0 && <EmptyState />}

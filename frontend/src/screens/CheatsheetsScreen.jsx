@@ -31,7 +31,7 @@ export function CheatsheetsScreen() {
           action={<button className="icon-btn" onClick={() => setCurrent(null)}>закрыть</button>}
         />
         <div className="page">
-          <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{current.title}</h1>
+          <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{current.title}</h1>
           <div className="sheet article-body cheatsheet-body">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{current.body_md}</ReactMarkdown>
           </div>

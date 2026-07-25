@@ -33,7 +33,7 @@ export function ToolDetail({ slug }) {
         {tool && (
           <>
             <div className="card__row">
-              <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{tool.name}</h1>
+              <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{tool.name}</h1>
               {tool.badge === "editors_choice" && <span className="chip chip--editors" style={{ flexShrink: 0 }}>выбор редакции</span>}
             </div>
             <div style={{ marginTop: 8, marginBottom: 4, display: "flex", flexWrap: "wrap", rowGap: 4, columnGap: 12, alignItems: "center" }}>
@@ -49,8 +49,8 @@ export function ToolDetail({ slug }) {
               <ArticleBody bodyMd={tool.body_md} />
             ) : (
               <>
-                <p style={{ fontSize: 17, color: "var(--text-body)" }}>{tool.description_ru}</p>
-                <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted-dim)", fontSize: 14 }}>
+                <p style={{ fontSize: 17, color: "var(--text-2)" }}>{tool.description_ru}</p>
+                <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-3)", fontSize: 14 }}>
                   # TODO: подробное описание в разработке
                 </p>
               </>

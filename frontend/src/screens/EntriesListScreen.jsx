@@ -63,7 +63,7 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
             action={<button className="icon-btn" onClick={() => setCheatCurrent(null)}>назад</button>}
           />
           <div className="page">
-            <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
+            <h1 style={{ color: "var(--text)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
             <div className="sheet article-body cheatsheet-body">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{cheatCurrent.body_md}</ReactMarkdown>
             </div>
@@ -119,7 +119,7 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
 
         {group && (
           <>
-            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
+            <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-3)", fontSize: 14, marginTop: 0 }}>
               {groupLabel} ({groupEntries.length})
             </p>
             {groupEntries.length === 0 && <EmptyState />}

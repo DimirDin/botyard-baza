@@ -23,9 +23,9 @@ const DEMO_TEXT = `Ты — старший инженер, который про
 function PriceCard({ title, price, note }) {
   return (
     <div style={{ background: "var(--surface-2)", border: "1px solid var(--line)", borderRadius: 6, padding: "10px 12px", flex: 1, minWidth: 130 }}>
-      <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-muted)" }}>{title}</p>
-      <p style={{ margin: "4px 0 0", fontSize: 20, color: "var(--text-heading)" }}>${price}</p>
-      {note && <p style={{ margin: "2px 0 0", fontSize: 11, color: "var(--text-muted-dim)" }}>{note}</p>}
+      <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-3)" }}>{title}</p>
+      <p style={{ margin: "4px 0 0", fontSize: 20, color: "var(--text)" }}>${price}</p>
+      {note && <p style={{ margin: "2px 0 0", fontSize: 11, color: "var(--text-3)" }}>{note}</p>}
     </div>
   );
 }
@@ -58,7 +58,7 @@ export function CalculatorScreen() {
         <div
           style={{
             background: "var(--surface-2)", border: "1px solid var(--line)", borderRadius: 6, padding: "10px 12px",
-            fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--text-body)", marginBottom: 10,
+            fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--text-2)", marginBottom: 10,
           }}
         >
           Этот калькулятор прикидывает, сколько токенов «съест» твой текст и сколько это будет стоить
@@ -85,7 +85,7 @@ export function CalculatorScreen() {
           placeholder="Вставь текст, чтобы прикинуть число токенов..."
           rows={8}
           style={{
-            width: "100%", background: "var(--surface-2)", color: "var(--text-heading)", border: "1px solid var(--line)",
+            width: "100%", background: "var(--surface-2)", color: "var(--text)", border: "1px solid var(--line)",
             borderRadius: 6, padding: 12, fontFamily: "var(--font-sans)", fontSize: 16, resize: "vertical",
           }}
         />
@@ -102,8 +102,8 @@ export function CalculatorScreen() {
           {loading && <Spinner />}
           {!loading && result && (
             <>
-              <p style={{ fontSize: 30, color: "var(--text-heading)", margin: 0 }}>≈ {result.tokens} токенов</p>
-              <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 12 }}>
+              <p style={{ fontSize: 30, color: "var(--text)", margin: 0 }}>≈ {result.tokens} токенов</p>
+              <p style={{ color: "var(--text-3)", fontSize: 14, marginBottom: 12 }}>
                 цена input по {MODELS.find((m) => m.id === model)?.label}
               </p>
               {result.model_tokenizer_note && (
@@ -119,7 +119,7 @@ export function CalculatorScreen() {
                       <PriceCard title="batch API" price={result.price_with_batch} note="−50%, ответ до 24ч" />
                     )}
                   </div>
-                  <label style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 10, fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-muted)", cursor: "pointer" }}>
+                  <label style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 10, fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-3)", cursor: "pointer" }}>
                     <input type="checkbox" checked={showBatch} onChange={(e) => setShowBatch(e.target.checked)} />
                     показать экономию batch API
                   </label>
@@ -145,7 +145,7 @@ export function CalculatorScreen() {
                     colorVar="--seg-why"
                   />
                   {result.ru_vs_en_delta_pct !== null && (
-                    <p style={{ color: "var(--text-muted-dim)", fontSize: 12, marginTop: 6 }}>
+                    <p style={{ color: "var(--text-3)", fontSize: 12, marginTop: 6 }}>
                       русский текст занимает на {result.ru_vs_en_delta_pct}% токенов больше, чем английский эквивалент
                     </p>
                   )}
@@ -154,7 +154,7 @@ export function CalculatorScreen() {
             </>
           )}
           {!loading && !result && text.trim() === "" && (
-            <span style={{ color: "var(--text-muted-dim)" }}>// начни печатать</span>
+            <span style={{ color: "var(--text-3)" }}>// начни печатать</span>
           )}
         </div>
       </div>

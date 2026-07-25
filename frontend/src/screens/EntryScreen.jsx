@@ -35,7 +35,7 @@ export function EntryScreen({ slug }) {
         {entry && (
           <div className="sheet">
             <div className="card__row">
-              <h1 style={{ color: "var(--text-heading)", fontSize: 24, marginTop: 0 }}>{entry.title}</h1>
+              <h1 style={{ color: "var(--text)", fontSize: 24, marginTop: 0 }}>{entry.title}</h1>
               <FavStar itemType="entry" itemId={entry.id} />
             </div>
             <ArticleBody bodyMd={entry.body_md} />
