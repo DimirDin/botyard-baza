@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { hapticSuccess, openLink } from "../lib/telegram";
@@ -10,7 +10,7 @@ const TYPE_LABEL = {
   hooks: "хук", settings: "настройка", skills: "скилл", loops: "агентный цикл",
 };
 
-export function ComponentDetail({ slug, onBack }) {
+export function ComponentDetail({ slug }) {
   const [component, setComponent] = useState(null);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -40,10 +40,7 @@ export function ComponentDetail({ slug, onBack }) {
 
   return (
     <>
-      <PromptLine
-        section={component ? `tools/components/${component.slug}` : "tools/components"}
-        right={onBack ? <span onClick={onBack} style={{ cursor: "pointer" }}>✗ назад</span> : null}
-      />
+      <AppHeader title="Компонент" subtitle={slug} />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !component && <Spinner />}

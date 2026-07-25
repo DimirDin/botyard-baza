@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
@@ -123,9 +123,14 @@ export function ToolsListScreen({ onOpenTool, onOpenComponent, onNavigate, initi
 
   return (
     <>
-      <PromptLine
-        section={mode === "components" ? "tools/components" : group ? `tools/${tab}/${group}` : `tools/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
+      <AppHeader
+        title="Софт"
+        subtitle={group ?? "инструменты"}
+        action={
+          group
+            ? <button className="icon-btn" onClick={() => setGroup(null)}>назад</button>
+            : <button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>
+        }
       />
       <div style={{ display: "flex", gap: 8, padding: "0 16px 12px" }}>
         <div className={`chip ${mode === "repos" ? "chip--active" : ""}`} onClick={() => setMode("repos")} style={{ flex: 1, justifyContent: "center" }}>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { ArticleBody } from "../components/ArticleBody";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
@@ -7,7 +7,7 @@ import { api } from "../lib/api";
 import { shareLink } from "../lib/telegram";
 import { trackEvent } from "../lib/track";
 
-export function EntryScreen({ slug, onBack }) {
+export function EntryScreen({ slug }) {
   const [entry, setEntry] = useState(null);
   const [error, setError] = useState(false);
 
@@ -25,15 +25,7 @@ export function EntryScreen({ slug, onBack }) {
 
   return (
     <>
-      <PromptLine
-        section="base"
-        right={
-          <span style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            {entry && <span style={{ color: "var(--text-muted-dim)" }}>обновлено {entry.updated_at?.slice(0, 10)}</span>}
-            {onBack && <span onClick={onBack} style={{ cursor: "pointer" }}>✗ назад</span>}
-          </span>
-        }
-      />
+      <AppHeader title="Статья" subtitle={slug} />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !entry && <Spinner />}

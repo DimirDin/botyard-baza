@@ -41,35 +41,83 @@ button {
   font-family: inherit;
 }
 
-/* ---- терминальный хром ---- */
+/* ---- шапка экрана ---- */
 
-.promptline {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  padding-top: calc(10px + var(--safe-top));
-  border-bottom: 1px solid #1e1e1c;
+.app-header {
   position: sticky;
   top: 0;
-  background: var(--bg);
   z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-4) var(--sp-3);
+  padding-top: var(--header-pad-top, var(--sp-4));
+  transition: padding-top var(--dur-slow) var(--ease);
 }
 
-.promptline__arrow {
+/* Скрим нужен только в полноэкранном режиме: там кнопки Telegram белые
+   и рисуются поверх фона, а на светлых кадрах ролика они пропадают. */
+:root[data-fullscreen="on"] .app-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--bg) 45%, transparent);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.app-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.app-header__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.app-header__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.app-header__action {
+  flex: none;
+  order: -1;
+}
+
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text-2);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.icon-btn:hover {
   color: var(--accent);
-  font-weight: 700;
+  border-color: var(--accent);
 }
 
-.promptline__segment {
-  color: var(--text-heading);
-}
-
-.promptline__dirty {
-  color: var(--seg-gotcha);
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .page {

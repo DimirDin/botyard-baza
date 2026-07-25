@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { BASE_MENU } from "../config/menu";
@@ -58,7 +58,10 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
     if (cheatCurrent && cheatCurrent !== "loading") {
       return (
         <>
-          <PromptLine section="base/cheat" right={<span onClick={() => setCheatCurrent(null)} style={{ cursor: "pointer" }}>✗ назад</span>} />
+          <AppHeader
+            title="Шпаргалки"
+            action={<button className="icon-btn" onClick={() => setCheatCurrent(null)}>назад</button>}
+          />
           <div className="page">
             <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{cheatCurrent.title}</h1>
             <div className="article-body cheatsheet-body">
@@ -71,7 +74,7 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
 
     return (
       <>
-        <PromptLine section="base/cheat" />
+        <AppHeader title="Шпаргалки" />
         <SectionTabs menu={BASE_MENU} active={tab} onSelect={setTab} iconBase="/icons/base" />
         <div className="page">
           {error && <ErrorState onRetry={loadCheat} />}
@@ -93,9 +96,14 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
 
   return (
     <>
-      <PromptLine
-        section={group ? `base/${tab}/${group}` : `base/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
+      <AppHeader
+        title="База"
+        subtitle={group ?? "статьи"}
+        action={
+          group
+            ? <button className="icon-btn" onClick={() => setGroup(null)}>назад</button>
+            : <button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>
+        }
       />
       {!group && <SectionTabs menu={BASE_MENU} active={tab} onSelect={setTab} iconBase="/icons/base" />}
       <div className="page">

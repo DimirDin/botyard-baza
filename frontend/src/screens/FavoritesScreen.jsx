@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { api } from "../lib/api";
@@ -26,7 +26,11 @@ export function FavoritesScreen({ onOpenEntry, onOpenTool, onOpenGuide, onNaviga
 
   return (
     <>
-      <PromptLine section="favorites" right={<span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>} />
+      <AppHeader
+        title="Моё"
+        subtitle="избранное"
+        action={<button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>}
+      />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !items && <Spinner />}

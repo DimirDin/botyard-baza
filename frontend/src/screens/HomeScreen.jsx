@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { StatsBar } from "../components/StatsBar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
@@ -21,9 +21,10 @@ export function HomeScreen({ user, onNavigate }) {
 
   return (
     <>
-      <PromptLine
-        section="home"
-        right={
+      <AppHeader
+        title="База"
+        subtitle="без воды · @claudedry"
+        action={
           user?.is_admin && (
             <span
               onClick={() => onNavigate("admin")}

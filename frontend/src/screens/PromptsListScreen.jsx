@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { SectionTabs, GroupList } from "../components/SectionNav";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
@@ -70,9 +70,14 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
 
   return (
     <>
-      <PromptLine
-        section={group ? `prompts/${tab}/${group}` : `prompts/${tab}`}
-        right={group ? <span onClick={() => setGroup(null)} style={{ cursor: "pointer" }}>✗ назад</span> : <span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>}
+      <AppHeader
+        title="Промпты"
+        subtitle={group ?? "библиотека"}
+        action={
+          group
+            ? <button className="icon-btn" onClick={() => setGroup(null)}>назад</button>
+            : <button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>
+        }
       />
       {!group && <SectionTabs menu={PROMPTS_MENU} active={tab} onSelect={setTab} iconBase="/icons/prompts" />}
       <div className="page">

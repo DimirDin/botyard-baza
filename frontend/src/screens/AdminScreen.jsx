@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { Spinner, ErrorState } from "../components/States";
 import { RankBars, TrendChart, RatingRow } from "../components/AdminCharts";
 import { api } from "../lib/api";
@@ -52,15 +52,10 @@ export function AdminScreen({ onBack }) {
 
   return (
     <>
-      <PromptLine
-        section="admin"
-        right={
-          onBack && (
-            <span onClick={onBack} style={{ cursor: "pointer" }}>
-              ✗ назад
-            </span>
-          )
-        }
+      <AppHeader
+        title="Админка"
+        subtitle="аналитика"
+        action={onBack && <button className="icon-btn" onClick={onBack}>назад</button>}
       />
       <div className="page" style={{ paddingBottom: 32 }}>
         <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0, display: "flex", alignItems: "center", gap: 8 }}>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "./PromptLine";
+import { AppHeader } from "./AppHeader";
 import { ArticleBody } from "./ArticleBody";
 import { Spinner, ErrorState, EmptyState } from "./States";
 import { GUIDE_MENU } from "../config/menu";
@@ -106,9 +106,10 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
 
     return (
       <>
-        <PromptLine
-          section={`guide/${level}`}
-          right={<span onClick={() => setLesson(null)} style={{ cursor: "pointer" }}>✗ назад</span>}
+        <AppHeader
+          title="Гид"
+          subtitle={level ? `уровень ${level}` : "путь"}
+          action={<button className="icon-btn" onClick={() => setLesson(null)}>назад</button>}
         />
         <div className="page">
           {lesson === "loading" && <Spinner />}
@@ -189,7 +190,11 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
     const meta = GUIDE_MENU.find((m) => m.level === level);
     return (
       <>
-        <PromptLine section={`guide/${level}`} right={<span onClick={() => setLevel(null)} style={{ cursor: "pointer" }}>✗ назад</span>} />
+        <AppHeader
+          title="Гид"
+          subtitle={level ? `уровень ${level}` : "путь"}
+          action={<button className="icon-btn" onClick={() => setLevel(null)}>назад</button>}
+        />
         <div className="page">
           <p style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, marginTop: 0 }}>
             {meta?.label} ({items.filter((i) => i.completed).length} из {items.length})
@@ -212,7 +217,11 @@ export function GuideTrack({ initial, onOpenEntry, onOpenTool, onOpenPrompt, onN
   // --- вид 1: список уровней с прогресс-баром ---
   return (
     <>
-      <PromptLine section="guide" right={<span onClick={() => onNavigate("search")} style={{ cursor: "pointer" }}>🔍 поиск</span>} />
+      <AppHeader
+        title="Гид"
+        subtitle={level ? `уровень ${level}` : "путь"}
+        action={<button className="icon-btn" onClick={() => onNavigate("search")}>поиск</button>}
+      />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !lessons && <Spinner />}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { ArticleBody } from "../components/ArticleBody";
 import { FavStar } from "../components/FavStar";
 import { Spinner, ErrorState } from "../components/States";
@@ -8,7 +8,7 @@ import { timeAgo } from "../lib/timeAgo";
 import { shareLink } from "../lib/telegram";
 import { trackEvent } from "../lib/track";
 
-export function ToolDetail({ slug, onBack }) {
+export function ToolDetail({ slug }) {
   const [tool, setTool] = useState(null);
   const [error, setError] = useState(false);
 
@@ -26,10 +26,7 @@ export function ToolDetail({ slug, onBack }) {
 
   return (
     <>
-      <PromptLine
-        section={tool ? `tools/${tool.repo}` : "tools"}
-        right={onBack ? <span onClick={onBack} style={{ cursor: "pointer" }}>✗ назад</span> : null}
-      />
+      <AppHeader title="Инструмент" subtitle={slug} />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !tool && <Spinner />}

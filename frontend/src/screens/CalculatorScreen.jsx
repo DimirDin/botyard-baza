@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { ContextBar } from "../components/ContextBar";
 import { api } from "../lib/api";
 
@@ -52,7 +52,7 @@ export function CalculatorScreen() {
 
   return (
     <>
-      <PromptLine section="calc" />
+      <AppHeader title="Калькулятор" subtitle="токены" />
       <div className="page">
         <div
           style={{

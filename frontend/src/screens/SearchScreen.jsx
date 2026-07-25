@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { EmptyState } from "../components/States";
 import { api } from "../lib/api";
 import { trackEvent } from "../lib/track";
@@ -43,7 +43,7 @@ export function SearchScreen({ onOpenEntry, onOpenTool, onOpenPrompt, onOpenGuid
 
   return (
     <>
-      <PromptLine section="search" />
+      <AppHeader title="Поиск" />
       <div className="page">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", marginBottom: 16 }}>
           <span style={{ color: "var(--accent)" }}>$</span>

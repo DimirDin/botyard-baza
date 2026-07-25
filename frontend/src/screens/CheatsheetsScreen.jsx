@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { api } from "../lib/api";
 
@@ -26,7 +26,10 @@ export function CheatsheetsScreen() {
   if (current && current !== "loading") {
     return (
       <>
-        <PromptLine section="cheat" right={<span onClick={() => setCurrent(null)} style={{ cursor: "pointer" }}>✗ закрыть</span>} />
+        <AppHeader
+          title="Шпаргалки"
+          action={<button className="icon-btn" onClick={() => setCurrent(null)}>закрыть</button>}
+        />
         <div className="page">
           <h1 style={{ color: "var(--text-heading)", fontSize: 22, marginTop: 0 }}>{current.title}</h1>
           <div className="article-body cheatsheet-body">
@@ -39,7 +42,7 @@ export function CheatsheetsScreen() {
 
   return (
     <>
-      <PromptLine section="cheat" />
+      <AppHeader title="Шпаргалки" />
       <div className="page">
         {error && <ErrorState onRetry={load} />}
         {!error && !list && <Spinner />}

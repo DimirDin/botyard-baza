@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PromptLine } from "../components/PromptLine";
+import { AppHeader } from "../components/AppHeader";
 import { Spinner } from "../components/States";
 import { api } from "../lib/api";
 
@@ -30,7 +30,7 @@ export function GateScreen({ counts, onRecheckSuccess }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <PromptLine section="gate" dirty />
+      <AppHeader title="Baza" subtitle="без воды" />
       <div className="page" style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
         <pre style={{ fontFamily: "var(--font-mono)", color: "var(--text-muted)", fontSize: 14, lineHeight: 1.8 }}>
 {`baza/
