@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BottomNav } from "./components/BottomNav";
-import { ErrorState } from "./components/States";
+import { ErrorState, Spinner } from "./components/States";
 import { GateScreen } from "./screens/GateScreen";
 import { HomeScreen } from "./screens/HomeScreen";
 import { EntriesListScreen } from "./screens/EntriesListScreen";
@@ -94,7 +94,7 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.length]);
 
-  if (gateState === "checking") return <div className="spinner">⠋⠙⠸ проверяю доступ...</div>;
+  if (gateState === "checking") return <div className="page"><Spinner /></div>;
   if (gateState === "error") return <ErrorState onRetry={() => window.location.reload()} />;
   if (gateState === "blocked") {
     return <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />;
