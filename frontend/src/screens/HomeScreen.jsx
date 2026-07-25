@@ -70,17 +70,13 @@ export function HomeScreen({ user, onNavigate }) {
               <span className="segment-label segment-label--why">новое на неделе</span>
               {data.recent_entries.length === 0 && <p style={{ color: "var(--text-3)" }}>пока пусто</p>}
               <div className="stack">
-                {data.recent_entries.map((e, i) => (
+                {data.recent_entries.map((e) => (
                   <div key={e.slug} className="card" onClick={() => onNavigate("entry", e.slug)}>
-                    <div className={`card__cover ${["", "card__cover--green", "card__cover--violet"][i % 3]}`.trim()}>
-                      <img
-                        src={`/entry-images/${e.slug}.svg`}
-                        alt=""
-                        onError={(evt) => { evt.currentTarget.style.display = "none"; }}
-                      />
-                    </div>
                     <div className="card__pad">
-                      <p className="card__title">{e.title}</p>
+                      <div className="card__row">
+                        <p className="card__title">{e.title}</p>
+                        <span className="badge">статья</span>
+                      </div>
                       <p className="card__meta">обновлено {e.updated_at?.slice(0, 10)}</p>
                     </div>
                   </div>
