@@ -99,3 +99,21 @@ describe("initTelegram", () => {
     expect(() => initTelegram()).not.toThrow();
   });
 });
+
+describe("hapticSelection", () => {
+  it("вызывает tg.HapticFeedback.selectionChanged() когда Telegram присутствует", async () => {
+    const tg = makeTg();
+    window.Telegram = { WebApp: tg };
+    const { hapticSelection } = await loadFresh();
+
+    hapticSelection();
+
+    expect(tg.HapticFeedback.selectionChanged).toHaveBeenCalled();
+  });
+
+  it("не падает без Telegram", async () => {
+    window.Telegram = undefined;
+    const { hapticSelection } = await loadFresh();
+    expect(() => hapticSelection()).not.toThrow();
+  });
+});
