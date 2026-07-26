@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     network_mode: "host"
+    # Слушаем только петлю: наружу ходят через Caddy (reverse_proxy 127.0.0.1:3015).
+    command: ["uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "3015"]
     env_file: .env
 
   bot:
