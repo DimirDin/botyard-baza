@@ -7,3 +7,8 @@ node_modules/
 
 # воркtree Claude Code — рабочие копии, не в репозиторий
 .claude/worktrees/
+
+# Локальные контекст-документы с доступами — держать ВНЕ репозитория
+HANDOVER.md
+KICKOFF_PROMPT.md
+*_CONTEXT.md
