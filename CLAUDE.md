@@ -1,9 +1,9 @@
 # botyard-baza — Claude Code Instructions
 
 Telegram Mini App «Baza без воды» — энциклопедия по Claude Code/Claude.ai/API с гейтом
-по подписке на @claudedry. **Полная спецификация ведётся вне этого репозитория** (файл
-BAZA_CONTEXT.md, хранится отдельно, не в git — приоритетнее этого файла для решений о продукте;
-спроси у владельца проекта, если нужен доступ). Этот файл — только команды и стиль кода.
+по подписке на @claudedry.
+
+> 📌 **Передача контекста и актуальный статус:** см. файл [HANDOVER.md](file:///Users/vova/telegram_bot/botyard-baza/HANDOVER.md) в корне репозитория.
 
 ## Build & Test
 ```bash
