@@ -1268,7 +1268,7 @@
     ### ⚠️ Грабли
     Перед установкой авторы явно просят удалить версии старше `0.1.x` — иначе апдейт может сломаться. Также если делаете сторонний проект с "opencode" в названии (например, "opencode-dashboard") — авторы просят явно указать в README, что это не официальная разработка команды OpenCode.
 
-- repo: block/goose
+- repo: aaif-goose/goose
   category: apps/desktop
   description_ru: "Универсальный локальный AI-агент, изначально созданный в Block (Square), теперь развивается под крылом Agentic AI Foundation при Linux Foundation."
   badge:
@@ -1491,10 +1491,11 @@
     ### ⚠️ Грабли
     Никаких изображений или демо в README нет — коллекция чисто текстовая (набор `.md`-файлов агентов), так что перед использованием стоит заглянуть в конкретный файл агента, чтобы понять его системный промпт и ограничения.
 
-- repo: davepoon/claude-code-subagents-collection
-  category: agents/subagents
+- repo: davepoon/buildwithclaude
+  category: agents/other
   description_ru: "Build with Claude — маркетплейс и сайт-каталог плагинов для Claude Code: 117 агентов, 175 команд, 28 хуков, 26 скиллов и 51 готовый плагин, плюс индекс community-экосистемы."
   badge:
+  badge: editors_choice
   verify_status: check
   body_md: |
     ![](https://raw.githubusercontent.com/davepoon/claude-code-subagents-collection/main/buildwithclaude-homepage.png)
@@ -5544,32 +5545,6 @@
 # mcp/frameworks, libs/*, mcp/servers, code/monitoring, code/ci-cd, code/hooks,
 # code/routers, agents/multi-agent, apps/vscode, apps/editors) ---
 
-- repo: aaif-goose/goose
-  category: mcp/clients
-  description_ru: "Открытый CLI/агент от Block (бывш. Square) с полной поддержкой MCP-серверов — устанавливает зависимости, пишет и тестирует код автономно."
-  verify_status: check
-  body_md: |
-    ### ❓ Что это
-    **Goose** — open-source агентный CLI, изначально выпущенный командой **Block**: подключается к любому LLM-провайдеру (включая Claude через Anthropic API/Bedrock) и умеет вызывать MCP-серверы как инструменты «из коробки».
-
-    ### 🎯 Для чего
-    Ставьте, если нужен CLI-агент вне экосистемы Anthropic, который можно гонять на своей модели (в том числе локальной через Ollama) и подключать к произвольным MCP-серверам одной командой.
-
-    ### 💻 Как установить
-    ```bash
-    curl -fsSL https://github.com/block/goose/releases/download/stable/download_cli.sh | bash
-    ```
-
-    ### 🚀 Как пользоваться
-    ```bash
-    goose configure   # выбор провайдера/модели
-    goose session start
-    ```
-    MCP-серверы прописываются в `~/.config/goose/config.yaml` — после этого доступны как обычные extensions.
-
-    ### ⚠️ Грабли
-    Организация-владелец репозитория на GitHub периодически переезжает (rename), проверяйте актуальную ссылку перед установкой скрипта из интернета.
-
 - repo: lobehub/lobehub
   category: mcp/clients
   description_ru: "Открытый веб-фреймворк для AI-чатов с плагинами, RAG и мультимодельностью — поддерживает Claude через API и MCP-плагины."
@@ -8007,28 +7982,6 @@
     Это осознанно **личная** подборка под стиль работы одного человека — часть команд завязана на его привычки. Берите поштучно, а не целиком.
 
 # ── agents/other ─────────────────────────────────────────────────────────────
-- repo: davepoon/buildwithclaude
-  category: agents/other
-  description_ru: "Build with Claude — маркетплейс и платформа поиска расширений Claude Code: 117 агентов, 175 команд, 28 хуков, 26 скиллов, 51 плагин плюс индекс сообщества."
-  badge: editors_choice
-  verify_status: known
-  body_md: |
-    ### ❓ Что это
-    Маркетплейс плагинов и платформа поиска для Claude Code: собственные курируемые коллекции плюс индекс тысяч плагинов из внешних источников.
-
-    ### 🎯 Для чего
-    В самом репозитории: **117 агентов** (Python, Go, DevOps, безопасность и др.), **175 слэш-команд** (`/commit`, `/docs`, `/tdd`), **28 хуков**, **26 скиллов** и **51 плагин**-сборка по категориям.
-
-    ### 💻 Как установить
-    ```bash
-    /plugin marketplace add davepoon/buildwithclaude
-    /plugin search @buildwithclaude
-    /plugin install <plugin-name>@buildwithclaude
-    ```
-
-    ### ⚠️ Грабли
-    Индекс сообщества подтягивает плагины из внешних репозиториев — их код никто централизованно не аудирует. Перед установкой смотрите, что именно ставите, особенно если плагин содержит хуки: они выполняются с вашими правами.
-
 - repo: jeremylongshore/claude-code-plugins-plus-skills
   category: agents/other
   description_ru: "Tons of Skills — крупный каталог плагинов и скиллов Claude Code (471 плагин, 3179 скиллов, 347 агентов) с собственным CLI."
