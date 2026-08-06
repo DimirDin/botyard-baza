@@ -4880,59 +4880,6 @@
     ### ⚠️ Грабли
     Может отставать по поддержке самых свежих API-функций (например, adaptive thinking), так как поддерживается сообществом.
 
-- repo: sherifabdlnaby/go-anthropic
-  category: libs/go
-  description_ru: "Асинхронная обертка для Go с поддержкой контекстов и продвинутой обработки ошибок API."
-  verify_status: known
-  body_md: |
-    ![](https://opengraph.githubassets.com/1/sherifabdlnaby/go-anthropic)
-
-    ### ❓ Что это
-    **go-anthropic (sherifabdlnaby)** — удобная библиотека для Go, сфокусированная на надежной обработке сетевых ошибок, ретраях и асинхронном стриминге.
-
-    ### 🎯 Для чего
-    Идеально подходит для высоконагруженных микросервисов, где важны таймауты, Graceful Shutdown и проброс Go Context в сетевые вызовы.
-
-    ### 💻 Как установить
-    ```bash
-    go get github.com/sherifabdlnaby/go-anthropic
-    ```
-
-    ### 🚀 Как пользоваться
-    Используйте методы `NewClient` и передавайте `context.Context` в каждый вызов для контроля жизненного цикла запроса.
-
-    ### ⚠️ Грабли
-    Проект разрабатывался сообществом, поэтому для самых новых моделей может потребоваться ручное указание строк названий моделей.
-
-- repo: JackGerrits/anthropic-sdk-rust
-  category: libs/rust
-  description_ru: "Один из лучших сообщественных Rust-клиентов для взаимодействия с API Anthropic Claude."
-  verify_status: known
-  body_md: |
-    ![](https://opengraph.githubassets.com/1/JackGerrits/anthropic-sdk-rust)
-
-    ### ❓ Что это
-    **anthropic-sdk-rust** — типобезопасный клиент на Rust для работы с Claude API, построенный на базе `reqwest` и `serde`.
-
-    ### 🎯 Для чего
-    Позволяет безопасно и быстро вызывать Claude из Rust-приложений, поддерживая парсинг JSON, асинхронный стриминг и работу с картинками (multimodal).
-
-    ### 💻 Как установить
-    Добавьте в `Cargo.toml`:
-    ```toml
-    [dependencies]
-    anthropic-sdk = "0.1"
-    ```
-
-    ### 🚀 Как пользоваться
-    ```rust
-    let client = anthropic_sdk::Client::new(api_key);
-    // вызов клиентских методов async/await
-    ```
-
-    ### ⚠️ Грабли
-    Официального Rust SDK от Anthropic нет, поэтому любые изменения формата API требуют обновления этого ящика вручную контрибьюторами.
-
 - repo: ThreatFlux/anthropic_rust_sdk
   category: libs/rust
   description_ru: "Современный Rust SDK с поддержкой prompt caching, structured outputs и адаптивного мышления."
@@ -5048,40 +4995,6 @@
 
     ### ⚠️ Грабли
     Проект ориентирован на TypeScript/Node.js. Для интеграции с Python-сервисами потребуется построение API-прослоек.
-
-- repo: qodo-gen/pr-agent
-  category: code/ci-cd
-  description_ru: "Автономный AI-агент для автоматического ревью, описания и оптимизации Pull Request в GitHub/GitLab."
-  badge: editors_choice
-  verify_status: known
-  body_md: |
-    ![](https://raw.githubusercontent.com/Codium-ai/pr-agent/main/docs/docs/images/pr_agent_logo.png)
-
-    ### ❓ Что это
-    **Qodo PR-Agent** (ранее Codium-ai PR-Agent) — популярный агент для автоматизации код-ревью в CI/CD пайплайнах.
-
-    ### 🎯 Для чего
-    Автоматически пишет подробное описание изменений в PR (`/describe`), проводит ревью кода на баги и безопасность (`/review`), предлагает оптимизацию и отвечает на вопросы по коду прямо в комментариях PR.
-
-    ### 💻 Как установить
-    Подключите как GitHub Action в ваш рабочий процесс:
-    ```yaml
-    - name: PR-Agent
-      uses: Codium-ai/pr-agent-action@main
-      env:
-        OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    ```
-
-    ### 🚀 Как пользоваться
-    Оставьте комментарий под любым PR:
-    ```
-    /review
-    ```
-    Агент проанализирует изменения и оставит структурированный отзыв.
-
-    ### ⚠️ Грабли
-    При ревью очень больших PR может тратить много токенов. Настраивайте фильтры игнорирования файлов (например, автогенерируемый код или lock-файлы).
 
 - repo: sweepai/sweep
   category: code/ci-cd
@@ -7778,14 +7691,6 @@
 
     ### 🎯 Для чего
     Позволяет Claude производить глубокие вычисления в электронных таблицах и визуализировать результаты в виде графиков.
-
-- repo: SmartManoj/Google-Search-MCP
-  category: mcp/servers
-  description_ru: "MCP-сервер для интеграции поиска Google без сложных настроек через неофициальные поисковые API."
-  verify_status: known
-  body_md: |
-    ### ❓ Что это
-    **Google-Search-MCP** — это быстрый способ научить Claude искать информацию в Google без необходимости получать платные токены API.
 
 - repo: profullstack/mcp-server
   category: mcp/frameworks
