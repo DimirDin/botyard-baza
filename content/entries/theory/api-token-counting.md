@@ -3,7 +3,7 @@ slug: api-token-counting
 title: "Token counting: считай токены до отправки"
 summary: "Отдельный эндпоинт, который возвращает число входных токенов запроса без биллинга."
 section: theory
-group: models
+group: api-io
 tags: [api, tokens, cost]
 doc_url: "https://docs.claude.com/en/build-with-claude/token-counting"
 sort_order: 106

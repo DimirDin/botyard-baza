@@ -3,7 +3,7 @@ slug: api-programmatic-tool-calling
 title: "Programmatic tool calling: инструменты из кода в песочнице"
 summary: "Claude пишет скрипт, который сам вызывает твои тулы в code execution — меньше round-trip и токенов."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, code-execution]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/programmatic-tool-calling"
 sort_order: 116

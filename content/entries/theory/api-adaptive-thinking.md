@@ -3,7 +3,7 @@ slug: api-adaptive-thinking
 title: "Adaptive thinking и параметр effort"
 summary: "Модель сама решает, когда и сколько думать. Глубину задаёт effort, а не budget_tokens."
 section: theory
-group: models
+group: reasoning
 tags: [api, thinking, effort]
 doc_url: "https://docs.claude.com/en/build-with-claude/adaptive-thinking"
 sort_order: 101

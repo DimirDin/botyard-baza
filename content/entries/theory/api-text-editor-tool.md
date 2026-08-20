@@ -3,7 +3,7 @@ slug: api-text-editor-tool
 title: "Text editor tool: правки файлов через str_replace"
 summary: "Инструмент str_replace_based_edit_tool — точечные правки файлов вместо перегенерации целиком."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, editing]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/text-editor-tool"
 sort_order: 112

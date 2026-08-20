@@ -3,7 +3,7 @@ slug: api-web-fetch-tool
 title: "Web fetch tool: чтение конкретной страницы"
 summary: "Серверный инструмент, который скачивает и читает страницу по URL. Пара к web search."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, web-fetch]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/web-fetch-tool"
 sort_order: 109

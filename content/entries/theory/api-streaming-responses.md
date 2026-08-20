@@ -3,7 +3,7 @@ slug: api-streaming-responses
 title: "Стриминг ответов (Server-Sent Events)"
 summary: "Как правильно принимать поток токенов на бэкенде для мгновенного отображения текста пользователю."
 section: theory
-group: models
+group: api-io
 tags: [api, streaming]
 doc_url: "https://platform.claude.com"
 sort_order: 40

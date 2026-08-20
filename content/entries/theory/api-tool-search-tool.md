@@ -3,7 +3,7 @@ slug: api-tool-search-tool
 title: "Tool search tool: сотни инструментов без раздувания контекста"
 summary: "Claude ищет нужные инструменты по запросу вместо загрузки всех определений сразу."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, tool-search]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/tool-search-tool"
 sort_order: 115

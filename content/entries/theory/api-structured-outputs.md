@@ -3,7 +3,7 @@ slug: api-structured-outputs
 title: "Structured Outputs: гарантированный JSON по схеме"
 summary: "Constrained decoding, который не даёт модели сломать JSON. Плюс strict-режим для tool use."
 section: theory
-group: models
+group: api-io
 tags: [api, json, structured-outputs]
 doc_url: "https://docs.claude.com/en/build-with-claude/structured-outputs"
 sort_order: 102

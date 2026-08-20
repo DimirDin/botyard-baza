@@ -3,7 +3,7 @@ slug: api-error-handling
 title: "Обработка ошибок API и стратегия Retry"
 summary: "Коды ошибок 400/401/429/529 и реализация экспоненциального backoff для стабильных интеграций."
 section: theory
-group: models
+group: api-io
 tags: [api, errors, reliability]
 doc_url: "https://platform.claude.com"
 sort_order: 70

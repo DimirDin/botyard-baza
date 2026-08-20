@@ -3,7 +3,7 @@ slug: api-strict-tool-use
 title: "Strict tool use: валидные аргументы инструментов гарантированно"
 summary: "Флаг strict:true включает constrained decoding для схемы инструмента — без битых аргументов."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, structured-outputs]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/strict-tool-use"
 sort_order: 118

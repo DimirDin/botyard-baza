@@ -3,7 +3,7 @@ slug: api-fast-mode
 title: "Fast mode: минимальная задержка ответа"
 summary: "Режим, оптимизированный под скорость первого токена. Когда он оправдан и чем платишь."
 section: theory
-group: pricing
+group: models
 tags: [api, latency]
 doc_url: "https://docs.claude.com/en/build-with-claude/fast-mode"
 sort_order: 123

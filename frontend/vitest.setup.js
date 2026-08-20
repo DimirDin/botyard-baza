@@ -1,5 +1,7 @@
-// Polyfill localStorage if jsdom's implementation is broken
-if (typeof localStorage.clear !== "function") {
+// Polyfill localStorage if jsdom's implementation is broken — или если его нет вовсе.
+// Проверять сразу localStorage.clear нельзя: на Node 26 глобали просто нет, и guard
+// падал сам, роняя весь набор тестов до первого кейса.
+if (typeof localStorage === "undefined" || typeof localStorage.clear !== "function") {
   const storage = new Map();
   Object.defineProperty(globalThis, "localStorage", {
     value: {

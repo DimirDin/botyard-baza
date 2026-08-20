@@ -3,7 +3,7 @@ slug: api-extended-thinking
 title: "Extended thinking: пошаговое рассуждение в API"
 summary: "Отдельные thinking-блоки, где Claude рассуждает перед ответом. Как включать, читать и не сломать кэш."
 section: theory
-group: models
+group: reasoning
 tags: [api, thinking, reasoning]
 doc_url: "https://docs.claude.com/en/build-with-claude/extended-thinking"
 sort_order: 100

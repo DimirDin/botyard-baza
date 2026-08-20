@@ -3,7 +3,7 @@ slug: api-web-search-tool
 title: "Web search tool: поиск в вебе из API"
 summary: "Серверный инструмент веб-поиска. max_uses, фильтры доменов, dynamic filtering через code execution."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, web-search]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/web-search-tool"
 sort_order: 108

@@ -4,6 +4,7 @@ title: "Безопасность и изоляция MCP-серверов в п�
 section: code
 group: mcp
 summary: "Принцип наименьших привилегий, защита от Prompt Injection и песочницы для безопасности вызовов Model Context Protocol."
+doc_url: "https://code.claude.com/docs/en/sandboxing"
 sort_order: 12
 updated_at: 2026-07-26
 ---

@@ -3,7 +3,7 @@ slug: api-bash-tool
 title: "Bash tool: выполнение команд оболочки"
 summary: "Инструмент для запуска shell-команд агентом. Мощно и опасно — про изоляцию."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, bash]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/bash-tool"
 sort_order: 113

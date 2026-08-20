@@ -3,6 +3,15 @@
 // Слаги групп статей должны совпадать с frontmatter `group:` в content/entries/*.md,
 // категории инструментов/промптов в yaml — со строкой "{tab}/{group}".
 
+// Категории шпаргалок. Раздел плоский (не таб → группа), но карточек стало столько,
+// что список без разбивки не читается — группируем заголовками по этому реестру.
+// Порядок ключей задаёт порядок секций на экране; категория не из списка уедет в конец.
+export const CHEAT_CATEGORIES = [
+  { slug: "claude-code", label: "Claude Code" },
+  { slug: "api", label: "API" },
+  { slug: "claude-ai", label: "Claude.ai" },
+];
+
 export const BASE_MENU = [
   {
     slug: "code",
@@ -14,6 +23,7 @@ export const BASE_MENU = [
       { slug: "skills", label: "Skills", desc: "Пользовательские команды-шаблоны. «Напиши тесты в моём стиле» — один тап, не промпт." },
       { slug: "hooks", label: "Hooks", desc: "Автоматические триггеры. Запускают действия до/после команды Claude Code." },
       { slug: "subagents", label: "Subagents", desc: "Делегирование задач дочерним агентам. Разбиение сложной работы на параллельные подзадачи." },
+      { slug: "agent-sdk", label: "Agent SDK", desc: "Claude Agent SDK. Свой агент в коде: цикл, инструменты, бюджет — без обвязки над CLI." },
       { slug: "headless-ci", label: "Headless/CI", desc: "Запуск Claude Code без интерактива. В GitHub Actions, Docker, скриптах." },
       { slug: "permissions", label: "Permissions", desc: "Режимы одобрения действий. От «всё разрешено» до «каждый шаг — подтверждение»." },
     ],
@@ -27,6 +37,7 @@ export const BASE_MENU = [
       { slug: "memory", label: "Memory", desc: "Персистентная память Claude.ai. Факты о пользователе, которые сохраняются между чатами." },
       { slug: "connectors", label: "Connectors", desc: "Интеграции с внешними сервисами. Google Drive, GitHub — данные в контекст без загрузки." },
       { slug: "research", label: "Research", desc: "Глубокое исследование с поиском по сети. Многошаговый анализ с источниками." },
+      { slug: "cowork", label: "Cowork", desc: "Claude в десктопном приложении: работа с файлами на диске, скиллы, длинные задачи." },
     ],
   },
   {
@@ -46,7 +57,11 @@ export const BASE_MENU = [
       { slug: "context-window", label: "Context Window", desc: "Окно контекста модели. Сколько токенов помнит Claude одновременно, как оптимизировать." },
       { slug: "tokenization", label: "Tokenization", desc: "Разбиение текста на токены. Почему кириллица «дороже» латиницы, как считать." },
       { slug: "models", label: "Models", desc: "Сравнение моделей. Sonnet — универсал, Opus — сложные задачи, Haiku — скорость." },
+      { slug: "api-tools", label: "API Tools", desc: "Инструменты в API: bash, code execution, computer use, web search, память." },
+      { slug: "api-io", label: "API I/O", desc: "Вход и выход вызова: стриминг, структурированный ответ, файлы, картинки, ошибки." },
+      { slug: "reasoning", label: "Reasoning", desc: "Управление размышлением: extended/adaptive thinking, think-инструмент, батчи." },
       { slug: "pricing", label: "Pricing", desc: "Цена за миллион токенов. Input/output, кэширование, batch-скидки." },
+      { slug: "evals", label: "Evals", desc: "Как понять, что стало хуже: эвалы, LLM-as-judge, golden set, дрейф после апдейта." },
       { slug: "agentic-patterns", label: "Agentic Patterns", desc: "Паттерны автономных агентов. ReAct, Chain-of-Thought, рефлексия, планирование." },
     ],
   },
@@ -183,6 +198,7 @@ export const TOOLS_MENU = [
       { slug: "vscode", label: "VS Code", desc: "Расширения редактора. Claude прямо в IDE, рядом с кодом." },
       { slug: "editors", label: "Editors", desc: "Интеграции для других редакторов — Neovim, Emacs и т.п. Claude, не выходя из редактора." },
       { slug: "mobile", label: "Mobile", desc: "iOS и Android приложения. Claude в кармане, с голосовым вводом." },
+      { slug: "terminal", label: "Terminal", desc: "Терминальные обвязки: TUI-клиенты, statusline, мультиплексор сессий Claude Code." },
     ],
   },
   {
@@ -289,4 +305,5 @@ export const GUIDE_MENU = [
   { level: 2, label: "Уверенный пользователь", icon: "level-2", desc: "Проекты, Artifacts, Skills, коннекторы, Research, память, Styles." },
   { level: 3, label: "Продвинутый", icon: "level-3", desc: "Установка, рабочий процесс, код-ревью, CLAUDE.md, субагенты, MCP, Hooks." },
   { level: 4, label: "Мастер", icon: "level-4", desc: "Агентные паттерны, контекст, свои команды, SDK, MCP+Docker, кэш." },
+  { level: 5, label: "Продакшен", icon: "level-5", desc: "Свой MCP-сервер, Agent SDK, хуки как контроль качества, эвалы, бюджет, выкатка." },
 ];

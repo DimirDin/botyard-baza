@@ -59,10 +59,18 @@ const components = [
 ];
 
 const cheatsheets = [
-  { slug: "cheat-cc-slash", title: "Slash-команды Claude Code", category: "code", sort_order: 10,
+  { slug: "cheat-cc-hotkeys-slash", title: "Хоткеи и slash-команды Claude Code", category: "claude-code", sort_order: 10,
     body_md: "| Команда | Что делает |\n|---|---|\n| /help | справка |\n| /clear | очистить контекст |" },
+  { slug: "cheat-cc-hooks-events", title: "События хуков Claude Code", category: "claude-code", sort_order: 60,
+    body_md: "| Группа | События |\n|---|---|\n| Сессия | SessionStart, SessionEnd |" },
   { slug: "cheat-api-limits-models", title: "Модели, лимиты и коды ошибок API", category: "api", sort_order: 30,
     body_md: "| Модель | Контекст |\n|---|---|\n| Sonnet 5 | 1M |" },
+  { slug: "cheat-sdk-options", title: "Опции Claude Agent SDK", category: "api", sort_order: 70,
+    body_md: "| Опция | Что делает |\n|---|---|\n| max_turns | потолок ходов |" },
+  { slug: "cheat-cowork", title: "Claude Cowork: платформы, режимы, ограничения", category: "claude-ai", sort_order: 85,
+    body_md: "| Платформа | Планы |\n|---|---|\n| Десктоп | Все платные |" },
+  { slug: "cheat-legacy-unknown", title: "Категория вне реестра (проверка фолбэка)", category: "legacy", sort_order: 99,
+    body_md: "Проверяем, что неизвестная категория не теряется, а уезжает в конец." },
 ];
 
 let mockFavorites = [{ item_type: "entry", item_id: 3 }];

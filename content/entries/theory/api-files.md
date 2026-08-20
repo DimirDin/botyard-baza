@@ -3,7 +3,7 @@ slug: api-files
 title: "Files API: загрузи один раз — используй много"
 summary: "Загрузка файлов по file_id вместо base64 в каждом запросе. Меньше трафика и дублей."
 section: theory
-group: models
+group: api-io
 tags: [api, files]
 doc_url: "https://docs.claude.com/en/build-with-claude/files"
 sort_order: 105

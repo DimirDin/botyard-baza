@@ -3,7 +3,7 @@ slug: api-vision-processing
 title: "Vision API: обработка изображений"
 summary: "Как Claude анализирует UI-макеты и скриншоты, лимиты по весу файлов и расчёт токенов за картинки."
 section: theory
-group: models
+group: api-io
 tags: [api, vision, images]
 doc_url: "https://platform.claude.com"
 sort_order: 80

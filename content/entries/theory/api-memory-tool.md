@@ -3,7 +3,7 @@ slug: api-memory-tool
 title: "Memory tool: файловая память агента между сессиями"
 summary: "Клиентский инструмент, где Claude хранит заметки в файлах и подтягивает их в следующих сессиях."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, memory]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/memory-tool"
 sort_order: 111

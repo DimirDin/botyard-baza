@@ -3,7 +3,7 @@ slug: api-tool-use-json
 title: "Tool Use: вызов инструментов из API"
 summary: "Проектирование JSON-схем и обработка структурированных ответов модели для интеграции с внешними системами."
 section: theory
-group: models
+group: api-tools
 tags: [api, tool-use, function-calling]
 doc_url: "https://platform.claude.com"
 sort_order: 20

@@ -3,7 +3,7 @@ slug: api-rate-limits-tiers
 title: "Rate Limits и тиры аккаунта"
 summary: "Как устроены лимиты RPM/TPM, ошибка 429 и повышение уровня аккаунта в Anthropic Console."
 section: theory
-group: pricing
+group: models
 tags: [api, rate-limits]
 doc_url: "https://platform.claude.com"
 sort_order: 60

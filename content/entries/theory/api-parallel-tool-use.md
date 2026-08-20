@@ -3,7 +3,7 @@ slug: api-parallel-tool-use
 title: "Parallel tool use: несколько инструментов за один ход"
 summary: "Claude может вызвать несколько тулов одновременно. Как включить и обработать."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, parallel]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/parallel-tool-use"
 sort_order: 117

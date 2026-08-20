@@ -3,7 +3,7 @@ slug: api-service-tiers
 title: "Service tiers: priority, standard и batch"
 summary: "Уровни обслуживания API — как балансировать между скоростью, ценой и надёжностью под нагрузкой."
 section: theory
-group: pricing
+group: models
 tags: [api, cost, latency]
 doc_url: "https://docs.claude.com/en/api/service-tiers"
 sort_order: 122

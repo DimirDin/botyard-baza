@@ -3,7 +3,7 @@ slug: api-fine-grained-streaming
 title: "Fine-grained tool streaming: аргументы тулов по мере генерации"
 summary: "Стриминг больших аргументов инструмента кусками, без ожидания полного JSON."
 section: theory
-group: models
+group: api-io
 tags: [api, tools, streaming]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/fine-grained-tool-streaming"
 sort_order: 119

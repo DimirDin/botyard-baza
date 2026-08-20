@@ -3,7 +3,7 @@ slug: api-code-execution-tool
 title: "Code execution tool: песочница Python/Bash в API"
 summary: "Claude пишет и запускает код в изолированной среде: анализ данных, файлы, графики."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, code-execution]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/code-execution-tool"
 sort_order: 110

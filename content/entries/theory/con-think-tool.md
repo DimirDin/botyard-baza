@@ -3,7 +3,7 @@ slug: con-think-tool
 title: "«Think» tool: место остановиться и подумать"
 summary: "Простой тул для структурированного мышления в агентных циклах. И почему теперь чаще берут extended thinking."
 section: theory
-group: agentic-patterns
+group: reasoning
 tags: [agents, reasoning, engineering]
 doc_url: "https://www.anthropic.com/engineering/claude-think-tool"
 sort_order: 129

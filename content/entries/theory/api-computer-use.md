@@ -3,7 +3,7 @@ slug: api-computer-use
 title: "Computer use: Claude управляет десктопом"
 summary: "Beta-инструмент: скриншоты + мышь/клавиатура. Клик по интерфейсам как человек."
 section: theory
-group: models
+group: api-tools
 tags: [api, tools, computer-use, beta]
 doc_url: "https://docs.claude.com/en/agents-and-tools/tool-use/computer-use-tool"
 sort_order: 114

@@ -6,6 +6,7 @@ import { SectionTabs, GroupList } from "../components/SectionNav";
 import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { BASE_MENU } from "../config/menu";
 import { api } from "../lib/api";
+import { groupCheatsheets } from "../lib/cheatsheets";
 
 export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
   const [tab, setTab] = useState(() => initial?.tab || "code");
@@ -88,16 +89,20 @@ export function EntriesListScreen({ initial, onOpenEntry, onNavigate }) {
           {cheatCurrent === "loading" && <Spinner />}
           {cheatList && cheatList.length === 0 && <EmptyState />}
 
-          <div className="stack">
-            {cheatList?.map((c) => (
-              <div key={c.slug} className="card" onClick={() => openCheat(c.slug)}>
-                <div className="card__pad">
-                  <span className="card__title">{c.title}</span>
-                  <p className="card__meta">{c.category}</p>
-                </div>
+          {cheatList && groupCheatsheets(cheatList).map((group) => (
+            <div key={group.slug} className="sect">
+              <span className="eyebrow">{group.label}</span>
+              <div className="stack">
+                {group.items.map((c) => (
+                  <div key={c.slug} className="card" onClick={() => openCheat(c.slug)}>
+                    <div className="card__pad">
+                      <span className="card__title">{c.title}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </>
     );

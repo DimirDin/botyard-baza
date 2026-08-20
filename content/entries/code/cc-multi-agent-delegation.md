@@ -4,6 +4,7 @@ title: "Делегирование задач и многоагентная ор
 section: code
 group: subagents
 summary: "Практическое руководство по вызову суб-агентов, изолированным воркспейсам и изоляции контекста в сложных параллельных задачах."
+doc_url: "https://code.claude.com/docs/en/sub-agents"
 sort_order: 10
 updated_at: 2026-07-26
 ---

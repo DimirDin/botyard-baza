@@ -3,7 +3,7 @@ slug: api-citations
 title: "Citations: ответы с цитатами из твоих документов"
 summary: "Claude возвращает точные пассажи-источники под каждое утверждение. Проверяемость из коробки."
 section: theory
-group: models
+group: api-io
 tags: [api, citations, rag]
 doc_url: "https://docs.claude.com/en/build-with-claude/citations"
 sort_order: 103

@@ -3,7 +3,7 @@ slug: api-pdf-support
 title: "PDF в API: текст + зрение по страницам"
 summary: "Как скармливать PDF в Messages API — извлечение текста и визуальный анализ страниц."
 section: theory
-group: models
+group: api-io
 tags: [api, pdf, vision]
 doc_url: "https://docs.claude.com/en/build-with-claude/pdf-support"
 sort_order: 104
