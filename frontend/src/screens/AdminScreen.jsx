@@ -8,23 +8,33 @@ const SECTION_LABEL = { code: "Код", chat: "Chat/Claude.ai", design: "Диз�
 const FAV_LABEL = { entry: "статья", tool: "инструмент", prompt: "промпт" };
 
 export function AdminScreen({ onBack }) {
-  const [activeTab, setActiveTab] = useState("overview"); // overview | content | users | live
+  const [activeTab, setActiveTab] = useState("overview"); // overview | content | search | users | live
   const [stats, setStats] = useState(null);
   const [analytics, setAnalytics] = useState(null);
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
+  const [gaps, setGaps] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const loadData = () => {
     setLoading(true);
     setError(false);
-    Promise.all([api.adminStats(), api.adminAnalytics(), api.adminUsers(), api.adminEvents()])
-      .then(([statsRes, analyticsRes, usersRes, eventsRes]) => {
+    Promise.all([
+      api.adminStats(),
+      api.adminAnalytics(),
+      api.adminUsers(),
+      api.adminEvents(),
+      // отдельный catch: аналитика поиска — не критичная часть экрана,
+      // её падение (старый backend, ошибка SQL) не должно ронять всю админку
+      api.adminSearchGaps().catch(() => null),
+    ])
+      .then(([statsRes, analyticsRes, usersRes, eventsRes, gapsRes]) => {
         setStats(statsRes);
         setAnalytics(analyticsRes);
         setUsers(usersRes);
         setEvents(eventsRes);
+        setGaps(gapsRes);
         setLoading(false);
       })
       .catch((err) => {
@@ -46,6 +56,7 @@ export function AdminScreen({ onBack }) {
   const tabs = [
     { id: "overview", label: "📊 обзор" },
     { id: "content", label: "интересы" },
+    { id: "search", label: `🔍 спрос${gaps?.empty_30d ? ` (${gaps.empty_30d})` : ""}` },
     { id: "users", label: `users (${users.length})` },
     { id: "live", label: `📡 live (${events.length})` },
   ];
@@ -96,6 +107,8 @@ export function AdminScreen({ onBack }) {
             {activeTab === "content" && (
               <ContentTab analytics={analytics} />
             )}
+
+            {activeTab === "search" && <SearchGapsTab gaps={gaps} />}
 
             {activeTab === "users" && <UsersTab users={users} />}
 
@@ -226,6 +239,58 @@ function ContentTab({ analytics }) {
           )}
         </Section>
       )}
+    </>
+  );
+}
+
+function SearchGapsTab({ gaps }) {
+  if (!gaps) return <p style={{ color: "var(--text-3)" }}>нет данных</p>;
+
+  const rows = gaps.zero_result || [];
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 20 }}>
+        <StatCard label="поисков / 30д" value={gaps.searches_30d} />
+        <StatCard label="без результата" value={gaps.empty_30d} />
+        <StatCard label="доля пустых" value={`${gaps.empty_share_pct}%`} />
+      </div>
+
+      <Section label="искали и не нашли — 90 дней">
+        {rows.length === 0 ? (
+          <p style={{ color: "var(--text-3)", margin: 0 }}>
+            пусто. либо всё находится, либо логирование только что включено —
+            данные начнут копиться с первых запросов.
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {rows.map((r) => (
+              <div key={r.q} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, wordBreak: "break-word" }}>{r.q}</span>
+                <span style={{ color: "var(--text-3)", fontSize: 12, whiteSpace: "nowrap" }}>
+                  {r.users} чел · {r.hits}×
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </Section>
+
+      <Section label="топ запросов — 30 дней" badgeClass="segment-label--why">
+        {(gaps.top_queries || []).length === 0 ? (
+          <p style={{ color: "var(--text-3)", margin: 0 }}>нет данных</p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {gaps.top_queries.map((r) => (
+              <div key={r.q} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, wordBreak: "break-word" }}>{r.q}</span>
+                <span style={{ color: "var(--text-3)", fontSize: 12, whiteSpace: "nowrap" }}>
+                  {r.users} чел · {r.hits}×
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </Section>
     </>
   );
 }

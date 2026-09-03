@@ -62,4 +62,5 @@ export const api = {
   adminAnalytics: () => request("/admin/analytics"),
   adminUsers: () => request("/admin/users"),
   adminEvents: () => request("/admin/events"),
+  adminSearchGaps: () => request("/admin/search-gaps"),
 };

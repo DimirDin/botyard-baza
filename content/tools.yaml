@@ -358,7 +358,7 @@
 # modelcontextprotocol/servers уже есть в списке выше и покрывает все три сервера.
 
 - repo: microsoft/playwright-mcp
-  category: mcp/servers
+  category: mcp/web
   description_ru: "Браузерная автоматизация и QA-тестирование сайтов через Playwright по протоколу MCP."
   badge: editors_choice
   verify_status: check
@@ -465,7 +465,7 @@
     свой `apiKey` для выбранного провайдера при запуске Agent TARS.
 
 - repo: exa-labs/exa-mcp-server
-  category: mcp/servers
+  category: mcp/web
   description_ru: "Поиск в вебе, спроектированный специально под LLM — чистый текст без рекламы и шума."
   badge:
   verify_status: check
@@ -514,7 +514,7 @@
     (`web_search_exa`, `web_search_advanced_exa`), а не устаревшие имена из старых примеров.
 
 - repo: upstash/context7
-  category: mcp/servers
+  category: mcp/devtools
   description_ru: "Подтягивает свежую, версионированную документацию библиотек прямо в контекст модели."
   badge: editors_choice
   verify_status: check
@@ -848,7 +848,7 @@
     `docker mcp feature enable profiles`.
 
 - repo: southleft/figma-console-mcp
-  category: mcp/servers
+  category: mcp/creative
   description_ru: "MCP-сервер для доступа к консоли и данным Figma прямо из агента."
   badge:
   verify_status: check
@@ -2497,7 +2497,7 @@
     Без флага `-c` инструмент по умолчанию берёт **конфиг Claude Desktop** — если структура конфига отличается, mcp-cli просто не найдёт сервера. Хранит OAuth-токены локально; чистятся командой `npx @wong2/mcp-cli purge`.
 
 - repo: redis/mcp-redis
-  category: mcp/servers
+  category: mcp/data
   badge: null
   description_ru: "Официальный MCP-сервер от команды Redis — natural-language интерфейс к hash/list/set/sorted set/stream и JSON-документам, с поддержкой векторного поиска и EntraID-аутентификации для Azure."
   verify_status: known
@@ -2522,7 +2522,7 @@
     Также доступен как Docker-образ (`mcp/redis`) — но независимо от способа установки нужен доступный Redis-инстанс с указанным URL/паролем; сервер сам по себе базу не поднимает. Лицензия — **MIT**.
 
 - repo: supabase/mcp
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Официальный MCP-сервер Supabase — подключает Cursor, Claude и другие AI-ассистенты напрямую к вашим проектам Supabase для работы с базой данных, Edge Functions и хранилищем."
   badge: null
   verify_status: known
@@ -2566,7 +2566,7 @@
     Без `project_ref` сервер видит **все проекты организации**, а без `read_only=true` LLM может выполнять `apply_migration`, `create_project`, `deploy_edge_function` и другие мутирующие операции — README прямо советует включать read-only режим по умолчанию и сначала изучить security best practices. Сервер помечен как pre-1.0 — ожидайте breaking changes между версиями.
 
 - repo: github/github-mcp-server
-  category: mcp/servers
+  category: mcp/devtools
   description_ru: "Официальный MCP-сервер GitHub — даёт AI-агентам доступ к репозиториям, issues, PR, Actions и security-алертам через естественный язык, в удалённом или локальном (Docker) варианте."
   badge: editors_choice
   verify_status: known
@@ -2611,7 +2611,7 @@
     Совместимость с remote-хостом требует VS Code 1.101+ или другой MCP-хост с поддержкой удалённых серверов; GitHub Enterprise Server **не** поддерживает remote-хостинг — только локальный сервер. Insiders Mode (`/mcp/insiders`) даёт ранний доступ к экспериментальным фичам, но может быть нестабилен.
 
 - repo: firebase/firebase-tools
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Не отдельный MCP-сервер, а фича внутри официального CLI firebase-tools: та же утилита, которой деплоят Firebase-проекты, содержит встроенный Firebase MCP Server (папка src/mcp)."
   badge: null
   verify_status: known
@@ -2650,7 +2650,7 @@
     Аутентификация через **User Token** (`FIREBASE_TOKEN` / `firebase login:ci`) помечена в README как **deprecated** и будет удалена в будущей мажорной версии — вместо неё рекомендован сервисный аккаунт через `GOOGLE_APPLICATION_CREDENTIALS`. Раз MCP — это подкомандный функционал внутри общего CLI, ищи документацию и настройку MCP не в корневом README, а в `src/mcp`.
 
 - repo: ansible-collections/ansible.mcp
-  category: mcp/servers
+  category: mcp/cloud
   description_ru: "Официальная коллекция Ansible Cloud Content team для взаимодействия с MCP-серверами прямо из playbook'ов — маленький, но официальный мост между Ansible-автоматизацией и Model Context Protocol."
   badge: null
   verify_status: known
@@ -3614,7 +3614,7 @@
     Клонировать репозиторий нужно **обязательно с `--recurse-submodules`** — иначе сборка не найдёт нужные подмодули, и придётся вручную выполнять `git submodule update --recursive --init`. Для GPU-инференса через Docker потребуется правильно настроенный `--gpus all` и совместимый драйвер CUDA.
 
 - repo: stripe/agent-toolkit
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "Официальный MCP/инструментарий от Stripe для работы с платежами, подписками и биллингом через агента."
   badge: editors_choice
   verify_status: known
@@ -3637,7 +3637,7 @@
     Работа с реальными платежами через агента требует тестового режима на этапе отладки — не давай агенту боевой ключ без крайней необходимости.
 
 - repo: getsentry/sentry-mcp
-  category: mcp/servers
+  category: mcp/cloud
   description_ru: "Официальный hosted MCP-сервер Sentry — триаж ошибок, анализ стектрейсов и автоматическое создание PR с фиксом."
   badge: null
   verify_status: check
@@ -3752,7 +3752,7 @@
     Требует установленного Claude Code CLI отдельно — пакет является обёрткой над ним.
 
 - repo: firecrawl/firecrawl-mcp-server
-  category: mcp/servers
+  category: mcp/web
   description_ru: "MCP-сервер Firecrawl: веб-скрапинг и краулинг сайтов в структурированный контент прямо из Claude."
   verify_status: known
   body_md: |
@@ -3778,7 +3778,7 @@
     Нужен API-ключ Firecrawl (firecrawl.dev) — сервис не полностью локальный, часть функций идёт через облако авторов.
 
 - repo: netdata/netdata
-  category: mcp/servers
+  category: mcp/cloud
   description_ru: "Платформа мониторинга инфраструктуры в реальном времени; включает MCP-сервер для запросов к метрикам из Claude."
   verify_status: known
   body_md: |
@@ -3799,7 +3799,7 @@
     Это не MCP-сервер сам по себе, а вся платформа наблюдаемости — развёртывание тяжелее, чем у типичного точечного MCP-сервера.
 
 - repo: brightdata/brightdata-mcp
-  category: mcp/servers
+  category: mcp/web
   description_ru: "MCP-сервер Bright Data: доступ к публичным веб-данным и обход блокировок при сборе информации из Claude."
   verify_status: known
   body_md: |
@@ -3827,7 +3827,7 @@
     Нужен платный аккаунт и токен Bright Data.
 
 - repo: gannonh/firebase-mcp
-  category: mcp/servers
+  category: mcp/data
   description_ru: "MCP-сервер для Firebase: работа с Firestore, Auth и Storage проекта прямо из Claude."
   verify_status: known
   body_md: |
@@ -3856,7 +3856,7 @@
     Известная проблема: `firestore_list_collections` может кидать Zod validation error в логах клиента — это баг валидации в MCP SDK, на сами данные не влияет.
 
 - repo: karanb192/reddit-mcp-buddy
-  category: mcp/servers
+  category: mcp/web
   description_ru: "MCP-сервер для Reddit: чтение постов, комментариев и поиск по сабреддитам без API-ключей."
   verify_status: known
   body_md: |
@@ -3880,7 +3880,7 @@
     Анонимный режим ограничен ~10 запросами/мин, авторизованный поднимает лимит до 100 rpm.
 
 - repo: awslabs/mcp
-  category: mcp/servers
+  category: mcp/cloud
   description_ru: "Официальная коллекция MCP-серверов AWS Labs для работы с сервисами AWS из Claude."
   verify_status: known
   body_md: |
@@ -3926,7 +3926,7 @@
     REST API для поиска и публикации серверов; живая документация — registry.modelcontextprotocol.io/docs.
 
 - repo: Coding-Solo/godot-mcp
-  category: mcp/servers
+  category: mcp/creative
   description_ru: "MCP-сервер для движка Godot: управление сценами и запуск проекта из Claude."
   verify_status: known
   body_md: |
@@ -3949,7 +3949,7 @@
     Для сборки из исходников: git clone + npm install + npm run build.
 
 - repo: GLips/Figma-Context-MCP
-  category: mcp/servers
+  category: mcp/creative
   description_ru: "MCP-сервер, отдающий данные макета Figma в Claude для генерации кода по дизайну."
   verify_status: known
   body_md: |
@@ -3981,7 +3981,7 @@
     Нужен Figma API-токен.
 
 - repo: ahujasid/blender-mcp
-  category: mcp/servers
+  category: mcp/creative
   description_ru: "MCP-сервер для Blender: создание и правка 3D-сцен через Claude."
   verify_status: known
   body_md: |
@@ -4003,7 +4003,7 @@
     DISABLE_TELEMETRY=true uvx blender-mcp — запуск без отправки телеметрии.
 
 - repo: haris-musa/excel-mcp-server
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "MCP-сервер для чтения и записи Excel-файлов без установленного Office."
   verify_status: known
   body_md: |
@@ -4029,7 +4029,7 @@
     Путь к файлам задаётся переменной `EXCEL_FILES_PATH`.
 
 - repo: idosal/git-mcp
-  category: mcp/servers
+  category: mcp/devtools
   description_ru: "MCP-сервер, превращающий любой GitHub-репозиторий в источник контекста для Claude."
   verify_status: known
   body_md: |
@@ -4050,7 +4050,7 @@
     Работает как удалённый сервис — свой сервер поднимать не обязательно. Для сборки из исходников: git clone + pnpm install + npx @modelcontextprotocol/inspector.
 
 - repo: googleapis/mcp-toolbox
-  category: mcp/servers
+  category: mcp/data
   description_ru: "MCP Toolbox для баз данных от Google — сервер для безопасного доступа к SQL-БД из Claude."
   verify_status: known
   body_md: |
@@ -4075,7 +4075,7 @@
     Репозиторий переименован из googleapis/genai-toolbox.
 
 - repo: CodeGraphContext/CodeGraphContext
-  category: mcp/servers
+  category: mcp/devtools
   description_ru: "MCP-сервер, строящий граф кода для навигации по зависимостям и структуре проекта."
   verify_status: known
   body_md: |
@@ -4099,7 +4099,7 @@
     Репозиторий переехал (был Shashankss1205/CodeGraphContext).
 
 - repo: blazickjp/arxiv-mcp-server
-  category: mcp/servers
+  category: mcp/web
   description_ru: "MCP-сервер для поиска и чтения научных статей с arXiv из Claude."
   verify_status: known
   body_md: |
@@ -4121,7 +4121,7 @@
     Авторы прямо предупреждают о риске prompt injection: вредоносно оформленная статья может содержать инструкции, атакующие поведение агента (OWASP LLM01).
 
 - repo: ezyang/codemcp
-  category: mcp/servers
+  category: mcp/devtools
   description_ru: "MCP-сервер для парного программирования: даёт Claude инструменты чтения и правки файлов проекта."
   verify_status: known
   body_md: |
@@ -5176,7 +5176,7 @@
     Проект очень большой и содержит много абстракций, что может усложнить простую отправку сообщений по сравнению с чистым SDK.
 
 - repo: DeusData/codebase-memory-mcp
-  category: mcp/servers
+  category: mcp/devtools
   description_ru: "MCP-сервер, индексирующий кодовую базу в граф знаний (158 языков) — структурные запросы вместо grep-by-grep, экономия токенов в разы."
   verify_status: check
   body_md: |
@@ -5275,7 +5275,7 @@
     README проекта написан в подчёркнуто гипертрофированном growth-hacking стиле — переводы на 42 языка «из коробки», WhatsApp/Discord/Telegram-сообщества, Trendshift-бейджи, громкие цифры вроде «1.6B бесплатных токенов/мес». Само существование репозитория и звёзды подтверждены через GitHub API, но независимых обзоров вне промо-материалов самого проекта пока не нашлось — прежде чем пускать через него реальный трафик или ключи, стоит самостоятельно проверить исходники и политику передачи данных сторонним провайдерам.
 
 - repo: Panniantong/Agent-Reach
-  category: mcp/servers
+  category: mcp/web
   description_ru: "Даёт AI-агенту доступ к чтению Twitter/X, Reddit, YouTube, GitHub и китайских платформ (Bilibili, Сяохуншу) без платных API — одна команда установки."
   verify_status: check
   body_md: |
@@ -6182,7 +6182,7 @@
     Проект сменил название и владельца репозитория (теперь под Vercel) — старые ссылки/примеры на `ai-utils` могут вести на устаревшую версию API.
 
 - repo: crystaldba/postgres-mcp
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Продвинутый MCP-сервер для PostgreSQL: анализ индексов, объяснение планов запросов, безопасный режим только для чтения."
   verify_status: check
   body_md: |
@@ -6205,7 +6205,7 @@
     Полный (unrestricted) режим даёт агенту возможность выполнять произвольный SQL, включая `DROP`/`DELETE` — на проде используйте только `restricted`-режим и read-replica.
 
 - repo: jerhadf/linear-mcp-server
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "MCP-сервер для интеграции с Linear — создание, поиск и обновление задач прямо из диалога с Claude."
   verify_status: check
   body_md: |
@@ -7354,7 +7354,7 @@
     Синтаксис и набор команд заметно отличаются от bash/zsh — существующие shell-скрипты не заработают без переписывания под Nushell.
 
 - repo: motherduckdb/mcp-server-motherduck
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Официальный MCP-сервер от MotherDuck для работы с базами данных DuckDB и облачной аналитикой MotherDuck."
   verify_status: known
   body_md: |
@@ -7390,7 +7390,7 @@
     По умолчанию сервер работает в безопасном режиме read-only. Если вам нужно изменять таблицы (выполнять `INSERT`, `CREATE` и т.д.), добавьте флаг `--read-write` в аргументы запуска.
 
 - repo: kirbah/mcp-youtube
-  category: mcp/servers
+  category: mcp/web
   description_ru: "Высокоэффективный MCP-сервер для получения информации и текстовых транскриптов видео с YouTube."
   verify_status: known
   body_md: |
@@ -7422,7 +7422,7 @@
     Извлечение текстовой расшифровки зависит от наличия субтитров к видео на самом YouTube (как загруженных автором, так и автоматически сгенерированных).
 
 - repo: Azure/mcp-kubernetes
-  category: mcp/servers
+  category: mcp/cloud
   description_ru: "Официальный MCP-сервер от Azure для интеграции Claude с кластерами Kubernetes, позволяющий управлять ресурсами и читать логи."
   verify_status: known
   body_md: |
@@ -7444,7 +7444,7 @@
     ```
 
 - repo: makenotion/notion-mcp-server
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "MCP-сервер для полной интеграции Claude с вашим рабочим пространством Notion: чтение страниц, создание заметок и поиск."
   verify_status: known
   body_md: |
@@ -7469,7 +7469,7 @@
     ```
 
 - repo: deepfates/mcp-replicate
-  category: mcp/servers
+  category: mcp/creative
   description_ru: "MCP-сервер для доступа к моделям машинного обучения на платформе Replicate, включая Flux и Llama."
   verify_status: known
   body_md: |
@@ -7494,7 +7494,7 @@
     ```
 
 - repo: tacticlaunch/mcp-linear
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "MCP-сервер для управления задачами и проектами в трекере Linear: создание issues, трекинг статусов и комментирование."
   verify_status: known
   body_md: |
@@ -7519,7 +7519,7 @@
     ```
 
 - repo: StatelyCloud/statelydb-mcp-server
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Официальный MCP-сервер от Stately для генерации, визуализации и работы со схемами баз данных и логикой переходов."
   verify_status: known
   body_md: |
@@ -7541,7 +7541,7 @@
     ```
 
 - repo: taylorwilsdon/google_workspace_mcp
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "Комплексный MCP-сервер для работы со всеми сервисами Google Workspace (Docs, Sheets, Gmail, Calendar) в одном плагине."
   verify_status: known
   body_md: |
@@ -7563,7 +7563,7 @@
     ```
 
 - repo: zilliztech/mcp-server-milvus
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Официальный MCP-сервер от Zilliz для интеграции Claude с векторной базой данных Milvus, семантического поиска и RAG."
   verify_status: known
   body_md: |
@@ -7585,7 +7585,7 @@
     ```
 
 - repo: tinybirdco/mcp-tinybird
-  category: mcp/servers
+  category: mcp/data
   description_ru: "Официальный MCP-сервер от Tinybird для управления аналитическими API, логами и источниками данных в реальном времени."
   verify_status: known
   body_md: |
@@ -7610,7 +7610,7 @@
     ```
 
 - repo: atharvagupta2003/mcp-stripe
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "Общественный MCP-сервер для Stripe: управление платежами, клиентами, логами оплаты и возвратами."
   verify_status: known
   body_md: |
@@ -7635,7 +7635,7 @@
     ```
 
 - repo: SmartManoj/Google-Sheets-MCP
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "Python-совместимый MCP-сервер для быстрой интеграции Google Drive и Таблиц (Google Sheets)."
   verify_status: known
   body_md: |
@@ -7657,7 +7657,7 @@
     Подходит для создания сложных цепочек рассуждений, авто-сжатия запросов и повышения пропускной способности при генерации структурированных ответов.
 
 - repo: dudegladiator/spreadsheet-mcp
-  category: mcp/servers
+  category: mcp/saas
   description_ru: "Продвинутый MCP-сервер для работы со сводными таблицами, ячейками, формулами и экспортом диаграмм."
   verify_status: known
   body_md: |
@@ -7676,7 +7676,7 @@
     **mcp-server** от ProFullStack — это готовый бойлерплейт для разработчиков, желающих написать свой MCP-сервер с поддержкой Stdio и SSE транспортов.
 
 - repo: tavily-ai/tavily-mcp
-  category: mcp/servers
+  category: mcp/web
   description_ru: "Официальный MCP-сервер от Tavily для релевантного веб-поиска и выемки очищенного от шума контента для LLM."
   badge: editors_choice
   verify_status: known
@@ -7694,7 +7694,7 @@
     ```
 
 - repo: cloudflare/mcp-server-cloudflare
-  category: mcp/servers
+  category: mcp/cloud
   description_ru: "Официальный MCP-сервер Cloudflare для прямого управления Workers, KV, R2 и базами данных D1."
   verify_status: known
   body_md: |
@@ -7706,7 +7706,7 @@
     - Запросы к базам данных D1 (SQLite at edge) и хранилищам ключей KV / R2.
 
 - repo: chroma-core/chroma-mcp
-  category: mcp/servers
+  category: mcp/data
   description_ru: "MCP-сервер для подключения векторной базы данных ChromaDB и реализации семантического RAG-поиска."
   verify_status: known
   body_md: |
@@ -7718,7 +7718,7 @@
     - Хранение и поиск векторных эмбеддингов.
 
 - repo: browserbase/mcp-server-browserbase
-  category: mcp/servers
+  category: mcp/web
   description_ru: "Облачный MCP-сервер для автоматизации браузера с обходом капч и проксированием в безопасном окружении."
   verify_status: known
   body_md: |

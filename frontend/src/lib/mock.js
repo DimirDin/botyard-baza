@@ -44,8 +44,8 @@ const tools = [
 ];
 
 const prompts = [
-  { id: 1, slug: "code-review-strict", category: "review/pr-review", title: "Строгий код-ревью", body: "Проверь этот diff на баги, забытые edge-cases и небезопасный код...", comment: "Перед мержем в main", copies_count: 142 },
-  { id: 2, slug: "ru-en-compress", category: "content/compress", title: "RU→EN компрессия контекста", body: "Переведи системные инструкции на английский, сохранив смысл...", comment: "Экономия токенов в системном промпте", copies_count: 98 },
+  { id: 1, slug: "code-review-strict", category: "review/pr-review", title: "Строгий код-ревью", body: "Проверь этот diff на баги, забытые edge-cases и небезопасный код.\n\n{diff}\n\nСтек: {стек}. Отвечай списком.", comment: "Перед мержем в main", copies_count: 142 },
+  { id: 2, slug: "ru-en-compress", category: "content/compress", title: "RU→EN компрессия контекста", body: "Переведи системные инструкции на английский, сохранив смысл.\n\n{текст}", comment: "Экономия токенов в системном промпте", copies_count: 98 },
 ];
 
 
@@ -110,7 +110,7 @@ let mockGuideProgress = new Set([1]);
 export async function mockFetch(path, options = {}) {
   await new Promise((r) => setTimeout(r, 250));
 
-  if (path === "/gate/check" || path === "/gate/recheck") return { subscribed: true, user: { tg_id: 1, username: "dev" } };
+  if (path === "/gate/check" || path === "/gate/recheck") return { subscribed: true, user: { tg_id: 1, username: "dev", is_admin: true } };
   if (path === "/home") {
     return {
       counts: { entries_count: 30, tools_count: 18, prompts_count: 33 },
@@ -322,8 +322,24 @@ export async function mockFetch(path, options = {}) {
   if (path === "/admin/events") {
     return [
       { id: 1, tg_id: 1, event: "view_entry", payload: { slug: "cc-slash-commands", section: "code" }, created_at: "2026-07-18T09:00:00Z", username: "dev" },
-      { id: 2, tg_id: 2, event: "search", payload: { q: "mcp", results: 4 }, created_at: "2026-07-17T12:00:00Z", username: null },
+      { id: 2, tg_id: 2, event: "search_query", payload: { q: "mcp", total: 4 }, created_at: "2026-07-17T12:00:00Z", username: null },
     ];
+  }
+  if (path === "/admin/search-gaps") {
+    return {
+      searches_30d: 128,
+      empty_30d: 19,
+      empty_share_pct: 14.8,
+      zero_result: [
+        { q: "managed agents", hits: 7, users: 5, last_seen: "2026-09-02T18:00:00Z" },
+        { q: "ant cli", hits: 4, users: 3, last_seen: "2026-09-01T11:00:00Z" },
+        { q: "bedrock", hits: 3, users: 2, last_seen: "2026-08-30T09:00:00Z" },
+      ],
+      top_queries: [
+        { q: "mcp", hits: 41, users: 22 },
+        { q: "hooks", hits: 18, users: 12 },
+      ],
+    };
   }
   return {};
 }

@@ -6,6 +6,8 @@ import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { PROMPTS_MENU } from "../config/menu";
 import { api } from "../lib/api";
 import { showToast } from "../lib/toast";
+import { PromptComposer } from "../components/PromptComposer";
+import { extractPlaceholders } from "../lib/placeholders";
 
 // initial — переход с конкретного промпта (например, «топ промптов» на Home):
 // { category: "content/compress", slug: "..." } сразу открывает нужную группу
@@ -17,6 +19,8 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
   const [error, setError] = useState(false);
   const highlightSlug = initial?.slug;
   const highlightRef = useRef(null);
+  // slug промпта, для которого открыт конструктор переменных (одновременно только один)
+  const [composing, setComposing] = useState(null);
 
   const load = () => {
     setError(false);
@@ -112,16 +116,39 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
                     </p>
                     <div className="card__row">
                       <span className="card__meta">{p.copies_count} копирований</span>
-                      <button
-                        onClick={() => handleCopy(p)}
-                        style={{
-                          background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
-                          padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600,
-                        }}
-                      >
-                        скопировать
-                      </button>
+                      <span style={{ display: "flex", gap: 6 }}>
+                        {extractPlaceholders(p.body).length > 0 && (
+                          <button
+                            onClick={() => setComposing(composing === p.slug ? null : p.slug)}
+                            style={{
+                              background: "transparent", color: "var(--accent)",
+                              border: "1px solid var(--accent)", borderRadius: 4,
+                              padding: "6px 10px", fontFamily: "var(--font-mono)", fontSize: 13,
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            заполнить · {extractPlaceholders(p.body).length}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleCopy(p)}
+                          style={{
+                            background: "var(--accent)", color: "#111110", border: "none", borderRadius: 4,
+                            padding: "6px 12px", fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600,
+                          }}
+                        >
+                          скопировать
+                        </button>
+                      </span>
                     </div>
+
+                    {composing === p.slug && (
+                      <PromptComposer
+                        prompt={p}
+                        onClose={() => setComposing(null)}
+                        onCopied={() => api.copyPrompt(p.slug).catch(() => {})}
+                      />
+                    )}
                   </div>
                 </div>
               ))}

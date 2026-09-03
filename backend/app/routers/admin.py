@@ -306,3 +306,72 @@ async def get_admin_events(user: dict = Depends(require_admin)):
         }
         for r in records
     ]
+
+
+@router.get("/search-gaps")
+async def get_search_gaps(user: dict = Depends(require_admin)):
+    """Что люди ищут и не находят — прямой контент-план из спроса.
+
+    Событие `search_query` пишет backend/app/routers/search.py: в payload лежит сам
+    запрос и число попаданий по каждому источнику. Запросы с total = 0 — это темы,
+    за которыми пришли, но которых в базе нет.
+
+    Раздел появился вместе с логированием поиска: до этого поиск не писал ни одного
+    события, и темы для контент-партий выбирались экспертно, без данных о спросе."""
+    pool = get_pool()
+    async with pool.acquire() as conn:
+        zero = await conn.fetch(
+            """
+            SELECT payload->>'q' AS q,
+                   COUNT(*) AS hits,
+                   COUNT(DISTINCT tg_id) AS users,
+                   MAX(created_at) AS last_seen
+            FROM baza.events
+            WHERE event = 'search_query'
+              AND (payload->>'total')::int = 0
+              AND created_at >= now() - INTERVAL '90 days'
+            GROUP BY payload->>'q'
+            ORDER BY users DESC, hits DESC
+            LIMIT 50
+            """
+        )
+        top = await conn.fetch(
+            """
+            SELECT payload->>'q' AS q,
+                   COUNT(*) AS hits,
+                   COUNT(DISTINCT tg_id) AS users
+            FROM baza.events
+            WHERE event = 'search_query'
+              AND created_at >= now() - INTERVAL '30 days'
+            GROUP BY payload->>'q'
+            ORDER BY users DESC, hits DESC
+            LIMIT 50
+            """
+        )
+        totals = await conn.fetchrow(
+            """
+            SELECT COUNT(*) AS searches,
+                   COUNT(*) FILTER (WHERE (payload->>'total')::int = 0) AS empty
+            FROM baza.events
+            WHERE event = 'search_query'
+              AND created_at >= now() - INTERVAL '30 days'
+            """
+        )
+
+    searches = totals["searches"] or 0
+    empty = totals["empty"] or 0
+    return {
+        "searches_30d": searches,
+        "empty_30d": empty,
+        "empty_share_pct": round(empty / searches * 100, 1) if searches else 0,
+        "zero_result": [
+            {
+                "q": r["q"],
+                "hits": r["hits"],
+                "users": r["users"],
+                "last_seen": r["last_seen"].isoformat() if r["last_seen"] else None,
+            }
+            for r in zero
+        ],
+        "top_queries": [{"q": r["q"], "hits": r["hits"], "users": r["users"]} for r in top],
+    }

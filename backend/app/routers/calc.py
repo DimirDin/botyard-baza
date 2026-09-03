@@ -20,22 +20,37 @@ router = APIRouter(prefix="/api/calc", tags=["calc"], dependencies=[Depends(requ
 _ENCODING = tiktoken.get_encoding("cl100k_base")
 
 # Цены за 1M токенов (input/output), сверено с content/cheatsheets/api-limits-and-models.md
+# (сверка 03.09.2026 по platform.claude.com/docs/en/about-claude/pricing).
+# ВНИМАНИЕ: у Sonnet 5 цена $2/$10 — это ОБЫЧНЫЙ тариф, а не промо. Анонсированный
+# подъём до $3/$15 с 01.09.2026 отменён Anthropic и не состоялся. Ранее здесь стояло
+# $3/$15, из-за чего калькулятор завышал стоимость дефолтной модели в полтора раза.
 MODEL_PRICING = {
     "claude-fable-5": {"input": 10.00, "output": 50.00},
+    "claude-opus-5": {"input": 5.00, "output": 25.00},
     "claude-opus-4-8": {"input": 5.00, "output": 25.00},
-    "claude-sonnet-5": {"input": 3.00, "output": 15.00},
+    "claude-sonnet-5": {"input": 2.00, "output": 10.00},
     "claude-haiku-4-5": {"input": 1.00, "output": 5.00},
 }
 
 # Размер контекстного окна, токенов — сверено с content/cheatsheets/api-limits-and-models.md
 CONTEXT_WINDOW = {
     "claude-fable-5": 1_000_000,
+    "claude-opus-5": 1_000_000,
     "claude-opus-4-8": 1_000_000,
     "claude-sonnet-5": 1_000_000,
     "claude-haiku-4-5": 200_000,
 }
 
-NEWER_TOKENIZER_MODELS = {"claude-fable-5", "claude-mythos-5"}
+# Новый токенайзер — у ВСЕХ моделей 4.7 и новее (не только Fable/Mythos, как считалось
+# раньше): тот же текст даёт ~30% больше токенов. Sonnet 4.6 и старше — прежний токенайзер.
+# Пока в дропдауне нет моделей 4.6 и старше, но список веду по признаку, а не по остатку.
+NEWER_TOKENIZER_MODELS = {
+    "claude-fable-5",
+    "claude-mythos-5",
+    "claude-opus-5",
+    "claude-opus-4-8",
+    "claude-opus-4-7",
+}
 
 TRANSLATE_CACHE_TTL = 60 * 60 * 24  # 24ч
 
@@ -119,8 +134,9 @@ async def calc_tokens(req: CalcRequest, user: dict = Depends(require_subscribed)
         "price_with_caching": price_with_caching,
         "price_with_batch": price_with_batch,
         "model_tokenizer_note": (
-            "Модели Fable 5 / Mythos 5 используют новый токенайзер — тот же текст "
-            "даёт заметно больше токенов, чем на моделях до Opus 4.7."
+            "Эта модель использует новый токенайзер (все модели 4.7 и новее): тот же "
+            "текст даёт примерно на 30% больше токенов, чем на Sonnet 4.6 и более старых. "
+            "Оценка ниже посчитана прежним BPE и для этой модели скорее занижена."
             if req.model in NEWER_TOKENIZER_MODELS else None
         ),
         "context_window": context_window,

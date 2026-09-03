@@ -63,6 +63,9 @@ export const BASE_MENU = [
       { slug: "pricing", label: "Pricing", desc: "Цена за миллион токенов. Input/output, кэширование, batch-скидки." },
       { slug: "evals", label: "Evals", desc: "Как понять, что стало хуже: эвалы, LLM-as-judge, golden set, дрейф после апдейта." },
       { slug: "agentic-patterns", label: "Agentic Patterns", desc: "Паттерны автономных агентов. ReAct, Chain-of-Thought, рефлексия, планирование." },
+      { slug: "managed-agents", label: "Managed Agents", desc: "Агент, которого хостит Anthropic: сессии, песочница, расписание, бюджеты." },
+      { slug: "platforms", label: "Платформы", desc: "Bedrock, Vertex, Foundry, Claude Platform on AWS. Цены, клиенты, резидентность." },
+      { slug: "auth", label: "Доступ и ключи", desc: "ant CLI, профили, OAuth, federation, Admin API. Не только ANTHROPIC_API_KEY." },
     ],
   },
   // Раньше отдельный таб футера — перенесено сюда по требованию продукта,
@@ -160,7 +163,15 @@ export const TOOLS_MENU = [
     slug: "mcp",
     label: "mcp",
     groups: [
-      { slug: "servers", label: "Servers", desc: "Готовые MCP-серверы. Подключают Claude к PostgreSQL, файловой системе, Git и т.д." },
+      // «servers» была свалкой на 52 инструмента — 15% всего каталога в одной плоской
+      // группе. Разобрана по назначению теми же принципами, что theory/models в Базе.
+      { slug: "servers", label: "Каталоги", desc: "Реестры и коллекции MCP-серверов. С чего начинать поиск нужного сервера." },
+      { slug: "data", label: "Базы данных", desc: "Postgres, Redis, Supabase, векторные БД. Запросы к данным прямо из диалога." },
+      { slug: "web", label: "Веб и поиск", desc: "Поиск, скрапинг, браузер, YouTube, arXiv. Всё, что тянет данные из сети." },
+      { slug: "devtools", label: "Код и репозитории", desc: "GitHub, граф кода, память по кодовой базе, свежая документация библиотек." },
+      { slug: "cloud", label: "Облака и инфра", desc: "AWS, Kubernetes, Cloudflare, Ansible, мониторинг и трейсинг ошибок." },
+      { slug: "saas", label: "Рабочие сервисы", desc: "Notion, Linear, Google Workspace, таблицы, платежи. Интеграции с рабочим софтом." },
+      { slug: "creative", label: "3D и дизайн", desc: "Blender, Godot, Figma, генеративные модели. MCP за пределами разработки." },
       { slug: "clients", label: "Clients", desc: "Приложения и библиотеки для подключения к MCP-серверам." },
       { slug: "frameworks", label: "Frameworks", desc: "SDK для написания своих MCP-серверов. Шаблоны, SDK, best practices." },
       { slug: "docker", label: "Docker", desc: "Контейнеризированные MCP-серверы. Запуск в изоляции, без установки зависимостей." },
