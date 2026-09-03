@@ -120,6 +120,22 @@ export async function mockFetch(path, options = {}) {
       },
       top_prompts: prompts.map((p) => ({ slug: p.slug, title: p.title, category: p.category, copies_count: p.copies_count })),
       recent_entries: entries.map((e) => ({ slug: e.slug, title: e.title, updated_at: e.updated_at })),
+      // Топ-10 инструментов по звёздам. В mock всего пара репозиториев, поэтому
+      // добиваем синтетическими — иначе секцию главной не на чем проверить в dev.
+      top_tools: [
+        ...tools.map((t) => ({ repo: t.repo, name: t.name, description_ru: t.description_ru,
+                               category: t.category, stars: t.stars, badge: t.badge,
+                               growth: t.trending_delta })),
+        { repo: "zed-industries/zed", name: "zed", category: "apps/editors", stars: 89716, growth: 240 },
+        { repo: "warpdotdev/Warp", name: "Warp", category: "apps/terminal", stars: 64782, growth: 115 },
+        { repo: "upstash/context7", name: "context7", category: "mcp/devtools", stars: 61583, growth: 157 },
+        { repo: "zylon-ai/private-gpt", name: "private-gpt", category: "libs/python", stars: 57488, growth: 0 },
+        { repo: "wshobson/agents", name: "agents", category: "agents/other", stars: 39386, growth: 109 },
+        { repo: "yamadashy/repomix", name: "repomix", category: "code/skills", stars: 28180, growth: 54 },
+        { repo: "vercel/ai", name: "ai", category: "libs/javascript", stars: 26567, growth: 64 },
+        { repo: "winfunc/opcode", name: "opcode", category: "apps/desktop", stars: 22395, growth: 10 },
+        { repo: "yetone/avante.nvim", name: "avante.nvim", category: "apps/editors", stars: 18147, growth: 14 },
+      ].sort((a, b) => b.stars - a.stars).slice(0, 10),
     };
   }
   if (path === "/favorites/ids") return mockFavorites.map((f) => `${f.item_type}:${f.item_id}`);

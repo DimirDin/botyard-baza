@@ -4,6 +4,7 @@ import { StatsBar } from "../components/StatsBar";
 import { Spinner, ErrorState } from "../components/States";
 import { api } from "../lib/api";
 import { FeedbackForm } from "../components/FeedbackForm";
+import { compactNumber, plural } from "../lib/format";
 
 export function HomeScreen({ user, onNavigate }) {
   const [data, setData] = useState(null);
@@ -67,43 +68,47 @@ export function HomeScreen({ user, onNavigate }) {
             )}
 
             <section className="sect">
-              <span className="segment-label segment-label--why">статья недели</span>
-              {data.recent_entries.length === 0 && <p style={{ color: "var(--text-3)" }}>пока пусто</p>}
-              <div className="stack">
-                {data.recent_entries.slice(0, 1).map((e) => (
-                  <div key={e.slug} className="card" onClick={() => onNavigate("entry", e.slug)}>
-                    <div className="card__pad">
-                      <div className="card__row">
-                        <p className="card__title">{e.title}</p>
-                        <span className="badge">статья</span>
-                      </div>
-                      <p className="card__meta">обновлено {e.updated_at?.slice(0, 10)}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="sect__head">
+                <span className="segment-label segment-label--why">свежее в базе</span>
+                <span className="sect__more" onClick={() => onNavigate("base")}>
+                  все {data.counts.entries_count} →
+                </span>
               </div>
+              {(data.recent_entries ?? []).length === 0 ? (
+                <p style={{ color: "var(--text-3)" }}>пока пусто</p>
+              ) : (
+                <div className="toplist">
+                  {(data.recent_entries ?? []).slice(0, 10).map((e, i) => (
+                    <div key={e.slug} className="toplist__row" onClick={() => onNavigate("entry", e.slug)}>
+                      <span className="toplist__rank">{i + 1}</span>
+                      <span className="toplist__title">{e.title}</span>
+                      <span className="toplist__meta">{e.updated_at?.slice(0, 10)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </section>
 
-            {data.tools_of_week?.length > 0 && (
+            {(data.top_tools ?? []).length > 0 && (
               <section className="sect">
-                <span className="segment-label segment-label--gotcha">5 инструментов недели</span>
-                <div className="stack">
-                  {data.tools_of_week.slice(0, 5).map((t) => (
+                <div className="sect__head">
+                  <span className="segment-label segment-label--gotcha">топ-10 инструментов</span>
+                  <span className="sect__more" onClick={() => onNavigate("tools")}>
+                    все {data.counts.tools_count} →
+                  </span>
+                </div>
+                <div className="toplist">
+                  {data.top_tools.slice(0, 10).map((t, i) => (
                     <div
                       key={t.repo}
-                      className="card"
+                      className="toplist__row"
                       onClick={() => onNavigate("tool", t.repo.replace("/", "__"))}
                     >
-                      <div className="card__pad">
-                        <div className="card__row">
-                          <p className="card__title">{t.name}</p>
-                          {t.badge === "editors_choice" && <span className="chip chip--editors">выбор редакции</span>}
-                        </div>
-                        <p className="card__desc">{t.description_ru}</p>
-                        <p className="card__meta">
-                          ★ {t.stars} <span style={{ color: "var(--seg-what)" }}>▲ +{t.growth}★ за неделю</span>
-                        </p>
-                      </div>
+                      <span className="toplist__rank">{i + 1}</span>
+                      {/* repo, а не name: в один столбец «ai» или «agents» без владельца
+                          не опознать, а описания в компактной строке нет */}
+                      <span className="toplist__title">{t.repo}</span>
+                      <span className="toplist__meta">★ {compactNumber(t.stars)}</span>
                     </div>
                   ))}
                 </div>
@@ -111,18 +116,24 @@ export function HomeScreen({ user, onNavigate }) {
             )}
 
             <section className="sect">
-              <span className="segment-label segment-label--example">топ-5 промптов</span>
-              <div className="stack">
-                {data.top_prompts.slice(0, 5).map((p) => (
+              <div className="sect__head">
+                <span className="segment-label segment-label--example">топ-5 промптов</span>
+                <span className="sect__more" onClick={() => onNavigate("prompts")}>
+                  все {data.counts.prompts_count} →
+                </span>
+              </div>
+              <div className="toplist">
+                {(data.top_prompts ?? []).slice(0, 5).map((p, i) => (
                   <div
                     key={p.slug}
-                    className="card"
+                    className="toplist__row"
                     onClick={() => onNavigate("prompts", { category: p.category, slug: p.slug })}
                   >
-                    <div className="card__pad">
-                      <p className="card__title">{p.title}</p>
-                      <p className="card__meta">{p.copies_count} копирований</p>
-                    </div>
+                    <span className="toplist__rank">{i + 1}</span>
+                    <span className="toplist__title">{p.title}</span>
+                    <span className="toplist__meta">
+                      {compactNumber(p.copies_count)} {plural(p.copies_count, ["копия", "копии", "копий"])}
+                    </span>
                   </div>
                 ))}
               </div>

@@ -937,3 +937,80 @@ button {
   }
 }
 
+
+/* ── Компактный топ-список для главной ─────────────────────────────────────────
+   Главная показывает 10 статей и 10 инструментов. Отдельными .card это давало бы
+   20 крупных карточек на всю ширину и превращало первый экран в бесконечную ленту.
+   Здесь один контейнер и плотные строки: ранг, заголовок в одну строку с обрезкой,
+   метрика справа. Высота строки ~34px против ~90px у карточки. */
+.toplist {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.toplist__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  cursor: pointer;
+  border-top: 1px solid var(--line);
+  transition: background var(--dur) var(--ease);
+}
+
+.toplist__row:first-child { border-top: none; }
+.toplist__row:hover { background: var(--surface-2); }
+.toplist__row:active { background: var(--surface-2); }
+
+.toplist__rank {
+  flex: none;
+  width: 16px;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
+}
+
+/* Заголовок обрезается многоточием, а не переносится: перенос возвращает
+   ту самую «толщину», ради ухода от которой список и делался. */
+.toplist__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-3);
+  line-height: 1.35;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toplist__meta {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* Шапка секции: подпись слева, ссылка «все N →» справа. */
+.sect__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.sect__more {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  color: var(--text-3);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
+}
+
+.sect__more:hover { color: var(--accent); }

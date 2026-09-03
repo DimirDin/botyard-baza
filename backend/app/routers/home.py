@@ -38,20 +38,28 @@ async def home():
     top_prompts = await pool.fetch(
         "SELECT slug, title, category, copies_count FROM baza.prompts WHERE published ORDER BY copies_count DESC LIMIT 5"
     )
+    # 10 свежих статей вместо одной «статьи недели». Ранжирование именно по свежести,
+    # а не по просмотрам: на 03.09.2026 в baza.events всего 112 событий view_entry на
+    # 39 статей из 185 — «топ по просмотрам» замкнул бы главную на эти 39 навсегда,
+    # а остальные никогда бы не всплыли. Пересмотреть, когда событий станет заметно больше.
     recent_entries = await pool.fetch(
         """
-        SELECT slug, title, updated_at FROM baza.entries
-        WHERE published ORDER BY updated_at DESC LIMIT 1
+        SELECT slug, title, section, group_slug, updated_at FROM baza.entries
+        WHERE published ORDER BY updated_at DESC LIMIT 10
         """
     )
-    tools_of_week = await pool.fetch(
+    # Топ-10 по абсолютным звёздам GitHub. Раньше здесь был «топ недели» по приросту
+    # (stars - stars_prev): живее, но наверх лезли мелкие репозитории со всплеском,
+    # и топом это назвать было сложно. Звёзды — внешний сигнал, не зависящий от трафика
+    # приложения; обновляются еженедельным cron-синком (/etc/cron.d/botyard-baza-stars).
+    top_tools = await pool.fetch(
         """
         SELECT id, repo, name, description_ru, category, stars, badge,
                (stars - stars_prev) AS growth
         FROM baza.tools
-        WHERE published = true AND archived = false AND (stars - stars_prev) > 0
-        ORDER BY (stars - stars_prev) DESC
-        LIMIT 5
+        WHERE published = true AND archived = false
+        ORDER BY stars DESC
+        LIMIT 10
         """
     )
     return {
@@ -59,5 +67,5 @@ async def home():
         "stats": stats,
         "top_prompts": [dict(r) for r in top_prompts],
         "recent_entries": [dict(r) for r in recent_entries],
-        "tools_of_week": [dict(r) for r in tools_of_week],
+        "top_tools": [dict(r) for r in top_tools],
     }
