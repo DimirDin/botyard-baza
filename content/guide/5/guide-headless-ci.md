@@ -7,7 +7,7 @@ order_in_level: 5
 doc_url: "https://code.claude.com/docs/en/headless"
 related_entry: "cc-github-actions"
 ---
-![](/entry-images/agent-loop.jpg)
+![](/entry-images/api-request-response.jpg)
 
 ### ❓ Что это
 Headless — запуск Claude Code без интерактива: флаг `-p` с промптом и `--output-format json` для машиночитаемого ответа. Это же основной способ использовать агента из языка, для которого нет SDK.

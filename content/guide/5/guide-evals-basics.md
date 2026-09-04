@@ -7,7 +7,7 @@ order_in_level: 7
 doc_url: "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"
 related_entry: "eval-why-evals"
 ---
-![](/entry-images/api-request-response.jpg)
+![](/entry-images/rag-pipeline.jpg)
 
 ### ❓ Что это
 Эвал — набор тест-кейсов, по которому меряется качество работы модели на твоей задаче. Без него любое изменение промпта, модели или параметров — вера, а не инженерия: починил один случай и не знаешь, что сломал в десяти других.
