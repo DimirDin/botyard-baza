@@ -5,7 +5,7 @@ summary: "Разбор концепции Agentic RAG — как автоном�
 section: theory
 group: agentic-patterns
 tags: [theory, rag, agentic-patterns]
-doc_url: "https://docs.anthropic.com/en/docs/about-claude/use-cases/rag"
+doc_url: "https://platform.claude.com/docs/en/build-with-claude/search-results"
 sort_order: 120
 published: true
 ---
