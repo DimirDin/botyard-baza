@@ -24,6 +24,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).parent))
 from menu_registry import valid_pairs  # noqa: E402
+from check_links import check_assets, collect_assets  # noqa: E402
 
 CONTENT_DIR = Path(__file__).parent.parent / "content"
 
@@ -180,34 +181,59 @@ async def prune(conn: asyncpg.Connection, table: str, key: str, seen: set[str], 
 async def main(args):
     conn = await asyncpg.connect(os.environ["DATABASE_URL"])
     try:
-        errors: list[str] = []
-        s_entries, s_tools, s_prompts, s_cheats, s_guide = set(), set(), set(), set(), set()
+        # Весь синк — одна транзакция. Раньше валидация категорий заявлялась как
+        # «падает до записи в БД» (menu_registry.py, §12.1), но фактически синк
+        # писал ВСЕ строки и только потом поднимал ValidationError — то есть запись
+        # с недостижимой категорией к этому моменту уже лежала в БД, и «упавший»
+        # синк оставлял её там. Транзакция делает заявленное поведение настоящим:
+        # любая ошибка валидации откатывает партию целиком.
+        # Побочный плюс — атомарность: оборванный синк больше не оставляет
+        # наполовину залитый контент.
+        async with conn.transaction():
+            errors: list[str] = []
+            s_entries, s_tools, s_prompts, s_cheats, s_guide = set(), set(), set(), set(), set()
 
-        e = await sync_entries(conn, s_entries, errors)
-        t = await sync_tools(conn, s_tools, errors)
-        p = await sync_prompts(conn, s_prompts, errors)
-        c = await sync_cheatsheets(conn, s_cheats)
-        g = await sync_guide(conn, s_guide)
+            e = await sync_entries(conn, s_entries, errors)
+            t = await sync_tools(conn, s_tools, errors)
+            p = await sync_prompts(conn, s_prompts, errors)
+            c = await sync_cheatsheets(conn, s_cheats)
+            g = await sync_guide(conn, s_guide)
 
-        if errors:
-            raise ValidationError(
-                "Категории вне menu.js — такой контент попадёт в БД, но будет "
-                "недостижим в навигации:\n" + "\n".join(errors)
-            )
+            # Битая картинка в статье не ломает синк технически, но в приложении даёт
+            # «сломанное изображение» — заметнее большинства багов. Проверка офлайновая
+            # и дешёвая, поэтому идёт прямо здесь: ошибка откатит транзакцию.
+            #
+            # frontend/public в бэкенд-образ не копируется (это 10+ МБ картинок, рантайму
+            # они не нужны — их отдаёт Caddy). Значит при запуске внутри собранного образа
+            # проверять нечего: пропускаем с явным сообщением, чтобы «0 битых» не выглядело
+            # как пройденная проверка. Полный прогон — scripts/check_links.py локально.
+            public_dir = Path(__file__).parent.parent / "frontend" / "public"
+            if public_dir.exists():
+                asset_problems = check_assets(collect_assets())
+                if asset_problems:
+                    errors.append("  битые ссылки на картинки:")
+                    errors.extend(asset_problems)
+            else:
+                print("Картинки: пропущено (frontend/public нет в образе, см. scripts/check_links.py)")
 
-        print(f"Синк готов: entries={e} tools={t} prompts={p} cheatsheets={c} guide={g}")
+            if errors:
+                raise ValidationError(
+                    "Контент не прошёл проверку перед записью в БД:\n" + "\n".join(errors)
+                )
 
-        print("Проверка осиротевших строк:")
-        removed = 0
-        removed += await prune(conn, "entries", "slug", s_entries, not args.prune)
-        removed += await prune(conn, "tools", "repo", s_tools, not args.prune)
-        removed += await prune(conn, "prompts", "slug", s_prompts, not args.prune)
-        removed += await prune(conn, "cheatsheets", "slug", s_cheats, not args.prune)
-        removed += await prune(conn, "guide_lessons", "slug", s_guide, not args.prune)
-        if removed == 0:
-            print("  чисто")
-        elif not args.prune:
-            print("  ↑ перезапусти с --prune, чтобы удалить")
+            print(f"Синк готов: entries={e} tools={t} prompts={p} cheatsheets={c} guide={g}")
+
+            print("Проверка осиротевших строк:")
+            removed = 0
+            removed += await prune(conn, "entries", "slug", s_entries, not args.prune)
+            removed += await prune(conn, "tools", "repo", s_tools, not args.prune)
+            removed += await prune(conn, "prompts", "slug", s_prompts, not args.prune)
+            removed += await prune(conn, "cheatsheets", "slug", s_cheats, not args.prune)
+            removed += await prune(conn, "guide_lessons", "slug", s_guide, not args.prune)
+            if removed == 0:
+                print("  чисто")
+            elif not args.prune:
+                print("  ↑ перезапусти с --prune, чтобы удалить")
     finally:
         await conn.close()
 
