@@ -17,7 +17,19 @@ router = APIRouter(prefix="/api/calc", tags=["calc"], dependencies=[Depends(requ
 # авторизацию, даже будучи бесплатным по деньгам). Считаем локально через
 # tiktoken (cl100k_base) как приближение — не настоящий токенайзер Claude,
 # особенно расходится на кириллице (см. §13 PROJECT_CONTEXT).
-_ENCODING = tiktoken.get_encoding("cl100k_base")
+# Загружается лениво и один раз. Раньше вызов стоял на уровне модуля, то есть
+# tiktoken тянул BPE-словарь по сети в момент ИМПОРТА: холодный старт контейнера
+# (и сбор тестов) зависел от доступности стороннего URL, а падение выглядело как
+# неспособность импортировать app.routers.calc. Теперь сеть нужна только при
+# первом обращении к калькулятору, и её отказ не роняет остальное приложение.
+_ENCODING = None
+
+
+def _encoding():
+    global _ENCODING
+    if _ENCODING is None:
+        _ENCODING = tiktoken.get_encoding("cl100k_base")
+    return _ENCODING
 
 # Цены за 1M токенов (input/output), сверено с content/cheatsheets/api-limits-and-models.md
 # (сверка 03.09.2026 по platform.claude.com/docs/en/about-claude/pricing).
@@ -93,7 +105,7 @@ async def calc_tokens(req: CalcRequest, user: dict = Depends(require_subscribed)
     if current > 30:
         raise HTTPException(429, "Слишком много запросов на подсчёт, подожди минуту")
 
-    tokens = len(_ENCODING.encode(req.text))
+    tokens = len(_encoding().encode(req.text))
     pricing = MODEL_PRICING.get(req.model, MODEL_PRICING["claude-sonnet-5"])
     context_window = CONTEXT_WINDOW.get(req.model, CONTEXT_WINDOW["claude-sonnet-5"])
     ru_context_pct = round(tokens / context_window * 100, 2)
@@ -113,7 +125,7 @@ async def calc_tokens(req: CalcRequest, user: dict = Depends(require_subscribed)
             logger.warning("перевод для калькулятора упал, EN-полоса скрыта", exc_info=True)
 
         if translated:
-            en_tokens = len(_ENCODING.encode(translated))
+            en_tokens = len(_encoding().encode(translated))
             en_context_pct = round(en_tokens / context_window * 100, 2)
             if en_tokens > 0:
                 ru_vs_en_delta_pct = round((tokens - en_tokens) / en_tokens * 100)
