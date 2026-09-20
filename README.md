@@ -12,7 +12,7 @@ Telegram Mini App: русскоязычная энциклопедия по эк
 ```
 backend/    FastAPI — 14 роутеров, гейт-логика, калькулятор токенов
 bot/        aiogram 3 — /start, deep links, гейт-превью (бизнес-логики нет)
-db/         init.sql + migrations/ — схема baza (на сегодня 9 миграций)
+db/         init.sql + migrations/ — схема baza (на сегодня 10 миграций)
 content/    статьи/инструменты/промпты/шпаргалки/гид как код (YAML/MD)
 scripts/    sync_content.py, sync_github_stars.py, check_links.py, menu_registry.py
 frontend/   React 18 + Vite Mini App, дизайн-система «Anthropic Studio»
@@ -21,10 +21,17 @@ docs/       планы крупных контент-партий и спека 
 ```
 
 ## Локальный старт
+`docker-compose.yml` содержит только `backend` и `bot` — PostgreSQL и Redis
+общие для платформы Botyard и поднимаются отдельно, их адреса берутся из `.env`.
+
 ```bash
-cp .env.example .env   # заполнить BOT_TOKEN
-docker compose up -d postgres redis
-DATABASE_URL=postgresql://user:pass@localhost:5432/botyard python scripts/sync_content.py
+cp .env.example .env   # заполнить BOT_TOKEN, DATABASE_URL, REDIS_URL
+
+# схема и миграции — до первого синка
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
+for m in db/migrations/*.sql; do psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$m"; done
+
+python scripts/sync_content.py
 docker compose up -d
 
 # frontend (мок-режим без реального Telegram initData — см. frontend/.env.development)

@@ -48,36 +48,89 @@ async def _log_search(tg_id: int, q: str, counts: dict[str, int]) -> None:
 
 @router.get("")
 async def search(q: str, user: dict = Depends(require_subscribed)):
+    """Гибридный поиск: полнотекстовый (морфология, ранжирование, тело статьи)
+    ИЛИ подстрока по trgm.
+
+    Почему именно гибрид, а не чистый FTS. Русский snowball-стеммер плохо переваривает
+    заимствования, из которых состоит весь словарь этой базы. Проверено на живой БД:
+
+        промпт/промпты/промптов → 'промпт'   ✔ склейка верная
+        хук/хуки/хуков          → 'хук'      ✔
+        агент/агенты/агентов    → 'агент'    ✔
+        токен/токены            → 'ток'      ✗ а «токенами» → 'токен'
+        эвал                    → 'эва'      ✗ а «эвалы»    → 'эвал'
+
+    То есть «токен» и «токенами» попадают в РАЗНЫЕ лексемы, а «токен» вдобавок
+    сливается с «током». Для раздела про токенизацию и калькулятор токенов это
+    неприемлемо, поэтому ILIKE-ветка — не подстраховка, а обязательная часть:
+    она ловит и это, и набор по префиксу.
+
+    Ранжирование — только по ts_rank (веса A/B/C заданы в миграции 0010: заголовок
+    важнее тела). У строк, найденных лишь подстрокой, ранг 0 — они уходят вниз,
+    что и требуется.
+
+    Заметка про объём: ILIKE по body_md идёт без индекса (trgm-индексы покрывают
+    только title/summary). На нынешних 197/373/477 строках это доли миллисекунды;
+    если каталог вырастет на порядок — заводить trgm-индекс по body_md.
+    """
+    q = (q or "").strip()
+    if not q:
+        return {"entries": [], "tools": [], "prompts": [], "guide": [], "components": []}
+
     pool = get_pool()
+    like = f"%{q}%"
+
     entries = await pool.fetch(
-        "SELECT slug, title, summary FROM baza.entries "
-        "WHERE published AND (title ILIKE $1 OR summary ILIKE $1) LIMIT 10",
-        f"%{q}%",
+        """
+        SELECT slug, title, summary
+        FROM baza.entries, websearch_to_tsquery('russian', $1) AS tsq
+        WHERE published
+          AND (search_tsv @@ tsq OR title ILIKE $2 OR summary ILIKE $2 OR body_md ILIKE $2)
+        ORDER BY ts_rank(search_tsv, tsq) DESC, sort_order, id
+        LIMIT 10
+        """,
+        q,
+        like,
     )
     tools = await pool.fetch(
-        "SELECT repo, name, description_ru FROM baza.tools "
-        "WHERE published AND (name ILIKE $1 OR description_ru ILIKE $1) LIMIT 10",
-        f"%{q}%",
+        """
+        SELECT repo, name, description_ru
+        FROM baza.tools, websearch_to_tsquery('russian', $1) AS tsq
+        WHERE published
+          AND (search_tsv @@ tsq OR name ILIKE $2 OR description_ru ILIKE $2 OR repo ILIKE $2)
+        ORDER BY ts_rank(search_tsv, tsq) DESC, stars DESC NULLS LAST
+        LIMIT 10
+        """,
+        q,
+        like,
     )
     prompts = await pool.fetch(
-        "SELECT slug, title, category FROM baza.prompts "
-        "WHERE published AND (title ILIKE $1 OR body ILIKE $1) LIMIT 10",
-        f"%{q}%",
+        """
+        SELECT slug, title, category
+        FROM baza.prompts, websearch_to_tsquery('russian', $1) AS tsq
+        WHERE published
+          AND (search_tsv @@ tsq OR title ILIKE $2 OR body ILIKE $2)
+        ORDER BY ts_rank(search_tsv, tsq) DESC, copies_count DESC
+        LIMIT 10
+        """,
+        q,
+        like,
     )
     guide_lessons = await pool.fetch(
         "SELECT slug, title, summary, level FROM baza.guide_lessons "
         "WHERE published AND (title ILIKE $1 OR summary ILIKE $1 OR body_md ILIKE $1) LIMIT 10",
-        f"%{q}%",
+        like,
     )
     components = await pool.fetch(
         "SELECT slug, title, summary, comp_type FROM baza.cc_components "
-        "WHERE published AND search_tsv @@ plainto_tsquery('russian', $1) LIMIT 10",
+        "WHERE published AND (search_tsv @@ plainto_tsquery('russian', $1) OR title ILIKE $2) LIMIT 10",
         q,
+        like,
     )
 
     await _log_search(
         user["tg_id"],
-        q.strip(),
+        q,
         {
             "entries": len(entries),
             "tools": len(tools),
