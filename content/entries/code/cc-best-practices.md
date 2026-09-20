@@ -8,6 +8,7 @@ tags: [claude-code, workflow, best-practices]
 doc_url: "https://www.anthropic.com/engineering/claude-code-best-practices"
 sort_order: 147
 published: true
+preview: true
 ---
 
 ![Best practices](/entry-images/plan-mode-flow.jpg)

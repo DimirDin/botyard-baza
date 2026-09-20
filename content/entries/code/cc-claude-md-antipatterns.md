@@ -8,6 +8,7 @@ tags: [claude-code, claude-md, antipatterns]
 doc_url: "https://docs.claude.com/en/docs/claude-code/memory"
 sort_order: 210
 published: true
+preview: true
 ---
 
 ### ❓ Что это

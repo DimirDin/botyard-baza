@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.db import close_db, init_db
-from app.routers import calc, cheatsheets, components, entries, events, favorites, feedback, gate, guide, home, prompts, search, tools, admin
+from app.routers import calc, cheatsheets, components, entries, events, favorites, feedback, gate, guide, home, prompts, public, search, tools, admin
 
 
 @asynccontextmanager
@@ -24,6 +24,8 @@ app.add_middleware(
 )
 
 app.include_router(gate.router)
+# Без require_subscribed — витрина до гейта, см. docstring роутера.
+app.include_router(public.router)
 app.include_router(home.router)
 app.include_router(entries.router)
 app.include_router(tools.router)

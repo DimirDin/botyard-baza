@@ -8,6 +8,7 @@ tags: [claude-code, workflow, planning]
 doc_url: "https://docs.claude.com/en/docs/claude-code/common-workflows"
 sort_order: 140
 published: true
+preview: true
 ---
 
 ![Plan mode](/entry-images/plan-mode-flow.jpg)

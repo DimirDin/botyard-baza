@@ -45,6 +45,7 @@ function resolveSourceParam(param) {
 export default function App() {
   const [gateState, setGateState] = useState("checking"); // checking | blocked | ok | error | expired
   const [home, setHome] = useState(null);
+  const [previewSlug, setPreviewSlug] = useState(null);
   const [user, setUser] = useState(null);
   const [screen, setScreen] = useState("home");
   const [screenParam, setScreenParam] = useState(null);
@@ -60,6 +61,12 @@ export default function App() {
     });
     initTelegram();
     const startParam = getStartParam();
+    // Слаг запоминаем ДО проверки подписки: если человек пришёл по ссылке
+    // на статью и не подписан, витрина покажет именно её, а не случайную.
+    const deepLinkAtStart = resolveStartParam(startParam);
+    if (deepLinkAtStart?.screen === "entry" && typeof deepLinkAtStart.params === "string") {
+      setPreviewSlug(deepLinkAtStart.params);
+    }
     api
       .gateCheck(resolveSourceParam(startParam))
       .then((res) => {
@@ -125,7 +132,10 @@ export default function App() {
     return (
       <>
         <AmbientBackground screen="gate" />
-        <GateScreen counts={home?.counts} onRecheckSuccess={() => setGateState("ok")} />
+        <GateScreen
+          previewSlug={previewSlug}
+          onRecheckSuccess={() => setGateState("ok")}
+        />
       </>
     );
   }

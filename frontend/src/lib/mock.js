@@ -110,7 +110,70 @@ let mockGuideProgress = new Set([1]);
 export async function mockFetch(path, options = {}) {
   await new Promise((r) => setTimeout(r, 250));
 
-  if (path === "/gate/check" || path === "/gate/recheck") return { subscribed: true, user: { tg_id: 1, username: "dev", is_admin: true } };
+  // ?mockgate=1 — посмотреть экран гейта, который иначе в мок-режиме недостижим
+  // (мок всегда отвечает «подписан»). Только для разработки: mock.js не активен в проде.
+  const forceGate = new URLSearchParams(window.location.search).get("mockgate") === "1";
+
+  if (path === "/gate/check" || path === "/gate/recheck") {
+    return { subscribed: !forceGate, user: { tg_id: 1, username: "dev", is_admin: true } };
+  }
+
+  // Витрина до гейта — см. backend/app/routers/public.py.
+  if (path === "/public/counts") {
+    return { entries_count: 197, tools_count: 334, prompts_count: 477 };
+  }
+  if (path === "/public/entries") {
+    return {
+      entries: [
+        {
+          slug: "con-cyrillic-tokenization",
+          title: "Токенизация кириллицы: почему русский язык стоит дороже",
+          summary: "Разбор работы BPE-токенайзера и практическое влияние на стоимость.",
+          section: "theory",
+          group_slug: "tokenization",
+        },
+      ],
+    };
+  }
+  if (path.startsWith("/public/entries/")) {
+    const slug = path.slice("/public/entries/".length);
+    return {
+      slug,
+      // Слаг в заголовке — чтобы при разработке было видно, какую статью
+      // запросила витрина: пришедшую из deep link или запасную из списка.
+      title: `Токенизация кириллицы (mock: ${slug})`,
+      summary: "Разбор работы BPE-токенайзера и практическое влияние на стоимость.",
+      section: "theory",
+      group_slug: "tokenization",
+      updated_at: "2026-06-15",
+      doc_url: "https://docs.claude.com/en/docs_site_map.md",
+      body_md: [
+        "### ❓ Что это",
+        "",
+        "**BPE-токенайзер** режет текст на куски по частотности. Английские слова",
+        "часто укладываются в один токен, кириллические — почти никогда.",
+        "",
+        "| Текст | Символов | Токенов |",
+        "|---|---|---|",
+        "| The quick brown fox | 19 | 4 |",
+        "| Быстрая бурая лиса | 18 | 11 |",
+        "",
+        "### 🎯 Зачем тебе",
+        "",
+        "Тот же смысл на русском стоит дороже и быстрее упирается в контекстное окно.",
+        "",
+        "```python",
+        "resp = client.messages.count_tokens(model=MODEL, messages=messages)",
+        "print(resp.input_tokens)",
+        "```",
+        "",
+        "### ⚠️ Грабли",
+        "",
+        "- Считать по правилу «4 символа на токен» — оно выведено на английской прозе.",
+        "- Забывать, что схемы инструментов тоже занимают токены в каждом запросе.",
+      ].join("\n"),
+    };
+  }
   if (path === "/home") {
     return {
       counts: { entries_count: 30, tools_count: 18, prompts_count: 33 },

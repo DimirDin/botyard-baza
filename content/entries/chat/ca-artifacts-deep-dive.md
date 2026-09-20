@@ -8,6 +8,7 @@ tags: [claude-ai, artifacts]
 doc_url: "https://support.claude.com"
 sort_order: 20
 published: true
+preview: true
 ---
 
 ![Artifacts](/entry-images/plan-mode-flow.jpg)

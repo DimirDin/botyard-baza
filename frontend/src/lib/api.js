@@ -51,6 +51,11 @@ async function request(path, options = {}) {
 }
 
 export const api = {
+  // Витрина до гейта — единственные ручки без подписки. Отдают только статьи
+  // с preview: true во frontmatter (см. backend/app/routers/public.py).
+  publicCounts: () => request("/public/counts"),
+  publicEntries: () => request("/public/entries"),
+  publicEntry: (slug) => request(`/public/entries/${slug}`),
   gateCheck: (source) => request("/gate/check", { method: "POST", body: JSON.stringify({ source: source || null }) }),
   gateRecheck: () => request("/gate/recheck", { method: "POST" }),
   home: () => request("/home"),

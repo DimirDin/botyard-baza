@@ -8,6 +8,7 @@ tags: [concepts, models, architecture]
 doc_url: "https://platform.claude.com/docs/en/about-claude/pricing"
 sort_order: 50
 published: true
+preview: true
 ---
 
 ![Model selection](/entry-images/pricing-tiers.jpg)
