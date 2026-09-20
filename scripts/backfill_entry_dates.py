@@ -12,8 +12,13 @@
 только при реальной правке текста.
 
 Прогон:
-    DATABASE_URL=... python scripts/backfill_entry_dates.py          # показать план
-    DATABASE_URL=... python scripts/backfill_entry_dates.py --apply  # записать
+    python scripts/backfill_entry_dates.py                            # показать план
+    DATABASE_URL=... python scripts/backfill_entry_dates.py --apply   # записать
+    python scripts/backfill_entry_dates.py --sql | psql "$DATABASE_URL"  # через SQL
+
+Режим --sql нужен для прода: git-истории внутри контейнера нет (Dockerfile
+копирует только content/), поэтому даты считаются локально, а на сервер уходит
+готовый набор UPDATE в одной транзакции.
 """
 import argparse
 import asyncio
@@ -21,8 +26,6 @@ import os
 import re
 import subprocess
 from pathlib import Path
-
-import asyncpg
 
 REPO = Path(__file__).resolve().parents[1]
 ENTRIES = REPO / "content" / "entries"
@@ -38,7 +41,20 @@ def added_at(path: Path) -> str | None:
     return out[-1] if out else None
 
 
+def emit_sql(rows: list[tuple[str, str]]) -> None:
+    """Печатает транзакцию с UPDATE — для прогона на машине без git-истории."""
+    print("BEGIN;")
+    for slug, when in rows:
+        safe = slug.replace("'", "''")
+        print(f"UPDATE baza.entries SET updated_at = '{when}'::timestamptz WHERE slug = '{safe}';")
+    print("COMMIT;")
+
+
 async def main(apply: bool) -> None:
+    # Импорт внутри функции: режим --sql должен работать там, где asyncpg
+    # не установлен (а это ровно та машина, где есть git-история).
+    import asyncpg
+
     rows = []
     for md in sorted(ENTRIES.rglob("*.md")):
         text = md.read_text(encoding="utf-8")
@@ -78,4 +94,16 @@ async def main(apply: bool) -> None:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true", help="записать в БД (по умолчанию только план)")
-    asyncio.run(main(ap.parse_args().apply))
+    ap.add_argument("--sql", action="store_true", help="напечатать SQL вместо записи")
+    args = ap.parse_args()
+    if args.sql:
+        rows = []
+        for md in sorted(ENTRIES.rglob("*.md")):
+            text = md.read_text(encoding="utf-8")
+            m = re.search(r"^slug:\s*(\S+)", text, re.M)
+            when = added_at(md) if m else None
+            if m and when:
+                rows.append((m.group(1), when))
+        emit_sql(rows)
+    else:
+        asyncio.run(main(args.apply))
