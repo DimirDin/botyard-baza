@@ -9349,3 +9349,136 @@
   category: mcp/creative
   description_ru: "Официальное руководство Figma по работе с их MCP-сервером — не сам сервер, а инструкция по подключению и сценариям использования."
   verify_status: known
+
+# ── партия 20.09.2026 ─────────────────────────────────────────────────────────
+# Все 24 записи проверены через GitHub API до добавления: репозиторий существует,
+# archived=false, pushed_at свежий. Добор шёл в самые тощие группы каталога
+# (mcp/devtools, mcp/cloud, mcp/creative, apps/terminal, agents/subagents — по 6-7 карточек).
+
+- repo: PrefectHQ/fastmcp
+  category: mcp/frameworks
+  description_ru: "Питонический фреймворк для MCP-серверов: сервер из одной функции с декоратором, плюс клиент, прокси и генерация из OpenAPI. Де-факто стандарт для Python."
+  badge: editors_choice
+  verify_status: known
+
+- repo: punkpeye/fastmcp
+  category: mcp/frameworks
+  description_ru: "То же самое для TypeScript: сессии, авторизация, SSE и прогресс-события из коробки. Не путать с одноимённым питоновским проектом."
+  verify_status: known
+
+- repo: sparfenyuk/mcp-proxy
+  category: mcp/frameworks
+  description_ru: "Мост между транспортами stdio и Streamable HTTP. Нужен, когда локальный сервер надо отдать по сети или наоборот — подключить удалённый к клиенту, который умеет только stdio."
+  verify_status: known
+
+- repo: zilliztech/claude-context
+  category: mcp/devtools
+  description_ru: "Семантический поиск по кодовой базе через векторный индекс. Отдаёт агенту только релевантные куски вместо того, чтобы жечь контекст полным обходом репозитория."
+  verify_status: known
+
+- repo: mrexodia/ida-pro-mcp
+  category: mcp/devtools
+  description_ru: "Мост между IDA Pro и Claude для реверс-инжиниринга: декомпиляция, переименование функций и разметка структур из диалога."
+  verify_status: known
+
+- repo: grafana/mcp-grafana
+  category: mcp/cloud
+  description_ru: "Официальный MCP-сервер Grafana: запросы к дашбордам, Prometheus и Loki, разбор инцидентов без переключения на веб-интерфейс."
+  verify_status: known
+
+- repo: hashicorp/terraform-mcp-server
+  category: mcp/cloud
+  description_ru: "Официальный сервер HashiCorp: поиск по провайдерам и модулям реестра Terraform, чтобы агент писал конфиги по реальным схемам, а не по памяти."
+  verify_status: known
+
+- repo: elastic/mcp-server-elasticsearch
+  category: mcp/cloud
+  description_ru: "Официальный сервер Elastic: индексы, маппинги и поисковые запросы к Elasticsearch на естественном языке."
+  verify_status: known
+
+- repo: mongodb-js/mongodb-mcp-server
+  category: mcp/data
+  description_ru: "Официальный сервер MongoDB: запросы к коллекциям, работа с агрегациями и управление кластерами Atlas."
+  verify_status: known
+
+- repo: sooperset/mcp-atlassian
+  category: mcp/saas
+  description_ru: "Jira и Confluence в одном сервере: задачи, переходы статусов, поиск по страницам. Работает и с облаком, и с Server/Data Center."
+  verify_status: known
+
+- repo: MarkusPfundstein/mcp-obsidian
+  category: mcp/saas
+  description_ru: "Доступ к хранилищу Obsidian через Local REST API: чтение, поиск и правка заметок. Самый популярный способ подружить Claude с личной базой знаний."
+  verify_status: known
+
+- repo: cyanheads/obsidian-mcp-server
+  category: mcp/saas
+  description_ru: "Альтернатива для Obsidian с упором на точечное редактирование: правка фрагмента и фронтматтера без перезаписи всей заметки."
+  verify_status: known
+
+- repo: browserbase/stagehand
+  category: mcp/web
+  description_ru: "SDK для управления браузером на уровне намерений: `act`, `extract`, `observe` вместо хрупких CSS-селекторов. Под капотом Playwright."
+  verify_status: known
+
+- repo: executeautomation/mcp-playwright
+  category: mcp/web
+  description_ru: "MCP-обёртка над Playwright: навигация, клики, скриншоты и проверка API прямо из диалога."
+  verify_status: known
+
+- repo: grab/cursor-talk-to-figma-mcp
+  category: mcp/creative
+  description_ru: "Двусторонний мост с Figma: агент не только читает макет, но и правит слои, текст и стили. Дополняет официальный read-only сервер Figma."
+  verify_status: known
+
+- repo: antvis/mcp-server-chart
+  category: mcp/creative
+  description_ru: "25+ типов графиков через AntV: агент отдаёт готовую картинку диаграммы вместо описания словами."
+  verify_status: known
+
+- repo: gptme/gptme
+  category: apps/terminal
+  description_ru: "Терминальный агент с локальными инструментами: шелл, правка файлов, браузер, Python. Модель подключается любая, включая Claude."
+  verify_status: known
+
+- repo: anomalyco/opencode
+  category: apps/terminal
+  description_ru: "Открытый терминальный кодинг-агент с TUI и клиент-серверной архитектурой: сессия живёт на сервере, подключаться можно хоть с телефона."
+  badge: editors_choice
+  verify_status: known
+
+- repo: stakpak/agent
+  category: apps/terminal
+  description_ru: "Агент для DevOps-задач: Terraform, Kubernetes и CI-конфиги. Работает в песочнице с ограниченным набором команд."
+  verify_status: known
+
+- repo: dagger/container-use
+  category: apps/terminal
+  description_ru: "Изолированное окружение на каждого агента: своя ветка и свой контейнер. Решает конфликт, когда несколько агентов пишут в один рабочий каталог."
+  verify_status: known
+
+- repo: contains-studio/agents
+  category: agents/subagents
+  description_ru: "Набор субагентов под роли продуктовой студии — от дизайнера до маркетолога. Один из самых растиражированных стартовых комплектов."
+  verify_status: known
+
+- repo: lst97/claude-code-sub-agents
+  category: agents/subagents
+  description_ru: "Коллекция субагентов под full-stack разработку с явным разделением зон ответственности между ними."
+  verify_status: known
+
+- repo: vanzan01/claude-code-sub-agent-collective
+  category: agents/subagents
+  description_ru: "Не просто набор ролей, а эксперимент по контекст-инженерии: как передавать состояние между субагентами, чтобы цепочка не разваливалась."
+  verify_status: known
+
+- repo: daaain/claude-code-log
+  category: code/monitoring
+  description_ru: "Конвертер JSONL-транскриптов Claude Code в читаемый HTML или Markdown. Разбор того, что агент реально делал в долгой сессии."
+  verify_status: known
+
+- repo: anthropics/claude-quickstarts
+  category: libs/other
+  description_ru: "Официальные стартовые проекты Anthropic: агент с инструментами, RAG, работа с компьютером. Рабочий код, а не фрагменты из документации."
+  badge: editors_choice
+  verify_status: known
