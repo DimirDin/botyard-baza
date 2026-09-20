@@ -40,6 +40,38 @@ export function HomeScreen({ user, onNavigate }) {
           <>
             <StatsBar stats={data.stats} />
 
+            {/* Что прибавилось с прошлого захода. Приходит только если есть что
+                показать: у новичка (prev_seen = NULL) и при нулях бэкенд отдаёт null,
+                чтобы плашка не висела пустой. Клик ведёт в Базу — туда, где
+                новые статьи и лежат. */}
+            {data.whats_new && (
+              <section className="sect">
+                <button
+                  className="whats-new"
+                  onClick={() => onNavigate("base")}
+                >
+                  <span className="whats-new__dot" aria-hidden="true" />
+                  <span className="whats-new__text">
+                    С прошлого захода:{" "}
+                    {data.whats_new.entries > 0 && (
+                      <b>
+                        {data.whats_new.entries}{" "}
+                        {plural(data.whats_new.entries, ["новая статья", "новые статьи", "новых статей"])}
+                      </b>
+                    )}
+                    {data.whats_new.entries > 0 && data.whats_new.tools > 0 && " и "}
+                    {data.whats_new.tools > 0 && (
+                      <b>
+                        {data.whats_new.tools}{" "}
+                        {plural(data.whats_new.tools, ["новый инструмент", "новых инструмента", "новых инструментов"])}
+                      </b>
+                    )}
+                  </span>
+                  <span className="whats-new__arrow" aria-hidden="true">→</span>
+                </button>
+              </section>
+            )}
+
             {guide?.next_lesson && (
               <section className="sect">
                 <span className="segment-label segment-label--gotcha">

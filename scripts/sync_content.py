@@ -72,7 +72,22 @@ async def sync_entries(conn: asyncpg.Connection, seen: set[str], errors: list[st
             ON CONFLICT (slug) DO UPDATE SET
                 section = $2, group_slug = $3, title = $4, summary = $5, body_md = $6,
                 doc_url = $7, tags = $8, sort_order = $9, published = $10,
-                preview_public = $11, updated_at = now()
+                preview_public = $11,
+                -- updated_at двигаем ТОЛЬКО если реально изменился текст статьи.
+                -- Раньше здесь стояло безусловное now(), и каждый синк переписывал
+                -- отметку у всех строк разом: на 197 статьях в БД было ровно ОДНО
+                -- различное значение updated_at. Из-за этого блок «свежее в базе»
+                -- на главной (ORDER BY updated_at DESC LIMIT 10) ранжировал не по
+                -- свежести, а произвольно, и любой признак «что нового с прошлого
+                -- захода» показывал бы сразу весь каталог после каждого деплоя.
+                updated_at = CASE
+                    WHEN baza.entries.title    IS DISTINCT FROM EXCLUDED.title
+                      OR baza.entries.summary  IS DISTINCT FROM EXCLUDED.summary
+                      OR baza.entries.body_md  IS DISTINCT FROM EXCLUDED.body_md
+                      OR baza.entries.doc_url  IS DISTINCT FROM EXCLUDED.doc_url
+                    THEN now()
+                    ELSE baza.entries.updated_at
+                END
             """,
             meta["slug"], section, group, meta["title"], meta.get("summary"),
             body, meta.get("doc_url"), meta.get("tags", []), meta.get("sort_order", 100),

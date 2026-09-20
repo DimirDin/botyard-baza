@@ -11,7 +11,7 @@ SUBSCRIBERS_REDIS_KEY = "baza:stats:subscribers"
 
 
 @router.get("")
-async def home():
+async def home(user: dict = Depends(require_subscribed)):
     pool = get_pool()
     counts = await pool.fetchrow(
         """
@@ -42,10 +42,18 @@ async def home():
     # а не по просмотрам: на 03.09.2026 в baza.events всего 112 событий view_entry на
     # 39 статей из 185 — «топ по просмотрам» замкнул бы главную на эти 39 навсегда,
     # а остальные никогда бы не всплыли. Пересмотреть, когда событий станет заметно больше.
+    #
+    # До 20.09.2026 эта сортировка не работала: sync_content.py переписывал updated_at
+    # у всех строк на now() при каждом синке, и на 197 статьях в БД было ровно ОДНО
+    # различное значение — Postgres отдавал произвольную десятку. Починено в синке
+    # (updated_at двигается только при реальной правке текста) плюс разовая засевка
+    # датами появления из git (scripts/backfill_entry_dates.py).
+    # id DESC — устойчивый разрыв ничьих: у статей, залитых одной партией, отметка
+    # совпадает с точностью до секунд, и без него порядок внутри партии случайный.
     recent_entries = await pool.fetch(
         """
         SELECT slug, title, section, group_slug, updated_at FROM baza.entries
-        WHERE published ORDER BY updated_at DESC LIMIT 10
+        WHERE published ORDER BY updated_at DESC, id DESC LIMIT 10
         """
     )
     # Топ-10 по абсолютным звёздам GitHub. Раньше здесь был «топ недели» по приросту
@@ -62,7 +70,35 @@ async def home():
         LIMIT 10
         """
     )
+    # Что прибавилось с прошлого захода. prev_seen хранит отметку ПРЕДЫДУЩЕГО
+    # визита (миграция 0012): last_seen для этого не годится — гейт обновляет его
+    # на now() в том же запросе, которым проверяет подписку.
+    #
+    # NULL = первый визит: ничего не показываем, иначе новичок увидел бы
+    # «197 новых статей». Нули тоже не показываем — плашка появляется, только
+    # если реально есть что смотреть.
+    prev_seen = await pool.fetchval("SELECT prev_seen FROM baza.users WHERE tg_id = $1", user["tg_id"])
+    whats_new = None
+    if prev_seen is not None:
+        row = await pool.fetchrow(
+            """
+            SELECT
+                (SELECT count(*) FROM baza.entries
+                  WHERE published AND updated_at > $1) AS entries,
+                (SELECT count(*) FROM baza.tools
+                  WHERE published AND NOT archived AND added_at > $1) AS tools
+            """,
+            prev_seen,
+        )
+        if row["entries"] or row["tools"]:
+            whats_new = {
+                "entries": row["entries"],
+                "tools": row["tools"],
+                "since": prev_seen.isoformat(),
+            }
+
     return {
+        "whats_new": whats_new,
         "counts": dict(counts),
         "stats": stats,
         "top_prompts": [dict(r) for r in top_prompts],

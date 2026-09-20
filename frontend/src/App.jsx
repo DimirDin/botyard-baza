@@ -26,7 +26,11 @@ function resolveStartParam(param) {
   const id = rest.join("_");
   if (type === "entry") return { screen: "entry", params: id };
   if (type === "section") return { screen: "base" };
-  if (type === "prompt") return { screen: "prompts" };
+  // prompt_{slug} — конкретный промпт. Экран умеет подсветить и проскроллить
+  // к карточке (PromptsListScreen ждёт initial={category, slug}), но категорию
+  // из ссылки не узнать: она выводится из самого промпта после загрузки списка.
+  // Раньше id здесь просто выбрасывался, и ссылка вела на список разделов.
+  if (type === "prompt") return { screen: "prompts", params: id ? { slug: id } : undefined };
   if (type === "tool") return id ? { screen: "tool", params: id } : { screen: "tools" };
   if (type === "guide") return { screen: "guide", params: id ? { slug: id } : undefined };
   if (type === "search") return { screen: "search" };

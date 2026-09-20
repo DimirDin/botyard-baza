@@ -6,6 +6,7 @@ import { Spinner, ErrorState, EmptyState } from "../components/States";
 import { PROMPTS_MENU } from "../config/menu";
 import { api } from "../lib/api";
 import { showToast } from "../lib/toast";
+import { shareLink } from "../lib/telegram";
 import { PromptComposer } from "../components/PromptComposer";
 import { extractPlaceholders } from "../lib/placeholders";
 
@@ -29,6 +30,18 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
   };
 
   useEffect(load, []);
+
+  // Ссылка вида prompt_{slug} несёт только слаг: в какой он группе, знает лишь
+  // сам промпт. Как только список загружен — открываем нужные вкладку и группу,
+  // иначе карточка отфильтрована и подсвечивать нечего.
+  useEffect(() => {
+    if (!highlightSlug || !prompts || initial?.category) return;
+    const target = prompts.find((p) => p.slug === highlightSlug);
+    if (!target?.category) return;
+    const [tTab, tGroup] = target.category.split("/");
+    if (tTab) setTab(tTab);
+    if (tGroup) setGroup(tGroup);
+  }, [highlightSlug, prompts, initial?.category]);
 
   // Скролл к промпту, указанному в deep link'е (§16)
   useEffect(() => {
@@ -114,9 +127,12 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
                     <p style={{ color: "var(--text-2)", fontSize: 14, margin: "8px 0", whiteSpace: "pre-wrap" }}>
                       {p.body.length > 160 ? `${p.body.slice(0, 160)}…` : p.body}
                     </p>
-                    <div className="card__row">
+                    {/* Ряд действий переносится: на узком экране три кнопки
+                        («заполнить», «поделиться», «скопировать») в строку
+                        не влезают и последняя уезжает за край карточки. */}
+                    <div className="card__row" style={{ flexWrap: "wrap", alignItems: "center", rowGap: 8 }}>
                       <span className="card__meta">{p.copies_count} копирований</span>
-                      <span style={{ display: "flex", gap: 6 }}>
+                      <span style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
                         {extractPlaceholders(p.body).length > 0 && (
                           <button
                             onClick={() => setComposing(composing === p.slug ? null : p.slug)}
@@ -130,6 +146,24 @@ export function PromptsListScreen({ initial, onNavigate } = {}) {
                             заполнить · {extractPlaceholders(p.body).length}
                           </button>
                         )}
+                        <button
+                          onClick={() =>
+                            shareLink(
+                              // ?start= (не ?startapp=): Main Mini App в BotFather
+                              // не настроен, ссылка идёт через /start бота, см. bot/main.py
+                              `https://t.me/bazadry_bot?start=prompt_${p.slug}`,
+                              p.title
+                            )
+                          }
+                          aria-label="Поделиться промптом"
+                          style={{
+                            background: "transparent", color: "var(--text-3)",
+                            border: "1px solid var(--line)", borderRadius: 4,
+                            padding: "6px 10px", fontFamily: "var(--font-mono)", fontSize: 13,
+                          }}
+                        >
+                          ↗
+                        </button>
                         <button
                           onClick={() => handleCopy(p)}
                           style={{

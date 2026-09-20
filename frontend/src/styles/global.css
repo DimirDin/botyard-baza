@@ -1081,3 +1081,37 @@ button {
   color: var(--text-3);
   font-size: var(--fs-3);
 }
+
+/* ---- «что нового с прошлого захода» ---- */
+.whats-new {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: var(--fs-4);
+  text-align: left;
+  cursor: pointer;
+}
+
+.whats-new__dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.whats-new__text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.whats-new__arrow {
+  flex: none;
+  color: var(--accent);
+}

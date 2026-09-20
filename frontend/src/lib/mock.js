@@ -176,6 +176,12 @@ export async function mockFetch(path, options = {}) {
   }
   if (path === "/home") {
     return {
+      // ?mocknew=0 — посмотреть главную без плашки «что нового» (у новичка
+      // и при нулях бэкенд отдаёт null). Только для разработки.
+      whats_new:
+        new URLSearchParams(window.location.search).get("mocknew") === "0"
+          ? null
+          : { entries: 12, tools: 22, since: "2026-09-13T10:00:00Z" },
       counts: { entries_count: 30, tools_count: 18, prompts_count: 33 },
       stats: {
         entries_count: 30, tools_count: 44, prompts_count: 33,

@@ -70,7 +70,12 @@ async def check_subscription(tg_id: int, force: bool = False, source: str | None
         INSERT INTO baza.users (tg_id, is_subscribed, sub_checked_at, last_seen, source)
         VALUES ($1, $2, now(), now(), $3)
         ON CONFLICT (tg_id) DO UPDATE
-        SET is_subscribed = $2, sub_checked_at = now(), last_seen = now()
+        SET is_subscribed = $2, sub_checked_at = now(),
+            -- Переносим прошлую отметку визита ДО перезаписи: главной нужно знать,
+            -- когда человек заходил в предыдущий раз, чтобы показать, что прибавилось.
+            -- last_seen для этого не годится — он станет now() прямо здесь.
+            prev_seen = baza.users.last_seen,
+            last_seen = now()
         """,
         tg_id, is_subscribed, source,
     )
