@@ -100,3 +100,10 @@ export function onBackButton(handler) {
 export function hideBackButton() {
   tg?.BackButton?.hide();
 }
+
+export function closeApp() {
+  // Единственный способ получить свежий initData — новое открытие приложения.
+  // Закрываем, чтобы человек открыл заново из бота; вне Telegram (мок, браузер)
+  // метода нет — тогда просто ничего не делаем, экран с объяснением остаётся.
+  tg?.close?.();
+}

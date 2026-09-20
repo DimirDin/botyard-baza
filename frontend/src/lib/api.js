@@ -3,6 +3,27 @@ import { mockFetch, USE_MOCK } from "./mock";
 
 const BASE = import.meta.env.VITE_API_BASE || "/api";
 
+// Глобальный перехват отказов авторизации.
+//
+// Гейт проверяется один раз при старте (App.jsx), а дальше каждая ручка может
+// вернуть 401 или 403 в середине сессии, и до этого перехватчика такой ответ
+// нигде не обрабатывался — экраны просто переставали грузиться без объяснений:
+//   401 — initData протух. Telegram подписывает его при запуске, backend
+//         отвергает старше часа (gate.py). Человек, читавший статью час,
+//         получал набор пустых экранов.
+//   403 — initData валиден, но подписки больше нет (отписался, пока читал).
+//         Правильная реакция — вернуть на гейт, а не молчать.
+//
+// Перезагрузка страницы от 401 НЕ спасает: initData лежит в параметрах запуска
+// WebView и при reload будет тем же самым, уже просроченным. Свежий initData
+// выдаётся только при новом открытии приложения — поэтому обработчик наверху
+// показывает экран с просьбой переоткрыть, а не дёргает location.reload().
+let authErrorHandler = null;
+
+export function setAuthErrorHandler(fn) {
+  authErrorHandler = fn;
+}
+
 async function request(path, options = {}) {
   if (USE_MOCK) return mockFetch(path, options);
 
@@ -19,6 +40,11 @@ async function request(path, options = {}) {
     const body = await res.json().catch(() => ({}));
     const err = new Error(body.detail ? JSON.stringify(body.detail) : `HTTP ${res.status}`);
     err.status = res.status;
+    // Сообщаем наверх до броска: вызывающий код часто глушит ошибку своим catch,
+    // и без этого протухшая сессия так и осталась бы незамеченной.
+    if ((res.status === 401 || res.status === 403) && authErrorHandler) {
+      authErrorHandler(res.status);
+    }
     throw err;
   }
   return res.status === 204 ? null : res.json();

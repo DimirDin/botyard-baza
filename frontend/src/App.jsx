@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BottomNav } from "./components/BottomNav";
-import { ErrorState, Spinner } from "./components/States";
+import { ErrorState, Spinner, SessionExpiredState } from "./components/States";
 import { GateScreen } from "./screens/GateScreen";
 import { HomeScreen } from "./screens/HomeScreen";
 import { EntriesListScreen } from "./screens/EntriesListScreen";
@@ -15,8 +15,8 @@ import { SearchScreen } from "./screens/SearchScreen";
 import { GuideTrack } from "./components/GuideTrack";
 import { AdminScreen } from "./screens/AdminScreen";
 import { AmbientBackground } from "./components/AmbientBackground";
-import { api } from "./lib/api";
-import { initTelegram, getStartParam, onBackButton, hideBackButton } from "./lib/telegram";
+import { api, setAuthErrorHandler } from "./lib/api";
+import { initTelegram, getStartParam, onBackButton, hideBackButton, closeApp } from "./lib/telegram";
 import { ToastContainer } from "./components/Toast";
 
 // deep link: entry_{slug} | tool_{id} | prompt_{id} | section_{name} — §16 PROJECT_CONTEXT
@@ -43,7 +43,7 @@ function resolveSourceParam(param) {
 }
 
 export default function App() {
-  const [gateState, setGateState] = useState("checking"); // checking | blocked | ok | error
+  const [gateState, setGateState] = useState("checking"); // checking | blocked | ok | error | expired
   const [home, setHome] = useState(null);
   const [user, setUser] = useState(null);
   const [screen, setScreen] = useState("home");
@@ -51,6 +51,13 @@ export default function App() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
+    // Ставим перехватчик до первого запроса: 401/403 может прилететь
+    // от любой ручки в любой момент сессии, а не только на старте.
+    //   401 — initData протух (старше часа), нужен перезапуск приложения;
+    //   403 — подписки больше нет, место человека на гейте.
+    setAuthErrorHandler((status) => {
+      setGateState(status === 401 ? "expired" : "blocked");
+    });
     initTelegram();
     const startParam = getStartParam();
     api
@@ -63,12 +70,27 @@ export default function App() {
           if (deepLink) navigate(deepLink.screen, deepLink.params, false);
         }
       })
-      .catch(() => setGateState("error"));
+      .catch((err) => {
+        // Порядок важен: перехватчик в api.js уже выставил "expired"/"blocked"
+        // ДО броска, и безусловный setGateState("error") затирал бы его —
+        // человек с протухшей сессией видел бы «Не удалось загрузить».
+        if (err?.status !== 401 && err?.status !== 403) setGateState("error");
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (gateState === "ok") api.home().then(setHome).catch(() => {});
+    // Ошибку главной больше не глушим: раньше упавший /api/home оставлял
+    // пустой экран без единого признака проблемы. 401/403 уже перехвачены
+    // выше и сменят gateState сами, остальное показываем как ошибку.
+    if (gateState === "ok") {
+      api
+        .home()
+        .then(setHome)
+        .catch((err) => {
+          if (err?.status !== 401 && err?.status !== 403) setGateState("error");
+        });
+    }
   }, [gateState]);
 
   const navigate = (next, params = null, pushHistory = true) => {
@@ -98,6 +120,7 @@ export default function App() {
 
   if (gateState === "checking") return <div className="page"><Spinner /></div>;
   if (gateState === "error") return <ErrorState onRetry={() => window.location.reload()} />;
+  if (gateState === "expired") return <SessionExpiredState onReopen={closeApp} />;
   if (gateState === "blocked") {
     return (
       <>

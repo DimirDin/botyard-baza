@@ -496,6 +496,16 @@ button {
   color: var(--error);
 }
 
+/* Пояснение под заголовком ошибки — приглушённое, с ограничением по ширине,
+   чтобы длинная фраза не растягивалась на весь экран планшета. */
+.state-error__hint {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--text-3);
+  font-size: var(--fs-3);
+  line-height: 1.5;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skeleton__line {
     animation: none;
