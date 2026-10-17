@@ -30,7 +30,7 @@ Foundry в этом смысле ближе к Claude Platform on AWS, чем к
 from anthropic import AnthropicFoundry
 
 client = AnthropicFoundry(api_key="...", resource="my-foundry-resource")
-resp = client.messages.create(model="claude-opus-5", max_tokens=16000, messages=[...])
+resp = client.messages.create(model="claude-opus-5-5", max_tokens=16000, messages=[...])
 ```
 
 Поддержка по языкам неполная:

@@ -28,8 +28,8 @@ Batch API — отдельный эндпоинт для отправки бол
 ### 💻 Минимальный пример
 
 ```jsonl
-{"custom_id": "req-1", "params": {"model": "claude-sonnet-5", "max_tokens": 200, "messages": [...]}}
-{"custom_id": "req-2", "params": {"model": "claude-sonnet-5", "max_tokens": 200, "messages": [...]}}
+{"custom_id": "req-1", "params": {"model": "claude-sonnet-5-5", "max_tokens": 200, "messages": [...]}}
+{"custom_id": "req-2", "params": {"model": "claude-sonnet-5-5", "max_tokens": 200, "messages": [...]}}
 ```
 
 ```bash

@@ -13,7 +13,7 @@ sort_order: 40
 | -p, --print | Ответ без интерактивного режима (для скриптов/CI) | `claude -p "explain this"` |
 | -c, --continue | Продолжить последний диалог в текущей директории | `claude -c` |
 | -r, --resume | Восстановить сессию по ID/имени или открыть пикер | `claude -r "auth-refactor"` |
-| --model | Модель на сессию: алиас (sonnet/opus/haiku/fable) или полное имя | `claude --model claude-sonnet-5` |
+| --model | Модель на сессию: алиас (sonnet/opus/haiku/fable) или полное имя | `claude --model claude-sonnet-5-5` |
 | --permission-mode | Стартовый режим: default/acceptEdits/plan/auto/dontAsk/bypassPermissions | `claude --permission-mode plan` |
 
 ### Безопасность и лимиты

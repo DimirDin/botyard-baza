@@ -12,3 +12,4 @@ node_modules/
 HANDOVER.md
 KICKOFF_PROMPT.md
 *_CONTEXT.md
+.claude/settings.local.json

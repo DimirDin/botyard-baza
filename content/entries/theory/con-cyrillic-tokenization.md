@@ -29,7 +29,7 @@ Claude использует BPE-подобный токенайзер, обуч�
 ### 💻 Минимальный пример
 
 ```python
-resp = client.messages.count_tokens(model="claude-sonnet-5", messages=[{"role": "user", "content": "Привет, как дела?"}])
+resp = client.messages.count_tokens(model="claude-sonnet-5-5", messages=[{"role": "user", "content": "Привет, как дела?"}])
 print(resp.input_tokens)  # заметно больше "Hi, how are you?"
 ```
 

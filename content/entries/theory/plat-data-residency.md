@@ -31,7 +31,7 @@ published: true
 
 ```python
 resp = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=16000,
     inference_geo="us",
     messages=[...],

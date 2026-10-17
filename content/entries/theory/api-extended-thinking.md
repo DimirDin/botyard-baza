@@ -1,70 +1,75 @@
 ---
 slug: api-extended-thinking
-title: "Extended thinking: пошаговое рассуждение в API"
-summary: "Отдельные thinking-блоки, где Claude рассуждает перед ответом. Как включать, читать и не сломать кэш."
+title: "Thinking в API: почему старый budget_tokens отдаёт 400"
+summary: "Как устроено рассуждение модели в API сейчас: adaptive по умолчанию, display: omitted, и почему пример с type: enabled ломается на всех моделях новее 4.6."
 section: theory
 group: reasoning
 tags: [api, thinking, reasoning]
-doc_url: "https://docs.claude.com/en/build-with-claude/extended-thinking"
+doc_url: "https://platform.claude.com/docs/en/build-with-claude/thinking"
 sort_order: 100
 published: true
 ---
 
-![Extended thinking](/entry-images/thinking-process.jpg)
+![Thinking](/entry-images/thinking-process.jpg)
 
 ### ❓ Что это
 
-Extended thinking — режим, в котором модель перед финальным ответом генерирует отдельный, видимый
-блок рассуждения (`thinking`) — не «дополнительный промпт», а отдельный тип контента в ответе:
-`{"type": "thinking", "thinking": "..."}` идёт первым, затем обычный текстовый блок. Модель выписывает
-шаги: что дано, какие есть варианты, где противоречие, что проверить ещё раз — и только потом
-формулирует ответ.
+Thinking — режим, в котором модель перед ответом прорабатывает задачу: переформулирует вопрос,
+пробует подходы, проверяет промежуточные результаты. В ответе это приходит отдельными блоками
+`{"type": "thinking", ...}` перед текстом. Токены рассуждения оплачиваются **как output** и входят
+в `max_tokens` — даже когда текст рассуждения тебе не возвращается.
 
-Включается параметром `thinking: {type: "enabled", budget_tokens: N}`. `budget_tokens` задаёт верхнюю
-границу токенов на рассуждение (не гарантию — модель может закончить раньше). Чем сложнее задача
-(многошаговая математика, доказательства, разбор кода со скрытым багом, планирование агента), тем
-больше пользы от лишних токенов на подумать.
+Важное изменение последних поколений: ручной режим «extended thinking»
+(`thinking: {type: "enabled", budget_tokens: N}`) **больше не принимается** ни одной текущей моделью.
+На Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1, Opus 5, Sonnet 5 и Opus 4.7/4.8 такой запрос
+возвращает **400**. Он работает только на Opus 4.6 и Sonnet 4.6 (помечен deprecated) и на старых
+Opus 4.5 / Sonnet 4.5 / Haiku 4.5.
 
 ```mermaid
 sequenceDiagram
   autonumber
-  actor Client as Клиентское приложение
-  participant API as Anthropic API
-  participant Claude as Claude 3.7 Sonnet
+  actor Client as Приложение
+  participant API as Claude API
+  participant Model as Модель 5.x
 
-  Client->>API: POST /v1/messages { thinking: enabled }
-  API->>Claude: Задача
-  Note over Claude: Шаг 1: Рассуждение<br/>(thinking block)
-  Claude-->>API: type: thinking
-  Note over Claude: Шаг 2: Формулирование ответа<br/>(text block)
-  Claude-->>API: type: text
-  API-->>Client: Array [thinking, text]
-  
-  click Claude href "entry:con-think-tool" "Подробнее про внутренний Chain of Thought"
+  Client->>API: POST /v1/messages (без поля thinking)
+  API->>Model: Задача + effort
+  Note over Model: Adaptive: сама решает,<br/>думать ли и сколько
+  Model-->>API: thinking (signature, текст пустой)
+  Model-->>API: text
+  API-->>Client: [thinking, text]
+
+  click Model href "entry:api-adaptive-thinking" "Adaptive thinking и effort"
 ```
 
-#### Что видно, а что нет
+#### Что ты видишь в ответе
 
-По умолчанию thinking-блок приходит в ответе как есть — это не «скрытый CoT», который нельзя прочитать,
-в отличие от некоторых конкурентов. Прозрачность рассуждения полезна для дебага и доверия. Но
-thinking-блок нельзя редактировать и подставлять обратно как обычный текст — при передаче истории в
-следующий запрос многошагового tool use есть отдельные правила (обычно это делает SDK автоматически).
+- На текущих моделях thinking **включён по умолчанию** — настраивать ничего не нужно.
+- `display` по умолчанию `"omitted"`: блок приходит с **пустым** полем `thinking` и заполненным
+  `signature`. Хочешь читать рассуждение — передай `display: "summarized"`.
+- Даже `summarized` — это **сводка** рассуждения, а не сырой chain of thought. Сырого текста
+  API не отдаёт никогда.
 
 ### 🎯 Зачем тебе
 
-Практическая польза — не «модель стала умнее вообще», а «модель реже спотыкается на конкретных типах
-задач»: многошаговая арифметика и логика, код с неочевидной причиной бага, задачи с несколькими
-ограничениями, планирование последовательности действий агента перед вызовом тулов. Для простого
-FAQ-бота extended thinking почти наверняка не даст эффекта, зато увеличит задержку и счёт.
+Если у тебя в коде остался рецепт из гайдов двухлетней давности — `type: "enabled"` и подобранный
+`budget_tokens`, — то при смене модели на актуальную запрос просто упадёт. Глубина рассуждения
+теперь регулируется **`effort`**, а не бюджетом токенов (подробно — в статье про adaptive thinking).
+
+Обратная ловушка: «я не включал thinking, значит не плачу за него». На моделях 5.x он включён сам,
+и его токены уже в счёте. Не видишь их в ответе — потому что `display: "omitted"`, а не потому что
+их нет.
 
 ### 💻 Минимальный пример
 
+Рассуждение включено и показано сводкой:
+
 ```json
 {
-  "model": "claude-sonnet-5",
-  "max_tokens": 4096,
-  "thinking": { "type": "enabled", "budget_tokens": 2048 },
-  "messages": [{ "role": "user", "content": "Реши: если из A в B ..." }]
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "thinking": { "type": "adaptive", "display": "summarized" },
+  "messages": [{ "role": "user", "content": "Найди НОД 1071 и 462" }]
 }
 ```
 
@@ -72,35 +77,33 @@ FAQ-бота extended thinking почти наверняка не даст эф�
 
 ```json
 [
-  { "type": "thinking", "thinking": "Шаг 1...\nШаг 2...", "signature": "..." },
-  { "type": "text", "text": "Ответ: 42" }
+  { "type": "thinking", "thinking": "Алгоритм Евклида: 1071 = 2·462 + 147…", "signature": "…" },
+  { "type": "text", "text": "НОД = 21" }
 ]
 ```
 
-`signature` — криптоподпись thinking-блока; при передаче истории обратно в API блок нужно вернуть
-as-is вместе с подписью, иначе API его отклонит.
+#### Как выключить или ослабить рассуждение
 
-#### Когда включать
-
-| Тип задачи | Профит |
-|---|---|
-| Короткий FAQ-ответ | почти нулевой |
-| Многошаговая математика/логика | высокий |
-| Ревью кода на скрытый баг | высокий |
-| Агент выбирает между 5+ тулами | средний-высокий |
+| Модель | `thinking: {type: "disabled"}` | Что делать вместо |
+|---|---|---|
+| Opus 5.5, Fable 5.1, Fable 5 | 400 всегда | понижать `effort` |
+| Sonnet 5.5 | 400 | `{"type": "between_tools"}` при effort ≤ `high` |
+| Haiku 5.5, Opus 5 | работает при effort ≤ `high` | на `xhigh`/`max` — только adaptive |
+| Sonnet 5 | работает | — |
 
 ### ⚠️ Грабли
 
-- **budget_tokens считается из max_tokens** — если `max_tokens: 1024`, а `budget_tokens: 2048`,
-  запрос падает с ошибкой.
-- **Thinking-блоки ломают наивный prompt caching**, если контент до них меняется между запросами.
-- **Не парси `thinking` как источник истины** для бизнес-логики — это черновик, финальный текст
-  может отличаться.
-- **Стриминг thinking** приходит по частям, как и текст — обрабатывай оба типа блоков в event-хендлере.
-- **Показ thinking пользователю в UI — не всегда удачный дизайн** — сырое рассуждение модели полезно
-  разработчику для дебага, но конечному пользователю продукта черновой ход мыслей часто добавляет шум
-  без пользы; решение показывать его или нет стоит принимать отдельно от решения включать thinking
-  вообще.
+- **`type: "enabled"` + `budget_tokens` = 400** на всех моделях новее 4.6. Миграция — удалить поле
+  `thinking` целиком (или поставить `adaptive`) и выставить `output_config.effort`.
+- **Thinking съедает `max_tokens`.** На высоком effort ставь большой `max_tokens` (для агентного
+  кодинга на Sonnet 5.5 документация советует 128 000 и стриминг), иначе ответ оборвётся
+  на `stop_reason: "max_tokens"` посреди рассуждения.
+- **Блоки thinking возвращай в историю как есть**, вместе с `signature`. Сервер восстанавливает
+  по подписи полное рассуждение; правка или удаление блока ломает многошаговый tool use.
+- **`display: "omitted"` ускоряет первый токен текста** при стриминге — сервер не шлёт рассуждение.
+  Если не показываешь thinking пользователю, оставляй дефолт.
+- **Не строй бизнес-логику на тексте thinking** — это сводка черновика, финальный ответ может
+  с ней расходиться.
 
 ### 🔗 Первоисточник
-Extended thinking — docs.claude.com/en/build-with-claude/extended-thinking
+Thinking — platform.claude.com/docs/en/build-with-claude/thinking

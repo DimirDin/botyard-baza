@@ -42,7 +42,7 @@ RAG-продукт с заметной долей нерелевантных о�
 ```python
 def contextualize_chunk(full_document, chunk):
     prompt = f"Документ:\n{full_document}\n\nФрагмент:\n{chunk}\n\nДай короткий контекст фрагмента."
-    context = call_claude(prompt, model="claude-haiku-4-5")
+    context = call_claude(prompt, model="claude-haiku-5-5")
     return f"{context}\n\n{chunk}"
 # индексируем результат и в dense-эмбеддинг, и в BM25
 ```

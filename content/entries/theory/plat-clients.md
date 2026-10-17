@@ -17,8 +17,8 @@ published: true
 
 | Площадка | Python-клиент | id модели |
 |---|---|---|
-| Bedrock | `AnthropicBedrockMantle(aws_region=...)` | префикс `anthropic.` → `anthropic.claude-opus-5` |
-| Vertex AI | `AnthropicVertex(project_id=..., region=...)` | **без префикса** → `claude-opus-5` |
+| Bedrock | `AnthropicBedrockMantle(aws_region=...)` | префикс `anthropic.` → `anthropic.claude-opus-5-5` |
+| Vertex AI | `AnthropicVertex(project_id=..., region=...)` | **без префикса** → `claude-opus-5-5` |
 | Foundry | `AnthropicFoundry(api_key=..., resource=...)` | как в первом API |
 
 ### 🎯 Зачем тебе
@@ -32,12 +32,12 @@ published: true
 # Bedrock — предпочитай Mantle-клиент (Messages-API эндпоинт)
 from anthropic import AnthropicBedrockMantle
 client = AnthropicBedrockMantle(aws_region="us-east-1")
-client.messages.create(model="anthropic.claude-opus-5", ...)
+client.messages.create(model="anthropic.claude-opus-5-5", ...)
 
 # Vertex — авторизация через GCP ADC, ключа Anthropic нет вообще
 from anthropic import AnthropicVertex          # ставится как anthropic[vertex]
 client = AnthropicVertex(project_id="my-proj", region="global")
-client.messages.create(model="claude-opus-5", ...)
+client.messages.create(model="claude-opus-5-5", ...)
 ```
 
 На Vertex датированные снапшоты пишутся через `@`: `claude-opus-4-5@20251101` —
@@ -49,8 +49,8 @@ client.messages.create(model="claude-opus-5", ...)
   Для нового кода бери Mantle-клиент.
 - **Go и Ruby не поддерживают Foundry.** Для Ruby остаётся `Anthropic::Client.new(base_url: ...)`
   как запасной вариант, но авторизации Entra ID там нет из коробки.
-- **Не приписывай датные суффиксы к обычным id.** `claude-opus-5` — полный идентификатор,
-  `claude-opus-5-20260101` не существует.
+- **Не приписывай датные суффиксы к обычным id.** `claude-opus-5-5` — полный идентификатор,
+  `claude-opus-5-5-20260922` не существует.
 - **`region="global"` на Vertex** — рекомендуемое значение; есть ещё мульти-регионы `us`/`eu`
   и конкретные регионы, но они дороже на 10%.
 

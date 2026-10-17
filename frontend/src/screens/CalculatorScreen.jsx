@@ -4,13 +4,24 @@ import { ContextBar } from "../components/ContextBar";
 import { Spinner } from "../components/States";
 import { api } from "../lib/api";
 
+// Порядок: текущая линейка, затем legacy. Список обязан совпадать с MODEL_PRICING
+// в backend/app/routers/calc.py — незнакомый id бэкенд молча считает по дефолтной модели.
 const MODELS = [
-  { id: "claude-sonnet-5", label: "Claude Sonnet 5" },
-  { id: "claude-opus-5", label: "Claude Opus 5" },
-  { id: "claude-opus-4-8", label: "Claude Opus 4.8" },
-  { id: "claude-haiku-4-5", label: "Claude Haiku 4.5" },
-  { id: "claude-fable-5", label: "Claude Fable 5" },
+  { id: "claude-sonnet-5-5", label: "Claude Sonnet 5.5" },
+  { id: "claude-opus-5-5", label: "Claude Opus 5.5" },
+  { id: "claude-haiku-5-5", label: "Claude Haiku 5.5" },
+  { id: "claude-fable-5-1", label: "Claude Fable 5.1" },
+  { id: "claude-sonnet-5", label: "Claude Sonnet 5 (legacy)" },
+  { id: "claude-opus-5", label: "Claude Opus 5 (legacy)" },
+  { id: "claude-haiku-4-5", label: "Claude Haiku 4.5 (legacy)" },
 ];
+
+// 0.05 → «−95% на кэш-чтение». Без поля в ответе (старый бэкенд при рассинхроне деплоя)
+// показываем прежнюю общую цифру.
+function cacheNote(multiplier) {
+  const m = typeof multiplier === "number" ? multiplier : 0.1;
+  return `−${Math.round((1 - m) * 1000) / 10}% на кэш-чтение`;
+}
 
 // Демо-текст покрупнее — чтобы на маленьком фрагменте не казалось, что калькулятор
 // «сломан» (0-1 токен почти не двигают полосу контекстного окна). Реальный system-prompt
@@ -33,7 +44,7 @@ function PriceCard({ title, price, note }) {
 
 export function CalculatorScreen() {
   const [text, setText] = useState("");
-  const [model, setModel] = useState("claude-sonnet-5");
+  const [model, setModel] = useState("claude-sonnet-5-5");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showBatch, setShowBatch] = useState(false);
@@ -104,6 +115,9 @@ export function CalculatorScreen() {
               <p style={{ color: "var(--text-3)", fontSize: 14, marginBottom: 12 }}>
                 цена input по {MODELS.find((m) => m.id === model)?.label}
               </p>
+              {result.long_prompt_note && (
+                <p style={{ color: "var(--seg-gotcha)", fontSize: 13 }}>{result.long_prompt_note}</p>
+              )}
               {result.model_tokenizer_note && (
                 <p style={{ color: "var(--seg-gotcha)", fontSize: 13 }}>{result.model_tokenizer_note}</p>
               )}
@@ -112,7 +126,7 @@ export function CalculatorScreen() {
                 <>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     <PriceCard title="обычный запрос" price={result.price_standard} />
-                    <PriceCard title="с prompt caching" price={result.price_with_caching} note="−90% на кэш-чтение" />
+                    <PriceCard title="с prompt caching" price={result.price_with_caching} note={cacheNote(result.cache_read_multiplier)} />
                     {showBatch && (
                       <PriceCard title="batch API" price={result.price_with_batch} note="−50%, ответ до 24ч" />
                     )}

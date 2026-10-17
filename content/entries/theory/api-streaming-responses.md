@@ -28,7 +28,7 @@ published: true
 ### 💻 Минимальный пример
 
 ```python
-with client.messages.stream(model="claude-sonnet-5", max_tokens=1024, messages=[...]) as stream:
+with client.messages.stream(model="claude-sonnet-5-5", max_tokens=1024, messages=[...]) as stream:
     for text in stream.text_stream:
         print(text, end="", flush=True)
 ```

@@ -38,7 +38,7 @@ def evaluate_likert(model_output, target_tone):
     Output only the number."""
 
     response = client.messages.create(
-        model="claude-opus-5",
+        model="claude-opus-5-5",
         max_tokens=50,
         messages=[{"role": "user", "content": tone_prompt}],
     )

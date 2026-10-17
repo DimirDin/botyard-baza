@@ -33,7 +33,7 @@ Service tiers определяют приоритет обработки зап�
 ### 💻 Минимальный пример
 
 ```json
-{ "model": "claude-sonnet-5", "service_tier": "priority", "messages": [...] }
+{ "model": "claude-sonnet-5-5", "service_tier": "priority", "messages": [...] }
 ```
 
 Практика: `standard` как дефолт, `priority` — точечно для latency-критичных эндпоинтов, `batch` —

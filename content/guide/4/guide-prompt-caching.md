@@ -22,7 +22,7 @@ related_entry: "api-prompt-caching"
 ### 💻 Как это выглядит на практике
 ```python
 response = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     system=[{
         "type": "text",

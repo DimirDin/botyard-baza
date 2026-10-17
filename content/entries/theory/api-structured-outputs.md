@@ -31,7 +31,7 @@ Structured Outputs — constrained decoding: передаёшь JSON Schema, и 
 
 ```json
 {
-  "model": "claude-sonnet-5",
+  "model": "claude-sonnet-5-5",
   "max_tokens": 1024,
   "response_format": {
     "type": "json_schema",

@@ -35,7 +35,7 @@ published: true
 ```bash
 curl https://api.anthropic.com/v1/messages/count_tokens \
   -H "x-api-key: $ANTHROPIC_API_KEY" -H "anthropic-version: 2023-06-01" \
-  -d '{"model": "claude-sonnet-5", "messages": [{"role": "user", "content": "..."}]}'
+  -d '{"model": "claude-sonnet-5-5", "messages": [{"role": "user", "content": "..."}]}'
 # -> {"input_tokens": 42}
 ```
 

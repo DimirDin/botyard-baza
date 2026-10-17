@@ -15,12 +15,23 @@ from pathlib import Path
 
 import pytest
 
-from app.routers.calc import CONTEXT_WINDOW, MODEL_PRICING
+from app.routers.calc import (
+    CONTEXT_WINDOW,
+    DEFAULT_MODEL,
+    MODEL_PRICING,
+    NEWER_TOKENIZER_MODELS,
+    cache_read_multiplier,
+    input_pricing,
+)
 
 CHEATSHEET = Path(__file__).parent.parent.parent / "content" / "cheatsheets" / "api-limits-and-models.md"
 
 # Как модель называется в шпаргалке → её id в калькуляторе
 LABEL_TO_ID = {
+    "Claude Fable 5.1": "claude-fable-5-1",
+    "Claude Opus 5.5": "claude-opus-5-5",
+    "Claude Sonnet 5.5": "claude-sonnet-5-5",
+    "Claude Haiku 5.5": "claude-haiku-5-5",
     "Claude Fable 5": "claude-fable-5",
     "Claude Opus 5": "claude-opus-5",
     "Claude Opus 4.8": "claude-opus-4-8",
@@ -78,3 +89,44 @@ def test_context_window_matches_cheatsheet(model_id):
 def test_sonnet5_is_not_priced_as_the_cancelled_increase():
     """Регресс на конкретный найденный баг: подъём до $3/$15 не состоялся."""
     assert MODEL_PRICING["claude-sonnet-5"] == {"input": 2.00, "output": 10.00}
+
+
+def test_default_model_is_current_generation():
+    """Дефолт калькулятора не должен застревать на прошлом поколении (17.10.2026 нашли,
+    что месяц после выхода 5.5 дефолтом оставался Sonnet 5)."""
+    assert DEFAULT_MODEL == "claude-sonnet-5-5"
+    assert DEFAULT_MODEL in MODEL_PRICING
+
+
+def test_haiku_55_long_prompt_tier():
+    """До 100k — $0.10/$0.50, свыше — весь запрос по $0.50/$2.50."""
+    short = input_pricing("claude-haiku-5-5", 100_000)
+    long = input_pricing("claude-haiku-5-5", 100_001)
+    assert (short["input"], short["output"], short["long_prompt"]) == (0.10, 0.50, False)
+    assert (long["input"], long["output"], long["long_prompt"]) == (0.50, 2.50, True)
+
+
+def test_long_prompt_tier_is_haiku_only():
+    for model_id in MODEL_PRICING:
+        if model_id != "claude-haiku-5-5":
+            assert input_pricing(model_id, 900_000)["long_prompt"] is False, model_id
+
+
+@pytest.mark.parametrize("model_id,expected", [
+    ("claude-opus-5-5", 0.05),
+    ("claude-sonnet-5-5", 0.05),
+    ("claude-fable-5-1", 0.025),
+    ("claude-sonnet-5", 0.1),
+    ("claude-haiku-5-5", 0.1),
+])
+def test_cache_read_multiplier(model_id, expected):
+    assert cache_read_multiplier(model_id) == expected
+
+
+@pytest.mark.parametrize("model_id", sorted(MODEL_PRICING))
+def test_tokenizer_note_covers_every_47_plus_model(model_id):
+    """В дропдауне сейчас только Haiku 4.5 сидит на старом токенайзере."""
+    if model_id == "claude-haiku-4-5":
+        assert model_id not in NEWER_TOKENIZER_MODELS
+    else:
+        assert model_id in NEWER_TOKENIZER_MODELS

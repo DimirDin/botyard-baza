@@ -43,7 +43,7 @@ curl https://api.anthropic.com/v1/messages \
   -H "Authorization: Bearer $TOKEN" \
   -H "anthropic-beta: oauth-2025-04-20" \
   -H "content-type: application/json" \
-  -d '{"model":"claude-opus-5","max_tokens":1024,"messages":[{"role":"user","content":"привет"}]}'
+  -d '{"model":"claude-opus-5-5","max_tokens":1024,"messages":[{"role":"user","content":"привет"}]}'
 ```
 
 ### ⚠️ Грабли

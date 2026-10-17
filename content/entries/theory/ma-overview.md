@@ -51,7 +51,7 @@ Tool Runner и Agent SDK так легко с ним спутать: они да
 ```python
 # 1. Один раз — control plane. В request path этого быть не должно.
 agent = client.beta.agents.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     system="Ты разбираешь логи и находишь причину падения.",
     tools=[{"type": "bash_20250124", "name": "bash"}],
 )
