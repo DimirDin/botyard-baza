@@ -9463,3 +9463,325 @@
   description_ru: "Официальные стартовые проекты Anthropic: агент с инструментами, RAG, работа с компьютером. Рабочий код, а не фрагменты из документации."
   badge: editors_choice
   verify_status: known
+
+# ── Партия 17.10.2026: официальные репозитории Anthropic, которых не было в каталоге.
+#    Все проверены через GitHub API (существуют, не archived, пуш в 2026), README прочитаны.
+
+- repo: anthropics/claude-plugins-official
+  category: code/skills
+  description_ru: "Официальный каталог плагинов Claude Code от Anthropic: внутренние плагины команды и прошедшие отбор плагины партнёров. Он же маркетплейс по умолчанию в /plugin."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-plugins-official)
+
+    ### ❓ Что это
+    Курируемый каталог плагинов для Claude Code. В папке `plugins/` — плагины, которые разрабатывает и поддерживает сама Anthropic, в `external_plugins/` — плагины партнёров и сообщества, прошедшие проверку качества и безопасности.
+
+    ### 🎯 Для чего
+    Первое место, куда стоит заглянуть, прежде чем писать свой скилл, агента или MCP-интеграцию: велика вероятность, что готовый плагин уже есть. Плюс это эталон структуры плагина — `plugins/example-plugin` разобран как образец.
+
+    ### 💻 Как установить
+    ```bash
+    /plugin install имя-плагина@claude-plugins-official
+    ```
+    Или просмотреть каталог в `/plugin` → Discover.
+
+    ### ⚠️ Грабли
+    Anthropic прямо предупреждает: она не контролирует, какие MCP-серверы и файлы лежат в сторонних плагинах. Плагин выполняет код на твоей машине — читай, что ставишь. Имя плагина в маркетплейсе неизменяемо: переименование ломает установку у всех пользователей.
+
+- repo: anthropics/knowledge-work-plugins
+  category: code/skills
+  description_ru: "11 открытых плагинов Anthropic под рабочие роли: продажи, поддержка, продакт, маркетинг, юристы, финансы, данные. Сделаны для Cowork, работают и в Claude Code."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/knowledge-work-plugins)
+
+    ### ❓ Что это
+    Набор плагинов, которые превращают Claude в специалиста под конкретную роль. Каждый объединяет скиллы, slash-команды, сабагентов и коннекторы к рабочим инструментам: Slack, Notion, Jira, HubSpot, Snowflake, Figma и другим.
+
+    ### 🎯 Для чего
+    Готовые процессы для нетехнических ролей: подготовка к звонку с клиентом (`/sales:call-prep`), разбор тикетов, спецификации продукта, сверка счетов, SQL-запросы к хранилищу. Всё на Markdown и JSON — без кода и сборки, поэтому легко адаптировать под свою компанию.
+
+    ### 💻 Как установить
+    ```bash
+    claude plugin marketplace add anthropics/knowledge-work-plugins
+    claude plugin install sales@knowledge-work-plugins
+    ```
+    В Cowork — через claude.com/plugins.
+
+    ### ⚠️ Грабли
+    Коннекторам нужна авторизация в соответствующих сервисах — без неё скиллы работают, но без доступа к твоим данным. Реальная польза появляется после того, как плагин подстроен под процессы твоей команды, а не «из коробки».
+
+- repo: anthropics/claude-plugins-community
+  category: code/skills
+  description_ru: "Маркетплейс плагинов сообщества для Claude Code и Cowork. Каждый плагин прошёл автоматическую проверку безопасности и ревью Anthropic."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-plugins-community)
+
+    ### ❓ Что это
+    Read-only зеркало маркетплейса плагинов от сообщества. Файл `.claude-plugin/marketplace.json` — список плагинов, он синхронизируется каждую ночь из внутреннего пайплайна проверки Anthropic.
+
+    ### 🎯 Для чего
+    Больше выбора, чем в официальном каталоге, но с базовой гарантией: каждый плагин прошёл автоматическое сканирование безопасности и был одобрен к распространению.
+
+    ### 💻 Как установить
+    ```bash
+    claude plugin marketplace add anthropics/claude-plugins-community
+    ```
+
+    ### ⚠️ Грабли
+    PR в этот репозиторий закрываются автоматически. Предложить свой плагин можно только через форму clau.de/plugin-directory-submission.
+
+- repo: anthropics/sandbox-runtime
+  category: apps/terminal
+  description_ru: "srt — песочница Anthropic для любых процессов: ограничивает файловую систему и сеть средствами ОС, без контейнера. Тот же механизм, что в sandbox Claude Code."
+  badge: editors_choice
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/sandbox-runtime)
+
+    ### ❓ Что это
+    Лёгкая песочница, которая ограничивает доступ процесса к файлам и сети на уровне ОС: `sandbox-exec` на macOS, `bubblewrap` на Linux, плюс фильтрация сети через прокси. Работает и как CLI, и как библиотека. Разработана для Claude Code.
+
+    ### 🎯 Для чего
+    Запускать в песочнице агентов, локальные MCP-серверы и любые команды, которым ты не до конца доверяешь. По умолчанию процессу почти ничего не разрешено — доступ открывается явно.
+
+    ### 💻 Как установить
+    ```bash
+    npm install -g @anthropic-ai/sandbox-runtime
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    srt "curl example.com"      # Connection blocked by network allowlist
+    srt "cat ~/.ssh/id_rsa"     # Operation not permitted
+    ```
+
+    ### ⚠️ Грабли
+    Статус — beta research preview: API и поведение могут меняться. Песочница — это слой защиты, а не гарантия; не запускай в ней заведомо вредоносный код в расчёте на полную изоляцию.
+
+- repo: anthropics/claude-code-security-review
+  category: code/ci-cd
+  description_ru: "Официальный GitHub Action: Claude проверяет каждый pull request на уязвимости и оставляет комментарии с находками. Анализирует только изменённые файлы."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-code-security-review)
+
+    ### ❓ Что это
+    GitHub Action, который запускает Claude Code на diff пул-реквеста и ищет уязвимости по смыслу кода, а не по шаблонам. Работает с любым языком, фильтрует ложные срабатывания и комментирует PR.
+
+    ### 💻 Как установить
+    `.github/workflows/security.yml`:
+    ```yaml
+    on: pull_request
+    permissions:
+      pull-requests: write
+      contents: read
+    jobs:
+      security:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+            with:
+              ref: ${{ github.event.pull_request.head.sha || github.sha }}
+              fetch-depth: 2
+          - uses: anthropics/claude-code-security-review@main
+            with:
+              comment-pr: true
+              claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
+              claude-model: claude-opus-5-5
+    ```
+
+    ### ⚠️ Грабли
+    - **Задай `claude-model` явно.** По умолчанию стоит `claude-opus-4-1-20250805`, а Opus 4.1 на Claude API уже выведен из эксплуатации.
+    - **Action не защищён от prompt injection.** Запускай его только на доверенных PR — настрой обязательное одобрение workflow для внешних контрибьюторов.
+
+- repo: anthropics/anthropic-cli
+  category: apps/terminal
+  description_ru: "ant — официальный CLI Claude Platform: сообщения, агенты, сессии, файлы и любой эндпоинт API прямо из терминала. Удобен для скриптов и быстрых проверок."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/anthropic-cli)
+
+    ### ❓ Что это
+    Официальный CLI для Claude API. Отправляет сообщения, управляет Managed Agents и сессиями, загружает файлы, позволяет писать скрипты против любого эндпоинта. Флаги принимают «расслабленный» JSON или YAML — кавычки у ключей не нужны.
+
+    ### 💻 Как установить
+    ```bash
+    brew install anthropics/tap/ant
+    ant auth login          # или переменная ANTHROPIC_API_KEY
+    ```
+
+    ### 🚀 Как пользоваться
+    ```bash
+    ant messages create --model claude-opus-5-5 --max-tokens 1024 \
+      --message '{role: user, content: "Привет"}'
+    ```
+
+    ### ⚠️ Грабли
+    Не передавай ключ флагом `--api-key`: он остаётся в истории шелла и в списке процессов, и этот способ объявлен устаревшим. Ключ из менеджера секретов передавай через `--api-key-stdin`.
+
+- repo: anthropics/anthropic-sdk-ruby
+  category: libs/other
+  description_ru: "Официальный SDK Claude API для Ruby (gem anthropic). Ruby 3.2+, встроенная трассировка OpenTelemetry."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/anthropic-sdk-ruby)
+
+    ### 💻 Как установить
+    ```ruby
+    gem "anthropic"
+    ```
+
+    ### 🚀 Как пользоваться
+    ```ruby
+    client = Anthropic::Client.new   # ключ из ANTHROPIC_API_KEY
+    message = client.messages.create(
+      model: "claude-opus-5-5", max_tokens: 1024,
+      messages: [{role: "user", content: "Привет, Claude"}]
+    )
+    puts message.content
+    ```
+
+    ### ⚠️ Грабли
+    Спаны OpenTelemetry включены по умолчанию. Если в них не должно попадать содержимое сообщений, не включай `content_mode: :content`. Выключить трассировку целиком — `open_telemetry: false` или переменная `ANTHROPIC_OPEN_TELEMETRY=false`.
+
+- repo: anthropics/claude-code-playground
+  category: code/hooks
+  description_ru: "Песочница DevRel-команды Anthropic: реальные хуки, CLAUDE.md, settings.json, моды и скиллы, которыми пользуются сами сотрудники, — с объяснением, зачем каждая настройка."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-code-playground)
+
+    ### ❓ Что это
+    Коллекция настроек Claude Code от DevRel-команды Anthropic: примеры хуков, настоящие `CLAUDE.md` с комментариями, `settings.json`, личные рабочие процессы, демо с моделей-релизов и **моды** — плагины, которые меняют интерфейс и поведение Claude Code.
+
+    ### 🎯 Для чего
+    Посмотреть, как настраивают Claude Code люди, которые знают его лучше всех. Самое ценное — папка `claude-code/mods/`: `token-weather` (прогноз заполнения контекста над промптом), `blast-radius` (придерживает опасные команды вроде `rm -rf` с кнопками «выполнить/отмена»), `replay-theater` (команда `/replay` по правкам последнего хода).
+
+    ### 🚀 Как пользоваться
+    У каждой записи свой README с разделом «Run it». Мод можно попробовать на одну сессию:
+    ```bash
+    claude --plugin-dir ./claude-code-playground/claude-code/mods/token-weather
+    ```
+
+    ### ⚠️ Грабли
+    Авторы предупреждают: это не официальный продукт и не канон лучших практик. Примеры даны как есть и могут сломаться при обновлении Claude Code.
+
+- repo: anthropics/launch-your-agent
+  category: agents/workflow
+  description_ru: "Скилл Claude Code, который проводит от идеи до работающего агента на Claude Managed Agents: интервью, запуск, оценка, расписание."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/launch-your-agent)
+
+    ### ❓ Что это
+    Учебный скилл от Anthropic. Расспрашивает, какого агента ты хочешь, собирает его из примитивов Managed Agents, запускает, оценивает прогон и при необходимости ставит на расписание.
+
+    ### 🎯 Для чего
+    Самый короткий путь к первому управляемому агенту без чтения всей документации. На выходе — живой агент в Console и папка `my-agent/` с точными API-запросами, скриптом перезапуска и заготовкой эвалов.
+
+    ### 🚀 Как пользоваться
+    ```bash
+    git clone https://github.com/anthropics/launch-your-agent.git
+    cd launch-your-agent && claude
+    ```
+    Затем в сессии — `/launch-your-agent`.
+
+    ### ⚠️ Грабли
+    Нужен API-ключ собственного аккаунта (прогоны стоят центы). Скилл объясняет каждый шаг, поэтому тратит больше токенов, чем специализированный агент. Репозиторий не поддерживается.
+
+- repo: anthropics/code-migration-kit-with-claude-code
+  category: code/rules
+  description_ru: "Набор Anthropic для больших миграций кода между языками: CLAUDE.md, промпты по шагам и скрипты. Обобщён по реальным портам, включая перевод Bun с Zig на Rust."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/code-migration-kit-with-claude-code)
+
+    ### ❓ Что это
+    Стартовый набор для миграции кодовой базы на другой язык с сохранением архитектуры. Состоит из шести шагов: оценка осуществимости, подготовка «судьи» (тестов на паритет), сама миграция и проверка.
+
+    ### 🎯 Для чего
+    Когда нужно перевести большой проект на другой язык, а не переписать его заново. Главная идея набора — сначала построить судью, который сравнивает поведение старой и новой версии, и только потом мигрировать.
+
+    ### 🚀 Как пользоваться
+    Склонируй набор рядом с репозиторием, подключи его `CLAUDE.md` в `CLAUDE.md` проекта и начни с промпта `prompts/00-feasibility.md`.
+
+    ### ⚠️ Грабли
+    Набор рассчитан на миграции с сохранением структуры. Если по ходу переделываешь архитектуру, прочитай раздел «If you're redesigning»: часть набора меняется, одна часть становится неприменимой. Не поддерживается, issues не отслеживаются.
+
+- repo: anthropics/defending-code-reference-harness
+  category: code/skills
+  description_ru: "Эталонный пайплайн Anthropic для поиска и исправления уязвимостей: скиллы /threat-model, /vuln-scan, /triage, /patch и автономный харнесс."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/defending-code-reference-harness)
+
+    ### ❓ Что это
+    Эталонная реализация автономного поиска уязвимостей с Claude, основанная на опыте работы Anthropic с командами безопасности. Внутри — скиллы Claude Code для интерактивной работы и автономный пайплайн recon → find → verify → report → patch.
+
+    ### 🚀 Как пользоваться
+    Открой репозиторий в Claude Code и запусти `/quickstart`, дальше — `/threat-model`, `/vuln-scan`, `/triage`, `/patch`.
+
+    ### ⚠️ Грабли
+    Это образец, а не продукт: харнесс настроен на поиск ошибок памяти в C/C++ (Docker + ASAN), под другой стек его нужно адаптировать. Запускай только на коде, который тебе разрешено проверять. Репозиторий не поддерживается — для готового решения у Anthropic есть платный Claude Security.
+
+- repo: anthropics/claude-for-legal
+  category: agents/other
+  description_ru: "Агенты, скиллы и коннекторы Anthropic для юристов: ревью договоров, NDA, privacy, корпоративка, судебные дела. Ставятся как плагины Cowork и Claude Code или как Managed Agents."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/claude-for-legal)
+
+    ### ❓ Что это
+    Плагины по практикам (in-house, фирмы, академия), каждый с интервью для настройки под твой плейбук и профилем практики в `CLAUDE.md`. Плюс именованные агенты — Vendor Agreement Reviewer, NDA Triager, DSAR Responder — и коннекторы к Ironclad, DocuSign, iManage, CourtListener.
+
+    ### 🎯 Для чего
+    Хороший образец того, как упаковывать предметную экспертизу в плагины и агентов, даже если ты не юрист: одна и та же основа ставится как плагин или разворачивается как Managed Agent.
+
+    ### ⚠️ Грабли
+    Каждый результат — черновик для проверки юристом, а не юридическая консультация. Плагины не выражают правовую позицию Anthropic.
+
+- repo: anthropics/financial-services
+  category: agents/other
+  description_ru: "Агенты и плагины Anthropic для финансов: питч-деки, исследования рынка, DCF и LBO в Excel, сверка счетов, закрытие месяца, KYC. Плагины Cowork и шаблоны Managed Agents."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/financial-services)
+
+    ### ❓ Что это
+    Именованные агенты под финансовые процессы (Pitch Agent, Earnings Reviewer, GL Reconciler, Month-End Closer, KYC Screener) и вертикальные плагины со скиллами `/comps`, `/dcf`, `/earnings` и коннекторами к данным. Каждый агент поставляется и как плагин Cowork, и как шаблон Managed Agent.
+
+    ### 🎯 Для чего
+    Готовые процессы для инвестбанкинга, исследований, PE и wealth management, а также наглядный пример архитектуры: `agent.yaml`, листовые сабагенты, steering-события.
+
+    ### ⚠️ Грабли
+    Ничто в репозитории не является инвестиционной, юридической или налоговой консультацией. Агенты готовят черновики для проверки квалифицированным специалистом.
+
+- repo: anthropics/commerce-agents
+  category: agents/other
+  description_ru: "Эталонные агенты Anthropic для e-commerce: агент-консультант для покупателей и агент для бэк-офиса продавца. Работают на Messages API, Agent SDK и Managed Agents."
+  verify_status: known
+  body_md: |
+    ![](https://opengraph.githubassets.com/1/anthropics/commerce-agents)
+
+    ### ❓ Что это
+    Два агента, описанные один раз (промпт, скиллы, контракты тулов, проверки) и запускаемые на трёх поверхностях API. Четыре демо-вертикали: ритейл, путешествия, телеком, развлечения.
+
+    ### 💻 Как установить
+    ```bash
+    git clone https://github.com/anthropics/commerce-agents.git && cd commerce-agents
+    pip install -r requirements.txt && cp .env.example .env
+    python scripts/run_demo.py retail
+    ```
+    Свой агент поверх этих пакетов — через плагин:
+    ```bash
+    claude plugin marketplace add anthropics/commerce-agents
+    claude plugin install commerce-builder@claude-commerce-agents
+    ```
+
+    ### ⚠️ Грабли
+    Это эталон, а не готовая касса: агент ничего не покупает и не меняет — `checkout` только показывает корзину, а любые действия продавца ждут одобрения человека. Бизнес-правила, авторизацию и комплаенс придётся сделать самому.
