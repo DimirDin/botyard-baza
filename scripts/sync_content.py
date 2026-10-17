@@ -12,15 +12,22 @@ CI-шаг: любой merge в main с изменениями в content/ дол
               пересборки образа заливает СТАРЫЙ контент и рапортует «Синк готов».
               Отпечаток печатается всегда — сверяй его с локальным `--print-hash`.
 """
+from __future__ import annotations
+
 import argparse
 import asyncio
 import hashlib
 import os
 import sys
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-import asyncpg
 import yaml
+
+# asyncpg нужен только для записи в БД. --print-hash (первый шаг деплоя, scripts/deploy.sh)
+# работает на локальной машине без зависимостей бэкенда.
+if TYPE_CHECKING:
+    import asyncpg
 
 sys.path.insert(0, str(Path(__file__).parent))
 from menu_registry import valid_pairs  # noqa: E402
@@ -199,6 +206,8 @@ async def prune(conn: asyncpg.Connection, table: str, key: str, seen: set[str], 
 
 
 async def main(args):
+    import asyncpg
+
     conn = await asyncpg.connect(os.environ["DATABASE_URL"])
     try:
         # Весь синк — одна транзакция. Раньше валидация категорий заявлялась как
