@@ -34,14 +34,27 @@ echo "→ сервер: git pull + пересборка контейнеров"
 echo "→ синк контента со сверкой отпечатка"
 "${SSH[@]}" "docker exec botyard-baza-backend-1 python scripts/sync_content.py --expect-hash $HASH"
 
-echo "→ синк звёзд GitHub"
-"${SSH[@]}" "docker exec botyard-baza-backend-1 python scripts/sync_github_stars.py"
-
 echo "→ статика фронтенда"
 rsync -az --delete -e "ssh -i $KEY" frontend/dist/ "$HOST:$APP/frontend/dist/"
+
+# Звёзды — последним из изменяющих шагов и не фатально: протухший GITHUB_TOKEN
+# (так было 17.10.2026) не должен оставлять прод без свежего фронтенда.
+# Без рабочего токена публикуем хотя бы новые инструменты: их мало, лимит
+# 60 req/ч без авторизации это выдерживает.
+STARS_OK=1
+echo "→ синк звёзд GitHub"
+if ! "${SSH[@]}" "docker exec botyard-baza-backend-1 python scripts/sync_github_stars.py"; then
+  STARS_OK=0
+  echo "⚠ полный синк звёзд не прошёл — публикую только новые инструменты без токена"
+  "${SSH[@]}" "docker exec -e GITHUB_TOKEN= botyard-baza-backend-1 python scripts/sync_github_stars.py --new-only" || true
+fi
 
 echo "→ проверка"
 "${SSH[@]}" "docker ps --format '{{.Names}} {{.Status}}' | grep baza; \
   curl -fsS http://127.0.0.1:3015/api/public/counts && echo"
 
+if [ "$STARS_OK" = 0 ]; then
+  echo "⚠ готово, но GITHUB_TOKEN на сервере не работает — еженедельный cron звёзд падает. Выпусти новый PAT без скоупов и положи в .env." >&2
+  exit 3
+fi
 echo "✓ готово. Вручную: открыть Mini App, проверить /api/gate/check и калькулятор."

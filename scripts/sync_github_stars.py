@@ -18,9 +18,15 @@ fine-grained с доступом «Public repositories (read-only)» дают т
 владельца токена, включая сам botyard-baza. Токен, который стоял здесь до
 20.09.2026, имел именно public_repo — прав было больше, чем требуется.
 
-Запуск: DATABASE_URL=postgresql://... python scripts/sync_github_stars.py
+Запуск: DATABASE_URL=postgresql://... python scripts/sync_github_stars.py [--new-only]
+
+--new-only  синкать только ни разу не синкнутые инструменты (synced_at IS NULL) —
+            то есть только что добавленные партией. Их обычно десяток-другой, это
+            влезает в лимит 60 req/ч без токена: новые инструменты можно опубликовать,
+            даже когда GITHUB_TOKEN протух. Полный прогон остаётся за cron.
 Расписание: cron, ночь понедельника (см. deploy/README.md).
 """
+import argparse
 import asyncio
 import json
 import os
@@ -75,9 +81,10 @@ def fetch_repo(repo: str) -> dict | None:
 ROLLOVER_AFTER = timedelta(days=6)
 
 
-async def main() -> None:
+async def main(new_only: bool = False) -> None:
     conn = await asyncpg.connect(DATABASE_URL)
-    rows = await conn.fetch("SELECT id, repo, stars, stars_prev, synced_at FROM baza.tools ORDER BY repo")
+    where = "WHERE synced_at IS NULL" if new_only else ""
+    rows = await conn.fetch(f"SELECT id, repo, stars, stars_prev, synced_at FROM baza.tools {where} ORDER BY repo")
     now = datetime.now(timezone.utc)
     published = gone = stale = 0
 
@@ -137,4 +144,6 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--new-only", action="store_true", help="только ни разу не синкнутые (synced_at IS NULL)")
+    asyncio.run(main(ap.parse_args().new_only))
