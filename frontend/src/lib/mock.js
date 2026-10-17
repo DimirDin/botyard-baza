@@ -317,14 +317,20 @@ export async function mockFetch(path, options = {}) {
     // В моке EN стабильно ~35% дешевле по токенам — имитирует эффект кириллицы для превью,
     // реальный расчёт — через argostranslate на бэкенде (см. app/services/translate.py).
     const enTokens = Math.round(tokens / 1.35);
-    const priceStandard = +(tokens / 1_000_000 * 3).toFixed(6);
+    // Те же цены и множители кэша, что в backend/app/routers/calc.py
+    const inputPrice = { "claude-opus-5-5": 4, "claude-haiku-5-5": 0.1, "claude-fable-5-1": 10, "claude-opus-5": 5, "claude-haiku-4-5": 1 }[body.model] ?? 2;
+    const cacheMult = { "claude-opus-5-5": 0.05, "claude-sonnet-5-5": 0.05, "claude-fable-5-1": 0.025 }[body.model] ?? 0.1;
+    const priceStandard = +(tokens / 1_000_000 * inputPrice).toFixed(6);
     return {
       tokens,
       approx: true,
       tokenizer_note: "Оценка через tiktoken — не официальный токенайзер Claude.",
       cost_estimate_usd: priceStandard,
       price_standard: priceStandard,
-      price_with_caching: +(priceStandard * 0.1).toFixed(6),
+      price_with_caching: +(priceStandard * cacheMult).toFixed(6),
+      cache_read_multiplier: cacheMult,
+      long_prompt_note: body.model === "claude-haiku-5-5" && tokens > 100_000
+        ? "Промпт длиннее 100k токенов: у этой модели весь запрос тарифицируется по старшей ступени цены." : null,
       price_with_batch: +(priceStandard * 0.5).toFixed(6),
       model_tokenizer_note: null,
       context_window: contextWindow,
