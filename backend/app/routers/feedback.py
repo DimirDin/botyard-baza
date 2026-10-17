@@ -39,20 +39,36 @@ async def send_feedback(body: FeedbackIn, user: dict = Depends(require_subscribe
     who = f"@{user['username']}" if user.get("username") else f"tg_id {user['tg_id']}"
     message = f"📩 Новое предложение от {who} (tg_id {user['tg_id']}):\n\n{text}"
 
-    if not settings.tech_chat_id:
-        logging.warning("TECH_CHAT_ID не задан, фидбэк не отправлен: %s", message)
-        return {"sent": False}
+    recipients = feedback_recipients()
+    if not recipients:
+        # Раньше здесь был ответ 200 {"sent": false}, а фронт по 200 рисовал «Отправлено» —
+        # человек думал, что предложение ушло, хотя оно осталось только в логе.
+        logging.warning("TECH_CHAT_ID и ADMIN_TG_IDS не заданы, фидбэк не отправлен: %s", message)
+        raise HTTPException(503, "Приём предложений временно не настроен")
 
-    req = urllib.request.Request(
-        f"https://api.telegram.org/bot{settings.bot_token}/sendMessage",
-        data=json.dumps({"chat_id": settings.tech_chat_id, "text": message}).encode(),
-        headers={"Content-Type": "application/json"},
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=10):
-            pass
-    except urllib.error.HTTPError as e:
-        logging.error("Не удалось отправить фидбэк в TECH_CHAT_ID: %s", e.read())
-        raise HTTPException(502, "Не удалось отправить сообщение") from e
+    delivered = 0
+    for chat_id in recipients:
+        req = urllib.request.Request(
+            f"https://api.telegram.org/bot{settings.bot_token}/sendMessage",
+            data=json.dumps({"chat_id": chat_id, "text": message}).encode(),
+            headers={"Content-Type": "application/json"},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=10):
+                delivered += 1
+        except urllib.error.HTTPError as e:
+            logging.error("Не удалось отправить фидбэк в %s: %s", chat_id, e.read())
+        except (urllib.error.URLError, TimeoutError):
+            logging.exception("Не удалось отправить фидбэк в %s", chat_id)
 
+    if not delivered:
+        raise HTTPException(502, "Не удалось отправить сообщение")
     return {"sent": True}
+
+
+def feedback_recipients() -> list[str]:
+    """Технический чат, а пока владелец его не завёл — админы из ADMIN_TG_IDS.
+    Та же логика, что у бота (bot/main.py: feedback_recipients)."""
+    if settings.tech_chat_id.strip():
+        return [settings.tech_chat_id.strip()]
+    return [str(i) for i in sorted(settings.admin_ids)]
